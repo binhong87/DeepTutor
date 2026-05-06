@@ -84,3 +84,40 @@ test("SET_KB: updates knowledgeBaseId", () => {
   const next = agentChatReducer(state, { type: "SET_KB", knowledgeBaseId: "kb-1" });
   assert.equal(next.knowledgeBaseId, "kb-1");
 });
+
+test("BIND_SESSION: assigns sessionId and sets richOutputType on last turn", () => {
+  let state = makeInitialSession();
+  const turn = {
+    id: "t1", userContent: "q", userAttachments: [], assistantContent: "",
+    steps: [], richOutputType: null as null, richOutputData: null,
+    sources: [], status: "streaming" as const,
+  };
+  state = agentChatReducer(state, { type: "NEW_TURN", turn });
+  state = agentChatReducer(state, {
+    type: "BIND_SESSION", sessionId: "sess-1", richOutputType: "quiz",
+  });
+  assert.equal(state.sessionId, "sess-1");
+  assert.equal(state.turns[0].richOutputType, "quiz");
+});
+
+test("BIND_SESSION: with empty turns does not throw", () => {
+  const state = makeInitialSession();
+  const next = agentChatReducer(state, { type: "BIND_SESSION", sessionId: "sess-empty" });
+  assert.equal(next.sessionId, "sess-empty");
+  assert.equal(next.turns.length, 0);
+});
+
+test("STREAM_ERROR: marks turn as error and clears streaming", () => {
+  let state = makeInitialSession();
+  const turn = {
+    id: "t1", userContent: "q", userAttachments: [], assistantContent: "",
+    steps: [], richOutputType: null as null, richOutputData: null,
+    sources: [], status: "streaming" as const,
+  };
+  state = agentChatReducer(state, { type: "NEW_TURN", turn });
+  state = agentChatReducer(state, { type: "STREAM_ERROR", turnId: "t1", message: "oops" });
+  assert.equal(state.isStreaming, false);
+  assert.equal(state.status, "error");
+  assert.equal(state.turns[0].status, "error");
+  assert.equal(state.turns[0].errorMessage, "oops");
+});

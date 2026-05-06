@@ -29,6 +29,7 @@ export interface AgentAttachment {
   type: string;
 }
 
+// Matches backend LLM profile wire format (snake_case intentional)
 export interface AgentLLMSelection {
   profile_id: string;
   model_id: string;
@@ -153,7 +154,7 @@ export function agentChatReducer(
         activeSteps: [],
         turns: state.turns.map((t) =>
           t.id === action.turnId
-            ? { ...t, status: "done", steps: state.activeSteps }
+            ? { ...t, status: "done", steps: [...state.activeSteps] }
             : t,
         ),
       };
@@ -166,25 +167,25 @@ export function agentChatReducer(
         activeSteps: [],
         turns: state.turns.map((t) =>
           t.id === action.turnId
-            ? { ...t, status: "error", errorMessage: action.message, steps: state.activeSteps }
+            ? { ...t, status: "error", errorMessage: action.message, steps: [...state.activeSteps] }
             : t,
         ),
       };
 
-    case "BIND_SESSION":
-      return {
+    case "BIND_SESSION": {
+      const result: AgentSession = {
         ...state,
         sessionId: action.sessionId,
-        ...(action.richOutputType
-          ? {
-              turns: state.turns.map((t, i) =>
-                i === state.turns.length - 1
-                  ? { ...t, richOutputType: action.richOutputType! }
-                  : t,
-              ),
-            }
-          : {}),
       };
+      if (action.richOutputType !== undefined) {
+        result.turns = state.turns.map((t, i) =>
+          i === state.turns.length - 1
+            ? { ...t, richOutputType: action.richOutputType! }
+            : t,
+        );
+      }
+      return result;
+    }
 
     case "LOAD_SESSION":
       return {
