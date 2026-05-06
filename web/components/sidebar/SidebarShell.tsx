@@ -32,7 +32,7 @@ interface NavEntry {
 }
 
 const PRIMARY_NAV: NavEntry[] = [
-  { href: "/chat", label: "Chat", icon: MessageSquare },
+  { href: "/v2/chat", label: "Chat", icon: MessageSquare },
   { href: "/agents", label: "TutorBot", icon: Bot },
   { href: "/co-writer", label: "Co-Writer", icon: PenLine },
   { href: "/book", label: "Book", icon: Library },
@@ -82,7 +82,7 @@ export function SidebarShell({
       onNewChat();
       return;
     }
-    router.push("/chat");
+    router.push("/v2/chat");
   };
 
   /* ---- Collapsed state ---- */
@@ -233,7 +233,7 @@ export function SidebarShell({
           {PRIMARY_NAV.map((item) => {
             const active = pathname.startsWith(item.href);
             const hasSessionsBelow =
-              item.href === "/chat" &&
+              item.href === "/v2/chat" &&
               showSessions &&
               onSelectSession &&
               onRenameSession &&

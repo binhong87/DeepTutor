@@ -16,7 +16,7 @@ export default function HomePage() {
     const capability = params.get("capability");
     const tools = params.getAll("tool");
 
-    let target = sessionId ? `/chat/${sessionId}` : "/chat";
+    let target = sessionId ? `/v2/chat/${sessionId}` : "/v2/chat";
 
     const query: string[] = [];
     if (capability) query.push(`capability=${encodeURIComponent(capability)}`);
