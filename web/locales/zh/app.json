@@ -274,6 +274,8 @@
   "Welcome to DeepTutor": "欢迎使用 DeepTutor",
   "How can I help you today?": "今天我能帮您什么？",
   "Ask anything...": "问我任何问题...",
+  "Ask anything — I'll use the right tools": "随时提问，我会自动选择合适的工具",
+  "Search the web, query knowledge bases, run code, or generate quizzes and animations — automatically.": "搜索网络、查询知识库、运行代码，或自动生成测验和动画。",
   "Type your message...": "输入您的消息...",
   "RAG": "知识库检索",
   "Select Knowledge Base": "选择知识库",

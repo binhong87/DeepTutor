@@ -274,6 +274,8 @@
   "Welcome to DeepTutor": "Welcome to DeepTutor",
   "How can I help you today?": "How can I help you today?",
   "Ask anything...": "Ask anything...",
+  "Ask anything — I'll use the right tools": "Ask anything — I'll use the right tools",
+  "Search the web, query knowledge bases, run code, or generate quizzes and animations — automatically.": "Search the web, query knowledge bases, run code, or generate quizzes and animations — automatically.",
   "Type your message...": "Type your message...",
   "RAG": "RAG",
   "Select Knowledge Base": "Select Knowledge Base",

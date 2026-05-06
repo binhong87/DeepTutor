@@ -13,9 +13,13 @@ interface MessageFeedProps {
 export function MessageFeed({ session }: MessageFeedProps) {
   const { t } = useTranslation();
   const bottomRef = useRef<HTMLDivElement>(null);
+  const prevTurnsLength = useRef(session.turns.length);
 
+  // Scroll when a new turn is added (smooth) or when steps arrive during streaming (instant to avoid jitter)
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    const isNewTurn = session.turns.length !== prevTurnsLength.current;
+    prevTurnsLength.current = session.turns.length;
+    bottomRef.current?.scrollIntoView({ behavior: isNewTurn ? "smooth" : "instant" });
   }, [session.turns.length, session.activeSteps.length]);
 
   if (session.turns.length === 0) {
