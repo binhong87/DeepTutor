@@ -126,6 +126,9 @@ function mapStreamEvent(
       };
 
     default:
+      if (process.env.NODE_ENV === "development") {
+        console.warn("[AgentChat] Unhandled stream event type:", (event as { type: string }).type);
+      }
       return null;
   }
 }
@@ -152,8 +155,10 @@ export function AgentChatProvider({ children }: { children: ReactNode }) {
     const lastTurn = session.turns[session.turns.length - 1];
     if (lastTurn?.status === "streaming") {
       activeTurnIdRef.current = lastTurn.id;
+    } else {
+      activeTurnIdRef.current = null;
     }
-  }, [session.turns]);
+  }, [session.turns.length]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -324,9 +329,7 @@ export function AgentChatProvider({ children }: { children: ReactNode }) {
     wsRef.current = null;
     activeTurnIdRef.current = null;
     dispatch({ type: "LOAD_SESSION", turns: [], sessionId: null });
-    dispatch({ type: "SET_KB", knowledgeBaseId: session.knowledgeBaseId });
-    dispatch({ type: "SET_LLM", llmSelection: session.llmSelection });
-  }, [session.knowledgeBaseId, session.llmSelection]);
+  }, []);
 
   return (
     <AgentChatContext.Provider
