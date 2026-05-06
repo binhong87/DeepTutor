@@ -27,7 +27,8 @@ export type StreamEventType =
   | "result"
   | "error"
   | "session"
-  | "done";
+  | "done"
+  | "pong";
 
 export interface StreamEvent {
   type: StreamEventType;
@@ -198,8 +199,10 @@ export class UnifiedWSClient {
       }
     };
 
-    this.ws.onerror = (err) => {
-      console.error("WS error:", err);
+    this.ws.onerror = () => {
+      if (!this.intentionalClose) {
+        console.error("WS error — connection to /api/v1/ws failed");
+      }
     };
   }
 

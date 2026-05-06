@@ -64,7 +64,7 @@ export function AgentComposer() {
         {advancedOpen && (
           <AdvancedPanel hints={session.hints} onHintsChange={setHints} />
         )}
-        <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3 shadow-sm">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] px-4 py-3 shadow-sm">
           <textarea
             ref={textareaRef}
             value={text}

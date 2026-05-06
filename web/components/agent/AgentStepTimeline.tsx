@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronDown, ChevronRight, Zap } from "lucide-react";
 import type { StepEvent } from "@/lib/agent-chat-types";
 
@@ -13,12 +14,31 @@ const STEP_ICON: Record<string, string> = {
   observation: "👁",
 };
 
+// Maps backend stage names → i18n keys
+const STAGE_LABEL_KEYS: Record<string, string> = {
+  thinking: "agent.stage.thinking",
+  acting: "agent.stage.acting",
+  observing: "agent.stage.observing",
+  responding: "agent.stage.responding",
+  planning: "agent.stage.planning",
+  generating: "agent.stage.generating",
+  analyzing: "agent.stage.analyzing",
+  researching: "agent.stage.researching",
+  reviewing: "agent.stage.reviewing",
+  writing: "agent.stage.writing",
+};
+
+function cleanLabel(raw: string): string {
+  return raw.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
 interface AgentStepTimelineProps {
   steps: StepEvent[];
   isStreaming: boolean;
 }
 
 export function AgentStepTimeline({ steps, isStreaming }: AgentStepTimelineProps) {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   if (steps.length === 0 && !isStreaming) return null;
@@ -39,13 +59,13 @@ export function AgentStepTimeline({ steps, isStreaming }: AgentStepTimelineProps
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="flex items-center gap-1.5 text-xs text-[var(--muted)] hover:text-[var(--foreground)] transition-colors"
+          className="flex items-center gap-1.5 text-xs text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
         >
           <Zap size={11} className="text-[var(--accent)]" />
           <span>
             {toolsUsed.length > 0
-              ? `Used ${toolsUsed.join(" · ")}`
-              : `${steps.length} step${steps.length !== 1 ? "s" : ""}`}
+              ? t("Used {{tools}}", { tools: toolsUsed.join(" · ") })
+              : t("{{count}} steps", { count: steps.length })}
           </span>
           {expanded ? <ChevronDown size={11} /> : <ChevronRight size={11} />}
         </button>
@@ -60,7 +80,7 @@ export function AgentStepTimeline({ steps, isStreaming }: AgentStepTimelineProps
 
   // Live view during streaming
   return (
-    <div className="mb-3 rounded-lg border border-[var(--border)] bg-[var(--surface)] p-3">
+    <div className="mb-3 rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-3">
       <div className="space-y-1.5">
         {steps.map((step, i) => (
           <StepRow
@@ -70,9 +90,9 @@ export function AgentStepTimeline({ steps, isStreaming }: AgentStepTimelineProps
           />
         ))}
         {isStreaming && steps.length === 0 && (
-          <div className="flex items-center gap-2 text-xs text-[var(--muted)]">
+          <div className="flex items-center gap-2 text-xs text-[var(--muted-foreground)]">
             <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
-            Thinking…
+            {t("Thinking…")}
           </div>
         )}
       </div>
@@ -81,18 +101,31 @@ export function AgentStepTimeline({ steps, isStreaming }: AgentStepTimelineProps
 }
 
 function StepRow({ step, isActive }: { step: StepEvent; isActive?: boolean }) {
+  const { t } = useTranslation();
+
+  const translatedLabel = STAGE_LABEL_KEYS[step.label]
+    ? t(STAGE_LABEL_KEYS[step.label])
+    : cleanLabel(step.label);
+
   return (
-    <div className="flex items-start gap-2 text-xs">
-      <span className="mt-0.5 shrink-0 text-[11px]">
-        {isActive ? (
-          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
-        ) : (
-          STEP_ICON[step.type] ?? "·"
-        )}
-      </span>
-      <span className={step.done ? "text-[var(--muted)]" : "text-[var(--foreground)]"}>
-        {step.label}
-      </span>
+    <div className="flex flex-col gap-0.5 text-xs">
+      <div className="flex items-start gap-2">
+        <span className="mt-0.5 shrink-0 text-[11px]">
+          {isActive ? (
+            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
+          ) : (
+            STEP_ICON[step.type] ?? "·"
+          )}
+        </span>
+        <span className={step.done ? "text-[var(--muted-foreground)]" : "text-[var(--foreground)]"}>
+          {translatedLabel}
+        </span>
+      </div>
+      {(step.type === "thinking" || step.type === "observation") && step.detail && (
+        <p className="pl-5 text-[11px] leading-relaxed text-[var(--muted-foreground)] whitespace-pre-wrap">
+          {step.detail}
+        </p>
+      )}
     </div>
   );
 }

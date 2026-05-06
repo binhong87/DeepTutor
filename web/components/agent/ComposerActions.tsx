@@ -37,15 +37,14 @@ export function ComposerActions({
   return (
     <div className="flex items-center justify-between gap-2">
       <div className="flex flex-wrap items-center gap-2">
-        {/* KB selector — uses kb.name as the option value since the backend
-            identifies knowledge bases by name, not a separate id */}
+        {/* KB selector */}
         <label className="relative flex items-center">
           <BookOpen
             size={10}
-            className="pointer-events-none absolute left-2 text-[var(--accent)]"
+            className="pointer-events-none absolute left-2 text-[var(--muted-foreground)]"
           />
           <select
-            className="appearance-none rounded-full bg-[var(--surface-2,#f3f4f6)] py-1 pl-5 pr-3 text-xs text-[var(--muted)] cursor-pointer hover:bg-[var(--surface-3,#e5e7eb)] focus:outline-none dark:bg-[#21262d] dark:hover:bg-[#30363d]"
+            className="appearance-none rounded-full border border-[var(--border)] bg-[var(--secondary)] py-1 pl-5 pr-3 text-xs text-[var(--foreground)] cursor-pointer hover:bg-[var(--muted)] focus:outline-none"
             value={activeKbId ?? ""}
             onChange={(e) => onKbChange(e.target.value || null)}
             aria-label={t("Knowledge Base")}
@@ -64,10 +63,10 @@ export function ComposerActions({
           type="button"
           onClick={onAdvancedToggle}
           className={[
-            "flex items-center gap-1 rounded-full px-3 py-1 text-xs transition-colors",
+            "flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors",
             advancedOpen || hints.length > 0
-              ? "border border-[var(--accent)] bg-[var(--accent-subtle,#dbeafe)] text-[var(--accent)] dark:bg-[#0d2136]"
-              : "bg-[var(--surface-2,#f3f4f6)] text-[var(--muted)] hover:bg-[var(--surface-3,#e5e7eb)] dark:bg-[#21262d] dark:hover:bg-[#30363d]",
+              ? "border border-[var(--primary)] bg-[var(--secondary)] text-[var(--primary)]"
+              : "border border-[var(--border)] bg-[var(--secondary)] text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
           ].join(" ")}
         >
           <Settings2 size={10} />

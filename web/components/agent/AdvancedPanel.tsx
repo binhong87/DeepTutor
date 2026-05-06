@@ -28,8 +28,8 @@ export function AdvancedPanel({ hints, onHintsChange }: AdvancedPanelProps) {
   }
 
   return (
-    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-3">
-      <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[var(--muted)]">
+    <div className="rounded-xl border border-[var(--border)] bg-[var(--secondary)] px-4 py-3">
+      <p className="mb-2 text-xs font-medium uppercase tracking-wide text-[var(--muted-foreground)]">
         {t("Tool hints — optional, agent still decides")}
       </p>
       <div className="flex flex-wrap gap-2">
@@ -41,10 +41,10 @@ export function AdvancedPanel({ hints, onHintsChange }: AdvancedPanelProps) {
               type="button"
               onClick={() => toggle(tool.id)}
               className={[
-                "rounded-full px-3 py-1 text-xs transition-colors",
+                "rounded-full px-3 py-1 text-xs font-medium transition-colors",
                 active
-                  ? "bg-[var(--accent)] text-white"
-                  : "bg-[var(--chip-bg,#f3f4f6)] text-[var(--muted)] hover:bg-[var(--chip-hover,#e5e7eb)] dark:bg-[#21262d] dark:hover:bg-[#30363d]",
+                  ? "bg-[var(--primary)] text-[var(--primary-foreground)]"
+                  : "border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
               ].join(" ")}
             >
               {t(tool.label)}

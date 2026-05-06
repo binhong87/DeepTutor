@@ -149,6 +149,10 @@ async def unified_websocket(ws: WebSocket) -> None:
                     await stop_subscription(f"session:{session_id}")
                 continue
 
+            if msg_type == "ping":
+                await safe_send({"type": "pong"})
+                continue
+
             if msg_type == "cancel_turn":
                 turn_id = str(msg.get("turn_id") or "").strip()
                 if not turn_id:

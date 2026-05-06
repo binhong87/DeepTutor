@@ -113,7 +113,14 @@ export function agentChatReducer(
       const idx = state.activeSteps.findIndex((s) => s.id === action.step.id);
       const activeSteps =
         idx >= 0
-          ? state.activeSteps.map((s, i) => (i === idx ? { ...s, ...action.step } : s))
+          ? state.activeSteps.map((s, i) => {
+              if (i !== idx) return s;
+              // Streaming steps accumulate tokens in detail rather than replacing label
+              if ((s.type === "thinking" || s.type === "observation") && action.step.detail) {
+                return { ...s, ...action.step, detail: (s.detail ?? "") + action.step.detail };
+              }
+              return { ...s, ...action.step };
+            })
           : [...state.activeSteps, action.step];
       return { ...state, activeSteps };
     }
