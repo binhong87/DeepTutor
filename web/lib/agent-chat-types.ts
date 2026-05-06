@@ -173,18 +173,17 @@ export function agentChatReducer(
       };
 
     case "BIND_SESSION": {
-      const result: AgentSession = {
+      if (!action.richOutputType) {
+        return { ...state, sessionId: action.sessionId };
+      }
+      const richOutputType = action.richOutputType;
+      return {
         ...state,
         sessionId: action.sessionId,
+        turns: state.turns.map((t, i) =>
+          i === state.turns.length - 1 ? { ...t, richOutputType } : t,
+        ),
       };
-      if (action.richOutputType !== undefined) {
-        result.turns = state.turns.map((t, i) =>
-          i === state.turns.length - 1
-            ? { ...t, richOutputType: action.richOutputType! }
-            : t,
-        );
-      }
-      return result;
     }
 
     case "LOAD_SESSION":
