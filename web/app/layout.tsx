@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="zh"
       suppressHydrationWarning
       data-scroll-behavior="smooth"
       className={`${fontSans.variable} ${fontSerif.variable}`}
