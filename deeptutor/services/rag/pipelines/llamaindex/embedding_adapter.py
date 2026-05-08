@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import os
 from typing import Any, List
 
 from llama_index.core import Settings
@@ -132,12 +133,17 @@ def configure_llamaindex_settings(logger=None) -> None:
     """Configure LlamaIndex globals for DeepTutor's current embedding config."""
     embedding_cfg = get_embedding_config()
 
+    embed_batch_size = int(os.getenv("EMBEDDING_BATCH_SIZE", "1"))
+
     current = getattr(Settings, "_embed_model", None)
     configured = False
     if isinstance(current, CustomEmbedding) and current.matches_config(embedding_cfg):
         current.refresh_client(embedding_cfg)
+        current.embed_batch_size = embed_batch_size
     else:
-        Settings.embed_model = CustomEmbedding(embedding_config=embedding_cfg)
+        Settings.embed_model = CustomEmbedding(
+            embedding_config=embedding_cfg, embed_batch_size=embed_batch_size
+        )
         configured = True
     Settings.chunk_size = 512
     Settings.chunk_overlap = 50

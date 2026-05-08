@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 import json
+import os
 from typing import Any
 from urllib.parse import urlparse
 
@@ -675,7 +676,7 @@ def resolve_embedding_runtime_config(
         extra_headers=extra_headers,
         dimension=dimension,
         send_dimensions=send_dimensions,
-        request_timeout=60,
+        request_timeout=int(os.getenv("EMBEDDING_REQUEST_TIMEOUT", "300")),
         batch_size=10,
         batch_delay=0.0,
     )
