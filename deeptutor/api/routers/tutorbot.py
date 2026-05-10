@@ -8,7 +8,9 @@ import asyncio
 import json
 import logging
 
-from fastapi import APIRouter, HTTPException, Query, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, Depends, HTTPException, Query, WebSocket, WebSocketDisconnect
+
+from deeptutor.api.routers.auth import require_admin
 from pydantic import BaseModel, ValidationError
 
 from deeptutor.services.tutorbot import get_tutorbot_manager
@@ -83,7 +85,7 @@ async def list_souls():
 
 
 @router.post("/souls")
-async def create_soul(payload: SoulCreateRequest):
+async def create_soul(payload: SoulCreateRequest, _admin: object = Depends(require_admin)):
     mgr = get_tutorbot_manager()
     if mgr.get_soul(payload.id):
         raise HTTPException(status_code=409, detail=f"Soul '{payload.id}' already exists")
@@ -99,7 +101,7 @@ async def get_soul(soul_id: str):
 
 
 @router.put("/souls/{soul_id}")
-async def update_soul(soul_id: str, payload: SoulUpdateRequest):
+async def update_soul(soul_id: str, payload: SoulUpdateRequest, _admin: object = Depends(require_admin)):
     result = get_tutorbot_manager().update_soul(soul_id, payload.name, payload.content)
     if not result:
         raise HTTPException(status_code=404, detail="Soul not found")
@@ -107,7 +109,7 @@ async def update_soul(soul_id: str, payload: SoulUpdateRequest):
 
 
 @router.delete("/souls/{soul_id}")
-async def delete_soul(soul_id: str):
+async def delete_soul(soul_id: str, _admin: object = Depends(require_admin)):
     if not get_tutorbot_manager().delete_soul(soul_id):
         raise HTTPException(status_code=404, detail="Soul not found")
     return {"id": soul_id, "deleted": True}

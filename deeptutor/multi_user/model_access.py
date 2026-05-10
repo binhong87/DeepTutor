@@ -89,7 +89,7 @@ def allowed_llm_options() -> list[dict[str, Any]]:
     user = get_current_user()
     if user.is_admin:
         return list_llm_options(admin_catalog())
-    return [
+    available = [
         {
             "profile_id": item.get("profile_id"),
             "model_id": item.get("model_id"),
@@ -100,6 +100,11 @@ def allowed_llm_options() -> list[dict[str, Any]]:
         for item in redacted_model_access(user.id).get("llm", [])
         if item.get("available")
     ]
+    if available:
+        return available
+    # No explicit grants — default to full admin catalog so new users can
+    # use AI immediately. Admins can restrict by assigning explicit grants.
+    return list_llm_options(admin_catalog())
 
 
 def apply_allowed_llm_selection(selection: dict[str, Any] | None) -> dict[str, Any] | None:
@@ -109,7 +114,18 @@ def apply_allowed_llm_selection(selection: dict[str, Any] | None) -> dict[str, A
         return selection
     profile_id = str(selection.get("profile_id") or "")
     model_id = str(selection.get("model_id") or "")
-    for item in redacted_model_access(user.id).get("llm", []):
+    granted = redacted_model_access(user.id).get("llm", [])
+    if not granted:
+        # No explicit grants — validate against the full admin catalog so
+        # new users can select any available model by default.
+        catalog = admin_catalog()
+        for service in catalog.get("services", {}).get("llm", {}).get("profiles", []) or []:
+            if str(service.get("id") or "") == profile_id:
+                for model in service.get("models", []) or []:
+                    if str(model.get("id") or "") == model_id:
+                        return selection
+        raise PermissionError("This model is not available in the model catalog.")
+    for item in granted:
         if item.get("profile_id") == profile_id and item.get("model_id") == model_id:
             return selection
     raise PermissionError("This model is not assigned to your account.")

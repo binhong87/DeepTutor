@@ -13,6 +13,7 @@ from pydantic import BaseModel, field_validator
 _SECURE = os.getenv("AUTH_COOKIE_SECURE", "false").lower() == "true"
 _SAMESITE = "none" if _SECURE else "lax"
 
+from deeptutor.multi_user.paths import ensure_user_workspace
 from deeptutor.services.auth import (
     AUTH_ENABLED,
     POCKETBASE_ENABLED,
@@ -146,7 +147,7 @@ def _extract_token(authorization: str | None, dt_token: str | None) -> str | Non
 # ---------------------------------------------------------------------------
 
 
-def require_auth(
+async def require_auth(
     authorization: str | None = Header(default=None, alias="Authorization"),
     dt_token: str | None = Cookie(default=None),
 ) -> TokenPayload | None:
@@ -189,7 +190,8 @@ def require_auth(
 
     from deeptutor.multi_user.context import set_current_user, user_from_token_payload
 
-    set_current_user(user_from_token_payload(payload))
+    user = user_from_token_payload(payload)
+    set_current_user(user)
     return payload
 
 
@@ -317,13 +319,15 @@ async def logout(response: Response) -> dict:
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
-async def register(body: RegisterRequest) -> dict:
+async def register(body: RegisterRequest, response: Response) -> dict:
     """
     Bootstrap-only registration.
 
     Public endpoint that creates the *first* admin account when the user store
     is empty. Once an admin exists, this endpoint is closed; further accounts
     must be created by an admin via ``POST /api/v1/auth/users``.
+
+    Sets the JWT cookie so the new user is immediately logged in.
 
     Only available when AUTH_ENABLED=true.
     """
@@ -334,35 +338,37 @@ async def register(body: RegisterRequest) -> dict:
         )
 
     if POCKETBASE_ENABLED:
-        # PocketBase deployments are documented as single-user. Keep registration
-        # closed and require admins to provision users in the PocketBase admin UI.
-        if not is_first_user():
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Self-registration is closed. Ask an administrator to create your account.",
-            )
         result = register_pb(username=body.username, email=body.username, password=body.password)
         if not result:
             raise HTTPException(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="Registration failed — username or email may already be taken.",
             )
-        logger.info(f"First user registered via PocketBase: '{body.username}'")
+        user_id = result.get("id", "")
+        logger.info("Creating workspace for PocketBase user %s", user_id)
+        try:
+            ensure_user_workspace(user_id)
+        except Exception:
+            logger.exception("Failed to create workspace for PocketBase user %s", user_id)
+        pb_result = authenticate_pb(body.username, body.password)
+        if pb_result:
+            _, pb_token = pb_result
+            response.set_cookie(
+                key=_COOKIE_NAME,
+                value=pb_token,
+                httponly=True,
+                samesite=_SAMESITE,
+                max_age=_COOKIE_MAX_AGE,
+                secure=_SECURE,
+            )
+        logger.info(f"User registered via PocketBase: '{body.username}'")
         return {
             "ok": True,
-            "user_id": result.get("id", ""),
+            "user_id": user_id,
             "username": body.username,
             "role": "user",
-            "is_first_user": True,
             "is_admin": False,
         }
-
-    # Standard mode — only allowed before the first admin exists.
-    if not is_first_user():
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Self-registration is closed. Ask an administrator to create your account.",
-        )
 
     existing = {u["username"] for u in list_users()}
     if body.username in existing:
@@ -379,13 +385,30 @@ async def register(body: RegisterRequest) -> dict:
             user_id = str(item.get("id") or "")
             role = str(item.get("role") or "user")
             break
-    logger.info(f"First user (admin) registered: '{body.username}'")
+
+    logger.info("Creating workspace for user %s", user_id)
+    try:
+        ensure_user_workspace(user_id)
+        logger.info("Workspace created for user %s", user_id)
+    except Exception:
+        logger.exception("Failed to create workspace for user %s", user_id)
+
+    token = create_token(body.username, role, user_id)
+    response.set_cookie(
+        key=_COOKIE_NAME,
+        value=token,
+        httponly=True,
+        samesite=_SAMESITE,
+        max_age=_COOKIE_MAX_AGE,
+        secure=_SECURE,
+    )
+
+    logger.info(f"User registered: '{body.username}' (role={role!r})")
     return {
         "ok": True,
         "user_id": user_id,
         "username": body.username,
         "role": role,
-        "is_first_user": True,
         "is_admin": role == "admin",
     }
 
@@ -431,13 +454,18 @@ async def admin_create_user(
                 status_code=status.HTTP_409_CONFLICT,
                 detail="Failed to create user — username may already be taken.",
             )
+        pb_user_id = result.get("id", "")
+        try:
+            ensure_user_workspace(pb_user_id)
+        except Exception:
+            logger.exception("Failed to create workspace for PocketBase user %s", pb_user_id)
         logger.info(
             f"Admin '{current.username if current else 'local'}' created PocketBase user "
             f"'{body.username}'"
         )
         return {
             "ok": True,
-            "user_id": result.get("id", ""),
+            "user_id": pb_user_id,
             "username": body.username,
             "role": "user",
             "is_admin": False,
@@ -458,6 +486,10 @@ async def admin_create_user(
             user_id = str(item.get("id") or "")
             role = str(item.get("role") or "user")
             break
+    try:
+        ensure_user_workspace(user_id)
+    except Exception:
+        logger.exception("Failed to create workspace for user %s", user_id)
     logger.info(
         f"Admin '{current.username if current else 'local'}' created user '{body.username}' "
         f"(role={role!r})"

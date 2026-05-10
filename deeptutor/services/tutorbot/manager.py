@@ -133,6 +133,7 @@ class TutorBotInstance:
 
     bot_id: str
     config: BotConfig
+    owner_id: str = ""
     started_at: datetime = field(default_factory=datetime.now)
     tasks: list[asyncio.Task] = field(default_factory=list, repr=False)
     agent_loop: Any = None
@@ -197,8 +198,20 @@ class TutorBotManager:
 
     # ── Path helpers ──────────────────────────────────────────────
 
+    def _bot_key(self, bot_id: str) -> str:
+        """Return the dict key for self._bots, scoped to the current user."""
+        from deeptutor.multi_user.context import get_current_user
+        user = get_current_user()
+        return f"{user.id}/{bot_id}"
+
     @property
     def _tutorbot_dir(self) -> Path:
+        from deeptutor.multi_user.context import get_current_user
+        from deeptutor.multi_user.paths import MULTI_USER_ROOT
+
+        user = get_current_user()
+        if user and not user.is_admin:
+            return MULTI_USER_ROOT / user.id / "tutorbot"
         return self._path_service.project_root / "data" / "tutorbot"
 
     @property
@@ -390,8 +403,9 @@ class TutorBotManager:
 
     async def start_bot(self, bot_id: str, config: BotConfig | None = None) -> TutorBotInstance:
         """Start a TutorBot instance with its own isolated workspace."""
-        if bot_id in self._bots and self._bots[bot_id].running:
-            return self._bots[bot_id]
+        key = self._bot_key(bot_id)
+        if key in self._bots and self._bots[key].running:
+            return self._bots[key]
 
         self._ensure_bot_dirs(bot_id)
 
@@ -498,14 +512,16 @@ class TutorBotManager:
         instance.heartbeat = heartbeat
         await heartbeat.start()
 
-        self._bots[bot_id] = instance
+        from deeptutor.multi_user.context import get_current_user
+        instance.owner_id = get_current_user().id
+        self._bots[key] = instance
         self.save_bot_config(bot_id, config)
         logger.info("TutorBot '%s' started (workspace=%s)", bot_id, workspace)
         return instance
 
     async def reload_llm(self, bot_id: str) -> None:
         """Apply the bot's current LLM config to an already-running instance."""
-        instance = self._bots.get(bot_id)
+        instance = self._bots.get(self._bot_key(bot_id))
         if not instance or not instance.running or not instance.agent_loop:
             return
 
@@ -590,7 +606,7 @@ class TutorBotManager:
         must preserve the persisted auto-start intent so Docker/host restarts
         bring the same bots back online.
         """
-        instance = self._bots.get(bot_id)
+        instance = self._bots.get(self._bot_key(bot_id))
         if not instance:
             return False
         auto_start = self._load_auto_start(bot_id, default=True) if preserve_auto_start else False
@@ -620,7 +636,7 @@ class TutorBotManager:
                 pass
 
         self.save_bot_config(bot_id, instance.config, auto_start=auto_start)
-        del self._bots[bot_id]
+        del self._bots[self._bot_key(bot_id)]
         logger.info(
             "TutorBot '%s' stopped (auto_start=%s, preserve_auto_start=%s)",
             bot_id,
@@ -670,7 +686,7 @@ class TutorBotManager:
         listeners are torn down (bot is left running with no channels) and the
         error is recorded; callers should surface it to the user.
         """
-        instance = self._bots.get(bot_id)
+        instance = self._bots.get(self._bot_key(bot_id))
         if not instance or not instance.running:
             return
 
@@ -759,8 +775,10 @@ class TutorBotManager:
         """
         result: dict[str, dict[str, Any]] = {}
 
-        for inst in self._bots.values():
-            result[inst.bot_id] = inst.to_dict()
+        prefix = self._bot_key("")
+        for key, inst in self._bots.items():
+            if key.startswith(prefix):
+                result[inst.bot_id] = inst.to_dict()
 
         for bid in self._discover_bot_ids():
             if bid in result:
@@ -782,7 +800,7 @@ class TutorBotManager:
         return list(result.values())
 
     def get_bot(self, bot_id: str) -> TutorBotInstance | None:
-        return self._bots.get(bot_id)
+        return self._bots.get(self._bot_key(bot_id))
 
     def get_bot_history(self, bot_id: str, limit: int = 100) -> list[dict[str, Any]]:
         """Read chat messages from a bot's JSONL session files."""
@@ -853,7 +871,7 @@ class TutorBotManager:
                 pass
 
             cfg = self.load_bot_config(bid)
-            instance = self._bots.get(bid)
+            instance = self._bots.get(self._bot_key(bid))
             bot_activity.append(
                 (
                     mtime,
@@ -879,7 +897,7 @@ class TutorBotManager:
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> str:
         """Send a message to a running bot and return the response."""
-        instance = self._bots.get(bot_id)
+        instance = self._bots.get(self._bot_key(bot_id))
         if not instance or not instance.running:
             raise RuntimeError(f"Bot '{bot_id}' is not running")
 
@@ -925,7 +943,8 @@ class TutorBotManager:
     async def auto_start_bots(self) -> None:
         """Scan persisted configs and start bots marked with auto_start: true."""
         for bid in self._discover_bot_ids():
-            if bid in self._bots and self._bots[bid].running:
+            key = self._bot_key(bid)
+            if key in self._bots and self._bots[key].running:
                 continue
             try:
                 self._maybe_migrate_legacy(bid)
@@ -987,15 +1006,44 @@ class TutorBotManager:
         return result
 
     async def stop_all(self, *, preserve_auto_start: bool = True) -> None:
-        """Stop all running bots while preserving restart intent by default."""
-        for bot_id in list(self._bots.keys()):
-            await self.stop_bot(bot_id, preserve_auto_start=preserve_auto_start)
+        """Stop all running bots while preserving restart intent by default.
+
+        Iterates dict keys directly to avoid needing per-user context at shutdown.
+        The on-disk config (including auto_start) is already persisted from the
+        last save_bot_config call, so skipping the save here IS preserve_auto_start.
+        """
+        for key in list(self._bots.keys()):
+            instance = self._bots.pop(key, None)
+            if instance is None:
+                continue
+            bot_id = instance.bot_id
+            for task in instance.tasks:
+                if not task.done():
+                    task.cancel()
+            for task in instance.tasks:
+                try:
+                    await asyncio.wait_for(asyncio.shield(task), timeout=5.0)
+                except (asyncio.CancelledError, asyncio.TimeoutError):
+                    pass
+            if instance.channel_manager:
+                try:
+                    await instance.channel_manager.stop_all()
+                except Exception:
+                    logger.exception("Error stopping channels for bot '%s'", bot_id)
+            if instance.heartbeat:
+                instance.heartbeat.stop()
+            if instance.agent_loop:
+                try:
+                    await instance.agent_loop.stop()
+                except Exception:
+                    pass
+            logger.info("TutorBot '%s' stopped (shutdown)", bot_id)
 
     # ── Soul template library ─────────────────────────────────────
 
     @property
     def _souls_file(self) -> Path:
-        return self._tutorbot_dir / "_souls.yaml"
+        return self._path_service.project_root / "data" / "tutorbot" / "_souls.yaml"
 
     def _load_souls(self) -> list[dict[str, str]]:
         path = self._souls_file

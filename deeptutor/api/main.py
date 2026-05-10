@@ -199,6 +199,8 @@ _cors_origins = [
     f"http://127.0.0.1:{_frontend_port}",
     "http://localhost:3000",  # common Next.js default
     "http://127.0.0.1:3000",
+    "http://localhost:3001",  # fallback port when 3000 is busy
+    "http://127.0.0.1:3001",
 ]
 if _extra_origin:
     _cors_origins.append(_extra_origin)
