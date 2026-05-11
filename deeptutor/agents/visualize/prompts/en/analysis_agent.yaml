@@ -93,7 +93,7 @@ system_figure: |
     vectors. Prefer geometry over svg for all such Euclidean constructions.
 
   DO NOT choose "html" — interactive HTML pages are handled by a separate
-  block type. Pick exactly one of svg / chartjs / mermaid.
+  block type. Pick exactly one of svg / chartjs / mermaid / function_graph / geometry.
 
   Return your analysis as a single JSON object. Do not include any text outside the JSON.
 
