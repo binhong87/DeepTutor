@@ -32,6 +32,72 @@ system: |
       * Always check that an element exists before manipulating it.
     Within these constraints, freely choose layout, colors, visual style, and
     interaction patterns to make the page clear, beautiful, and easy to learn from.
+  - If render_type is "function_graph", output a JSON object describing the
+    function(s) to plot. Use these fields:
+      * title (string, optional): chart title displayed above the plot
+      * xDomain ([number, number], required): x-axis range, e.g. [-10, 10]
+      * yDomain ([number, number], optional): y-axis range; auto-scaled if omitted
+      * xLabel (string, optional): x-axis label
+      * yLabel (string, optional): y-axis label
+      * functions (array, required): one object per function to plot:
+          - fn (string, required): expression using x as variable, e.g. "sin(x)",
+            "x^2 - 1", "sqrt(x)", "x * sin(1/x)". For parametric use
+            { "x": "cos(t)", "y": "sin(t)" }. For polar use
+            { "r": "1 + cos(theta)" }.
+          - color (string, optional): CSS color string, e.g. "#6366f1"
+          - label (string, optional): legend label for this function
+          - graphType (string, optional): "line" (default), "scatter", or "interval"
+    Output only the JSON, no surrounding text. Wrap in a ```function_graph fence.
+    Example output:
+    ```function_graph
+    {
+      "title": "Graph of sin(x) and cos(x)",
+      "xDomain": [-6.28, 6.28],
+      "yDomain": [-1.5, 1.5],
+      "xLabel": "x",
+      "yLabel": "y",
+      "functions": [
+        { "fn": "sin(x)", "color": "#6366f1", "label": "sin(x)" },
+        { "fn": "cos(x)", "color": "#f43f5e", "label": "cos(x)" }
+      ]
+    }
+    ```
+  - If render_type is "geometry", output a JSON object describing a JSXGraph
+    geometric construction. Use these fields:
+      * title (string, optional): board title
+      * boundingBox ([left, top, right, bottom], required): coordinate viewport,
+        e.g. [-1, 5, 6, -1]. Ensure all elements fit inside this box.
+      * elements (array, required): construction elements in declaration order.
+        Later elements may reference earlier ones by their "id" field.
+        Supported element types and their required/optional fields:
+          - point:   { type, id, coords:[x,y], label?, color?, size? }
+          - segment: { type, from(id), to(id), label?, color?, strokeWidth? }
+          - line:    { type, from(id), to(id), label?, color? }
+          - ray:     { type, from(id), to(id), color? }
+          - circle:  { type, center(id or [x,y]), radius(number or id),
+                       label?, color?, fillColor?, fillOpacity? }
+          - polygon: { type, vertices([id,...]), label?, fillColor?, fillOpacity? }
+          - angle:   { type, vertex(id), from(id), to(id), label?, color? }
+          - arc:     { type, center(id), from(id), to(id), label?, color? }
+          - vector:  { type, from(id or [x,y]), to(id or [x,y]), label?, color? }
+          - text:    { type, coords:[x,y], content(string), color?, fontSize? }
+    Output only the JSON, no surrounding text. Wrap in a ```geometry fence.
+    Example output:
+    ```geometry
+    {
+      "title": "Right Triangle ABC",
+      "boundingBox": [-1, 5, 6, -1],
+      "elements": [
+        { "type": "point", "id": "A", "coords": [0, 0], "label": "A" },
+        { "type": "point", "id": "B", "coords": [4, 0], "label": "B" },
+        { "type": "point", "id": "C", "coords": [0, 3], "label": "C" },
+        { "type": "segment", "from": "A", "to": "B" },
+        { "type": "segment", "from": "B", "to": "C" },
+        { "type": "segment", "from": "A", "to": "C" },
+        { "type": "angle", "vertex": "A", "from": "C", "to": "B", "label": "90°" }
+      ]
+    }
+    ```
   - Do NOT include any explanation outside the code fence.
   - Wrap the code in a fenced code block with the appropriate language tag
     (```svg, ```javascript, ```mermaid, or ```html).
@@ -53,3 +119,5 @@ user_template: |
   - For Chart.js: ```javascript ... ```
   - For Mermaid: ```mermaid ... ```
   - For HTML: ```html ... ```
+  - For function graph: ```function_graph ... ```
+  - For geometry: ```geometry ... ```
