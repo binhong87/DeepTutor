@@ -27,6 +27,25 @@ const LazyMermaid = dynamic(() => import("@/components/Mermaid"), {
   loading: () => <MermaidLoading />,
 });
 
+function GraphLoading() {
+  const { t } = useTranslation();
+  return (
+    <div className="my-4 rounded-xl border border-[var(--border)] bg-[var(--muted)]/50 px-4 py-3 text-sm text-[var(--muted-foreground)]">
+      {t("Rendering graph...")}
+    </div>
+  );
+}
+
+const LazyFunctionGraph = dynamic(() => import("@/components/FunctionGraph"), {
+  ssr: false,
+  loading: () => <GraphLoading />,
+});
+
+const LazyGeometryGraph = dynamic(() => import("@/components/GeometryGraph"), {
+  ssr: false,
+  loading: () => <GraphLoading />,
+});
+
 const LazyCodeBlock = dynamic(() => import("./RichCodeBlock"), {
   ssr: false,
   loading: () => null,
@@ -433,6 +452,22 @@ export default function RichMarkdownRenderer({
         return (
           <div {...lineProps}>
             <LazyMermaid chart={raw} className={gap} />
+          </div>
+        );
+      }
+
+      if (lang === "function_graph") {
+        return (
+          <div {...lineProps}>
+            <LazyFunctionGraph spec={raw} className={gap} />
+          </div>
+        );
+      }
+
+      if (lang === "geometry") {
+        return (
+          <div {...lineProps}>
+            <LazyGeometryGraph spec={raw} className={gap} />
           </div>
         );
       }
