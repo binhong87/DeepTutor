@@ -10,10 +10,11 @@ from pydantic import BaseModel, Field
 class VisualizationAnalysis(BaseModel):
     """Output of the analysis stage."""
 
-    render_type: Literal["svg", "chartjs", "mermaid", "html"] = Field(
+    render_type: Literal["svg", "chartjs", "mermaid", "html", "function_graph", "geometry"] = Field(
         description=(
             "Whether to render as raw SVG, a Chart.js configuration, a Mermaid "
-            "diagram, or a self-contained interactive HTML page."
+            "diagram, a self-contained interactive HTML page, a function-plot graph "
+            "(function_graph), or a JSXGraph geometry construction (geometry)."
         ),
     )
     description: str = Field(
