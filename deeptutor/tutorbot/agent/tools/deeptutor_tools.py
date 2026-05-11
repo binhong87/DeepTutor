@@ -274,3 +274,100 @@ class PaperSearchAdapterTool(Tool):
             lines.append(f"Abstract: {p.get('abstract', '')[:400]}")
             lines.append("")
         return "\n".join(lines)
+
+
+class VisualizeAdapterTool(Tool):
+    @property
+    def name(self) -> str:
+        return "visualize"
+
+    @property
+    def description(self) -> str:
+        return (
+            "Generate SVG, Chart.js, Mermaid, function_graph, geometry, or interactive HTML "
+            "visualizations from a natural-language description. Returns a fenced code block."
+        )
+
+    @property
+    def parameters(self) -> dict[str, Any]:
+        return {
+            "type": "object",
+            "properties": {
+                "request": {
+                    "type": "string",
+                    "description": "Natural-language description of the visualization to generate.",
+                },
+                "context": {
+                    "type": "string",
+                    "description": "Optional conversation history or background context.",
+                },
+                "render_mode": {
+                    "type": "string",
+                    "description": (
+                        "Force a specific render type. "
+                        "Defaults to auto (let the model decide)."
+                    ),
+                    "enum": ["auto", "svg", "chartjs", "mermaid", "html", "function_graph", "geometry"],
+                },
+            },
+            "required": ["request"],
+        }
+
+    async def execute(self, **kwargs: Any) -> str:
+        from deeptutor.agents.visualize.pipeline import VisualizePipeline
+        from deeptutor.agents.visualize.utils import (
+            build_fallback_html,
+            is_valid_html_document,
+        )
+        from deeptutor.services.llm.config import get_llm_config
+
+        cfg = get_llm_config()
+        user_input = str(kwargs.get("request", "")).strip()
+        history_context = str(kwargs.get("context", "") or "").strip()
+        render_mode = str(kwargs.get("render_mode", "auto") or "auto").strip().lower()
+
+        pipeline = VisualizePipeline(
+            api_key=cfg.api_key,
+            base_url=cfg.base_url,
+            api_version=cfg.api_version,
+            language="en",
+        )
+
+        analysis = await pipeline.run_analysis(
+            user_input=user_input,
+            history_context=history_context,
+            render_mode=render_mode,
+        )
+
+        code = await pipeline.run_code_generation(
+            user_input=user_input,
+            history_context=history_context,
+            analysis=analysis,
+        )
+
+        if analysis.render_type == "html":
+            if is_valid_html_document(code):
+                final_code = code
+            else:
+                final_code = build_fallback_html(
+                    title=analysis.description or "Visualization",
+                    summary=analysis.data_description,
+                    note="The model did not return a renderable HTML document.",
+                )
+        else:
+            review = await pipeline.run_review(
+                user_input=user_input,
+                analysis=analysis,
+                code=code,
+            )
+            final_code = review.optimized_code
+
+        lang_map = {
+            "svg": "svg",
+            "mermaid": "mermaid",
+            "html": "html",
+            "function_graph": "function_graph",
+            "geometry": "geometry",
+        }
+        lang_tag = lang_map.get(analysis.render_type, "javascript")
+        return f"```{lang_tag}\n{final_code}\n```"

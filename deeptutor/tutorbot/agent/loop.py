@@ -182,6 +182,7 @@ class AgentLoop:
             PaperSearchAdapterTool,
             RAGAdapterTool,
             ReasonAdapterTool,
+            VisualizeAdapterTool,
         )
 
         for tool_cls in (
@@ -190,6 +191,7 @@ class AgentLoop:
             CodeExecutionAdapterTool,
             ReasonAdapterTool,
             PaperSearchAdapterTool,
+            VisualizeAdapterTool,
         ):
             self.tools.register(tool_cls())
 
