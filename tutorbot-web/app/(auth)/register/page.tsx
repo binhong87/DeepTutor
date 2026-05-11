@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { UserPlus } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function RegisterPage() {
   const router = useRouter();
   const { register } = useAuth();
+  const { t } = useTranslation();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,15 +22,15 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
     if (!username.trim() || !password) {
-      setError("Please fill in all fields.");
+      setError(t("Please fill in all fields."));
       return;
     }
     if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
+      setError(t("Password must be at least 8 characters."));
       return;
     }
     if (password !== confirm) {
-      setError("Passwords do not match.");
+      setError(t("Passwords do not match."));
       return;
     }
     setSubmitting(true);
@@ -37,15 +39,15 @@ export default function RegisterPage() {
     if (result.ok) {
       router.replace("/tutorbot/boarding");
     } else {
-      setError(result.detail || "Registration failed. Please try again.");
+      setError(result.detail || t("Registration failed. Please try again."));
     }
   }
 
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold text-[var(--foreground)]">Create your account</h1>
-        <p className="mt-1 text-sm text-[var(--muted-foreground)]">Get started with your personal TutorBot</p>
+        <h1 className="text-2xl font-semibold text-[var(--foreground)]">{t("Create your account")}</h1>
+        <p className="mt-1 text-sm text-[var(--muted-foreground)]">{t("Get started with your personal TutorBot")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,7 +59,7 @@ export default function RegisterPage() {
 
         <div>
           <label htmlFor="username" className="block text-sm font-medium text-[var(--foreground)] mb-1">
-            Username or email
+            {t("Username or email")}
           </label>
           <input
             id="username"
@@ -72,7 +74,7 @@ export default function RegisterPage() {
 
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-[var(--foreground)] mb-1">
-            Password
+            {t("Password")}
           </label>
           <input
             id="password"
@@ -81,13 +83,13 @@ export default function RegisterPage() {
             value={password}
             onChange={e => setPassword(e.target.value)}
             className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-            placeholder="At least 8 characters"
+            placeholder={t("At least 8 characters")}
           />
         </div>
 
         <div>
           <label htmlFor="confirm" className="block text-sm font-medium text-[var(--foreground)] mb-1">
-            Confirm password
+            {t("Confirm password")}
           </label>
           <input
             id="confirm"
@@ -105,14 +107,14 @@ export default function RegisterPage() {
           className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 disabled:opacity-50 transition-opacity"
         >
           <UserPlus className="h-4 w-4" />
-          {submitting ? "Creating account..." : "Create account"}
+          {submitting ? t("Creating account...") : t("Create account")}
         </button>
       </form>
 
       <p className="text-center text-sm text-[var(--muted-foreground)]">
-        Already have an account?{" "}
+        {t("Already have an account?")}{" "}
         <Link href="/login" className="text-[var(--primary)] hover:underline font-medium">
-          Sign in
+          {t("Sign in")}
         </Link>
       </p>
     </div>

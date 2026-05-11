@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { MessageCircle, Settings, Bot, Play, Square } from "lucide-react";
 import type { TutorBotSummary } from "@/lib/tutorbot-api";
+import { useTranslation } from "react-i18next";
 
 function BotStatusBadge({ running }: { running: boolean }) {
+  const { t } = useTranslation();
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${
@@ -14,7 +16,7 @@ function BotStatusBadge({ running }: { running: boolean }) {
       }`}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${running ? "bg-green-500" : "bg-gray-400"}`} />
-      {running ? "Running" : "Stopped"}
+      {running ? t("Running") : t("Stopped")}
     </span>
   );
 }
@@ -26,6 +28,7 @@ export default function BotCard({
   bot: TutorBotSummary;
   onStop?: (botId: string) => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 hover:shadow-sm transition-shadow">
       <div className="flex items-start justify-between mb-3">
@@ -49,14 +52,14 @@ export default function BotCard({
           className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 transition-opacity"
         >
           <MessageCircle className="h-3.5 w-3.5" />
-          Chat
+          {t("Chat")}
         </Link>
         <Link
           href={`/tutorbot/${bot.bot_id}/settings`}
           className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium border border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
         >
           <Settings className="h-3.5 w-3.5" />
-          Settings
+          {t("Settings")}
         </Link>
         <div className="flex-1" />
         {bot.running ? (
@@ -65,7 +68,7 @@ export default function BotCard({
             className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium border border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950 transition-colors"
           >
             <Square className="h-3.5 w-3.5" />
-            Stop
+            {t("Stop")}
           </button>
         ) : (
           <Link
@@ -73,7 +76,7 @@ export default function BotCard({
             className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium border border-green-200 text-green-600 hover:bg-green-50 dark:border-green-800 dark:text-green-400 dark:hover:bg-green-950 transition-colors"
           >
             <Play className="h-3.5 w-3.5" />
-            Start
+            {t("Start")}
           </Link>
         )}
       </div>

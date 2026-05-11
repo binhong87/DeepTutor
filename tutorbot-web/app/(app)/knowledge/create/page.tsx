@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Upload, Loader2, FileText, X } from "lucide-react";
 import { createKnowledgeBase } from "@/lib/knowledge-api";
+import { useTranslation } from "react-i18next";
 
 export default function CreateKnowledgePage() {
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   const [name, setName] = useState("");
   const [files, setFiles] = useState<File[]>([]);
@@ -35,7 +37,7 @@ export default function CreateKnowledgePage() {
       // Navigate to list; progress is tracked in background
       router.push("/knowledge");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to create knowledge base");
+      setError(e instanceof Error ? e.message : t("Failed to create knowledge base"));
       setSubmitting(false);
     }
   }
@@ -50,10 +52,10 @@ export default function CreateKnowledgePage() {
     <div className="max-w-2xl mx-auto px-6 py-8">
       <Link href="/knowledge" className="inline-flex items-center gap-1 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] mb-6">
         <ArrowLeft className="h-4 w-4" />
-        Back
+        {t("Back")}
       </Link>
 
-      <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-8">Create Knowledge Base</h1>
+      <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-8">{t("Create Knowledge Base")}</h1>
 
       {error && (
         <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-400 mb-6">
@@ -63,13 +65,13 @@ export default function CreateKnowledgePage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-sm font-medium text-[var(--foreground)] mb-1">Name</label>
+          <label className="block text-sm font-medium text-[var(--foreground)] mb-1">{t("Name")}</label>
           <input
             type="text"
             value={name}
             onChange={e => setName(e.target.value)}
             className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-            placeholder="e.g. Course Materials"
+            placeholder={t("e.g. Course Materials")}
           />
         </div>
 
@@ -85,8 +87,8 @@ export default function CreateKnowledgePage() {
           }`}
         >
           <Upload className="mx-auto h-8 w-8 text-[var(--muted-foreground)]/50" />
-          <p className="mt-2 text-sm text-[var(--muted-foreground)]">Drag and drop files here, or click to browse</p>
-          <p className="mt-1 text-xs text-[var(--muted-foreground)]">PDF, DOCX, XLSX, PPTX, Markdown, and text files supported</p>
+          <p className="mt-2 text-sm text-[var(--muted-foreground)]">{t("Drag and drop files here, or click to browse")}</p>
+          <p className="mt-1 text-xs text-[var(--muted-foreground)]">{t("PDF, DOCX, XLSX, PPTX, Markdown, and text files supported")}</p>
           <input
             ref={fileInputRef}
             type="file"
@@ -99,14 +101,14 @@ export default function CreateKnowledgePage() {
             onClick={() => fileInputRef.current?.click()}
             className="inline-block mt-4 cursor-pointer rounded-lg border border-[var(--border)] px-4 py-2 text-sm text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
           >
-            Browse Files
+            {t("Browse Files")}
           </button>
         </div>
 
         {/* File list */}
         {files.length > 0 && (
           <div className="space-y-2">
-            <p className="text-sm font-medium text-[var(--foreground)]">{files.length} file{files.length !== 1 ? "s" : ""} selected</p>
+            <p className="text-sm font-medium text-[var(--foreground)]">{t("{{count}} files selected", { count: files.length })}</p>
             <div className="rounded-lg border border-[var(--border)] divide-y divide-[var(--border)]">
               {files.map((file, i) => (
                 <div key={`${file.name}-${i}`} className="flex items-center gap-3 px-4 py-2.5">
@@ -136,10 +138,10 @@ export default function CreateKnowledgePage() {
           {submitting ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Creating...
+              {t("Creating...")}
             </>
           ) : (
-            "Create Knowledge Base"
+            t("Create Knowledge Base")
           )}
         </button>
       </form>

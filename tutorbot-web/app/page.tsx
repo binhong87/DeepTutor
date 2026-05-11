@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { Bot, LogIn, Sparkles, UserPlus } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "react-i18next";
 
 export default function LandingPage() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { isAuthenticated, loading, status } = useAuth();
 
   useEffect(() => {
@@ -48,8 +50,7 @@ export default function LandingPage() {
               DeepTutor
             </h1>
             <p className="mt-3 text-[15px] text-[var(--muted-foreground)] leading-relaxed max-w-sm mx-auto">
-              Your personal AI tutoring platform. Create intelligent teaching agents,
-              upload knowledge bases, and get personalized learning support.
+              {t("landing.subtitle")}
             </p>
           </div>
         </div>
@@ -60,22 +61,22 @@ export default function LandingPage() {
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-6 py-3 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 transition-opacity shadow-sm"
           >
             <UserPlus className="h-4 w-4" />
-            Get Started
+            {t("Get Started")}
           </Link>
           <Link
             href="/login"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--primary)] px-6 py-3 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 transition-opacity shadow-sm"
           >
             <LogIn className="h-4 w-4" />
-            Sign In
+            {t("Sign In")}
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
           {[
-            { title: "AI Tutors", desc: "Customizable teaching personas powered by LLMs" },
-            { title: "Knowledge Bases", desc: "Upload documents for RAG-powered answers" },
-            { title: "Multi-User", desc: "Isolated workspaces with role-based access" },
+            { title: t("AI Tutors"), desc: t("ai.tutors.desc") },
+            { title: t("Knowledge Bases"), desc: t("kb.desc") },
+            { title: t("Multi-User"), desc: t("multi.user.desc") },
           ].map((f) => (
             <div key={f.title} className="text-left space-y-1">
               <div className="flex items-center gap-1.5">

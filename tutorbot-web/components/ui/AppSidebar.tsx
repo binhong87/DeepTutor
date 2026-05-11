@@ -6,17 +6,19 @@ import { Bot, BookOpen, LayoutGrid, LogOut, PanelLeftClose, PanelLeftOpen, Setti
 import { useAppShell } from "@/context/AppShellContext";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
-
-const NAV_ITEMS = [
-  { href: "/tutorbot/dashboard", label: "TutorBot", icon: Bot },
-  { href: "/knowledge", label: "Knowledge", icon: BookOpen },
-  { href: "/tutorbot/souls", label: "Souls", icon: LayoutGrid },
-];
+import { useTranslation } from "react-i18next";
 
 export default function AppSidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed, setSidebarCollapsed } = useAppShell();
   const { isAuthenticated, logout, isAdmin } = useAuth();
+  const { t } = useTranslation();
+
+  const NAV_ITEMS = [
+    { href: "/tutorbot/dashboard", label: t("TutorBot"), icon: Bot },
+    { href: "/knowledge", label: t("Knowledge"), icon: BookOpen },
+    { href: "/tutorbot/souls", label: t("Souls"), icon: LayoutGrid },
+  ];
 
   return (
     <aside
@@ -34,7 +36,7 @@ export default function AppSidebar() {
         <button
           onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
           className={cn("p-1 rounded-md hover:bg-[var(--muted)] text-[var(--muted-foreground)]", sidebarCollapsed && "mx-auto")}
-          aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-label={sidebarCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
         >
           {sidebarCollapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
         </button>
@@ -71,10 +73,10 @@ export default function AppSidebar() {
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
               sidebarCollapsed && "justify-center px-2",
             )}
-            title={sidebarCollapsed ? "Settings" : undefined}
+            title={sidebarCollapsed ? t("Settings") : undefined}
           >
             <Settings className="h-4 w-4 shrink-0" />
-            {!sidebarCollapsed && <span>Settings</span>}
+            {!sidebarCollapsed && <span>{t("Settings")}</span>}
           </Link>
         )}
         {isAuthenticated && (
@@ -84,10 +86,10 @@ export default function AppSidebar() {
               "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
               sidebarCollapsed && "justify-center px-2",
             )}
-            title={sidebarCollapsed ? "Sign out" : undefined}
+            title={sidebarCollapsed ? t("Sign out") : undefined}
           >
             <LogOut className="h-4 w-4 shrink-0" />
-            {!sidebarCollapsed && <span>Sign out</span>}
+            {!sidebarCollapsed && <span>{t("Sign out")}</span>}
           </button>
         )}
       </div>

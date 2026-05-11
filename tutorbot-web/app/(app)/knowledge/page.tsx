@@ -4,14 +4,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { BookOpen, Plus, Loader2, FileText, Trash2, AlertTriangle } from "lucide-react";
 import { listKnowledgeBases, deleteKnowledgeBase, type KnowledgeBaseInfo } from "@/lib/knowledge-api";
+import { useTranslation } from "react-i18next";
 
 function KbStatusBadge({ status }: { status: string | null | undefined }) {
+  const { t } = useTranslation();
   const config: Record<string, { label: string; color: string }> = {
-    ready: { label: "Ready", color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400" },
-    initializing: { label: "Indexing", color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-400" },
+    ready: { label: t("Ready"), color: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400" },
+    initializing: { label: t("Indexing"), color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-400" },
     error: { label: "Error", color: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-400" },
   };
-  const s = config[status ?? ""] ?? { label: status ?? "Unknown", color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" };
+  const s = config[status ?? ""] ?? { label: status ?? t("Unknown"), color: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400" };
   return (
     <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${s.color}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${
@@ -26,6 +28,7 @@ export default function KnowledgePage() {
   const [kbs, setKbs] = useState<KnowledgeBaseInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   async function refresh() {
     try {
@@ -33,7 +36,7 @@ export default function KnowledgePage() {
       const list = await listKnowledgeBases();
       setKbs(list);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load knowledge bases");
+      setError(e instanceof Error ? e.message : t("Failed to load knowledge bases"));
     }
   }
 
@@ -46,7 +49,7 @@ export default function KnowledgePage() {
       await deleteKnowledgeBase(name);
       setKbs(prev => prev.filter(kb => kb.name !== name));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to delete knowledge base");
+      setError(e instanceof Error ? e.message : t("Failed to delete knowledge base"));
     }
   }
 
@@ -62,9 +65,9 @@ export default function KnowledgePage() {
     <div className="max-w-5xl mx-auto px-6 py-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-semibold text-[var(--foreground)]">Knowledge Bases</h1>
+          <h1 className="text-2xl font-semibold text-[var(--foreground)]">{t("Knowledge Bases")}</h1>
           <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-            Upload documents and create searchable knowledge bases for your bots.
+            {t("Upload documents and create searchable knowledge bases for your bots.")}
           </p>
         </div>
         <Link
@@ -72,7 +75,7 @@ export default function KnowledgePage() {
           className="inline-flex items-center gap-2 rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 transition-opacity"
         >
           <Plus className="h-4 w-4" />
-          New Knowledge Base
+          {t("New Knowledge Base")}
         </Link>
       </div>
 
@@ -85,9 +88,9 @@ export default function KnowledgePage() {
       {kbs.length === 0 ? (
         <div className="rounded-xl border border-dashed border-[var(--border)] p-12 text-center">
           <BookOpen className="mx-auto h-12 w-12 text-[var(--muted-foreground)]/50" />
-          <h2 className="mt-4 text-lg font-medium text-[var(--foreground)]">No knowledge bases yet</h2>
+          <h2 className="mt-4 text-lg font-medium text-[var(--foreground)]">{t("No knowledge bases yet")}</h2>
           <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-            Upload PDFs, documents, and text files to build searchable knowledge bases.
+            {t("Upload PDFs, documents, and text files to build searchable knowledge bases.")}
           </p>
         </div>
       ) : (
@@ -104,12 +107,12 @@ export default function KnowledgePage() {
                       <h3 className="font-medium text-[var(--foreground)]">{kb.name}</h3>
                       {kb.is_default && (
                         <span className="rounded-full bg-[var(--primary)]/10 px-2 py-0.5 text-xs font-medium text-[var(--primary)]">
-                          Default
+                          {t("Default")}
                         </span>
                       )}
                       {kb.read_only && (
                         <span className="rounded-full bg-[var(--muted)] px-2 py-0.5 text-xs text-[var(--muted-foreground)]">
-                          Read-only
+                          {t("Read-only")}
                         </span>
                       )}
                     </div>
@@ -117,7 +120,7 @@ export default function KnowledgePage() {
                       <KbStatusBadge status={kb.status} />
                       <span className="text-xs text-[var(--muted-foreground)]">
                         <FileText className="inline h-3 w-3 mr-0.5" />
-                        {kb.statistics?.raw_documents ?? 0} documents
+                        {kb.statistics?.raw_documents ?? 0} {t("documents")}
                       </span>
                       {kb.provenance_label && (
                         <span className="text-xs text-[var(--muted-foreground)]">{kb.provenance_label}</span>

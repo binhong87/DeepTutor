@@ -6,18 +6,20 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Bot, Check, Sparkles, BookOpen, Cpu, Loader2, MessageCircle } from "lucide-react";
 import { useTutorBots } from "@/context/TutorBotContext";
 import type { Soul } from "@/lib/tutorbot-api";
-
-const STEPS = [
-  { label: "Welcome", icon: Sparkles },
-  { label: "Choose Soul", icon: BookOpen },
-  { label: "Name & Describe", icon: Bot },
-  { label: "Model", icon: Cpu },
-  { label: "Done", icon: Check },
-];
+import { useTranslation } from "react-i18next";
 
 export default function BoardingPage() {
   const router = useRouter();
   const { souls, createAndStart } = useTutorBots();
+  const { t } = useTranslation();
+
+  const STEPS = [
+    { label: t("step.welcome"), icon: Sparkles },
+    { label: t("step.choose.soul"), icon: BookOpen },
+    { label: t("step.name.describe"), icon: Bot },
+    { label: t("step.model"), icon: Cpu },
+    { label: t("step.done"), icon: Check },
+  ];
 
   const [step, setStep] = useState(0);
   const [selectedSoul, setSelectedSoul] = useState<Soul | null>(null);
@@ -53,7 +55,7 @@ export default function BoardingPage() {
       setCreatedBotId(bot.bot_id);
       setStep(4);
     } else {
-      setError("Failed to create bot. Please try again.");
+      setError(t("Failed to create bot. Please try again."));
     }
   }
 
@@ -95,17 +97,17 @@ export default function BoardingPage() {
             <Sparkles className="h-8 w-8 text-[var(--primary)]" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-[var(--foreground)]">Create Your First TutorBot</h1>
+            <h1 className="text-2xl font-semibold text-[var(--foreground)]">{t("Create Your First TutorBot")}</h1>
             <p className="mt-2 text-sm text-[var(--muted-foreground)] max-w-md mx-auto">
-              TutorBots are AI teaching agents powered by customizable personas, channel integrations, and RAG-powered knowledge bases.
+              {t("boarding.welcome.subtitle")}
             </p>
           </div>
           <div className="grid gap-3 text-left max-w-sm mx-auto">
             {[
-              "Choose a teaching persona from our soul library",
-              "Give your bot a unique ID and description",
-              "Optionally select an LLM model or use the default",
-              "Chat, manage channels, and upload knowledge",
+              t("boarding.step1"),
+              t("boarding.step2"),
+              t("boarding.step3"),
+              t("boarding.step4"),
             ].map((text, i) => (
               <div key={i} className="flex items-start gap-2 text-sm text-[var(--muted-foreground)]">
                 <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--primary)]/10 text-[var(--primary)] text-xs font-medium mt-0.5">
@@ -121,8 +123,8 @@ export default function BoardingPage() {
       {/* Step 1: Choose Soul */}
       {step === 1 && (
         <div>
-          <h2 className="text-lg font-semibold text-[var(--foreground)] mb-1">Choose a Soul</h2>
-          <p className="text-sm text-[var(--muted-foreground)] mb-6">Pick a teaching persona or use the default.</p>
+          <h2 className="text-lg font-semibold text-[var(--foreground)] mb-1">{t("Choose a Soul")}</h2>
+          <p className="text-sm text-[var(--muted-foreground)] mb-6">{t("Pick a teaching persona or use the default.")}</p>
           <div className="grid gap-3 sm:grid-cols-2">
             {souls.map(soul => (
               <button
@@ -139,15 +141,15 @@ export default function BoardingPage() {
               </button>
             ))}
             <button
-              onClick={() => setSelectedSoul({ id: "_none", name: "No Persona", content: "" })}
+              onClick={() => setSelectedSoul({ id: "_none", name: t("No Persona"), content: "" })}
               className={`text-left rounded-xl border p-4 transition-all ${
                 selectedSoul?.id === "_none"
                   ? "border-[var(--primary)] ring-1 ring-[var(--primary)] bg-[var(--primary)]/5"
                   : "border-[var(--border)] hover:border-[var(--primary)]/50"
               }`}
             >
-              <div className="font-medium text-sm text-[var(--foreground)]">Start Fresh</div>
-              <div className="text-xs text-[var(--muted-foreground)] mt-0.5">No preset persona — define everything later.</div>
+              <div className="font-medium text-sm text-[var(--foreground)]">{t("Start Fresh")}</div>
+              <div className="text-xs text-[var(--muted-foreground)] mt-0.5">{t("No preset persona — define everything later.")}</div>
             </button>
           </div>
         </div>
@@ -156,12 +158,12 @@ export default function BoardingPage() {
       {/* Step 2: Name & Describe */}
       {step === 2 && (
         <div className="max-w-md mx-auto space-y-5">
-          <h2 className="text-lg font-semibold text-[var(--foreground)] mb-1">Name Your Bot</h2>
+          <h2 className="text-lg font-semibold text-[var(--foreground)] mb-1">{t("Name Your Bot")}</h2>
           <p className="text-sm text-[var(--muted-foreground)] mb-6">
-            Choose a unique ID and a display name. The ID becomes part of your bot&apos;s URL.
+            {t("Choose a unique ID and a display name. The ID becomes part of your bot's URL.")}
           </p>
           <div>
-            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">Bot ID</label>
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">{t("Bot ID")}</label>
             <input
               type="text"
               value={botId}
@@ -169,10 +171,10 @@ export default function BoardingPage() {
               className="w-full rounded-lg border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
               placeholder="my-math-tutor"
             />
-            <p className="mt-1 text-xs text-[var(--muted-foreground)]">Only lowercase letters, numbers, hyphens, and underscores.</p>
+            <p className="mt-1 text-xs text-[var(--muted-foreground)]">{t("Only lowercase letters, numbers, hyphens, and underscores.")}</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">Display Name</label>
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">{t("Display Name")}</label>
             <input
               type="text"
               value={name}
@@ -182,7 +184,7 @@ export default function BoardingPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">Description (optional)</label>
+            <label className="block text-sm font-medium text-[var(--foreground)] mb-1">{t("Description (optional)")}</label>
             <textarea
               value={description}
               onChange={e => setDescription(e.target.value)}
@@ -201,13 +203,13 @@ export default function BoardingPage() {
             <Cpu className="h-8 w-8 text-[var(--primary)]" />
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-[var(--foreground)]">Ready to Create</h2>
+            <h2 className="text-lg font-semibold text-[var(--foreground)]">{t("Ready to Create")}</h2>
             <p className="mt-2 text-sm text-[var(--muted-foreground)] max-w-sm mx-auto">
-              Your bot will use the default LLM model. You can change this later in settings.
+              {t("Your bot will use the default LLM model. You can change this later in settings.")}
             </p>
           </div>
           <div className="inline-flex flex-wrap items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--muted)]/50 px-5 py-3 text-sm">
-            <span className="text-[var(--muted-foreground)]">Soul:</span>
+            <span className="text-[var(--muted-foreground)]">{t("Soul")}:</span>
             <span className="font-medium text-[var(--foreground)]">{selectedSoul?.name ?? "None"}</span>
             <span className="text-[var(--border)] hidden sm:inline">|</span>
             <span className="text-[var(--muted-foreground)] hidden sm:inline">ID:</span>
@@ -226,12 +228,12 @@ export default function BoardingPage() {
             <Check className="h-8 w-8 text-green-600 dark:text-green-400" />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-[var(--foreground)]">Bot Created!</h1>
+            <h1 className="text-2xl font-semibold text-[var(--foreground)]">{t("Bot Created!")}</h1>
             <p className="mt-2 text-sm text-[var(--muted-foreground)]">
               {createdBotId && (
                 <span className="font-mono text-[var(--foreground)]">{createdBotId}</span>
               )}{" "}
-              is now running and ready to chat.
+              {t("is now running and ready to chat.")}
             </p>
           </div>
           <div className="flex items-center justify-center gap-3">
@@ -240,13 +242,13 @@ export default function BoardingPage() {
               className="inline-flex items-center gap-2 rounded-lg bg-[var(--primary)] px-5 py-2.5 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 transition-opacity"
             >
               <MessageCircle className="h-4 w-4" />
-              Start Chatting
+              {t("Start Chatting")}
             </Link>
             <Link
               href="/tutorbot/dashboard"
               className="inline-flex items-center gap-2 rounded-lg border border-[var(--border)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] hover:bg-[var(--muted)] transition-colors"
             >
-              Back to Dashboard
+              {t("Back to Dashboard")}
             </Link>
           </div>
         </div>
@@ -261,14 +263,14 @@ export default function BoardingPage() {
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] disabled:opacity-30 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back
+            {t("Back")}
           </button>
           <button
             onClick={() => setStep(s => s + 1)}
             disabled={!canNext()}
             className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--primary)] px-4 py-2 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 disabled:opacity-40 transition-opacity"
           >
-            Next
+            {t("Next")}
             <ArrowRight className="h-4 w-4" />
           </button>
         </div>
@@ -281,7 +283,7 @@ export default function BoardingPage() {
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back
+            {t("Back")}
           </button>
           <button
             onClick={handleCreate}
@@ -291,12 +293,12 @@ export default function BoardingPage() {
             {creating ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Creating...
+                {t("Creating...")}
               </>
             ) : (
               <>
                 <Sparkles className="h-4 w-4" />
-                Create Bot
+                {t("Create Bot")}
               </>
             )}
           </button>

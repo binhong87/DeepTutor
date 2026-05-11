@@ -4,10 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import { useTutorBots } from "@/context/TutorBotContext";
+import { useTranslation } from "react-i18next";
 
 export default function SoulsPage() {
   const { souls, loading } = useTutorBots();
   const [expanded, setExpanded] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   if (loading) {
     return (
@@ -21,18 +23,18 @@ export default function SoulsPage() {
     <div className="max-w-5xl mx-auto px-6 py-8">
       <Link href="/tutorbot/dashboard" className="inline-flex items-center gap-1 text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] mb-6">
         <ArrowLeft className="h-4 w-4" />
-        Dashboard
+        {t("Dashboard")}
       </Link>
 
-      <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-2">Soul Templates</h1>
+      <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-2">{t("Soul Templates")}</h1>
       <p className="text-sm text-[var(--muted-foreground)] mb-8">
-        Reusable personality templates for creating TutorBots. {souls.length} available.
+        {t("Reusable personality templates for creating TutorBots. {{count}} available.", { count: souls.length })}
       </p>
 
       {souls.length === 0 ? (
         <div className="rounded-xl border border-dashed border-[var(--border)] p-12 text-center">
           <BookOpen className="mx-auto h-12 w-12 text-[var(--muted-foreground)]/50" />
-          <p className="mt-4 text-sm text-[var(--muted-foreground)]">No soul templates yet.</p>
+          <p className="mt-4 text-sm text-[var(--muted-foreground)]">{t("No soul templates yet.")}</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">

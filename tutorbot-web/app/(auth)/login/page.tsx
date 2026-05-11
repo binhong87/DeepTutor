@@ -5,12 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { LogIn } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get("next") || "/tutorbot/dashboard";
   const { login } = useAuth();
+  const { t } = useTranslation();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,7 @@ function LoginForm() {
     e.preventDefault();
     setError("");
     if (!username.trim() || !password) {
-      setError("Please enter your username and password.");
+      setError(t("Please enter your username and password."));
       return;
     }
     setSubmitting(true);
@@ -30,15 +32,15 @@ function LoginForm() {
     if (ok) {
       router.replace(next);
     } else {
-      setError("Invalid username or password.");
+      setError(t("Invalid username or password."));
     }
   }
 
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold text-[var(--foreground)]">Sign in to DeepTutor</h1>
-        <p className="mt-1 text-sm text-[var(--muted-foreground)]">Access your TutorBots and knowledge bases</p>
+        <h1 className="text-2xl font-semibold text-[var(--foreground)]">{t("Sign in to DeepTutor")}</h1>
+        <p className="mt-1 text-sm text-[var(--muted-foreground)]">{t("Access your TutorBots and knowledge bases")}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -50,7 +52,7 @@ function LoginForm() {
 
         <div>
           <label htmlFor="username" className="block text-sm font-medium text-[var(--foreground)] mb-1">
-            Username or email
+            {t("Username or email")}
           </label>
           <input
             id="username"
@@ -65,7 +67,7 @@ function LoginForm() {
 
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-[var(--foreground)] mb-1">
-            Password
+            {t("Password")}
           </label>
           <input
             id="password"
@@ -83,14 +85,14 @@ function LoginForm() {
           className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--primary)] px-4 py-2.5 text-sm font-medium text-[var(--primary-foreground)] hover:opacity-90 disabled:opacity-50 transition-opacity"
         >
           <LogIn className="h-4 w-4" />
-          {submitting ? "Signing in..." : "Sign in"}
+          {submitting ? t("Signing in...") : t("Sign in")}
         </button>
       </form>
 
       <p className="text-center text-sm text-[var(--muted-foreground)]">
-        Don&apos;t have an account?{" "}
+        {t("Don't have an account?")}{" "}
         <Link href="/register" className="text-[var(--primary)] hover:underline font-medium">
-          Create one
+          {t("Create one")}
         </Link>
       </p>
     </div>
