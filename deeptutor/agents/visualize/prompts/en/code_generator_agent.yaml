@@ -100,7 +100,7 @@ system: |
     ```
   - Do NOT include any explanation outside the code fence.
   - Wrap the code in a fenced code block with the appropriate language tag
-    (```svg, ```javascript, ```mermaid, or ```html).
+    (```svg, ```javascript, ```mermaid, ```html, ```function_graph, or ```geometry).
 
 user_template: |
   User request:

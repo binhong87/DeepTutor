@@ -24,6 +24,20 @@ system: |
   - Proper subgraph structure and nesting if used
   - No syntax errors that would cause rendering failure
 
+  For function_graph JSON specs, check:
+  - Valid JSON (parseable, no trailing commas, no comments)
+  - xDomain field present as a two-element number array
+  - functions array is non-empty with at least one entry containing a valid fn string
+  - fn strings use valid math expressions (x as variable for y=f(x))
+  - Fix any malformed JSON; otherwise return unchanged with changed=false
+
+  For geometry JSON specs, check:
+  - Valid JSON (parseable, no trailing commas, no comments)
+  - boundingBox field present as a four-element number array [left, top, right, bottom]
+  - elements array is non-empty
+  - Every "from"/"to"/"center"/"vertex" reference in elements points to a previously defined id
+  - Fix any malformed JSON or dangling references; otherwise return unchanged with changed=false
+
   If the code is already good, return it unchanged with changed=false.
   If you make improvements, return the optimized code with changed=true.
 

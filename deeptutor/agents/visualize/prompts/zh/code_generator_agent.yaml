@@ -88,7 +88,7 @@ system: |
     }
     ```
   - 不要在代码块之外包含任何解释。
-  - 用带有适当语言标签的代码块包裹代码（```svg、```javascript、```mermaid 或 ```html）。
+  - 用带有适当语言标签的代码块包裹代码（```svg、```javascript、```mermaid、```html、```function_graph 或 ```geometry）。
 
 user_template: |
   用户请求：

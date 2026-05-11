@@ -161,6 +161,10 @@ class VisualizeCapability(BaseCapability):
             lang_tag = "mermaid"
         elif analysis.render_type == "html":
             lang_tag = "html"
+        elif analysis.render_type == "function_graph":
+            lang_tag = "function_graph"
+        elif analysis.render_type == "geometry":
+            lang_tag = "geometry"
         else:
             lang_tag = "javascript"
         content_md = f"```{lang_tag}\n{final_code}\n```"
@@ -269,7 +273,7 @@ class VisualizeCapability(BaseCapability):
 
         default_type = "html" if is_html_mode else "svg"
         render_type = str(parsed.get("render_type") or default_type).strip().lower()
-        if render_type not in {"svg", "chartjs", "mermaid", "html"}:
+        if render_type not in {"svg", "chartjs", "mermaid", "html", "function_graph", "geometry"}:
             render_type = default_type
         final_code = str(parsed.get("code") or "").strip()
 
@@ -279,6 +283,10 @@ class VisualizeCapability(BaseCapability):
             lang_tag = "svg"
         elif render_type == "mermaid":
             lang_tag = "mermaid"
+        elif render_type == "function_graph":
+            lang_tag = "function_graph"
+        elif render_type == "geometry":
+            lang_tag = "geometry"
         else:
             lang_tag = "javascript"
         content_md = f"```{lang_tag}\n{final_code}\n```"

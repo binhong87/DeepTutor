@@ -1,11 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { Code2, Copy, Check, ExternalLink, Maximize2, X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Mermaid } from "@/components/Mermaid";
 import { prepareIframeHtml } from "@/lib/iframe-html";
 import type { VisualizeResult } from "@/lib/visualize-types";
+
+const LazyFunctionGraph = dynamic(() => import("@/components/FunctionGraph"), { ssr: false });
+const LazyGeometryGraph = dynamic(() => import("@/components/GeometryGraph"), { ssr: false });
 
 function ChartJsRenderer({ config }: { config: string }) {
   const { t } = useTranslation();
@@ -169,6 +173,12 @@ function renderVisualization(result: VisualizeResult) {
   if (result.render_type === "html") {
     return <HtmlRenderer html={result.code.content} />;
   }
+  if (result.render_type === "function_graph") {
+    return <LazyFunctionGraph spec={result.code.content} />;
+  }
+  if (result.render_type === "geometry") {
+    return <LazyGeometryGraph spec={result.code.content} />;
+  }
   return <ChartJsRenderer config={result.code.content} />;
 }
 
@@ -265,7 +275,11 @@ export default function VisualizationViewer({
               ? `Mermaid · ${result.analysis.chart_type || "diagram"}`
               : result.render_type === "html"
                 ? `HTML · ${result.analysis.chart_type || "interactive"}`
-                : `Chart.js · ${result.analysis.chart_type || "chart"}`}
+                : result.render_type === "function_graph"
+                  ? `function-plot · ${result.analysis.chart_type || "graph"}`
+                  : result.render_type === "geometry"
+                    ? `JSXGraph · ${result.analysis.chart_type || "geometry"}`
+                    : `Chart.js · ${result.analysis.chart_type || "chart"}`}
         </span>
       </div>
 
@@ -300,7 +314,11 @@ export default function VisualizationViewer({
                 ? "SVG"
                 : result.render_type === "mermaid"
                   ? `Mermaid · ${result.analysis.chart_type || "diagram"}`
-                  : `Chart.js · ${result.analysis.chart_type || "chart"}`}
+                  : result.render_type === "function_graph"
+                    ? `function-plot · ${result.analysis.chart_type || "graph"}`
+                    : result.render_type === "geometry"
+                      ? `JSXGraph · ${result.analysis.chart_type || "geometry"}`
+                      : `Chart.js · ${result.analysis.chart_type || "chart"}`}
             </div>
             <button
               type="button"

@@ -1,4 +1,4 @@
-export type VisualizeRenderType = "svg" | "chartjs" | "mermaid" | "html";
+export type VisualizeRenderType = "svg" | "chartjs" | "mermaid" | "html" | "function_graph" | "geometry";
 export type VisualizeRenderMode =
   | "auto"
   | "svg"
@@ -74,7 +74,9 @@ export function extractVisualizeResult(
     renderType !== "svg" &&
     renderType !== "chartjs" &&
     renderType !== "mermaid" &&
-    renderType !== "html"
+    renderType !== "html" &&
+    renderType !== "function_graph" &&
+    renderType !== "geometry"
   )
     return null;
 

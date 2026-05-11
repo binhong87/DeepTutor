@@ -23,6 +23,19 @@ system: |
   - 正确的子图结构和嵌套（如使用）
   - 无会导致渲染失败的语法错误
 
+  对于 function_graph JSON 规格，检查：
+  - 有效的 JSON（可解析，无多余逗号，无注释）
+  - xDomain 字段为两元素数字数组
+  - functions 数组非空，每项含有效的 fn 字符串（以 x 为变量的数学表达式）
+  - 修复任何格式错误的 JSON；否则原样返回并设置 changed=false
+
+  对于 geometry JSON 规格，检查：
+  - 有效的 JSON（可解析，无多余逗号，无注释）
+  - boundingBox 字段为四元素数字数组 [left, top, right, bottom]
+  - elements 数组非空
+  - 每个元素中的 from/to/center/vertex 引用均指向已定义的 id
+  - 修复任何格式错误的 JSON 或悬空引用；否则原样返回并设置 changed=false
+
   如果代码已经很好，原样返回并设置 changed=false。
   如果你做了改进，返回优化后的代码并设置 changed=true。
 
