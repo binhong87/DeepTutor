@@ -70,6 +70,10 @@ class CodeGeneratorAgent(BaseAgent):
             lang_hint = "mermaid"
         elif analysis.render_type == "html":
             lang_hint = "html"
+        elif analysis.render_type == "function_graph":
+            lang_hint = "function_graph"
+        elif analysis.render_type == "geometry":
+            lang_hint = "geometry"
         else:
             lang_hint = "javascript"
 
