@@ -100,6 +100,8 @@ def main() -> None:
     env = os.environ.copy()
     env["PORT"] = str(PORT)
     env["PYTHONIOENCODING"] = "utf-8:replace"
+    # Propagate heap limit to all spawned webpack/postcss worker processes.
+    env["NODE_OPTIONS"] = "--max-old-space-size=2048"
 
     kwargs: dict = {
         "cwd": str(TUTORBOT_WEB),

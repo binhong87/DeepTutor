@@ -635,6 +635,10 @@ def main() -> None:
     frontend_env["AUTH_ENABLED"] = "true" if auth_enabled else "false"
     frontend_env["NEXT_PUBLIC_AUTH_ENABLED"] = "true" if auth_enabled else "false"
     frontend_env["PYTHONIOENCODING"] = "utf-8:replace"
+    # Propagate the heap limit to ALL spawned node child processes (webpack workers,
+    # postcss workers, etc.) — --max-old-space-size in the npm script only limits the
+    # parent node process; workers inherit NODE_OPTIONS from the environment.
+    frontend_env["NODE_OPTIONS"] = "--max-old-space-size=2048"
 
     backend_cmd = [sys.executable, "-m", "deeptutor.api.run_server"]
     frontend_cmd = [npm, "run", "dev", "--", "--port", str(frontend_port)]
