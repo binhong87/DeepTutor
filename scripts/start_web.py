@@ -638,7 +638,7 @@ def main() -> None:
     # Propagate the heap limit to ALL spawned node child processes (webpack workers,
     # postcss workers, etc.) — --max-old-space-size in the npm script only limits the
     # parent node process; workers inherit NODE_OPTIONS from the environment.
-    frontend_env["NODE_OPTIONS"] = "--max-old-space-size=2048"
+    frontend_env["NODE_OPTIONS"] = "--max-old-space-size=4096"
 
     backend_cmd = [sys.executable, "-m", "deeptutor.api.run_server"]
     frontend_cmd = [npm, "run", "dev", "--", "--port", str(frontend_port)]
