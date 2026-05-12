@@ -283,12 +283,38 @@ class AgentLoop:
                     thinking_blocks=response.thinking_blocks,
                 )
 
+                _TOOL_TIMEOUT = 120  # seconds — prevents indefinite hangs on slow pipelines
+                _KEEPALIVE_INTERVAL = 8  # seconds between progress pings
+
                 direct_result: str | None = None
                 for tool_call in response.tool_calls:
                     tools_used.append(tool_call.name)
                     args_str = json.dumps(tool_call.arguments, ensure_ascii=False)
                     logger.info("Tool call: {}({})", tool_call.name, args_str[:200])
-                    result = await self.tools.execute(tool_call.name, tool_call.arguments)
+
+                    # Keep the client's "thinking" spinner alive during long tool calls
+                    # (e.g. multi-stage LLM pipelines that hold the event loop for 60–90 s).
+                    async def _keepalive(name: str = tool_call.name) -> None:
+                        await asyncio.sleep(_KEEPALIVE_INTERVAL)
+                        while True:
+                            if on_progress:
+                                try:
+                                    await on_progress(f"Working on {name}…")
+                                except Exception:
+                                    pass
+                            await asyncio.sleep(_KEEPALIVE_INTERVAL)
+
+                    keepalive_task = asyncio.create_task(_keepalive())
+                    try:
+                        result = await asyncio.wait_for(
+                            self.tools.execute(tool_call.name, tool_call.arguments),
+                            timeout=_TOOL_TIMEOUT,
+                        )
+                    except asyncio.TimeoutError:
+                        result = f"Error: tool '{tool_call.name}' timed out after {_TOOL_TIMEOUT}s."
+                    finally:
+                        keepalive_task.cancel()
+
                     if result.startswith(_DIRECT_RESULT_PREFIX):
                         direct_result = result[len(_DIRECT_RESULT_PREFIX):]
                         messages = self.context.add_tool_result(
