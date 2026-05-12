@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Lora } from "next/font/google";
+import Script from "next/script";
 import { AppShellProvider } from "@/context/AppShellContext";
 import { AuthProvider } from "@/context/AuthContext";
 import { TutorBotProvider } from "@/context/TutorBotContext";
@@ -30,14 +31,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-scroll-behavior="smooth"
       className={`${jakartaSans.variable} ${lora.variable} h-full antialiased`}
     >
-      <head>
-        <script
+      <body className="font-sans bg-[var(--background)] text-[var(--foreground)] min-h-full flex flex-col">
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem("deeptutor-theme");if(!t||t==="system"){t=window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"}var h=document.documentElement;h.classList.remove("dark","theme-glass","theme-snow");if(t==="dark")h.classList.add("dark");else if(t==="glass"){h.classList.add("dark","theme-glass")}else if(t==="snow")h.classList.add("theme-snow")}catch(e){}})()`,
           }}
         />
-      </head>
-      <body className="font-sans bg-[var(--background)] text-[var(--foreground)] min-h-full flex flex-col">
         <AppShellProvider>
           <AuthProvider>
             <TutorBotProvider>
