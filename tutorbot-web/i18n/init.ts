@@ -1,7 +1,4 @@
-"use client";
-
 import i18n, { type Resource } from "i18next";
-import { initReactI18next } from "react-i18next";
 
 import enApp from "@/locales/en/app.json";
 import zhApp from "@/locales/zh/app.json";
@@ -17,8 +14,12 @@ export function normalizeLanguage(lang: unknown): AppLanguage {
 
 let _initialized = false;
 
-export function initI18n(language?: unknown) {
+export async function initI18n(language?: unknown) {
   if (_initialized) return i18n;
+
+  // Dynamic import avoids turbopack RSC issue: react-i18next calls createContext()
+  // at module level, which only works in the regular React bundle, not RSC React.
+  const { initReactI18next } = await import("react-i18next");
 
   const resources: Resource = {
     en: { app: enApp },
@@ -37,9 +38,6 @@ export function initI18n(language?: unknown) {
     },
     returnEmptyString: false,
     returnNull: false,
-    // Synchronous init — ensures i18n is ready before first render on both
-    // server and client, preventing SSR/hydration translation mismatches.
-    initImmediate: false,
   });
 
   _initialized = true;
