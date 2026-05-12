@@ -407,6 +407,29 @@ def _kill_port_holders_win(ports: list[int]) -> None:
         time.sleep(0.5)  # let the OS release the ports before we bind them
 
 
+def _kill_webpack_workers_win(project_web_path: Path) -> None:
+    """Windows-only: kill all orphaned webpack/postcss worker processes for this project.
+
+    Port-based kill alone isn't enough — webpack spawns thousands of short-lived
+    ``postcss.js`` workers that get re-parented when npm exits and can't be found
+    by port. This kills them by matching the project path in their command line.
+    """
+    if os.name != "nt":
+        return
+    path_fragment = str(project_web_path).replace("\\", "\\\\")
+    query = f"name='node.exe' and CommandLine like '%{path_fragment}%'"
+    try:
+        subprocess.run(
+            ["wmic", "process", "where", query, "delete"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=30,
+            check=False,
+        )
+    except Exception:
+        pass
+
+
 def _collect_port_conflicts(ports: dict[str, int]) -> list[PortConflict]:
     conflicts: list[PortConflict] = []
     for name, port in ports.items():
@@ -467,6 +490,9 @@ def _cleanup_previous_launch_if_safe(ports: dict[str, int], language: str) -> No
     # Second pass: kill any surviving port holders that taskkill /T missed
     # (orphaned webpack worker grandchildren re-parented after npm exits).
     _kill_port_holders_win(list(ports.values()))
+    # Third pass: kill all orphaned webpack/postcss workers by project path —
+    # re-parented workers have no port to find them by.
+    _kill_webpack_workers_win(PROJECT_ROOT / "web")
 
 
 def _ensure_ports_available(backend_port: int, frontend_port: int, language: str) -> None:
