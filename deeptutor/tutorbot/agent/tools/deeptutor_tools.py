@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Any
 
 from deeptutor.tutorbot.agent.tools.base import Tool
+from deeptutor.tutorbot.agent.tools.registry import DIRECT_RESULT_PREFIX as _DIRECT_RESULT_PREFIX
 
 
 class BrainstormAdapterTool(Tool):
@@ -368,6 +369,7 @@ class VisualizeAdapterTool(Tool):
             "html": "html",
             "function_graph": "function_graph",
             "geometry": "geometry",
+            "chartjs": "chartjs",
         }
-        lang_tag = lang_map.get(analysis.render_type, "javascript")
-        return f"```{lang_tag}\n{final_code}\n```"
+        lang_tag = lang_map.get(analysis.render_type, "text")
+        return f"{_DIRECT_RESULT_PREFIX}```{lang_tag}\n{final_code}\n```"

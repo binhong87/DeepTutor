@@ -21,7 +21,7 @@ from deeptutor.tutorbot.agent.team import TeamManager
 from deeptutor.tutorbot.agent.team.tools import TeamTool
 from deeptutor.tutorbot.agent.tools.cron import CronTool
 from deeptutor.tutorbot.agent.tools.message import MessageTool
-from deeptutor.tutorbot.agent.tools.registry import ToolRegistry, build_base_tools
+from deeptutor.tutorbot.agent.tools.registry import DIRECT_RESULT_PREFIX as _DIRECT_RESULT_PREFIX, ToolRegistry, build_base_tools
 from deeptutor.tutorbot.agent.tools.spawn import SpawnTool
 from deeptutor.tutorbot.bus.events import InboundMessage, OutboundMessage
 from deeptutor.tutorbot.bus.queue import MessageBus
@@ -283,14 +283,24 @@ class AgentLoop:
                     thinking_blocks=response.thinking_blocks,
                 )
 
+                direct_result: str | None = None
                 for tool_call in response.tool_calls:
                     tools_used.append(tool_call.name)
                     args_str = json.dumps(tool_call.arguments, ensure_ascii=False)
                     logger.info("Tool call: {}({})", tool_call.name, args_str[:200])
                     result = await self.tools.execute(tool_call.name, tool_call.arguments)
+                    if result.startswith(_DIRECT_RESULT_PREFIX):
+                        direct_result = result[len(_DIRECT_RESULT_PREFIX):]
+                        messages = self.context.add_tool_result(
+                            messages, tool_call.id, tool_call.name, direct_result
+                        )
+                        break
                     messages = self.context.add_tool_result(
                         messages, tool_call.id, tool_call.name, result
                     )
+                if direct_result is not None:
+                    final_content = direct_result
+                    break
             else:
                 clean = self._strip_think(response.content)
                 # Don't persist error responses to session history — they can

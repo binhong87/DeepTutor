@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+# Tools that return this prefix signal that their output should be used as the
+# final response verbatim, bypassing the second LLM summarisation call.
+DIRECT_RESULT_PREFIX = "\x00DIRECT\x00"
+
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 

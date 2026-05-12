@@ -51,6 +51,91 @@ const LazyCodeBlock = dynamic(() => import("./RichCodeBlock"), {
   loading: () => null,
 });
 
+// --- Inline visualization renderers (svg / html / chartjs) -----------------
+
+function SvgRenderer({ svg }: { svg: string }) {
+  const trimmed = svg.trim();
+  if (!trimmed.startsWith("<svg")) {
+    return (
+      <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-600 dark:border-red-900/60 dark:bg-red-950/30">
+        Invalid SVG
+      </div>
+    );
+  }
+  return (
+    <div
+      className="flex justify-center overflow-x-auto"
+      dangerouslySetInnerHTML={{ __html: trimmed }}
+    />
+  );
+}
+
+function HtmlRenderer({ html }: { html: string }) {
+  const iframeRef = React.useRef<HTMLIFrameElement>(null);
+  React.useEffect(() => {
+    if (iframeRef.current) iframeRef.current.srcdoc = html;
+  }, [html]);
+  return (
+    <iframe
+      ref={iframeRef}
+      title="HTML visualization"
+      sandbox="allow-scripts"
+      className="w-full rounded-lg border border-[var(--border)] bg-white"
+      style={{ minHeight: 400, height: 480 }}
+    />
+  );
+}
+
+function ChartJsRenderer({ config }: { config: string }) {
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const chartRef = React.useRef<unknown>(null);
+  const [error, setError] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    async function render() {
+      if (!canvasRef.current) return;
+      try {
+        const { default: Chart } = await import("chart.js/auto");
+        if (chartRef.current) {
+          (chartRef.current as InstanceType<typeof Chart>).destroy();
+          chartRef.current = null;
+        }
+        // eslint-disable-next-line no-new-func
+        const parsed = new Function(`"use strict"; return (${config});`)();
+        if (cancelled) return;
+        chartRef.current = new Chart(canvasRef.current, parsed);
+        setError(null);
+      } catch (err) {
+        if (!cancelled) setError(err instanceof Error ? err.message : "Failed to render chart");
+      }
+    }
+    void render();
+    return () => {
+      cancelled = true;
+      if (chartRef.current) {
+        (chartRef.current as { destroy: () => void }).destroy();
+        chartRef.current = null;
+      }
+    };
+  }, [config]);
+
+  if (error) {
+    return (
+      <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-600 dark:border-red-900/60 dark:bg-red-950/30">
+        Chart error: {error}
+      </div>
+    );
+  }
+  return (
+    <div className="relative w-full" style={{ maxHeight: 480 }}>
+      <canvas ref={canvasRef} />
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+
 type PluginBundle = {
   remarkMath?: unknown;
   rehypeKatex?: unknown;
@@ -468,6 +553,30 @@ export default function RichMarkdownRenderer({
         return (
           <div {...lineProps}>
             <LazyGeometryGraph spec={raw} className={gap} />
+          </div>
+        );
+      }
+
+      if (lang === "svg") {
+        return (
+          <div {...lineProps}>
+            <SvgRenderer svg={raw} />
+          </div>
+        );
+      }
+
+      if (lang === "html") {
+        return (
+          <div {...lineProps}>
+            <HtmlRenderer html={raw} />
+          </div>
+        );
+      }
+
+      if (lang === "chartjs") {
+        return (
+          <div {...lineProps}>
+            <ChartJsRenderer config={raw} />
           </div>
         );
       }

@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
     "i18next": "^26.0.10",
     "katex": "^0.16.45",
