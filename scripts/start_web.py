@@ -416,7 +416,7 @@ def _kill_webpack_workers_win(project_web_path: Path) -> None:
     """
     if os.name != "nt":
         return
-    path_fragment = str(project_web_path).replace("\\", "\\\\")
+    path_fragment = str(project_web_path)
     query = f"name='node.exe' and CommandLine like '%{path_fragment}%'"
     try:
         subprocess.run(
@@ -667,6 +667,8 @@ def main() -> None:
         _terminate(frontend, language)
         _terminate(backend, language)
         _remove_state()
+        # Kill orphaned webpack/postcss workers that survived taskkill /T.
+        _kill_webpack_workers_win(PROJECT_ROOT / "web")
 
     _install_signal_handlers(request_shutdown)
     atexit.register(cleanup)
