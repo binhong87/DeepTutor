@@ -1,4 +1,5 @@
 import i18n, { type Resource } from "i18next";
+import { initReactI18next } from "react-i18next";
 
 import enApp from "@/locales/en/app.json";
 import zhApp from "@/locales/zh/app.json";
@@ -14,12 +15,8 @@ export function normalizeLanguage(lang: unknown): AppLanguage {
 
 let _initialized = false;
 
-export async function initI18n(language?: unknown) {
+export function initI18n(language?: unknown) {
   if (_initialized) return i18n;
-
-  // Dynamic import avoids turbopack SSR issues with react-i18next's
-  // module-level createContext() call.
-  const { initReactI18next } = await import("react-i18next");
 
   const resources: Resource = {
     en: { app: enApp },
@@ -38,6 +35,9 @@ export async function initI18n(language?: unknown) {
     },
     returnEmptyString: false,
     returnNull: false,
+    // Synchronous init — ensures i18n is ready before first render on both
+    // server and client, preventing SSR/hydration translation mismatches.
+    initImmediate: false,
   });
 
   _initialized = true;
