@@ -184,6 +184,10 @@ class AgentLoop:
             ReasonAdapterTool,
             VisualizeAdapterTool,
         )
+        from deeptutor.tutorbot.agent.tools.lesson import (
+            CompleteStepTool,
+            PlanLessonTool,
+        )
 
         for tool_cls in (
             BrainstormAdapterTool,
@@ -192,6 +196,8 @@ class AgentLoop:
             ReasonAdapterTool,
             PaperSearchAdapterTool,
             VisualizeAdapterTool,
+            PlanLessonTool,
+            CompleteStepTool,
         ):
             self.tools.register(tool_cls())
 
@@ -224,6 +230,13 @@ class AgentLoop:
             if tool := self.tools.get(name):
                 if hasattr(tool, "set_context"):
                     tool.set_context(channel, chat_id, *([message_id] if name == "message" else []))
+
+    def _set_lesson_session_accessor(self, session_getter) -> None:
+        """Point the lesson tools at the active session for the current turn."""
+        for name in ("plan_lesson", "complete_step"):
+            if tool := self.tools.get(name):
+                if hasattr(tool, "set_session_accessor"):
+                    tool.set_session_accessor(session_getter)
 
     @staticmethod
     def _strip_think(text: str | None) -> str | None:
@@ -530,6 +543,7 @@ class AgentLoop:
             session = self.sessions.get_or_create(key)
             await self.memory_consolidator.maybe_consolidate_by_tokens(session)
             self._set_tool_context(channel, chat_id, msg.metadata.get("message_id"))
+            self._set_lesson_session_accessor(lambda s=session: s)
             history = session.get_history(max_messages=0)
             messages = self.context.build_messages(
                 history=history,
@@ -762,6 +776,21 @@ class AgentLoop:
         await self.memory_consolidator.maybe_consolidate_by_tokens(session)
 
         self._set_tool_context(msg.channel, msg.chat_id, msg.metadata.get("message_id"))
+        # Bind the lesson tools to this session so they can read/write metadata.
+        self._set_lesson_session_accessor(lambda s=session: s)
+
+        # If there's an active lesson plan, give the LLM the plan state in this
+        # turn's user message so it knows where it is. Prepended to the user's
+        # actual message; the system prompt already explains how to use it.
+        from deeptutor.tutorbot.agent.lesson import load as _load_plan, render_status_block
+
+        active_plan = _load_plan(session)
+        if active_plan is not None:
+            current_message = (
+                f"{render_status_block(active_plan)}\n\n"
+                f"---\n\nStudent message:\n{current_message}"
+            )
+
         if message_tool := self.tools.get("message"):
             if isinstance(message_tool, MessageTool):
                 message_tool.start_turn()
