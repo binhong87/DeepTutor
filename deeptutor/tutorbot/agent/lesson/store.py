@@ -86,4 +86,45 @@ def render_status_block(plan: LessonPlan) -> str:
     return "\n".join(lines)
 
 
-__all__ = ["load", "save", "clear", "advance_to", "complete", "render_status_block"]
+# ── Heuristics ────────────────────────────────────────────────────────────────
+
+# Verbs / phrases that strongly indicate a pedagogical request. Checked
+# case-insensitively against the user message. Over-triggering is acceptable
+# (a 1-step plan is still useful structure); under-triggering loses the whole
+# point of the mechanism.
+_TEACHING_KEYWORDS = (
+    # Chinese
+    "讲解", "讲讲", "讲一讲", "解释", "介绍", "说明", "阐述",
+    "什么是", "怎么理解", "怎么", "如何",
+    "系统地讲", "图文", "画一下", "画出", "帮我画",
+    # English
+    "explain", "walk me through", "walk through", "show me how",
+    "teach me", "tutorial", "lesson on", "lesson about",
+    "help me understand", "help me learn", "introduction to",
+    "what is the", "how does", "how do",
+)
+
+
+def looks_like_teaching_request(message: str) -> bool:
+    """Return True if `message` reads like a multi-part teaching request.
+
+    Used to decide whether to inject a runtime nudge asking the LLM to call
+    `plan_lesson` before doing anything else. False positives are cheap
+    (the LLM will make a 1-2 step plan); false negatives skip the structure
+    entirely, which is the worse failure.
+    """
+    if not message:
+        return False
+    lower = message.lower()
+    return any(kw in lower for kw in _TEACHING_KEYWORDS)
+
+
+__all__ = [
+    "load",
+    "save",
+    "clear",
+    "advance_to",
+    "complete",
+    "render_status_block",
+    "looks_like_teaching_request",
+]

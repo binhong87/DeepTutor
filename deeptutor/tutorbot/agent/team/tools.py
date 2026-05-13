@@ -24,7 +24,11 @@ class TeamTool(Tool):
 
     @property
     def description(self) -> str:
-        return "Internal team orchestration API."
+        return (
+            "Multi-agent orchestration: spin up sub-agents to work on software "
+            "tasks (code review, research pipelines, etc.). NOT for tutoring: "
+            "use `plan_lesson` to structure teaching turns."
+        )
 
     @property
     def parameters(self) -> dict[str, Any]:

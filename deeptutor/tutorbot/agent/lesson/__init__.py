@@ -6,7 +6,15 @@ through one step per user turn.
 """
 
 from .plan import LessonPhase, LessonPlan, LessonStep
-from .store import advance_to, clear, complete, load, render_status_block, save
+from .store import (
+    advance_to,
+    clear,
+    complete,
+    load,
+    looks_like_teaching_request,
+    render_status_block,
+    save,
+)
 
 __all__ = [
     "LessonPhase",
@@ -18,4 +26,5 @@ __all__ = [
     "advance_to",
     "complete",
     "render_status_block",
+    "looks_like_teaching_request",
 ]

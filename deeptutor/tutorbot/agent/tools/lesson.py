@@ -60,13 +60,19 @@ class PlanLessonTool(_SessionAwareTool):
     @property
     def description(self) -> str:
         return (
-            "Before teaching a multi-part topic, call this ONCE to commit to a "
-            "short ordered plan (3-6 steps). Each step picks a teaching phase "
-            "(assess / define / explain / check / adapt / wrap_up) and a short "
-            "student-facing goal. Execute ONLY step 1 in this turn, call "
-            "`complete_step` when done, then let the student respond before "
-            "moving on. Do not call `plan_lesson` again unless the student "
-            "switches to a new topic."
+            "**THE planning tool for teaching.** Call this ONCE at the start "
+            "of any substantive teaching / explanation turn. This is NOT for "
+            "delegating to sub-agents — it's for structuring YOUR OWN turn-by-"
+            "turn lesson delivery.\n\n"
+            "Prefer this over `team` for tutoring. `team` is for multi-agent "
+            "orchestration of software tasks; `plan_lesson` is for pedagogy: "
+            "breaking a teaching topic into 3–6 ordered steps, each picking a "
+            "phase (assess / define / explain / check / adapt / wrap_up) and "
+            "a short student-facing goal.\n\n"
+            "After calling, execute ONLY step 1 this turn, then call "
+            "`complete_step`, then STOP — let the student react before moving "
+            "on. Do NOT call `plan_lesson` again until the student switches "
+            "to a new topic."
         )
 
     @property

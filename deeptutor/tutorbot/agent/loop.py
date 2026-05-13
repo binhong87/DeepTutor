@@ -172,7 +172,13 @@ class AgentLoop:
         )
         self.tools.register(MessageTool(send_callback=self.bus.publish_outbound))
         self.tools.register(SpawnTool(manager=self.subagents))
-        self.tools.register(TeamTool(manager=self.team))
+        # NOTE: TeamTool intentionally not registered for the default tutorbot.
+        # It competes with plan_lesson for the "structure a multi-step task"
+        # mind-share and LLMs preferentially pick it even for pure teaching
+        # prompts. Users who genuinely want multi-agent orchestration can
+        # still trigger it via the `/team <goal>` slash command (handled in
+        # _process_message), which preserves the feature without polluting
+        # the LLM's tool schema.
         if self.cron_service:
             self.tools.register(CronTool(self.cron_service))
 
@@ -200,6 +206,13 @@ class AgentLoop:
             CompleteStepTool,
         ):
             self.tools.register(tool_cls())
+
+        # Log the registered tool set once at boot so it is easy to see
+        # from the backend log whether plan_lesson/complete_step are present.
+        logger.info(
+            "Tutorbot tools registered: {}",
+            sorted(self.tools.tool_names),
+        )
 
     async def _connect_mcp(self) -> None:
         """Connect to configured MCP servers (one-time, lazy)."""
@@ -779,16 +792,57 @@ class AgentLoop:
         # Bind the lesson tools to this session so they can read/write metadata.
         self._set_lesson_session_accessor(lambda s=session: s)
 
-        # If there's an active lesson plan, give the LLM the plan state in this
-        # turn's user message so it knows where it is. Prepended to the user's
-        # actual message; the system prompt already explains how to use it.
-        from deeptutor.tutorbot.agent.lesson import load as _load_plan, render_status_block
+        # Lesson-plan runtime injections. Two cases:
+        #  (a) no plan AND user message looks like a teaching request → short
+        #      urgent nudge to call plan_lesson FIRST. Placed right next to
+        #      the student's message where the model can't ignore it.
+        #  (b) plan is active AND the last assistant turn ended with a
+        #      DIRECT_RESULT (e.g. visualize) → explicit "call complete_step
+        #      first" hint so the LLM doesn't skip step closure.
+        from deeptutor.tutorbot.agent.lesson import (
+            load as _load_plan,
+            looks_like_teaching_request,
+            render_status_block,
+        )
 
         active_plan = _load_plan(session)
-        if active_plan is not None:
+
+        if active_plan is None and looks_like_teaching_request(current_message):
+            nudge = (
+                "[Runtime guidance — not student input]\n"
+                "This looks like a teaching / explanation request. Your FIRST tool "
+                "call this turn MUST be `plan_lesson` with 3–6 ordered steps. "
+                "Do NOT answer free-form. Do NOT call `visualize` before `plan_lesson`. "
+                "After planning, execute exactly ONE step this turn, then call "
+                "`complete_step` and stop."
+            )
+            current_message = f"{nudge}\n\n---\n\nStudent message:\n{current_message}"
+
+        elif active_plan is not None:
+            status = render_status_block(active_plan)
+            # Auto-resume hint: detect an in-progress step whose previous turn
+            # likely ended with a DIRECT_RESULT (fenced code block from visualize).
+            # Checked by inspecting the last assistant message in the persisted
+            # history — if it starts with ``` we assume the step is mid-execution.
+            resume_hint = ""
+            current_step = active_plan.find(active_plan.current_step_id or "")
+            if current_step and current_step.status == "in_progress":
+                # Scan back through history for the last assistant message.
+                last_assistant_text = ""
+                for entry in reversed(history):
+                    if entry.get("role") == "assistant" and entry.get("content"):
+                        last_assistant_text = str(entry["content"])
+                        break
+                if last_assistant_text.lstrip().startswith("```"):
+                    resume_hint = (
+                        f"\n\n**Your previous turn ended with a figure for step "
+                        f"`{current_step.id}`. Your FIRST tool call this turn MUST "
+                        f"be `complete_step(id='{current_step.id}', "
+                        f"output_summary='...')` to close it out before starting "
+                        f"the next step.**"
+                    )
             current_message = (
-                f"{render_status_block(active_plan)}\n\n"
-                f"---\n\nStudent message:\n{current_message}"
+                f"{status}{resume_hint}\n\n---\n\nStudent message:\n{current_message}"
             )
 
         if message_tool := self.tools.get("message"):
