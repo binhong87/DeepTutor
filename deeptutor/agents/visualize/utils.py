@@ -82,7 +82,27 @@ def is_valid_html_document(html: str) -> bool:
     if not html:
         return False
     lowered = html.lower()
-    return "<html" in lowered or "<!doctype" in lowered or "<body" in lowered or "<div" in lowered
+    has_shell = (
+        "<html" in lowered
+        or "<!doctype" in lowered
+        or "<body" in lowered
+        or "<div" in lowered
+    )
+    if not has_shell:
+        return False
+    # Reject placeholder skeletons that LLMs sometimes emit when they stall
+    # mid-generation, e.g. `<h1>...</h1>`, `viewBox="..."`, `/* CSS styles */`.
+    # The shell looks valid but the content is meta-text describing what
+    # *would* go there, so the iframe renders a near-empty page.
+    placeholder_markers = (
+        re.findall(r">\s*\.\.\.\s*<", html)
+        + re.findall(r'=\s*"\s*\.\.\.\s*"', html)
+        + re.findall(r"/\*\s*(?:css|javascript|js|html)\s*[a-z ]*\s*\*/", lowered)
+        + re.findall(r"//\s*optional\s+(?:interactivity|script|behavior)\b", lowered)
+    )
+    if len(placeholder_markers) >= 2:
+        return False
+    return True
 
 
 def build_fallback_html(*, title: str, summary: str = "", note: str = "") -> str:
