@@ -533,6 +533,7 @@ class BaseAgent(ABC):
         stage: str | None = None,
         attachments: list[Any] | None = None,
         trace_meta: dict[str, Any] | None = None,
+        reasoning_effort: str | None = None,
     ) -> AsyncGenerator[str, None]:
         """
         Unified interface for streaming LLM responses.
@@ -563,6 +564,13 @@ class BaseAgent(ABC):
         kwargs = {
             "temperature": temperature,
         }
+
+        # Allow an agent to override reasoning_effort per-call. Schema-
+        # constrained outputs (e.g. visualize code_generator) don't benefit
+        # from extended thinking — forcing "low" saves 100+s on reasoning
+        # models without hurting quality.
+        if reasoning_effort:
+            kwargs["reasoning_effort"] = reasoning_effort
 
         # Handle token limit for newer OpenAI models
         if max_tokens:

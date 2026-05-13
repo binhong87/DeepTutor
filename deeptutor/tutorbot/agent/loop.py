@@ -293,10 +293,11 @@ class AgentLoop:
 
                 _TOOL_TIMEOUT = 180  # default seconds — fast-fail on hangs
                 _TOOL_TIMEOUT_OVERRIDES: dict[str, int] = {
-                    # visualize makes up to 2 LLM calls (codegen + optional review);
-                    # 240 s is generous. Anything longer is almost always a hang,
-                    # not real work, so let it time out and surface control.
-                    "visualize": 240,
+                    # visualize runs codegen (schema-validated). With
+                    # reasoning_effort=low on the codegen stage, 360 s is
+                    # comfortable headroom. The timeout bail-out below
+                    # prevents cascading retries if a single call does hang.
+                    "visualize": 360,
                 }
                 _KEEPALIVE_INTERVAL = 8  # seconds between progress pings
 

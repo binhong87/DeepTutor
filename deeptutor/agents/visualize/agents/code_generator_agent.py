@@ -59,6 +59,11 @@ class CodeGeneratorAgent(BaseAgent):
             user_prompt=user_prompt,
             system_prompt=system_prompt,
             stage="generating",
+            # Codegen is schema-constrained (PlotSpec / FigureSpec / mermaid /
+            # explicit html). Forcing low reasoning effort on reasoning models
+            # saves 60-180s per call with no quality loss — the model just
+            # needs to emit JSON matching a concrete schema, not plan.
+            reasoning_effort="low",
             trace_meta=build_trace_metadata(
                 call_id=new_call_id("viz-codegen"),
                 phase="generating",
