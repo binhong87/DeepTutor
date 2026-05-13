@@ -291,13 +291,17 @@ class AgentLoop:
                     thinking_blocks=response.thinking_blocks,
                 )
 
-                _TOOL_TIMEOUT = 300  # default seconds — prevents indefinite hangs on slow pipelines
+                _TOOL_TIMEOUT = 180  # default seconds — fast-fail on hangs
                 _TOOL_TIMEOUT_OVERRIDES: dict[str, int] = {
-                    "visualize": 600,  # 3 LLM pipeline calls can take up to 200s each on slow backends
+                    # visualize makes up to 2 LLM calls (codegen + optional review);
+                    # 240 s is generous. Anything longer is almost always a hang,
+                    # not real work, so let it time out and surface control.
+                    "visualize": 240,
                 }
                 _KEEPALIVE_INTERVAL = 8  # seconds between progress pings
 
                 direct_result: str | None = None
+                had_tool_timeout = False
                 for tool_call in response.tool_calls:
                     tools_used.append(tool_call.name)
                     args_str = json.dumps(tool_call.arguments, ensure_ascii=False)
@@ -324,6 +328,7 @@ class AgentLoop:
                         )
                     except asyncio.TimeoutError:
                         result = f"Error: tool '{tool_call.name}' timed out after {_this_timeout}s."
+                        had_tool_timeout = True
                     finally:
                         keepalive_task.cancel()
 
@@ -346,6 +351,20 @@ class AgentLoop:
                     # tool message).
                     messages = self.context.add_assistant_message(
                         messages, direct_result
+                    )
+                    break
+                if had_tool_timeout:
+                    # Don't let the LLM cascade into more retries (e.g. swapping
+                    # render_mode geometry → svg → html, each costing another
+                    # full timeout). Surface control to the user; they can
+                    # rephrase or ask for a different approach.
+                    final_content = (
+                        "I tried to use the tool but it timed out. "
+                        "It might be temporarily slow or stuck. "
+                        "Try rephrasing or ask for a simpler version."
+                    )
+                    messages = self.context.add_assistant_message(
+                        messages, final_content
                     )
                     break
             else:

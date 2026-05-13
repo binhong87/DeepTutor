@@ -372,9 +372,12 @@ class VisualizeAdapterTool(Tool):
                 analysis=analysis,
             )
 
-            # Skip ReviewAgent for html and function_graph — the review step adds
-            # another full LLM call and rarely improves simple plotting code.
-            _SKIP_REVIEW = {"html", "function_graph"}
+            # Skip ReviewAgent for modes where a second LLM call rarely pays
+            # off — html/function_graph/svg/geometry are typically simple
+            # enough that review adds ~30–90s of latency for no quality gain,
+            # and it's the single biggest contributor to timeouts on slow
+            # reasoning models.
+            _SKIP_REVIEW = {"html", "function_graph", "svg", "geometry"}
             if analysis.render_type == "html":
                 if is_valid_html_document(code):
                     final_code = code
