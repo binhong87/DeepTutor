@@ -35,6 +35,21 @@ async function loadFunctionPlot() {
 
 let fpIdCounter = 0;
 
+/**
+ * function-plot's expression engine only recognises a small set of constant
+ * symbols (uppercase `PI`, `E`). LLMs however routinely emit lowercase `pi`,
+ * `Math.PI`, or Greek `π`. Normalise those before handing the expression off
+ * so we do not fail on well-formed math.
+ */
+function normalizeFnExpression(fn: string): string {
+  return fn
+    .replace(/\bMath\.PI\b/g, "PI")
+    .replace(/\bMath\.E\b/g, "E")
+    .replace(/π/g, "PI")
+    .replace(/\bpi\b/g, "PI")
+    .replace(/\be\b(?=\s*[*/+\-^)])/g, "E");
+}
+
 export const FunctionGraph: React.FC<FunctionGraphProps> = ({
   spec,
   className = "",
@@ -65,7 +80,7 @@ export const FunctionGraph: React.FC<FunctionGraphProps> = ({
             ? { domain: parsed.yDomain, label: parsed.yLabel }
             : { label: parsed.yLabel },
           data: parsed.functions.map((f) => ({
-            fn: f.fn,
+            fn: normalizeFnExpression(f.fn),
             ...(f.color && { color: f.color }),
             ...(f.graphType && { graphType: f.graphType }),
           })),

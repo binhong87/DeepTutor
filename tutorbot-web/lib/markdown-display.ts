@@ -341,6 +341,27 @@ function unwrapBacktickedCitations(content: string): string {
   );
 }
 
+function applyOutsideFencedCode(
+  content: string,
+  transform: (segment: string) => string,
+): string {
+  // Citation linkification (and similar bracket-rewrites) must NOT touch the
+  // contents of fenced code blocks. Otherwise JSON like `"xDomain": [0, 360]`
+  // inside a ```function_graph``` fence gets corrupted into
+  // `[0, 360](#references "citation")` and fails to parse downstream.
+  const FENCE_RE = /```[\s\S]*?```/g;
+  let out = "";
+  let last = 0;
+  for (const m of content.matchAll(FENCE_RE)) {
+    const start = m.index ?? 0;
+    out += transform(content.slice(last, start));
+    out += m[0]; // keep fenced block verbatim
+    last = start + m[0].length;
+  }
+  out += transform(content.slice(last));
+  return out;
+}
+
 function linkifyCitations(content: string): string {
   const refSectionIdx = content.search(/^##\s+(References|参考文献)/m);
   const body = refSectionIdx >= 0 ? content.slice(0, refSectionIdx) : content;
@@ -392,7 +413,12 @@ export function normalizeMarkdownForDisplay(content: string): string {
     removeEmptyHtmlTables(normalized),
   ).replace(/\n{3,}/g, "\n\n");
   const safe = escapeUnknownHtmlTagsForDisplay(cleaned);
-  return linkifyCitations(unwrapBacktickedCitations(safe));
+  // Skip fenced code blocks when linkifying — inline citation syntax `[...]`
+  // collides with legitimate content in JSON/code fences (e.g. function_graph
+  // `xDomain: [0, 360]`).
+  return applyOutsideFencedCode(safe, (s) =>
+    linkifyCitations(unwrapBacktickedCitations(s)),
+  );
 }
 
 export function hasVisibleMarkdownContent(content: string): boolean {
