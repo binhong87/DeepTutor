@@ -2,9 +2,15 @@
 
 import { useRef, useEffect, useCallback, useState } from "react";
 import { Bot, Loader2, Send } from "lucide-react";
-import { connectBotWS, nextTurnId, type BotChatTurn } from "@/lib/bot-ws";
+import {
+  connectBotWS,
+  nextTurnId,
+  type BotChatTurn,
+  type LessonPlan,
+} from "@/lib/bot-ws";
 import { apiFetch, apiUrl } from "@/lib/api";
 import AssistantResponse from "@/components/shared/AssistantResponse";
+import LessonPlanCard from "@/components/tutorbot/chat/LessonPlanCard";
 
 interface BotInfo {
   bot_id: string;
@@ -15,6 +21,7 @@ interface BotInfo {
 export default function BotChatView({ botId }: { botId: string }) {
   const [bot, setBot] = useState<BotInfo | null>(null);
   const [turns, setTurns] = useState<BotChatTurn[]>([]);
+  const [lessonPlan, setLessonPlan] = useState<LessonPlan | null>(null);
   const [input, setInput] = useState("");
   const [connected, setConnected] = useState(false);
   const [sending, setSending] = useState(false);
@@ -91,7 +98,9 @@ export default function BotChatView({ botId }: { botId: string }) {
 
   useEffect(() => {
     const ac = new AbortController();
-    const ws = connectBotWS(botId, updateTurn, ac.signal);
+    const ws = connectBotWS(botId, updateTurn, ac.signal, (plan) => {
+      setLessonPlan(plan);
+    });
     wsRef.current = ws;
 
     ws.addEventListener("open", () => setConnected(true));
@@ -172,6 +181,10 @@ export default function BotChatView({ botId }: { botId: string }) {
         className="flex-1 overflow-y-auto px-5 py-6 [scrollbar-gutter:stable]"
       >
         <div className="mx-auto max-w-[720px] space-y-5">
+          {lessonPlan && lessonPlan.steps.length > 0 && (
+            <LessonPlanCard plan={lessonPlan} />
+          )}
+
           {loadingHistory && (
             <div className="flex items-center justify-center pt-24">
               <Loader2 className="h-5 w-5 animate-spin text-[var(--muted-foreground)]" />

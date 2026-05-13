@@ -66,6 +66,23 @@ def complete(plan: LessonPlan, step_id: str, output_summary: str = "") -> Lesson
     return nxt
 
 
+def insert_after(plan: LessonPlan, anchor_id: str, new_step: LessonStep) -> bool:
+    """Insert `new_step` immediately after `anchor_id` in the step list.
+
+    Used by the `insert_step` tool when the tutor needs to dynamically add an
+    `adapt` step after a wrong check answer (or any step at runtime). Returns
+    True on success, False if `anchor_id` doesn't exist or the new id is
+    already taken.
+    """
+    if plan.find(new_step.id) is not None:
+        return False
+    for i, s in enumerate(plan.steps):
+        if s.id == anchor_id:
+            plan.steps.insert(i + 1, new_step)
+            return True
+    return False
+
+
 def render_status_block(plan: LessonPlan) -> str:
     """Human-readable one-block summary of the plan for injection into prompts."""
     lines = [f"# Current lesson: {plan.topic}"]
@@ -125,6 +142,7 @@ __all__ = [
     "clear",
     "advance_to",
     "complete",
+    "insert_after",
     "render_status_block",
     "looks_like_teaching_request",
 ]

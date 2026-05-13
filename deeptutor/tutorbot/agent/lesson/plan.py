@@ -51,6 +51,23 @@ class LessonStep(BaseModel):
         default="",
         description="Filled in when `complete_step` runs. 1-3 sentences.",
     )
+    # Optional fields for `check` phase steps — the expected answer (or a
+    # rubric) and a hint to offer if the student is stuck. Only relevant when
+    # phase == "check"; ignored otherwise.
+    expected_answer: str = Field(
+        default="",
+        description=(
+            "For `check` steps: the expected student answer or a scoring rubric "
+            "the tutor LLM compares the reply against. Empty for other phases."
+        ),
+    )
+    hint: str = Field(
+        default="",
+        description=(
+            "For `check` steps: a short hint the tutor may offer if the student "
+            "is stuck or answers wrong."
+        ),
+    )
 
 
 class LessonPlan(BaseModel):

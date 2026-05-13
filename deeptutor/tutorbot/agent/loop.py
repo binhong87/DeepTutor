@@ -192,6 +192,7 @@ class AgentLoop:
         )
         from deeptutor.tutorbot.agent.tools.lesson import (
             CompleteStepTool,
+            InsertStepTool,
             PlanLessonTool,
         )
 
@@ -204,6 +205,7 @@ class AgentLoop:
             VisualizeAdapterTool,
             PlanLessonTool,
             CompleteStepTool,
+            InsertStepTool,
         ):
             self.tools.register(tool_cls())
 
@@ -244,12 +246,16 @@ class AgentLoop:
                 if hasattr(tool, "set_context"):
                     tool.set_context(channel, chat_id, *([message_id] if name == "message" else []))
 
-    def _set_lesson_session_accessor(self, session_getter) -> None:
-        """Point the lesson tools at the active session for the current turn."""
-        for name in ("plan_lesson", "complete_step"):
+    def _set_lesson_session_accessor(
+        self,
+        session_getter,
+        on_update=None,
+    ) -> None:
+        """Point the lesson tools at the active session and live-update hook."""
+        for name in ("plan_lesson", "complete_step", "insert_step"):
             if tool := self.tools.get(name):
                 if hasattr(tool, "set_session_accessor"):
-                    tool.set_session_accessor(session_getter)
+                    tool.set_session_accessor(session_getter, on_update)
 
     @staticmethod
     def _strip_think(text: str | None) -> str | None:
@@ -544,6 +550,7 @@ class AgentLoop:
         msg: InboundMessage,
         session_key: str | None = None,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
+        on_lesson_update: Callable[[dict], Awaitable[None]] | None = None,
     ) -> OutboundMessage | None:
         """Process a single inbound message and return the response."""
         # System messages: parse origin from chat_id ("channel:chat_id")
@@ -556,7 +563,7 @@ class AgentLoop:
             session = self.sessions.get_or_create(key)
             await self.memory_consolidator.maybe_consolidate_by_tokens(session)
             self._set_tool_context(channel, chat_id, msg.metadata.get("message_id"))
-            self._set_lesson_session_accessor(lambda s=session: s)
+            self._set_lesson_session_accessor(lambda s=session: s, on_lesson_update)
             history = session.get_history(max_messages=0)
             messages = self.context.build_messages(
                 history=history,
@@ -790,7 +797,7 @@ class AgentLoop:
 
         self._set_tool_context(msg.channel, msg.chat_id, msg.metadata.get("message_id"))
         # Bind the lesson tools to this session so they can read/write metadata.
-        self._set_lesson_session_accessor(lambda s=session: s)
+        self._set_lesson_session_accessor(lambda s=session: s, on_lesson_update)
 
         # Lesson-plan runtime injections. Two cases:
         #  (a) no plan AND user message looks like a teaching request → short
@@ -957,12 +964,16 @@ class AgentLoop:
         channel: str = "cli",
         chat_id: str = "direct",
         on_progress: Callable[[str], Awaitable[None]] | None = None,
+        on_lesson_update: Callable[[dict], Awaitable[None]] | None = None,
     ) -> str:
         """Process a message directly (for CLI or cron usage)."""
         await self._connect_mcp()
         msg = InboundMessage(channel=channel, sender_id="user", chat_id=chat_id, content=content)
         response = await self._process_message(
-            msg, session_key=session_key, on_progress=on_progress
+            msg,
+            session_key=session_key,
+            on_progress=on_progress,
+            on_lesson_update=on_lesson_update,
         )
         mt = self.tools.get("message")
         _mt_sent = isinstance(mt, MessageTool) and mt._sent_in_turn

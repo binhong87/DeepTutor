@@ -1,11 +1,30 @@
 import { wsUrl } from "./api";
 
+export type LessonStepStatus = "pending" | "in_progress" | "done" | "skipped";
+
+export interface LessonStep {
+  id: string;
+  phase: string;
+  goal: string;
+  requires?: string[];
+  tools_hint?: string[];
+  status?: LessonStepStatus;
+  output_summary?: string;
+}
+
+export interface LessonPlan {
+  topic: string;
+  steps: LessonStep[];
+  current_step_id?: string | null;
+}
+
 export type BotMessage =
   | { type: "thinking"; content: string }
   | { type: "content"; content: string }
   | { type: "done" }
   | { type: "error"; content: string }
-  | { type: "proactive"; content: string };
+  | { type: "proactive"; content: string }
+  | { type: "lesson_plan"; plan: LessonPlan };
 
 export type BotChatTurn = {
   id: string;
@@ -27,6 +46,7 @@ export function connectBotWS(
   botId: string,
   onTurnUpdate: (turnId: string, updater: (turn: BotChatTurn) => BotChatTurn) => void,
   signal: AbortSignal,
+  onLessonPlan?: (plan: LessonPlan) => void,
 ): WebSocket {
   const socket = new WebSocket(wsUrl(`/api/v1/tutorbot/${botId}/ws`));
 
@@ -42,6 +62,11 @@ export function connectBotWS(
 
     if (msg.type === "proactive") {
       // Proactive messages from the bot (e.g., scheduled reminders)
+      return;
+    }
+
+    if (msg.type === "lesson_plan") {
+      onLessonPlan?.(msg.plan);
       return;
     }
 

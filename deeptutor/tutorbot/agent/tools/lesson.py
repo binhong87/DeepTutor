@@ -18,12 +18,13 @@ lands as its own chat message, which is natural pedagogy.
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable
+from typing import Any, Awaitable, Callable
 
 from deeptutor.tutorbot.agent.lesson import (
     LessonPlan,
     LessonStep,
     complete,
+    insert_after,
     load,
     save,
 )
@@ -34,20 +35,38 @@ _log = logging.getLogger(__name__)
 
 
 class _SessionAwareTool(Tool):
-    """Base for lesson tools — they need the active session."""
+    """Base for lesson tools — they need the active session and a way to
+    notify the WS layer when the plan changes (so the frontend timeline
+    can update live)."""
 
     def __init__(self) -> None:
         self._session_getter: Callable[[], Session | None] = lambda: None
+        self._on_update: Callable[[dict], Awaitable[None]] | None = None
 
-    def set_session_accessor(self, getter: Callable[[], Session | None]) -> None:
+    def set_session_accessor(
+        self,
+        getter: Callable[[], Session | None],
+        on_update: Callable[[dict], Awaitable[None]] | None = None,
+    ) -> None:
         """Called by the agent loop at the start of each turn."""
         self._session_getter = getter
+        self._on_update = on_update
 
     def _session(self) -> Session | None:
         try:
             return self._session_getter()
         except Exception:
             return None
+
+    async def _notify(self, plan: LessonPlan) -> None:
+        """Best-effort: emit the updated plan to the WS layer for live UI."""
+        if self._on_update is None:
+            return
+        try:
+            await self._on_update(plan.model_dump(exclude_none=True))
+        except Exception:
+            # Notification is decorative — never let it surface as a tool error.
+            pass
 
 
 class PlanLessonTool(_SessionAwareTool):
@@ -125,6 +144,21 @@ class PlanLessonTool(_SessionAwareTool):
                                 "items": {"type": "string"},
                                 "description": "Optional advisory list, e.g. ['visualize'].",
                             },
+                            "expected_answer": {
+                                "type": "string",
+                                "description": (
+                                    "Only for `check` phase steps — the expected "
+                                    "student answer or a short rubric. Leave empty "
+                                    "for other phases."
+                                ),
+                            },
+                            "hint": {
+                                "type": "string",
+                                "description": (
+                                    "Only for `check` phase steps — a short hint "
+                                    "to offer if the student is stuck or wrong."
+                                ),
+                            },
                         },
                         "required": ["id", "phase", "goal"],
                     },
@@ -154,6 +188,7 @@ class PlanLessonTool(_SessionAwareTool):
         first.status = "in_progress"
         plan.current_step_id = first.id
         save(session, plan)
+        await self._notify(plan)
 
         # Nudge the LLM to now execute step 1 — continues the same turn.
         nudge = (
@@ -221,6 +256,7 @@ class CompleteStepTool(_SessionAwareTool):
 
         nxt = complete(plan, step_id, summary)
         save(session, plan)
+        await self._notify(plan)
 
         if nxt is None:
             body = (
@@ -239,4 +275,98 @@ class CompleteStepTool(_SessionAwareTool):
         return body
 
 
-__all__ = ["PlanLessonTool", "CompleteStepTool"]
+class InsertStepTool(_SessionAwareTool):
+    """Dynamically insert a new step into the active lesson plan.
+
+    The canonical use is to append an `adapt` step right after a `check`
+    step when the student's answer revealed a misconception — re-explain,
+    show a different analogy, or drop to a simpler warm-up. The new step
+    becomes the immediate next in-progress step."""
+
+    @property
+    def name(self) -> str:
+        return "insert_step"
+
+    @property
+    def description(self) -> str:
+        return (
+            "Insert a new step into the active lesson plan, right after a named "
+            "anchor step. Typical use: after a `check` step where the student "
+            "answered wrong, insert an `adapt` step (re-explain / simpler "
+            "analogy / warm-up) before moving on. The new step starts as "
+            "pending; the next `complete_step` call will advance into it "
+            "automatically."
+        )
+
+    @property
+    def parameters(self) -> dict[str, Any]:
+        return {
+            "type": "object",
+            "properties": {
+                "after": {
+                    "type": "string",
+                    "description": "Id of the existing step to insert after.",
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Short id for the new step, e.g. 's2-adapt'.",
+                },
+                "phase": {
+                    "type": "string",
+                    "enum": ["assess", "define", "explain", "check", "adapt", "wrap_up"],
+                },
+                "goal": {
+                    "type": "string",
+                    "description": "One short sentence describing what this step achieves.",
+                },
+                "tools_hint": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Optional advisory list, e.g. ['visualize'].",
+                },
+            },
+            "required": ["after", "id", "phase", "goal"],
+        }
+
+    async def execute(self, **kwargs: Any) -> str:  # type: ignore[override]
+        session = self._session()
+        if session is None:
+            return "Error: insert_step requires an active session."
+        plan = load(session)
+        if plan is None:
+            return "Error: no lesson plan on this session. Call `plan_lesson` first."
+
+        anchor_id = str(kwargs.get("after") or "").strip()
+        new_id = str(kwargs.get("id") or "").strip()
+        phase = str(kwargs.get("phase") or "").strip()
+        goal = str(kwargs.get("goal") or "").strip()
+        tools_hint = kwargs.get("tools_hint") or []
+
+        if plan.find(anchor_id) is None:
+            return f"Error: anchor step `{anchor_id}` not found. Valid ids: {[s.id for s in plan.steps]}"
+        if plan.find(new_id) is not None:
+            return f"Error: step id `{new_id}` already exists."
+
+        try:
+            new_step = LessonStep(
+                id=new_id,
+                phase=phase,  # type: ignore[arg-type]
+                goal=goal,
+                tools_hint=list(tools_hint),
+            )
+        except Exception as exc:
+            return f"Error: insert_step validation failed: {exc}"
+
+        if not insert_after(plan, anchor_id, new_step):
+            return f"Error: could not insert after `{anchor_id}`."
+
+        save(session, plan)
+        await self._notify(plan)
+        _log.info("insert_step: inserted %s (%s) after %s", new_id, phase, anchor_id)
+        return (
+            f"Inserted step `{new_id}` ({phase}) after `{anchor_id}`: {goal}. "
+            "It will become the current step on the next `complete_step` call."
+        )
+
+
+__all__ = ["PlanLessonTool", "CompleteStepTool", "InsertStepTool"]

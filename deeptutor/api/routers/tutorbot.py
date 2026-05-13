@@ -435,6 +435,19 @@ async def bot_chat_ws(ws: WebSocket, bot_id: str):
 
     logger.info("WebSocket connected for bot '%s'", bot_id)
 
+    # On connect, rehydrate any active lesson plan so the UI can render the
+    # timeline on page reload. The plan lives on Session.metadata["lesson_plan"]
+    # (written by plan_lesson/complete_step via the lesson store).
+    try:
+        session_mgr = getattr(instance.agent_loop, "sessions", None)
+        if session_mgr is not None:
+            session = session_mgr.get_or_create(f"bot:{bot_id}")
+            plan_dict = (session.metadata or {}).get("lesson_plan")
+            if plan_dict:
+                await _safe_send({"type": "lesson_plan", "plan": plan_dict})
+    except Exception:
+        logger.exception("Failed to rehydrate lesson plan for bot '%s'", bot_id)
+
     async def _handle_user_messages():
         while not disconnected.is_set():
             try:
@@ -462,12 +475,17 @@ async def bot_chat_ws(ws: WebSocket, bot_id: str):
                 # leaving the bot to finish an expensive turn for nobody.
                 await _safe_send({"type": "thinking", "content": text})
 
+            async def on_lesson_update(plan_dict: dict) -> None:
+                """Push live lesson-plan changes to the UI timeline."""
+                await _safe_send({"type": "lesson_plan", "plan": plan_dict})
+
             try:
                 response = await mgr.send_message(
                     bot_id,
                     content,
                     chat_id=data.get("chat_id", "web"),
                     on_progress=on_progress,
+                    on_lesson_update=on_lesson_update,
                 )
                 if not await _safe_send({"type": "content", "content": response}):
                     break
