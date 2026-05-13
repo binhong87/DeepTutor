@@ -339,6 +339,14 @@ class AgentLoop:
                 if direct_result is not None:
                     final_content = direct_result
                     had_direct_result = True
+                    # Persist the direct result as the turn's assistant message
+                    # so it survives in the session JSONL and shows up again on
+                    # page reload (history endpoint filters by role+content and
+                    # would otherwise drop the payload, which lives only on the
+                    # tool message).
+                    messages = self.context.add_assistant_message(
+                        messages, direct_result
+                    )
                     break
             else:
                 clean = self._strip_think(response.content)
