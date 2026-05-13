@@ -1082,9 +1082,12 @@ class TutorBotManager:
                     "## Personality\n\n- Patient and methodical\n- Encourages showing work\n"
                     "- Celebrates progress on hard problems\n\n"
                     "## Teaching Style\n\n- Break complex problems into small steps\n"
-                    "- For ANY chart, plot, function graph, or geometric figure the student should *see*, "
-                    "always call the `visualize` tool — it renders inline in the chat. "
-                    "Never use `write_file` for visualizations; files on disk are invisible to the student.\n"
+                    "- Whenever the student should *see* a picture, call the `visualize` tool:\n"
+                    "    • `mode=plot` for function graphs (y = f(x), curves, data points).\n"
+                    "    • `mode=figure` for free-form shapes (triangles, circles, labeled points,\n"
+                    "      angles, geometric constructions).\n"
+                    "    • `mode=diagram` for flowcharts, sequence diagrams, mind maps.\n"
+                    "  Never use `write_file` for visualizations — files on disk are invisible to the student.\n"
                     "- Always verify final answers"
                 ),
             },

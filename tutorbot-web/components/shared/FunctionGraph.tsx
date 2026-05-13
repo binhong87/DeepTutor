@@ -36,10 +36,11 @@ async function loadFunctionPlot() {
 let fpIdCounter = 0;
 
 /**
- * function-plot's expression engine only recognises a small set of constant
- * symbols (uppercase `PI`, `E`). LLMs however routinely emit lowercase `pi`,
- * `Math.PI`, or Greek `π`. Normalise those before handing the expression off
- * so we do not fail on well-formed math.
+ * Belt-and-braces fallback for function expressions: the backend
+ * `validators.normalise_expression` already maps `pi` → `PI` etc. before
+ * the JSON reaches us, but historical fenced blocks persisted in older
+ * sessions (or from non-tutorbot callers like Book/CoWriter) may not have
+ * been normalised. So keep the same mapping here as a safety net.
  */
 function normalizeFnExpression(fn: string): string {
   return fn

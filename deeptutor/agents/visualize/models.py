@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -44,17 +44,76 @@ class VisualizationAnalysis(BaseModel):
     )
 
 
-class ReviewResult(BaseModel):
-    """Output of the review / optimization stage."""
+# ── PlotSpec: the JSON contract for `mode=plot` (function_graph) ─────────────
 
-    optimized_code: str = Field(
-        description="The final (potentially optimized) visualization code.",
+
+class PlotFunction(BaseModel):
+    """A single function to plot on the shared axes."""
+
+    fn: str | dict[str, str] = Field(
+        description=(
+            "Expression in x (or parametric/polar object). "
+            "Examples: 'sin(x)', 'x^2 - 1', "
+            "{'x': 'cos(t)', 'y': 'sin(t)'} for parametric, "
+            "{'r': '1 + cos(theta)'} for polar."
+        ),
     )
-    changed: bool = Field(
-        default=False,
-        description="Whether the reviewer made modifications.",
+    color: str | None = Field(default=None, description="CSS color, e.g. '#6366f1'.")
+    label: str | None = Field(default=None, description="Legend label.")
+    graphType: str | None = Field(
+        default=None, description="'line' (default), 'scatter', or 'interval'."
     )
-    review_notes: str = Field(
-        default="",
-        description="Notes on what was checked or changed.",
+
+
+class PlotSpec(BaseModel):
+    """Full JSON contract the LLM must emit for a `plot`."""
+
+    title: str | None = None
+    xDomain: tuple[float, float] = Field(description="[xMin, xMax] — required.")
+    yDomain: tuple[float, float] | None = Field(
+        default=None, description="[yMin, yMax] — omit to auto-scale."
     )
+    xLabel: str | None = None
+    yLabel: str | None = None
+    functions: list[PlotFunction] = Field(
+        min_length=1, description="One entry per curve; at least one required."
+    )
+
+
+# ── FigureSpec: the JSON contract for `mode=figure` (geometry) ───────────────
+
+
+class FigureElement(BaseModel):
+    """One element of the geometry construction.
+
+    Loose on purpose — downstream validation (coord references, type-specific
+    required fields) lives in the normaliser. We still reject obviously wrong
+    shapes (no `type`, invalid top-level keys) here.
+    """
+
+    model_config = {"extra": "allow"}
+
+    type: str = Field(description="point | segment | line | ray | circle | polygon | angle | arc | vector | text")
+
+
+class FigureSpec(BaseModel):
+    """Full JSON contract the LLM must emit for a `figure`."""
+
+    title: str | None = None
+    boundingBox: tuple[float, float, float, float] = Field(
+        description="[xMin, yMax, xMax, yMin] — JSXGraph convention (top-left, bottom-right)."
+    )
+    elements: list[FigureElement] = Field(
+        min_length=1,
+        description="Construction elements in declaration order; later ones may reference earlier ids.",
+    )
+
+
+def validate_plot_spec(raw_json: Any) -> PlotSpec:
+    """Return a parsed PlotSpec or raise ValidationError with a useful message."""
+    return PlotSpec.model_validate(raw_json)
+
+
+def validate_figure_spec(raw_json: Any) -> FigureSpec:
+    """Return a parsed FigureSpec or raise ValidationError with a useful message."""
+    return FigureSpec.model_validate(raw_json)

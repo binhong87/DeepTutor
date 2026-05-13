@@ -11,6 +11,7 @@ from deeptutor.core.trace import build_trace_metadata, new_call_id
 
 from ..models import VisualizationAnalysis
 from ..utils import extract_code_block
+from ..validators import validate_figure_code, validate_plot_code
 
 _log = logging.getLogger(__name__)
 _THINK_RE = re.compile(r"<think>[\s\S]*?</think>", re.IGNORECASE)
@@ -116,5 +117,26 @@ class CodeGeneratorAgent(BaseAgent):
             len(response),
             len(extracted) if extracted else 0,
         )
+
+        # Schema-validate plot + figure outputs so the frontend always gets
+        # something renderable (or a precise error). We deliberately do NOT
+        # validate svg/html/mermaid/chartjs — those have free-form syntax
+        # that's cheaper to let the frontend parser reject.
+        if extracted and analysis.render_type == "function_graph":
+            try:
+                extracted = validate_plot_code(extracted)
+            except Exception as exc:
+                _log.warning("plot validation failed: %s", exc)
+                raise ValueError(
+                    f"Generated plot JSON failed schema validation: {exc}"
+                ) from exc
+        elif extracted and analysis.render_type == "geometry":
+            try:
+                extracted = validate_figure_code(extracted)
+            except Exception as exc:
+                _log.warning("figure validation failed: %s", exc)
+                raise ValueError(
+                    f"Generated figure JSON failed schema validation: {exc}"
+                ) from exc
 
         return extracted

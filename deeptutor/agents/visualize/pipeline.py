@@ -1,4 +1,4 @@
-"""Orchestrates the three-stage visualization generation flow."""
+"""Orchestrates the two-stage visualization generation flow: analysis (optional) → codegen."""
 
 from __future__ import annotations
 
@@ -6,8 +6,8 @@ from typing import Any, Callable
 
 from deeptutor.core.context import Attachment
 
-from .agents import AnalysisAgent, CodeGeneratorAgent, ReviewAgent
-from .models import ReviewResult, VisualizationAnalysis
+from .agents import AnalysisAgent, CodeGeneratorAgent
+from .models import VisualizationAnalysis
 
 
 class VisualizePipeline:
@@ -32,16 +32,10 @@ class VisualizePipeline:
             api_version=api_version,
             language=language,
         )
-        self.review_agent = ReviewAgent(
-            api_key=api_key,
-            base_url=base_url,
-            api_version=api_version,
-            language=language,
-        )
         self.set_trace_callback(trace_callback)
 
     def set_trace_callback(self, callback: Callable[[dict[str, Any]], Any] | None) -> None:
-        for agent in (self.analysis_agent, self.code_agent, self.review_agent):
+        for agent in (self.analysis_agent, self.code_agent):
             agent.set_trace_callback(callback)
 
     async def run_analysis(
@@ -70,19 +64,6 @@ class VisualizePipeline:
             user_input=user_input,
             history_context=history_context,
             analysis=analysis,
-        )
-
-    async def run_review(
-        self,
-        *,
-        user_input: str,
-        analysis: VisualizationAnalysis,
-        code: str,
-    ) -> ReviewResult:
-        return await self.review_agent.process(
-            user_input=user_input,
-            analysis=analysis,
-            code=code,
         )
 
 

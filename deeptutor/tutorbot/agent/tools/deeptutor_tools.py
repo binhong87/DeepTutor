@@ -281,6 +281,16 @@ class PaperSearchAdapterTool(Tool):
 
 
 class VisualizeAdapterTool(Tool):
+    # Map the three public intent-named modes to the internal render_type
+    # understood by the visualize pipeline. Keeping the surface area small
+    # steers the LLM toward the reliable renderers and away from the legacy
+    # html/svg escape hatches (kept internal-only for fallback).
+    _MODE_TO_RENDER_TYPE = {
+        "plot": "function_graph",
+        "figure": "geometry",
+        "diagram": "mermaid",
+    }
+
     @property
     def name(self) -> str:
         return "visualize"
@@ -288,13 +298,17 @@ class VisualizeAdapterTool(Tool):
     @property
     def description(self) -> str:
         return (
-            "**Render a visualization inline in the chat UI.** Use this for ANY chart, plot, "
-            "function graph, diagram, or interactive visual the user asks to *see* — sine/cosine "
-            "curves, bar/line/pie charts, geometry figures, flowcharts, etc. "
-            "The returned fenced code block (html / svg / chartjs / mermaid / function_graph / "
-            "geometry) is rendered directly in the chat as an iframe, SVG, or chart. "
-            "**Do NOT use write_file for visualizations** — files on disk are invisible to the "
-            "user. Always use this tool when the user wants to view a graphic."
+            "Render a visualization inline in the chat UI. Returns a fenced code "
+            "block that the frontend renders as a chart, figure, or diagram. "
+            "Pick `mode` by the kind of picture the user wants:\n"
+            " • `plot`    — graph mathematical functions over a domain (y = f(x), "
+            "curves, trig/polynomials, data points with an x-axis).\n"
+            " • `figure`  — draw free-form shapes with points, lines, circles, "
+            "polygons, angles, and labels (triangles, geometric constructions, "
+            "right-angle figures, annotated sketches).\n"
+            " • `diagram` — draw a flowchart, sequence diagram, or mind map "
+            "(process flows, states, hierarchies).\n"
+            "Do NOT use write_file for visualizations — files on disk are invisible."
         )
 
     @property
@@ -310,18 +324,17 @@ class VisualizeAdapterTool(Tool):
                     "type": "string",
                     "description": "Optional conversation history or background context.",
                 },
-                "render_mode": {
+                "mode": {
                     "type": "string",
                     "description": (
-                        "Render type. Use 'function_graph' for mathematical function plots "
-                        "(sin, cos, polynomial, etc.). Use 'html' for charts, data plots, "
-                        "and interactive visualizations. Use 'mermaid' for diagrams. "
-                        "Defaults to 'html'."
+                        "Which kind of visual to produce. `plot` for function graphs, "
+                        "`figure` for free-form geometric figures, `diagram` for "
+                        "flowcharts/sequences/mind maps."
                     ),
-                    "enum": ["html", "function_graph", "mermaid", "chartjs", "geometry", "svg"],
+                    "enum": ["plot", "figure", "diagram"],
                 },
             },
-            "required": ["request"],
+            "required": ["request", "mode"],
         }
 
     async def execute(self, **kwargs: Any) -> str:
@@ -336,7 +349,25 @@ class VisualizeAdapterTool(Tool):
         cfg = get_llm_config()
         user_input = str(kwargs.get("request", "")).strip()
         history_context = str(kwargs.get("context", "") or "").strip()
-        render_mode = str(kwargs.get("render_mode", "html") or "html").strip().lower()
+
+        # Accept the new `mode` enum (plot/figure/diagram) and translate to the
+        # internal render_type. Fall back to a legacy `render_mode` key so older
+        # prompts / tool-call histories still work during the transition.
+        raw_mode = (
+            str(kwargs.get("mode") or kwargs.get("render_mode") or "").strip().lower()
+        )
+        render_type = self._MODE_TO_RENDER_TYPE.get(raw_mode)
+        if render_type is None:
+            # Allow direct internal render_type passthrough (for Book/CoWriter
+            # callers or legacy tool args) but default plot-ish vs text.
+            if raw_mode in {"function_graph", "geometry", "mermaid", "svg", "html", "chartjs"}:
+                render_type = raw_mode
+            else:
+                return (
+                    "Error: `mode` is required and must be one of "
+                    "'plot' (function graph), 'figure' (geometry), or "
+                    "'diagram' (flowchart / sequence / mindmap)."
+                )
 
         try:
             pipeline = VisualizePipeline(
@@ -346,25 +377,16 @@ class VisualizeAdapterTool(Tool):
                 language="en",
             )
 
-            # Skip AnalysisAgent when render_mode is explicitly specified — saves one
-            # slow LLM call (100-200 s on reasoning models). Build a minimal analysis
-            # object directly from the forced render_mode instead.
-            _NEEDS_ANALYSIS = {"auto"}
-            if render_mode in _NEEDS_ANALYSIS:
-                analysis = await pipeline.run_analysis(
-                    user_input=user_input,
-                    history_context=history_context,
-                    render_mode=render_mode,
-                )
-            else:
-                analysis = VisualizationAnalysis(
-                    render_type=render_mode,  # type: ignore[arg-type]
-                    description=user_input[:300],
-                    data_description="",
-                    chart_type="",
-                    visual_elements=[],
-                    rationale=f"render_mode forced to {render_mode}",
-                )
+            # Skip AnalysisAgent — the caller already chose a concrete
+            # render_type via `mode`, so analysis has nothing to decide.
+            analysis = VisualizationAnalysis(
+                render_type=render_type,  # type: ignore[arg-type]
+                description=user_input[:300],
+                data_description="",
+                chart_type="",
+                visual_elements=[],
+                rationale=f"mode={raw_mode or render_type} forced by caller",
+            )
 
             code = await pipeline.run_code_generation(
                 user_input=user_input,
@@ -372,41 +394,22 @@ class VisualizeAdapterTool(Tool):
                 analysis=analysis,
             )
 
-            # Skip ReviewAgent for modes where a second LLM call rarely pays
-            # off — html/function_graph/svg/geometry are typically simple
-            # enough that review adds ~30–90s of latency for no quality gain,
-            # and it's the single biggest contributor to timeouts on slow
-            # reasoning models.
-            _SKIP_REVIEW = {"html", "function_graph", "svg", "geometry"}
-            if analysis.render_type == "html":
-                if is_valid_html_document(code):
-                    final_code = code
-                else:
-                    final_code = build_fallback_html(
-                        title=analysis.description or "Visualization",
-                        summary=analysis.data_description,
-                        note="The model did not return a renderable HTML document.",
-                    )
-            elif analysis.render_type in _SKIP_REVIEW:
-                final_code = code
-            else:
-                review = await pipeline.run_review(
-                    user_input=user_input,
-                    analysis=analysis,
-                    code=code,
+            # Local sanity check for html (used internally as fallback only).
+            if analysis.render_type == "html" and not is_valid_html_document(code):
+                final_code = build_fallback_html(
+                    title=analysis.description or "Visualization",
+                    summary=analysis.data_description,
+                    note="The model did not return a renderable HTML document.",
                 )
-                final_code = review.optimized_code
+            else:
+                final_code = code
 
-            lang_map = {
-                "svg": "svg",
-                "mermaid": "mermaid",
-                "html": "html",
-                "function_graph": "function_graph",
-                "geometry": "geometry",
-                "chartjs": "chartjs",
-            }
-            lang_tag = lang_map.get(analysis.render_type, "text")
+            lang_tag = analysis.render_type
             return f"{_DIRECT_RESULT_PREFIX}```{lang_tag}\n{final_code}\n```"
         except Exception:
-            _log.exception("VisualizeAdapterTool.execute failed (render_mode=%r)", render_mode)
+            _log.exception(
+                "VisualizeAdapterTool.execute failed (mode=%r render_type=%r)",
+                raw_mode,
+                render_type,
+            )
             raise

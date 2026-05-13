@@ -2,7 +2,7 @@
 Visualize Capability
 ====================
 
-Three-stage visualization pipeline: Analyze -> Generate -> Review.
+Two-stage visualization pipeline: Analyze -> Generate.
 Produces SVG or Chart.js code from user requests and conversation context.
 """
 
@@ -21,7 +21,7 @@ class VisualizeCapability(BaseCapability):
     manifest = CapabilityManifest(
         name="visualize",
         description="Generate SVG, Chart.js, Mermaid, or interactive HTML visualizations.",
-        stages=["analyzing", "generating", "reviewing"],
+        stages=["analyzing", "generating"],
         tools_used=[],
         cli_aliases=["visualize", "viz"],
         request_schema=get_capability_request_schema("visualize"),
@@ -86,73 +86,26 @@ class VisualizeCapability(BaseCapability):
                 history_context=history_context,
                 analysis=analysis,
             )
-            await stream.progress(
-                message="Code generated.",
-                source=self.name,
-                stage="generating",
-            )
-
-        # Stage 3: Review & optimise
-        async with stream.stage("reviewing", source=self.name):
-            if analysis.render_type == "html":
-                # Skip the LLM review pass for html — it would cost another
-                # 30-60s on a 10k-token document with negligible quality gain.
-                # Instead, do a local sanity check and fall back to a minimal
-                # template if the model returned something unrenderable.
-                from deeptutor.agents.visualize.models import ReviewResult
-
-                if is_valid_html_document(code):
-                    final_code = code
-                    review = ReviewResult(
-                        optimized_code=final_code,
-                        changed=False,
-                        review_notes="Skipped LLM review for html render_type.",
-                    )
-                    await stream.progress(
-                        message="HTML page ready (review skipped).",
-                        source=self.name,
-                        stage="reviewing",
-                    )
-                else:
-                    final_code = build_fallback_html(
-                        title=analysis.description or "Visualization",
-                        summary=analysis.data_description,
-                        note="The model did not return a renderable HTML document.",
-                    )
-                    review = ReviewResult(
-                        optimized_code=final_code,
-                        changed=True,
-                        review_notes="Used fallback HTML template.",
-                    )
-                    await stream.progress(
-                        message="HTML did not validate; using fallback template.",
-                        source=self.name,
-                        stage="reviewing",
-                    )
-            else:
-                await stream.thinking(
-                    "Reviewing and optimizing code...",
+            # Local sanity check for html mode — fall back if the model stalled.
+            if analysis.render_type == "html" and not is_valid_html_document(code):
+                code = build_fallback_html(
+                    title=analysis.description or "Visualization",
+                    summary=analysis.data_description,
+                    note="The model did not return a renderable HTML document.",
+                )
+                await stream.progress(
+                    message="HTML did not validate; using fallback template.",
                     source=self.name,
-                    stage="reviewing",
+                    stage="generating",
                 )
-                review = await pipeline.run_review(
-                    user_input=context.user_message,
-                    analysis=analysis,
-                    code=code,
+            else:
+                await stream.progress(
+                    message="Code generated.",
+                    source=self.name,
+                    stage="generating",
                 )
-                final_code = review.optimized_code
-                if review.changed:
-                    await stream.progress(
-                        message=f"Code optimized: {review.review_notes}",
-                        source=self.name,
-                        stage="reviewing",
-                    )
-                else:
-                    await stream.progress(
-                        message="Code looks good — no changes needed.",
-                        source=self.name,
-                        stage="reviewing",
-                    )
+
+        final_code = code
 
         # Emit final content as a fenced code block for the chat area
         if analysis.render_type == "svg":
@@ -168,7 +121,7 @@ class VisualizeCapability(BaseCapability):
         else:
             lang_tag = "javascript"
         content_md = f"```{lang_tag}\n{final_code}\n```"
-        await stream.content(content_md, source=self.name, stage="reviewing")
+        await stream.content(content_md, source=self.name, stage="generating")
 
         # Structured result for the frontend viewer
         await stream.result(
@@ -180,7 +133,6 @@ class VisualizeCapability(BaseCapability):
                     "content": final_code,
                 },
                 "analysis": analysis.model_dump(),
-                "review": review.model_dump(),
             },
             source=self.name,
         )
@@ -233,7 +185,7 @@ class VisualizeCapability(BaseCapability):
         notice = make_skip_notice(
             capability=self.name,
             language=context.language,
-            stages_skipped=["analyzing", "reviewing"],
+            stages_skipped=["analyzing"],
         )
 
         # html pages are larger; bump the answer-now budget for that mode.
@@ -308,11 +260,6 @@ class VisualizeCapability(BaseCapability):
                     "chart_type": "",
                     "visual_elements": [],
                     "rationale": "",
-                },
-                "review": {
-                    "optimized_code": final_code,
-                    "changed": False,
-                    "review_notes": "Answer-now: skipped review stage.",
                 },
                 "metadata": {"answer_now": True},
             },
