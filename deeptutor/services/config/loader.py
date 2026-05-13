@@ -213,6 +213,7 @@ def get_agent_params(module_name: str) -> dict:
             - "question": Question module agents
             - "brainstorm": Brainstorm tool settings
             - "co_writer": CoWriter module agents
+            - "visualize": Visualize module agents
             - "narrator": Narrator agent (independent, for TTS)
             - "llm_probe": Settings → LLM diagnostic probe
 
@@ -238,6 +239,7 @@ def get_agent_params(module_name: str) -> dict:
         "brainstorm": ("tools", "brainstorm"),
         "vision_solver": ("plugins", "vision_solver"),
         "math_animator": ("plugins", "math_animator"),
+        "visualize": ("plugins", "visualize"),
         "llm_probe": ("diagnostics", "llm_probe"),
     }
     path = get_runtime_settings_dir(PROJECT_ROOT) / "agents.yaml"

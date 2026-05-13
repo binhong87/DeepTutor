@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 from deeptutor.tutorbot.agent.tools.base import Tool
 from deeptutor.tutorbot.agent.tools.registry import DIRECT_RESULT_PREFIX as _DIRECT_RESULT_PREFIX
+
+_log = logging.getLogger(__name__)
 
 
 class BrainstormAdapterTool(Tool):
@@ -285,8 +288,13 @@ class VisualizeAdapterTool(Tool):
     @property
     def description(self) -> str:
         return (
-            "Generate SVG, Chart.js, Mermaid, function_graph, geometry, or interactive HTML "
-            "visualizations from a natural-language description. Returns a fenced code block."
+            "**Render a visualization inline in the chat UI.** Use this for ANY chart, plot, "
+            "function graph, diagram, or interactive visual the user asks to *see* — sine/cosine "
+            "curves, bar/line/pie charts, geometry figures, flowcharts, etc. "
+            "The returned fenced code block (html / svg / chartjs / mermaid / function_graph / "
+            "geometry) is rendered directly in the chat as an iframe, SVG, or chart. "
+            "**Do NOT use write_file for visualizations** — files on disk are invisible to the "
+            "user. Always use this tool when the user wants to view a graphic."
         )
 
     @property
@@ -305,16 +313,19 @@ class VisualizeAdapterTool(Tool):
                 "render_mode": {
                     "type": "string",
                     "description": (
-                        "Force a specific render type. "
-                        "Defaults to auto (let the model decide)."
+                        "Render type. Use 'function_graph' for mathematical function plots "
+                        "(sin, cos, polynomial, etc.). Use 'html' for charts, data plots, "
+                        "and interactive visualizations. Use 'mermaid' for diagrams. "
+                        "Defaults to 'html'."
                     ),
-                    "enum": ["auto", "svg", "chartjs", "mermaid", "html", "function_graph", "geometry"],
+                    "enum": ["html", "function_graph", "mermaid", "chartjs", "geometry", "svg"],
                 },
             },
             "required": ["request"],
         }
 
     async def execute(self, **kwargs: Any) -> str:
+        from deeptutor.agents.visualize.models import VisualizationAnalysis
         from deeptutor.agents.visualize.pipeline import VisualizePipeline
         from deeptutor.agents.visualize.utils import (
             build_fallback_html,
@@ -325,51 +336,74 @@ class VisualizeAdapterTool(Tool):
         cfg = get_llm_config()
         user_input = str(kwargs.get("request", "")).strip()
         history_context = str(kwargs.get("context", "") or "").strip()
-        render_mode = str(kwargs.get("render_mode", "auto") or "auto").strip().lower()
+        render_mode = str(kwargs.get("render_mode", "html") or "html").strip().lower()
 
-        pipeline = VisualizePipeline(
-            api_key=cfg.api_key,
-            base_url=cfg.base_url,
-            api_version=cfg.api_version,
-            language="en",
-        )
+        try:
+            pipeline = VisualizePipeline(
+                api_key=cfg.api_key,
+                base_url=cfg.base_url,
+                api_version=cfg.api_version,
+                language="en",
+            )
 
-        analysis = await pipeline.run_analysis(
-            user_input=user_input,
-            history_context=history_context,
-            render_mode=render_mode,
-        )
+            # Skip AnalysisAgent when render_mode is explicitly specified — saves one
+            # slow LLM call (100-200 s on reasoning models). Build a minimal analysis
+            # object directly from the forced render_mode instead.
+            _NEEDS_ANALYSIS = {"auto"}
+            if render_mode in _NEEDS_ANALYSIS:
+                analysis = await pipeline.run_analysis(
+                    user_input=user_input,
+                    history_context=history_context,
+                    render_mode=render_mode,
+                )
+            else:
+                analysis = VisualizationAnalysis(
+                    render_type=render_mode,  # type: ignore[arg-type]
+                    description=user_input[:300],
+                    data_description="",
+                    chart_type="",
+                    visual_elements=[],
+                    rationale=f"render_mode forced to {render_mode}",
+                )
 
-        code = await pipeline.run_code_generation(
-            user_input=user_input,
-            history_context=history_context,
-            analysis=analysis,
-        )
+            code = await pipeline.run_code_generation(
+                user_input=user_input,
+                history_context=history_context,
+                analysis=analysis,
+            )
 
-        if analysis.render_type == "html":
-            if is_valid_html_document(code):
+            # Skip ReviewAgent for html and function_graph — the review step adds
+            # another full LLM call and rarely improves simple plotting code.
+            _SKIP_REVIEW = {"html", "function_graph"}
+            if analysis.render_type == "html":
+                if is_valid_html_document(code):
+                    final_code = code
+                else:
+                    final_code = build_fallback_html(
+                        title=analysis.description or "Visualization",
+                        summary=analysis.data_description,
+                        note="The model did not return a renderable HTML document.",
+                    )
+            elif analysis.render_type in _SKIP_REVIEW:
                 final_code = code
             else:
-                final_code = build_fallback_html(
-                    title=analysis.description or "Visualization",
-                    summary=analysis.data_description,
-                    note="The model did not return a renderable HTML document.",
+                review = await pipeline.run_review(
+                    user_input=user_input,
+                    analysis=analysis,
+                    code=code,
                 )
-        else:
-            review = await pipeline.run_review(
-                user_input=user_input,
-                analysis=analysis,
-                code=code,
-            )
-            final_code = review.optimized_code
+                final_code = review.optimized_code
 
-        lang_map = {
-            "svg": "svg",
-            "mermaid": "mermaid",
-            "html": "html",
-            "function_graph": "function_graph",
-            "geometry": "geometry",
-            "chartjs": "chartjs",
-        }
-        lang_tag = lang_map.get(analysis.render_type, "text")
-        return f"{_DIRECT_RESULT_PREFIX}```{lang_tag}\n{final_code}\n```"
+            lang_map = {
+                "svg": "svg",
+                "mermaid": "mermaid",
+                "html": "html",
+                "function_graph": "function_graph",
+                "geometry": "geometry",
+                "chartjs": "chartjs",
+            }
+            lang_tag = lang_map.get(analysis.render_type, "text")
+            return f"{_DIRECT_RESULT_PREFIX}```{lang_tag}\n{final_code}\n```"
+        except Exception:
+            _log.exception("VisualizeAdapterTool.execute failed (render_mode=%r)", render_mode)
+            raise

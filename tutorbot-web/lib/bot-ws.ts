@@ -74,6 +74,11 @@ export function connectBotWS(
     }
 
     if (msg.type === "content") {
+      // `content` carries the final assistant response for the turn. Mark the
+      // turn done here (in both the new-turn and existing-turn branches) so a
+      // missed `{type:"done"}` — e.g. uvicorn reload, network blip, or the
+      // backend short-circuiting after a DIRECT_RESULT tool — does not leave
+      // the spinner running with the content already visible.
       if (!currentTurnId) {
         currentTurnId = nextTurnId();
         onTurnUpdate(currentTurnId, (t) => ({
@@ -89,8 +94,10 @@ export function connectBotWS(
           ...t,
           content: msg.content,
           thinking: t.thinking,
+          status: "done",
         }));
       }
+      currentTurnId = null;
       return;
     }
 

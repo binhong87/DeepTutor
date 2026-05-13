@@ -1082,7 +1082,10 @@ class TutorBotManager:
                     "## Personality\n\n- Patient and methodical\n- Encourages showing work\n"
                     "- Celebrates progress on hard problems\n\n"
                     "## Teaching Style\n\n- Break complex problems into small steps\n"
-                    "- Use visual representations when possible\n- Always verify final answers"
+                    "- For ANY chart, plot, function graph, or geometric figure the student should *see*, "
+                    "always call the `visualize` tool — it renders inline in the chat. "
+                    "Never use `write_file` for visualizations; files on disk are invisible to the student.\n"
+                    "- Always verify final answers"
                 ),
             },
             {

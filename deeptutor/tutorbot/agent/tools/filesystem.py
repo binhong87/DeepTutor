@@ -136,7 +136,12 @@ class WriteFileTool(_FsTool):
 
     @property
     def description(self) -> str:
-        return "Write content to a file at the given path. Creates parent directories if needed."
+        return (
+            "Write content to a file at the given path. Creates parent directories if needed. "
+            "NOTE: files written here live on the server's disk and are NOT visible to the user. "
+            "For charts, plots, function graphs, or any visualization the user asked to SEE, "
+            "use the `visualize` tool instead — it renders inline in the chat."
+        )
 
     @property
     def parameters(self) -> dict[str, Any]:

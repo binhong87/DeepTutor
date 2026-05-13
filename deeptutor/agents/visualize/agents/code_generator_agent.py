@@ -3,12 +3,18 @@
 from __future__ import annotations
 
 import json
+import logging
+import re
 
 from deeptutor.agents.base_agent import BaseAgent
 from deeptutor.core.trace import build_trace_metadata, new_call_id
 
 from ..models import VisualizationAnalysis
 from ..utils import extract_code_block
+
+_log = logging.getLogger(__name__)
+_THINK_RE = re.compile(r"<think>[\s\S]*?</think>", re.IGNORECASE)
+_FENCE_START_RE = re.compile(r"^```[A-Za-z_]*\s*\n")
 
 
 class CodeGeneratorAgent(BaseAgent):
@@ -77,15 +83,38 @@ class CodeGeneratorAgent(BaseAgent):
         else:
             lang_hint = "javascript"
 
+        # Try to extract code block BEFORE stripping <think> blocks.
+        # Some models embed the code inside <think>...</think>; stripping
+        # first would discard the code entirely.
         extracted = extract_code_block(response, lang_hint) or extract_code_block(response)
 
-        # For html, the model sometimes returns the full document with no fence.
-        # `extract_code_block` will then return the trimmed raw response — accept
-        # it as long as it looks like an HTML document.
-        if analysis.render_type == "html" and not extracted:
-            stripped = (response or "").strip()
-            lowered = stripped.lower()
-            if lowered.startswith("<!doctype") or lowered.startswith("<html"):
-                return stripped
+        # Unwrap double-nested fences: reasoning models sometimes write ```html
+        # inside a <think> block preview, causing the captured group to itself
+        # start with ```html\n.  Re-extract from the captured group to get the
+        # actual code inside.
+        if extracted and _FENCE_START_RE.match(extracted):
+            inner = extract_code_block(extracted, lang_hint) or extract_code_block(extracted)
+            if inner and inner != extracted:
+                extracted = inner
+
+        # If extracted content contains <think> blocks, strip them now.
+        if extracted and _THINK_RE.search(extracted):
+            extracted = _THINK_RE.sub("", extracted).strip()
+
+        # If extraction yielded nothing (or only the raw think-block text),
+        # fall back to the stripped response and try again.
+        if not extracted or extracted == response.strip():
+            stripped_response = _THINK_RE.sub("", response).strip()
+            if stripped_response:
+                extracted = extract_code_block(stripped_response, lang_hint) or extract_code_block(stripped_response)
+                if not extracted and stripped_response.lower().lstrip().startswith(("<!doctype", "<html")):
+                    extracted = stripped_response
+
+        _log.info(
+            "code_generator: render_type=%s raw_len=%d extracted_len=%d",
+            analysis.render_type,
+            len(response),
+            len(extracted) if extracted else 0,
+        )
 
         return extracted

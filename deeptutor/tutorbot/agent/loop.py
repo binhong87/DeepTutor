@@ -249,12 +249,20 @@ class AgentLoop:
         self,
         initial_messages: list[dict],
         on_progress: Callable[..., Awaitable[None]] | None = None,
-    ) -> tuple[str | None, list[str], list[dict]]:
-        """Run the agent iteration loop."""
+    ) -> tuple[str | None, list[str], list[dict], bool]:
+        """Run the agent iteration loop.
+
+        Returns ``(final_content, tools_used, messages, had_direct_result)``.
+        ``had_direct_result`` is True when a tool returned a
+        ``DIRECT_RESULT_PREFIX``-marked payload — that payload IS the
+        user-facing response and must override any earlier ``message()``
+        side-effects.
+        """
         messages = initial_messages
         iteration = 0
         final_content = None
         tools_used: list[str] = []
+        had_direct_result = False
 
         while iteration < self.max_iterations:
             iteration += 1
@@ -283,7 +291,10 @@ class AgentLoop:
                     thinking_blocks=response.thinking_blocks,
                 )
 
-                _TOOL_TIMEOUT = 120  # seconds — prevents indefinite hangs on slow pipelines
+                _TOOL_TIMEOUT = 300  # default seconds — prevents indefinite hangs on slow pipelines
+                _TOOL_TIMEOUT_OVERRIDES: dict[str, int] = {
+                    "visualize": 600,  # 3 LLM pipeline calls can take up to 200s each on slow backends
+                }
                 _KEEPALIVE_INTERVAL = 8  # seconds between progress pings
 
                 direct_result: str | None = None
@@ -305,13 +316,14 @@ class AgentLoop:
                             await asyncio.sleep(_KEEPALIVE_INTERVAL)
 
                     keepalive_task = asyncio.create_task(_keepalive())
+                    _this_timeout = _TOOL_TIMEOUT_OVERRIDES.get(tool_call.name, _TOOL_TIMEOUT)
                     try:
                         result = await asyncio.wait_for(
                             self.tools.execute(tool_call.name, tool_call.arguments),
-                            timeout=_TOOL_TIMEOUT,
+                            timeout=_this_timeout,
                         )
                     except asyncio.TimeoutError:
-                        result = f"Error: tool '{tool_call.name}' timed out after {_TOOL_TIMEOUT}s."
+                        result = f"Error: tool '{tool_call.name}' timed out after {_this_timeout}s."
                     finally:
                         keepalive_task.cancel()
 
@@ -326,6 +338,7 @@ class AgentLoop:
                     )
                 if direct_result is not None:
                     final_content = direct_result
+                    had_direct_result = True
                     break
             else:
                 clean = self._strip_think(response.content)
@@ -351,7 +364,7 @@ class AgentLoop:
                 "without completing the task. You can try breaking the task into smaller steps."
             )
 
-        return final_content, tools_used, messages
+        return final_content, tools_used, messages, had_direct_result
 
     async def run(self) -> None:
         """Run the agent loop, dispatching messages as tasks to stay responsive to /stop."""
@@ -496,7 +509,7 @@ class AgentLoop:
                 channel=channel,
                 chat_id=chat_id,
             )
-            final_content, _, all_msgs = await self._run_agent_loop(messages)
+            final_content, _, all_msgs, _ = await self._run_agent_loop(messages)
             self._save_turn(session, all_msgs, 1 + len(history))
             self.sessions.save(session)
             await self.memory_consolidator.maybe_consolidate_by_tokens(session)
@@ -747,7 +760,7 @@ class AgentLoop:
                 )
             )
 
-        final_content, _, all_msgs = await self._run_agent_loop(
+        final_content, _, all_msgs, had_direct_result = await self._run_agent_loop(
             initial_messages,
             on_progress=on_progress or _bus_progress,
         )
@@ -759,7 +772,17 @@ class AgentLoop:
         self.sessions.save(session)
         await self.memory_consolidator.maybe_consolidate_by_tokens(session)
 
-        if (mt := self.tools.get("message")) and isinstance(mt, MessageTool) and mt._sent_in_turn:
+        # A DIRECT_RESULT tool (e.g. `visualize`) produces the user-facing
+        # response in `final_content` itself — it must override any earlier
+        # message() side-effect the LLM batched in the same turn (e.g. a
+        # "Let me draw that for you" chatty preamble), otherwise the rich
+        # payload is lost and the user sees only the preamble.
+        if (
+            not had_direct_result
+            and (mt := self.tools.get("message"))
+            and isinstance(mt, MessageTool)
+            and mt._sent_in_turn
+        ):
             return None
 
         preview = final_content[:120] + "..." if len(final_content) > 120 else final_content
@@ -830,4 +853,21 @@ class AgentLoop:
         response = await self._process_message(
             msg, session_key=session_key, on_progress=on_progress
         )
-        return response.content if response else ""
+        mt = self.tools.get("message")
+        _mt_sent = isinstance(mt, MessageTool) and mt._sent_in_turn
+        _mt_content = (mt._last_content if isinstance(mt, MessageTool) else None)
+
+        if response is not None:
+            return response.content or ""
+        # When the agent used the message() tool, _process_message returns None but
+        # the content was published to the bus (not consumed in this direct path).
+        # Recover it from MessageTool so it reaches the WebSocket caller.
+        if isinstance(mt, MessageTool):
+            logger.debug(
+                "process_direct: message tool _sent_in_turn={} _last_content_len={}",
+                _mt_sent,
+                len(_mt_content or ""),
+            )
+            if _mt_content is not None:
+                return _mt_content
+        return ""
