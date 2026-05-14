@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-import json
 import logging
+import os
 import re
 
 from deeptutor.agents.base_agent import BaseAgent
@@ -35,6 +35,17 @@ class CodeGeneratorAgent(BaseAgent):
             language=language,
         )
 
+    def get_model(self) -> str:
+        # `VISUALIZE_MODEL` lets users point codegen at a fast, non-reasoning
+        # model (e.g. `deepseek-chat`) while the main agent keeps using the
+        # default reasoning model. Schema-constrained JSON output doesn't
+        # benefit from extended thinking — a non-reasoning model produces the
+        # same result in a fraction of the time.
+        override = os.getenv("VISUALIZE_MODEL", "").strip()
+        if override:
+            return override
+        return super().get_model()
+
     async def process(
         self,
         *,
@@ -51,7 +62,6 @@ class CodeGeneratorAgent(BaseAgent):
             user_input=user_input.strip(),
             history_context=history_context.strip() or "(none)",
             render_type=analysis.render_type,
-            analysis_json=json.dumps(analysis.model_dump(), ensure_ascii=False, indent=2),
         )
 
         chunks: list[str] = []

@@ -1,15 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import { useTutorBots } from "@/context/TutorBotContext";
+import { useAppShell } from "@/context/AppShellContext";
 import { useTranslation } from "react-i18next";
 
 export default function SoulsPage() {
   const { souls, loading } = useTutorBots();
+  const { language } = useAppShell();
   const [expanded, setExpanded] = useState<string | null>(null);
   const { t } = useTranslation();
+
+  // Souls are seeded as ten templates: five English (id="<name>") and five
+  // Chinese (id="<name>-zh"). Filter to the locale-appropriate set so the
+  // page surfaces the right five for the current UI language.
+  const filteredSouls = useMemo(() => {
+    if (language === "zh") {
+      return souls.filter((s) => s.id.endsWith("-zh"));
+    }
+    return souls.filter((s) => !s.id.endsWith("-zh"));
+  }, [souls, language]);
 
   if (loading) {
     return (
@@ -28,17 +40,17 @@ export default function SoulsPage() {
 
       <h1 className="text-2xl font-semibold text-[var(--foreground)] mb-2">{t("Soul Templates")}</h1>
       <p className="text-sm text-[var(--muted-foreground)] mb-8">
-        {t("Reusable personality templates for creating TutorBots. {{count}} available.", { count: souls.length })}
+        {t("Reusable personality templates for creating TutorBots. {{count}} available.", { count: filteredSouls.length })}
       </p>
 
-      {souls.length === 0 ? (
+      {filteredSouls.length === 0 ? (
         <div className="rounded-xl border border-dashed border-[var(--border)] p-12 text-center">
           <BookOpen className="mx-auto h-12 w-12 text-[var(--muted-foreground)]/50" />
           <p className="mt-4 text-sm text-[var(--muted-foreground)]">{t("No soul templates yet.")}</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2">
-          {souls.map(soul => (
+          {filteredSouls.map(soul => (
             <div
               key={soul.id}
               className="rounded-xl border border-[var(--border)] bg-[var(--background)] p-5 hover:shadow-sm transition-shadow cursor-pointer"

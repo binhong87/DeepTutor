@@ -98,7 +98,4 @@ user_template: |
 
   Render type: {render_type}
 
-  Analysis:
-  {analysis_json}
-
   Output only the fenced code block for the render_type — nothing else.

@@ -1,17 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Bot, Check, Sparkles, BookOpen, Cpu, Loader2, MessageCircle } from "lucide-react";
 import { useTutorBots } from "@/context/TutorBotContext";
+import { useAppShell } from "@/context/AppShellContext";
 import type { Soul } from "@/lib/tutorbot-api";
 import { useTranslation } from "react-i18next";
 
 export default function BoardingPage() {
   const router = useRouter();
   const { souls, createAndStart } = useTutorBots();
+  const { language } = useAppShell();
   const { t } = useTranslation();
+
+  // Match the souls page: show only the locale-matched template subset.
+  const filteredSouls = useMemo(() => {
+    if (language === "zh") return souls.filter((s) => s.id.endsWith("-zh"));
+    return souls.filter((s) => !s.id.endsWith("-zh"));
+  }, [souls, language]);
 
   const STEPS = [
     { label: t("step.welcome"), icon: Sparkles },
@@ -126,7 +134,7 @@ export default function BoardingPage() {
           <h2 className="text-lg font-semibold text-[var(--foreground)] mb-1">{t("Choose a Soul")}</h2>
           <p className="text-sm text-[var(--muted-foreground)] mb-6">{t("Pick a teaching persona or use the default.")}</p>
           <div className="grid gap-3 sm:grid-cols-2">
-            {souls.map(soul => (
+            {filteredSouls.map(soul => (
               <button
                 key={soul.id}
                 onClick={() => setSelectedSoul(soul)}

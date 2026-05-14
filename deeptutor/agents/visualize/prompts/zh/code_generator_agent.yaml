@@ -94,7 +94,4 @@ user_template: |
 
   渲染类型：{render_type}
 
-  分析：
-  {analysis_json}
-
   按上面的规则，为当前 render_type 输出唯一的 fenced code block，不写其它文字。
