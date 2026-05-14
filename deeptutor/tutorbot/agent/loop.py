@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import time
 from typing import TYPE_CHECKING, Awaitable, Callable
 
 from loguru import logger
@@ -277,6 +278,112 @@ class AgentLoop:
 
         return ", ".join(_fmt(tc) for tc in tool_calls)
 
+    async def _llm_call_with_keepalive(
+        self,
+        *,
+        messages: list[dict],
+        tool_defs: list[dict],
+        on_progress: Callable[..., Awaitable[None]] | None,
+    ):
+        """Call the LLM, streaming deltas to ``on_progress`` and emitting a
+        keepalive ping if the model produces nothing for >8 s.
+
+        Returns ``(response, streamed_any)``. ``streamed_any`` is True when at
+        least one delta was forwarded — callers use it to skip re-emitting
+        the same preamble after the call returns.
+        """
+        if on_progress is None:
+            response = await self.provider.chat_with_retry(
+                messages=messages,
+                tools=tool_defs,
+                model=self.model,
+            )
+            return response, False
+
+        delta_seen = asyncio.Event()
+        buf: list[str] = []
+        last_flush = [time.monotonic()]
+        flush_lock = asyncio.Lock()
+        streamed_any = [False]
+
+        _FLUSH_BYTES = 200
+        _FLUSH_INTERVAL_S = 0.12
+        _KEEPALIVE_INTERVAL_S = 8.0
+
+        async def _flush() -> None:
+            async with flush_lock:
+                if not buf:
+                    return
+                text = "".join(buf)
+                buf.clear()
+                last_flush[0] = time.monotonic()
+                streamed_any[0] = True
+                try:
+                    await on_progress(text, delta=True)
+                except TypeError:
+                    # on_progress doesn't accept the kwarg — degrade gracefully.
+                    try:
+                        await on_progress(text)
+                    except Exception:
+                        pass
+                except Exception:
+                    pass
+
+        async def _on_reasoning_delta(text: str) -> None:
+            """Reasoning tokens → thinking panel (streamed live)."""
+            if not text:
+                return
+            delta_seen.set()
+            buf.append(text)
+            total = sum(len(s) for s in buf)
+            if total >= _FLUSH_BYTES or (time.monotonic() - last_flush[0]) >= _FLUSH_INTERVAL_S:
+                await _flush()
+
+        async def _on_content_delta(text: str) -> None:
+            """Content tokens: suppress keepalive ping but do NOT stream to
+            the thinking panel.  The assembled response.content is emitted as
+            the final CONTENT event — streaming it here would duplicate the
+            response text inside the thinking panel."""
+            if text:
+                delta_seen.set()
+
+        async def _keepalive() -> None:
+            # Wait for either a delta or the keepalive interval. As soon as
+            # the model emits anything, the stream itself is the progress
+            # signal — no synthetic ping needed.
+            try:
+                while not delta_seen.is_set():
+                    try:
+                        await asyncio.wait_for(
+                            delta_seen.wait(),
+                            timeout=_KEEPALIVE_INTERVAL_S,
+                        )
+                        return
+                    except asyncio.TimeoutError:
+                        try:
+                            await on_progress("Thinking…")
+                        except Exception:
+                            pass
+            except asyncio.CancelledError:
+                raise
+
+        keepalive_task = asyncio.create_task(_keepalive())
+        try:
+            response = await self.provider.chat_stream_with_retry(
+                messages=messages,
+                tools=tool_defs,
+                model=self.model,
+                on_content_delta=_on_content_delta,
+                on_reasoning_delta=_on_reasoning_delta,
+            )
+        finally:
+            keepalive_task.cancel()
+            try:
+                await _flush()
+            except Exception:
+                pass
+        return response, streamed_any[0]
+
     async def _run_agent_loop(
         self,
         initial_messages: list[dict],
@@ -301,16 +408,19 @@ class AgentLoop:
 
             tool_defs = self.tools.get_definitions()
 
-            response = await self.provider.chat_with_retry(
+            response, streamed_any = await self._llm_call_with_keepalive(
                 messages=messages,
-                tools=tool_defs,
-                model=self.model,
+                tool_defs=tool_defs,
+                on_progress=on_progress,
             )
 
             if response.has_tool_calls:
                 if on_progress:
                     thought = self._strip_think(response.content)
-                    if thought:
+                    # Avoid double-emitting the preamble: if we already
+                    # streamed deltas to the user, the thought is already
+                    # visible in the rolling thinking buffer.
+                    if thought and not streamed_any:
                         await on_progress(thought)
                     await on_progress(self._tool_hint(response.tool_calls), tool_hint=True)
 
@@ -812,6 +922,7 @@ class AgentLoop:
             render_status_block,
         )
 
+        history = session.get_history(max_messages=0)
         active_plan = _load_plan(session)
 
         if active_plan is None and looks_like_teaching_request(current_message):
@@ -856,7 +967,6 @@ class AgentLoop:
             if isinstance(message_tool, MessageTool):
                 message_tool.start_turn()
 
-        history = session.get_history(max_messages=0)
         initial_messages = self.context.build_messages(
             history=history,
             current_message=current_message,
@@ -865,10 +975,11 @@ class AgentLoop:
             chat_id=msg.chat_id,
         )
 
-        async def _bus_progress(content: str, *, tool_hint: bool = False) -> None:
+        async def _bus_progress(content: str, *, tool_hint: bool = False, delta: bool = False) -> None:
             meta = dict(msg.metadata or {})
             meta["_progress"] = True
             meta["_tool_hint"] = tool_hint
+            meta["_delta"] = delta
             await self.bus.publish_outbound(
                 OutboundMessage(
                     channel=msg.channel,

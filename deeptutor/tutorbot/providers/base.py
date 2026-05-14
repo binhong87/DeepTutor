@@ -2,6 +2,7 @@
 
 from abc import ABC, abstractmethod
 import asyncio
+from collections.abc import Awaitable, Callable
 from dataclasses import dataclass, field
 import json
 from typing import Any
@@ -325,3 +326,106 @@ class LLMProvider(ABC):
     def get_default_model(self) -> str:
         """Get the default model for this provider."""
         pass
+
+    async def chat_stream_with_retry(
+        self,
+        messages: list[dict[str, Any]],
+        tools: list[dict[str, Any]] | None = None,
+        model: str | None = None,
+        max_tokens: object = _SENTINEL,
+        temperature: object = _SENTINEL,
+        reasoning_effort: object = _SENTINEL,
+        tool_choice: str | dict[str, Any] | None = None,
+        on_content_delta: Callable[[str], Awaitable[None]] | None = None,
+        on_reasoning_delta: Callable[[str], Awaitable[None]] | None = None,
+    ) -> LLMResponse:
+        """Call ``chat_stream()`` with the same transient retry policy as ``chat()``.
+
+        Falls back to non-streaming ``chat()`` when the provider doesn't implement
+        ``chat_stream`` — keeping the agent loop streaming-agnostic across providers.
+        """
+        if max_tokens is self._SENTINEL:
+            max_tokens = self.generation.max_tokens
+        if temperature is self._SENTINEL:
+            temperature = self.generation.temperature
+        if reasoning_effort is self._SENTINEL:
+            reasoning_effort = self.generation.reasoning_effort
+
+        resolved_max_tokens = self._coerce_int(max_tokens, self.generation.max_tokens)
+        resolved_temperature = self._coerce_float(temperature, self.generation.temperature)
+        resolved_reasoning_effort = (
+            reasoning_effort
+            if reasoning_effort is None or isinstance(reasoning_effort, str)
+            else None
+        )
+
+        stream_fn = getattr(self, "chat_stream", None)
+        if stream_fn is None:
+            return await self.chat_with_retry(
+                messages=messages,
+                tools=tools,
+                model=model,
+                max_tokens=resolved_max_tokens,
+                temperature=resolved_temperature,
+                reasoning_effort=resolved_reasoning_effort,
+                tool_choice=tool_choice,
+            )
+
+        async def _call() -> LLMResponse:
+            kwargs: dict[str, Any] = {
+                "messages": messages,
+                "tools": tools,
+                "model": model,
+                "max_tokens": resolved_max_tokens,
+                "temperature": resolved_temperature,
+                "reasoning_effort": resolved_reasoning_effort,
+                "tool_choice": tool_choice,
+                "on_content_delta": on_content_delta,
+            }
+            # Some providers (e.g. AnthropicProvider) don't yet accept
+            # on_reasoning_delta; pass it only when supported.
+            try:
+                import inspect
+
+                params = inspect.signature(stream_fn).parameters
+                if "on_reasoning_delta" in params:
+                    kwargs["on_reasoning_delta"] = on_reasoning_delta
+            except (TypeError, ValueError):
+                pass
+            return await stream_fn(**kwargs)
+
+        for attempt, delay in enumerate(self._CHAT_RETRY_DELAYS, start=1):
+            try:
+                response = await _call()
+            except asyncio.CancelledError:
+                raise
+            except Exception as exc:
+                response = LLMResponse(
+                    content=f"Error calling LLM: {exc}",
+                    finish_reason="error",
+                )
+
+            if response.finish_reason != "error":
+                return response
+            if not self._is_transient_error(response.content):
+                return response
+
+            err = (response.content or "").lower()
+            logger.warning(
+                "LLM stream transient error (attempt {}/{}), retrying in {}s: {}",
+                attempt,
+                len(self._CHAT_RETRY_DELAYS),
+                delay,
+                err[:120],
+            )
+            await asyncio.sleep(delay)
+
+        try:
+            return await _call()
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:
+            return LLMResponse(
+                content=f"Error calling LLM: {exc}",
+                finish_reason="error",
+            )

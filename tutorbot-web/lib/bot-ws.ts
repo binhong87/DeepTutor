@@ -19,7 +19,7 @@ export interface LessonPlan {
 }
 
 export type BotMessage =
-  | { type: "thinking"; content: string }
+  | { type: "thinking"; content: string; delta?: boolean; tool_hint?: boolean }
   | { type: "content"; content: string }
   | { type: "done" }
   | { type: "error"; content: string }
@@ -51,6 +51,7 @@ export function connectBotWS(
   const socket = new WebSocket(wsUrl(`/api/v1/tutorbot/${botId}/ws`));
 
   let currentTurnId: string | null = null;
+  let currentTurnIsStreaming = false;
 
   socket.addEventListener("message", (event) => {
     let msg: BotMessage;
@@ -74,11 +75,13 @@ export function connectBotWS(
       if (currentTurnId) {
         onTurnUpdate(currentTurnId, (t) => ({ ...t, status: "error", content: t.content || msg.content }));
         currentTurnId = null;
+        currentTurnIsStreaming = false;
       }
       return;
     }
 
     if (msg.type === "thinking") {
+      const isDelta = msg.delta === true;
       if (!currentTurnId) {
         currentTurnId = nextTurnId();
         onTurnUpdate(currentTurnId, (t) => ({
@@ -89,12 +92,25 @@ export function connectBotWS(
           status: "thinking",
           timestamp: Date.now(),
         }));
+      } else if (isDelta && currentTurnIsStreaming) {
+        // Append to the most recent step instead of opening a new one —
+        // streaming deltas should look like one growing thought, not
+        // hundreds of one-token "steps".
+        onTurnUpdate(currentTurnId, (t) => {
+          if (t.thinking.length === 0) {
+            return { ...t, thinking: [msg.content] };
+          }
+          const next = t.thinking.slice();
+          next[next.length - 1] = next[next.length - 1] + msg.content;
+          return { ...t, thinking: next };
+        });
       } else {
         onTurnUpdate(currentTurnId, (t) => ({
           ...t,
           thinking: [...t.thinking, msg.content],
         }));
       }
+      currentTurnIsStreaming = isDelta;
       return;
     }
 
@@ -123,6 +139,7 @@ export function connectBotWS(
         }));
       }
       currentTurnId = null;
+      currentTurnIsStreaming = false;
       return;
     }
 
@@ -130,6 +147,7 @@ export function connectBotWS(
       if (currentTurnId) {
         onTurnUpdate(currentTurnId, (t) => ({ ...t, status: "done" }));
         currentTurnId = null;
+        currentTurnIsStreaming = false;
       }
     }
   });

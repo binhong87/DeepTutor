@@ -904,9 +904,14 @@ class TutorBotManager:
 
         canonical_key = f"bot:{bot_id}"
 
-        async def _progress(text: str, *, tool_hint: bool = False) -> None:
+        async def _progress(text: str, *, tool_hint: bool = False, delta: bool = False) -> None:
             if on_progress:
-                await on_progress(text)
+                try:
+                    await on_progress(text, tool_hint=tool_hint, delta=delta)
+                except TypeError:
+                    # Older callers don't accept the kwargs — fall back to
+                    # text-only so streaming still degrades gracefully.
+                    await on_progress(text)
 
         response = await instance.agent_loop.process_direct(
             content,

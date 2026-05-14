@@ -550,6 +550,7 @@ class OpenAICompatProvider(LLMProvider):
         reasoning_effort: str | None = None,
         tool_choice: str | dict[str, Any] | None = None,
         on_content_delta: Callable[[str], Awaitable[None]] | None = None,
+        on_reasoning_delta: Callable[[str], Awaitable[None]] | None = None,
     ) -> LLMResponse:
         kwargs = self._build_kwargs(
             messages,
@@ -576,10 +577,21 @@ class OpenAICompatProvider(LLMProvider):
                 except StopAsyncIteration:
                     break
                 chunks.append(chunk)
-                if on_content_delta and chunk.choices:
-                    text = getattr(chunk.choices[0].delta, "content", None)
+                if not chunk.choices:
+                    continue
+                delta = chunk.choices[0].delta
+                if delta is None:
+                    continue
+                if on_content_delta:
+                    text = getattr(delta, "content", None)
                     if text:
                         await on_content_delta(text)
+                if on_reasoning_delta:
+                    reasoning = getattr(delta, "reasoning_content", None)
+                    if not reasoning:
+                        reasoning = getattr(delta, "reasoning", None)
+                    if reasoning:
+                        await on_reasoning_delta(reasoning)
             return self._parse_chunks(chunks)
         except asyncio.TimeoutError:
             return LLMResponse(

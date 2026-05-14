@@ -466,14 +466,19 @@ async def bot_chat_ws(ws: WebSocket, bot_id: str):
             if not content:
                 continue
 
-            async def on_progress(text: str) -> None:
+            async def on_progress(text: str, *, tool_hint: bool = False, delta: bool = False) -> None:
                 # Best-effort: never raise. If the client is gone, just stop
                 # forwarding progress; the surrounding loop will notice the
                 # `disconnected` event and exit. Raising here would leak
                 # WebSocketDisconnect into `mgr.send_message`, which catches
                 # `Exception` broadly and would swallow the disconnect signal,
                 # leaving the bot to finish an expensive turn for nobody.
-                await _safe_send({"type": "thinking", "content": text})
+                payload: dict = {"type": "thinking", "content": text}
+                if delta:
+                    payload["delta"] = True
+                if tool_hint:
+                    payload["tool_hint"] = True
+                await _safe_send(payload)
 
             async def on_lesson_update(plan_dict: dict) -> None:
                 """Push live lesson-plan changes to the UI timeline."""
