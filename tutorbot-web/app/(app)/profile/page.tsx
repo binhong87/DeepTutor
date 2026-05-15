@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Copy, Loader2, LogOut } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -28,12 +28,21 @@ export default function ProfilePage() {
   const { status, loading, logout, isAuthenticated } = useAuth();
   const { theme, setTheme, language, setLanguage } = useAppShell();
   const [copied, setCopied] = useState(false);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
       router.replace("/login");
     }
   }, [loading, isAuthenticated, router]);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+    };
+  }, []);
 
   if (loading || !status) {
     return (
@@ -57,7 +66,13 @@ export default function ProfilePage() {
     try {
       await navigator.clipboard.writeText(userId);
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+      copyTimeoutRef.current = setTimeout(() => {
+        setCopied(false);
+        copyTimeoutRef.current = null;
+      }, 1500);
     } catch {
       // clipboard unavailable — silently ignore
     }
