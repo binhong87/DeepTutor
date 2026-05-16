@@ -74,5 +74,5 @@ class KnowledgeResource:
         return self.name
 
 
-LOCAL_ADMIN_ID = "local-admin"
+LOCAL_ADMIN_ID = "admin"
 LOCAL_ADMIN_USERNAME = "local"

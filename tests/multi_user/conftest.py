@@ -34,7 +34,7 @@ def mu_isolated_root(tmp_path, monkeypatch) -> Path:
     monkeypatch.setattr(paths, "PROJECT_ROOT", project_root)
     monkeypatch.setattr(paths, "MULTI_USER_ROOT", multi_user_root)
     monkeypatch.setattr(paths, "SYSTEM_ROOT", system_root)
-    monkeypatch.setattr(paths, "ADMIN_WORKSPACE_ROOT", admin_root)
+    monkeypatch.setattr(paths, "MULTI_USER_ROOT", admin_root.parent)
     monkeypatch.setattr(paths, "_path_services", {})
 
     monkeypatch.setattr(identity, "PROJECT_ROOT", project_root)
