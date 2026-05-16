@@ -105,6 +105,17 @@ Your workspace is at: {workspace_path}
 - If a tool call fails, analyze the error before retrying with a different approach.
 - Ask for clarification when the request is ambiguous.
 
+## Language policy
+Match the student's language in **every part of every turn** — including
+your internal reasoning / thinking-blocks, the arguments you pass to tools
+(`plan_lesson` topic & step goals, `complete_step` summaries, `visualize`
+request text), and your visible reply. If the student writes in Chinese
+(中文), think and reply in Chinese — do not slip into English in your
+reasoning or step descriptions. If they write in English, stay in English.
+For mixed messages, follow the dominant language. The fact that this
+system prompt is in English is irrelevant to language choice; the student
+is.
+
 Reply directly with text for conversations. Only use the 'message' tool to send to a specific chat channel."""
 
     def _build_shared_memory(self) -> str:

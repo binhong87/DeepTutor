@@ -402,11 +402,27 @@ class AgentLoop:
         final_content = None
         tools_used: list[str] = []
         had_direct_result = False
+        # Accumulate substantive assistant text across iterations. When the
+        # model emits prose alongside a tool call (e.g. the actual lesson
+        # body before `complete_step`), that text MUST end up in the user-
+        # visible reply — sending it only as `thinking` (collapsible) loses
+        # the explanation the model intended to show.
+        visible_parts: list[str] = []
 
         while iteration < self.max_iterations:
             iteration += 1
 
             tool_defs = self.tools.get_definitions()
+            _last_user_preview = ""
+            for m in reversed(messages):
+                if m.get("role") == "user":
+                    c = m.get("content")
+                    _last_user_preview = (c if isinstance(c, str) else json.dumps(c, ensure_ascii=False))[:200]
+                    break
+            logger.warning(
+                "LLM request: iter={} msgs={} tools={} last_user={!r}",
+                iteration, len(messages), len(tool_defs), _last_user_preview,
+            )
 
             response, streamed_any = await self._llm_call_with_keepalive(
                 messages=messages,
@@ -414,9 +430,21 @@ class AgentLoop:
                 on_progress=on_progress,
             )
 
+            logger.warning(
+                "LLM response: iter={} content_len={} tool_calls={} reasoning_len={} finish={!r} content_preview={!r}",
+                iteration,
+                len(response.content or ""),
+                [tc.name for tc in (response.tool_calls or [])],
+                len(response.reasoning_content or ""),
+                response.finish_reason,
+                (response.content or "")[:200],
+            )
+
             if response.has_tool_calls:
+                thought = self._strip_think(response.content)
+                if thought:
+                    visible_parts.append(thought)
                 if on_progress:
-                    thought = self._strip_think(response.content)
                     # Avoid double-emitting the preamble: if we already
                     # streamed deltas to the user, the thought is already
                     # visible in the rolling thinking buffer.
@@ -435,11 +463,13 @@ class AgentLoop:
 
                 _TOOL_TIMEOUT = 180  # default seconds — fast-fail on hangs
                 _TOOL_TIMEOUT_OVERRIDES: dict[str, int] = {
-                    # visualize runs codegen (schema-validated). With
-                    # reasoning_effort=low on the codegen stage, 360 s is
-                    # comfortable headroom. The timeout bail-out below
-                    # prevents cascading retries if a single call does hang.
-                    "visualize": 360,
+                    # visualize runs codegen with reasoning_effort=low + one
+                    # retry on empty output. Each LLM call typically lands in
+                    # 30–90s; 180s covers two slow attempts plus buffer. If
+                    # the model is fully stuck (no streamed bytes), the
+                    # surrounding timeout bail-out kicks in here rather than
+                    # letting the parent agent wait minutes for nothing.
+                    "visualize": 180,
                 }
                 _KEEPALIVE_INTERVAL = 8  # seconds between progress pings
 
@@ -485,8 +515,17 @@ class AgentLoop:
                         messages, tool_call.id, tool_call.name, result
                     )
                 if direct_result is not None:
-                    final_content = direct_result
                     had_direct_result = True
+                    # If the model emitted substantive prose BEFORE the
+                    # direct-result tool (e.g. a written walkthrough that the
+                    # `visualize` figure illustrates), stitch it in front of
+                    # the rendered payload — otherwise the user sees only the
+                    # picture and loses the explanation that referenced it.
+                    pre_text = "\n\n".join(p.strip() for p in visible_parts if p and p.strip())
+                    if pre_text:
+                        final_content = f"{pre_text}\n\n{direct_result}"
+                    else:
+                        final_content = direct_result
                     # Persist the direct result as the turn's assistant message
                     # so it survives in the session JSONL and shows up again on
                     # page reload (history endpoint filters by role+content and
@@ -524,7 +563,15 @@ class AgentLoop:
                     reasoning_content=response.reasoning_content,
                     thinking_blocks=response.thinking_blocks,
                 )
-                final_content = clean
+                if clean:
+                    visible_parts.append(clean)
+                # Stitch together everything the assistant said this turn —
+                # the pre-tool-call prose plus the post-tool-call wrap-up.
+                # Join with a paragraph break so consecutive chunks don't run
+                # together visually.
+                final_content = "\n\n".join(p.strip() for p in visible_parts if p and p.strip())
+                if not final_content:
+                    final_content = clean
                 break
 
         if final_content is None and iteration >= self.max_iterations:
@@ -534,6 +581,10 @@ class AgentLoop:
                 "without completing the task. You can try breaking the task into smaller steps."
             )
 
+        logger.warning(
+            "Agent turn complete: iters={} tools_used={} had_direct_result={} final_len={} preview={!r}",
+            iteration, tools_used, had_direct_result, len(final_content or ""), (final_content or "")[:200],
+        )
         return final_content, tools_used, messages, had_direct_result
 
     async def run(self) -> None:
@@ -917,6 +968,7 @@ class AgentLoop:
         #      DIRECT_RESULT (e.g. visualize) → explicit "call complete_step
         #      first" hint so the LLM doesn't skip step closure.
         from deeptutor.tutorbot.agent.lesson import (
+            detect_message_lang,
             load as _load_plan,
             looks_like_teaching_request,
             render_status_block,
@@ -925,19 +977,60 @@ class AgentLoop:
         history = session.get_history(max_messages=0)
         active_plan = _load_plan(session)
 
+        # Localize the runtime nudges to match the student's writing language —
+        # otherwise the English scaffolding pulls the model into English even
+        # when the student is asking in Chinese.
+        msg_lang = detect_message_lang(current_message)
+
         if active_plan is None and looks_like_teaching_request(current_message):
-            nudge = (
-                "[Runtime guidance — not student input]\n"
-                "This looks like a teaching / explanation request. Your FIRST tool "
-                "call this turn MUST be `plan_lesson` with 3–6 ordered steps. "
-                "Do NOT answer free-form. Do NOT call `visualize` before `plan_lesson`. "
-                "After planning, execute exactly ONE step this turn, then call "
-                "`complete_step` and stop."
-            )
-            current_message = f"{nudge}\n\n---\n\nStudent message:\n{current_message}"
+            if msg_lang == "zh":
+                nudge = (
+                    "[运行时提示——非学生输入]\n"
+                    "这看起来是一次教学/讲解请求。本轮的第一次工具调用必须是 "
+                    "`plan_lesson`，包含 3–6 个有序步骤。不要直接以自由文本作答，"
+                    "也不要在 `plan_lesson` 之前调用 `visualize`。规划完成后，本轮"
+                    "只执行其中一个步骤，然后调用 `complete_step` 并停止。\n"
+                    "**请全程使用中文：思考过程、工具参数（含 `plan_lesson` 的 topic、"
+                    "各步骤 goal、`complete_step` 的 output_summary 等）以及给学生看到"
+                    "的回复，都必须是中文，不要用英文。**"
+                )
+                student_label = "学生消息"
+            else:
+                nudge = (
+                    "[Runtime guidance — not student input]\n"
+                    "This looks like a teaching / explanation request. Your FIRST tool "
+                    "call this turn MUST be `plan_lesson` with 3–6 ordered steps. "
+                    "Do NOT answer free-form. Do NOT call `visualize` before `plan_lesson`. "
+                    "After planning, execute exactly ONE step this turn, then call "
+                    "`complete_step` and stop."
+                )
+                student_label = "Student message"
+            current_message = f"{nudge}\n\n---\n\n{student_label}:\n{current_message}"
 
         elif active_plan is not None:
-            status = render_status_block(active_plan)
+            status = render_status_block(active_plan, lang=msg_lang)
+            # Enforce the protocol: before `complete_step` fires, the assistant
+            # must emit the step body as visible text. Otherwise the student
+            # sees an empty turn and a wrap-up question that references content
+            # they never saw.
+            if msg_lang == "zh":
+                step_body_hint = (
+                    "\n\n**协议要求：在调用 `complete_step` 之前，你必须先用普通文本"
+                    "把该步骤的讲解 / 提问内容完整发送出来——也就是学生本轮要在聊天框"
+                    "里看到的实质内容（定义、例子、推导、问题等）。**\n"
+                    "**思考（reasoning）不会被学生看到，所以不要把讲解只放在思考里。"
+                    "如果在 `complete_step` 之前你的可见回复是空的或只有几个字，那就是"
+                    "违反协议的 bug，必须先补上正文再调用工具。**"
+                )
+            else:
+                step_body_hint = (
+                    "\n\n**Protocol: BEFORE calling `complete_step`, emit the step's "
+                    "body — definition, example, derivation, question, whatever the "
+                    "step's goal calls for — as visible chat text. Reasoning / "
+                    "thinking blocks are NOT shown to the student; if your visible "
+                    "reply before `complete_step` is empty or trivial, that is a "
+                    "protocol bug and you must produce the body first.**"
+                )
             # Auto-resume hint: detect an in-progress step whose previous turn
             # likely ended with a DIRECT_RESULT (fenced code block from visualize).
             # Checked by inspecting the last assistant message in the persisted
@@ -952,15 +1045,39 @@ class AgentLoop:
                         last_assistant_text = str(entry["content"])
                         break
                 if last_assistant_text.lstrip().startswith("```"):
-                    resume_hint = (
-                        f"\n\n**Your previous turn ended with a figure for step "
-                        f"`{current_step.id}`. Your FIRST tool call this turn MUST "
-                        f"be `complete_step(id='{current_step.id}', "
-                        f"output_summary='...')` to close it out before starting "
-                        f"the next step.**"
-                    )
+                    if msg_lang == "zh":
+                        resume_hint = (
+                            f"\n\n**上一轮你为步骤 `{current_step.id}` 输出了一张图。"
+                            f"本轮的第一次工具调用必须是 "
+                            f"`complete_step(id='{current_step.id}', "
+                            f"output_summary='...')`，先把该步骤收尾，再开始下一步。**"
+                        )
+                    else:
+                        resume_hint = (
+                            f"\n\n**Your previous turn ended with a figure for step "
+                            f"`{current_step.id}`. Your FIRST tool call this turn MUST "
+                            f"be `complete_step(id='{current_step.id}', "
+                            f"output_summary='...')` to close it out before starting "
+                            f"the next step.**"
+                        )
+            student_label = "学生消息" if msg_lang == "zh" else "Student message"
             current_message = (
-                f"{status}{resume_hint}\n\n---\n\nStudent message:\n{current_message}"
+                f"{status}{resume_hint}{step_body_hint}\n\n---\n\n{student_label}:\n{current_message}"
+            )
+
+        # Universal language reminder: short messages like "小数和分数" don't
+        # match the teaching-keyword heuristic above, so the heavier Chinese
+        # nudge never fires and the model stays in English. Always inject a
+        # short language directive when the student writes in Chinese — the
+        # system-prompt Language policy alone isn't enough to override the
+        # model's default English reasoning trace on terse inputs.
+        if msg_lang == "zh" and "[运行时提示" not in current_message:
+            current_message = (
+                "[语言提示——非学生输入]\n"
+                "学生使用中文。请用中文进行思考（thinking）、调用工具时传入的所有参数，"
+                "以及给学生的最终回复——任何环节都不要使用英文。\n\n"
+                "---\n\n"
+                f"{current_message}"
             )
 
         if message_tool := self.tools.get("message"):
@@ -1023,6 +1140,48 @@ class AgentLoop:
             metadata=msg.metadata or {},
         )
 
+    @staticmethod
+    def _strip_runtime_wrappers(text: str) -> str:
+        """Peel off any of the per-turn nudges we prepend to user messages.
+
+        The agent wraps the raw student message with:
+          - the Runtime Context block (time/channel metadata)
+          - the language-hint block ("[语言提示——非学生输入]" / "[Runtime guidance...")
+          - the plan_lesson teaching nudge or lesson-status block
+        Each section is separated from the next by ``\\n\\n---\\n\\n``. The
+        actual student text appears after either a final ``学生消息:`` /
+        ``Student message:`` label or the last ``---`` separator. Persisting
+        the wrapped text into session history (and serving it back via
+        /history) leaks the nudges into the user's chat bubble — strip them
+        so the saved history shows only what the student actually typed.
+        """
+        if not text:
+            return text
+        # Strip the runtime-context preamble first (it's always at the top).
+        if text.startswith(ContextBuilder._RUNTIME_CONTEXT_TAG):
+            head, sep, rest = text.partition("\n\n")
+            if sep:
+                text = rest
+        # If a labelled student message exists, return the text after it.
+        for label in ("学生消息:\n", "Student message:\n"):
+            idx = text.rfind(label)
+            if idx >= 0:
+                return text[idx + len(label):].strip()
+        # Otherwise, if any of the nudge sentinels appear, keep everything
+        # after the LAST `---` separator.
+        sentinels = (
+            "[语言提示——非学生输入]",
+            "[运行时提示——非学生输入]",
+            "[Runtime guidance — not student input]",
+            "# Current lesson:",
+            "# 当前课程：",
+        )
+        if any(s in text for s in sentinels):
+            tail = text.rsplit("\n\n---\n\n", 1)
+            if len(tail) == 2 and tail[1].strip():
+                return tail[1].strip()
+        return text
+
     def _save_turn(self, session: Session, messages: list[dict], skip: int) -> None:
         """Save new-turn messages into session, truncating large tool results."""
         for m in messages[skip:]:
@@ -1037,24 +1196,19 @@ class AgentLoop:
             ):
                 entry["content"] = content[: self._TOOL_RESULT_MAX_CHARS] + "\n... (truncated)"
             elif role == "user":
-                if isinstance(content, str) and content.startswith(
-                    ContextBuilder._RUNTIME_CONTEXT_TAG
-                ):
-                    # Strip the runtime-context prefix, keep only the user text.
-                    parts = content.split("\n\n", 1)
-                    if len(parts) > 1 and parts[1].strip():
-                        entry["content"] = parts[1]
-                    else:
+                if isinstance(content, str):
+                    stripped = self._strip_runtime_wrappers(content)
+                    if not stripped:
                         continue
-                if isinstance(content, list):
+                    entry["content"] = stripped
+                elif isinstance(content, list):
                     filtered = []
                     for c in content:
-                        if (
-                            c.get("type") == "text"
-                            and isinstance(c.get("text"), str)
-                            and c["text"].startswith(ContextBuilder._RUNTIME_CONTEXT_TAG)
-                        ):
-                            continue  # Strip runtime context from multimodal messages
+                        if c.get("type") == "text" and isinstance(c.get("text"), str):
+                            stripped = self._strip_runtime_wrappers(c["text"])
+                            if stripped:
+                                filtered.append({"type": "text", "text": stripped})
+                            continue
                         if c.get("type") == "image_url" and c.get("image_url", {}).get(
                             "url", ""
                         ).startswith("data:image/"):

@@ -10,6 +10,7 @@ from .store import (
     advance_to,
     clear,
     complete,
+    detect_message_lang,
     insert_after,
     load,
     looks_like_teaching_request,
@@ -29,4 +30,5 @@ __all__ = [
     "insert_after",
     "render_status_block",
     "looks_like_teaching_request",
+    "detect_message_lang",
 ]

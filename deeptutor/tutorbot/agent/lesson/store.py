@@ -7,6 +7,7 @@ encapsulates the (de)serialisation and a few convenience advance helpers.
 
 from __future__ import annotations
 
+import re
 from typing import Any
 
 from deeptutor.tutorbot.session.manager import Session
@@ -83,9 +84,16 @@ def insert_after(plan: LessonPlan, anchor_id: str, new_step: LessonStep) -> bool
     return False
 
 
-def render_status_block(plan: LessonPlan) -> str:
-    """Human-readable one-block summary of the plan for injection into prompts."""
-    lines = [f"# Current lesson: {plan.topic}"]
+def render_status_block(plan: LessonPlan, lang: str = "en") -> str:
+    """Human-readable one-block summary of the plan for injection into prompts.
+
+    `lang` selects the wording so the bot doesn't get pushed into English by
+    English scaffolding when the student is writing in Chinese.
+    """
+    if lang == "zh":
+        lines = [f"# 当前课程：{plan.topic}"]
+    else:
+        lines = [f"# Current lesson: {plan.topic}"]
     for s in plan.steps:
         marker = {
             "done": "[x]",
@@ -97,10 +105,44 @@ def render_status_block(plan: LessonPlan) -> str:
         if s.output_summary and s.status == "done":
             lines.append(f"      ↳ {s.output_summary}")
     if plan.current_step_id:
-        lines.append(f"\n**You are on step `{plan.current_step_id}`. Execute only that step, then call `complete_step`.**")
+        if lang == "zh":
+            lines.append(
+                f"\n**你正在执行步骤 `{plan.current_step_id}`。只执行该步骤，然后调用 `complete_step`。**"
+            )
+        else:
+            lines.append(
+                f"\n**You are on step `{plan.current_step_id}`. Execute only that step, then call `complete_step`.**"
+            )
     elif plan.is_complete():
-        lines.append("\n**Lesson complete.** If the student asks a follow-up, answer directly — no need for a new plan unless they request a new topic.")
+        if lang == "zh":
+            lines.append(
+                "\n**课程已完成。** 如果学生提出后续问题，直接回答即可——除非他们请求一个新主题，否则不需要再制定新计划。"
+            )
+        else:
+            lines.append(
+                "\n**Lesson complete.** If the student asks a follow-up, answer directly — no need for a new plan unless they request a new topic."
+            )
     return "\n".join(lines)
+
+
+# Match any CJK ideograph (Han) or CJK punctuation. Hits Chinese, Japanese
+# kanji, and traditional Chinese alike. Hangul/Kana are excluded — they have
+# their own ranges and the rest of the system doesn't localize for them yet.
+_CJK_RE = re.compile(r"[一-鿿㐀-䶿＀-￯　-〿]")
+
+
+def detect_message_lang(message: str) -> str:
+    """Return "zh" if the message contains CJK characters, else "en".
+
+    Used to localize the runtime guidance nudges that wrap the student's
+    message before it reaches the LLM. The check is conservative: a single
+    CJK character is enough, because mixed Chinese-English student prompts
+    should still get the Chinese scaffolding so the model continues in
+    Chinese.
+    """
+    if not message:
+        return "en"
+    return "zh" if _CJK_RE.search(message) else "en"
 
 
 # ── Heuristics ────────────────────────────────────────────────────────────────
@@ -145,4 +187,5 @@ __all__ = [
     "insert_after",
     "render_status_block",
     "looks_like_teaching_request",
+    "detect_message_lang",
 ]
