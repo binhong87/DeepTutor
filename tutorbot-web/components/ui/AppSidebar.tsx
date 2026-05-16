@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bot, BookOpen, LayoutGrid, LogOut, PanelLeftClose, PanelLeftOpen, Settings } from "lucide-react";
+import { Bot, BookOpen, LayoutGrid, LogOut, PanelLeftClose, PanelLeftOpen, User } from "lucide-react";
 import { useAppShell } from "@/context/AppShellContext";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 export default function AppSidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed, setSidebarCollapsed } = useAppShell();
-  const { isAuthenticated, logout, isAdmin } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const { t } = useTranslation();
 
   const NAV_ITEMS = [
@@ -66,17 +66,17 @@ export default function AppSidebar() {
       </nav>
 
       <div className="border-t border-[var(--border)] px-2 py-3 space-y-1">
-        {isAdmin && (
+        {isAuthenticated && (
           <Link
-            href="/settings"
+            href="/profile"
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
               sidebarCollapsed && "justify-center px-2",
             )}
-            title={sidebarCollapsed ? t("Settings") : undefined}
+            title={sidebarCollapsed ? t("Profile") : undefined}
           >
-            <Settings className="h-4 w-4 shrink-0" />
-            {!sidebarCollapsed && <span>{t("Settings")}</span>}
+            <User className="h-4 w-4 shrink-0" />
+            {!sidebarCollapsed && <span>{t("Profile")}</span>}
           </Link>
         )}
         {isAuthenticated && (

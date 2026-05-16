@@ -139,14 +139,21 @@ export async function apiFetch(
   });
 
   if (res.status === 401 && AUTH_ENABLED && typeof window !== "undefined") {
-    // Don't redirect from public pages — the user is expected to be unauthenticated there.
-    const publicPaths = ["/login", "/register", "/"];
-    const currentPath = window.location.pathname;
-    if (!publicPaths.includes(currentPath)) {
-      const next = encodeURIComponent(currentPath + window.location.search);
-      window.location.href = `/login?next=${next}`;
+    // Login/register endpoints return 401 to signal "wrong credentials" — that's
+    // a normal form-level outcome the caller needs to read off the Response,
+    // NOT a session expiry. Don't redirect or throw for those.
+    const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    const isAuthChallenge = /\/api\/v1\/auth\/(login|register)\b/.test(url);
+    if (!isAuthChallenge) {
+      // Don't redirect from public pages — the user is expected to be unauthenticated there.
+      const publicPaths = ["/login", "/register", "/"];
+      const currentPath = window.location.pathname;
+      if (!publicPaths.includes(currentPath)) {
+        const next = encodeURIComponent(currentPath + window.location.search);
+        window.location.href = `/login?next=${next}`;
+      }
+      throw new Error("Session expired");
     }
-    throw new Error("Session expired");
   }
 
   return res;
