@@ -402,6 +402,15 @@ class AgentLoop:
         final_content = None
         tools_used: list[str] = []
         had_direct_result = False
+        # Count consecutive same-tool failures within this turn. The LLM
+        # sometimes locks onto a tool that's intermittently broken (e.g.
+        # `visualize` codegen returning empty on certain physics prompts)
+        # and retries it 5+ times, eating minutes. After MAX_SAME_TOOL_FAILS
+        # consecutive errors for the same tool, we force-stop the loop and
+        # let the parent emit text instead.
+        _MAX_SAME_TOOL_FAILS = 3
+        last_failed_tool: str | None = None
+        same_tool_fail_count = 0
         # Accumulate substantive assistant text across iterations. When the
         # model emits prose alongside a tool call (e.g. the actual lesson
         # body before `complete_step`), that text MUST end up in the user-
@@ -510,7 +519,22 @@ class AgentLoop:
                         messages = self.context.add_tool_result(
                             messages, tool_call.id, tool_call.name, direct_result
                         )
+                        # Successful direct-result resets the per-tool failure
+                        # counter so unrelated future failures aren't penalised.
+                        last_failed_tool = None
+                        same_tool_fail_count = 0
                         break
+                    # Track consecutive failures by tool name so we can break
+                    # out of LLM-driven retry loops that aren't converging.
+                    if isinstance(result, str) and result.startswith("Error"):
+                        if last_failed_tool == tool_call.name:
+                            same_tool_fail_count += 1
+                        else:
+                            last_failed_tool = tool_call.name
+                            same_tool_fail_count = 1
+                    else:
+                        last_failed_tool = None
+                        same_tool_fail_count = 0
                     messages = self.context.add_tool_result(
                         messages, tool_call.id, tool_call.name, result
                     )
@@ -535,6 +559,27 @@ class AgentLoop:
                         messages, direct_result
                     )
                     break
+                # Bail out if the same tool has failed too many times this
+                # turn — the LLM is stuck in a retry loop that's not making
+                # progress. Surface a forced fallback message to the parent
+                # LLM so the next iteration writes text instead.
+                if same_tool_fail_count >= _MAX_SAME_TOOL_FAILS:
+                    logger.warning(
+                        "Tool {} failed {} times in a row this turn — forcing fallback",
+                        last_failed_tool, same_tool_fail_count,
+                    )
+                    fallback_note = (
+                        f"\n\n[SYSTEM] The `{last_failed_tool}` tool has failed "
+                        f"{same_tool_fail_count} times this turn. STOP retrying it. "
+                        f"Write a textual explanation instead — no more tool calls."
+                    )
+                    messages = self.context.add_assistant_message(
+                        messages, fallback_note
+                    )
+                    same_tool_fail_count = 0
+                    last_failed_tool = None
+                    # Don't break — let the LLM produce its text response next iter.
+                    continue
                 if had_tool_timeout:
                     # Don't let the LLM cascade into more retries (e.g. swapping
                     # render_mode geometry → svg → html, each costing another
