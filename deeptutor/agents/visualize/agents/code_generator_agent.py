@@ -46,6 +46,36 @@ class CodeGeneratorAgent(BaseAgent):
             return override
         return super().get_model()
 
+    async def _call_llm(
+        self,
+        *,
+        user_prompt: str,
+        system_prompt: str,
+        attempt: int,
+    ) -> str:
+        """One round-trip to the codegen LLM. Returned text is the raw stream."""
+        chunks: list[str] = []
+        async for chunk in self.stream_llm(
+            user_prompt=user_prompt,
+            system_prompt=system_prompt,
+            stage="generating",
+            # Codegen is schema-constrained (PlotSpec / FigureSpec / mermaid /
+            # explicit html). Forcing low reasoning effort on reasoning models
+            # saves 60-180s per call with no quality loss — the model just
+            # needs to emit JSON matching a concrete schema, not plan.
+            reasoning_effort="low",
+            trace_meta=build_trace_metadata(
+                call_id=new_call_id(f"viz-codegen-a{attempt}"),
+                phase="generating",
+                label=f"Code generation (attempt {attempt})",
+                call_kind="viz_code_generation",
+                trace_role="generate",
+                trace_kind="llm_output",
+            ),
+        ):
+            chunks.append(chunk)
+        return "".join(chunks)
+
     async def process(
         self,
         *,
@@ -64,27 +94,27 @@ class CodeGeneratorAgent(BaseAgent):
             render_type=analysis.render_type,
         )
 
-        chunks: list[str] = []
-        async for chunk in self.stream_llm(
-            user_prompt=user_prompt,
-            system_prompt=system_prompt,
-            stage="generating",
-            # Codegen is schema-constrained (PlotSpec / FigureSpec / mermaid /
-            # explicit html). Forcing low reasoning effort on reasoning models
-            # saves 60-180s per call with no quality loss — the model just
-            # needs to emit JSON matching a concrete schema, not plan.
-            reasoning_effort="low",
-            trace_meta=build_trace_metadata(
-                call_id=new_call_id("viz-codegen"),
-                phase="generating",
-                label="Code generation",
-                call_kind="viz_code_generation",
-                trace_role="generate",
-                trace_kind="llm_output",
-            ),
-        ):
-            chunks.append(chunk)
-        response = "".join(chunks)
+        response = await self._call_llm(user_prompt=user_prompt, system_prompt=system_prompt, attempt=1)
+
+        # Some models (e.g. deepseek-v4-pro) intermittently stream nothing or
+        # only whitespace for the codegen call. One retry with a tighter
+        # "JSON only, no prose" prompt recovers the vast majority of those
+        # cases — and costs less than letting the parent agent see an empty
+        # fenced block and fumble downstream.
+        if not response.strip() or len(response.strip()) < 20:
+            _log.warning(
+                "code_generator: empty/short first response (len=%d) — retrying once",
+                len(response.strip()),
+            )
+            retry_prompt = (
+                user_prompt
+                + "\n\nIMPORTANT: Your previous response was empty or too short. "
+                "Emit ONLY the fenced code block this time — no preamble, no thinking, "
+                "no commentary. Start your reply with the opening backticks."
+            )
+            response = await self._call_llm(
+                user_prompt=retry_prompt, system_prompt=system_prompt, attempt=2
+            )
 
         if analysis.render_type == "svg":
             lang_hint = "svg"
@@ -141,7 +171,12 @@ class CodeGeneratorAgent(BaseAgent):
             try:
                 extracted = validate_plot_code(extracted)
             except Exception as exc:
-                _log.warning("plot validation failed: %s", exc)
+                _log.warning(
+                    "plot validation failed: %s | raw_response[:1500]=%r | extracted[:500]=%r",
+                    exc,
+                    response[:1500],
+                    extracted[:500] if extracted else None,
+                )
                 raise ValueError(
                     f"Generated plot JSON failed schema validation: {exc}"
                 ) from exc

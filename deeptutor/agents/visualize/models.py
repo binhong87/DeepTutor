@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class VisualizationAnalysis(BaseModel):
@@ -61,8 +61,23 @@ class PlotFunction(BaseModel):
     color: str | None = Field(default=None, description="CSS color, e.g. '#6366f1'.")
     label: str | None = Field(default=None, description="Legend label.")
     graphType: str | None = Field(
-        default=None, description="'line' (default), 'scatter', or 'interval'."
+        default=None,
+        description="'polyline' (default smooth curve), 'scatter', or 'interval'.",
     )
+
+    @field_validator("graphType", mode="before")
+    @classmethod
+    def _coerce_graph_type(cls, v: str | None) -> str | None:
+        if v is None:
+            return None
+        v = str(v).strip().lower()
+        if v in {"polyline", "scatter", "interval"}:
+            return v
+        if v in {"line", "curve", ""}:
+            return "polyline"
+        if v == "points":
+            return "scatter"
+        return None
 
 
 class PlotSpec(BaseModel):

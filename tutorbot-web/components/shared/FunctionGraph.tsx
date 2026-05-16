@@ -51,6 +51,17 @@ function normalizeFnExpression(fn: string): string {
     .replace(/\be\b(?=\s*[*/+\-^)])/g, "E");
 }
 
+// function-plot accepts only "interval", "scatter", and "polyline" graphTypes.
+// LLMs frequently emit "line" or other plausible-sounding names; coerce or drop.
+const VALID_FP_GRAPH_TYPES = new Set(["interval", "scatter", "polyline"]);
+function normalizeGraphType(gt?: string): string | undefined {
+  if (!gt) return undefined;
+  if (VALID_FP_GRAPH_TYPES.has(gt)) return gt;
+  if (gt === "line" || gt === "curve") return "polyline";
+  if (gt === "points") return "scatter";
+  return undefined;
+}
+
 export const FunctionGraph: React.FC<FunctionGraphProps> = ({
   spec,
   className = "",
@@ -80,11 +91,14 @@ export const FunctionGraph: React.FC<FunctionGraphProps> = ({
           yAxis: parsed.yDomain
             ? { domain: parsed.yDomain, label: parsed.yLabel }
             : { label: parsed.yLabel },
-          data: parsed.functions.map((f) => ({
-            fn: normalizeFnExpression(f.fn),
-            ...(f.color && { color: f.color }),
-            ...(f.graphType && { graphType: f.graphType }),
-          })),
+          data: parsed.functions.map((f) => {
+            const gt = normalizeGraphType(f.graphType);
+            return {
+              fn: normalizeFnExpression(f.fn),
+              ...(f.color && { color: f.color }),
+              ...(gt && { graphType: gt }),
+            };
+          }),
           grid: true,
         };
 

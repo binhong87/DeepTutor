@@ -404,12 +404,35 @@ class VisualizeAdapterTool(Tool):
             else:
                 final_code = code
 
+            # Empty or whitespace-only output means codegen failed silently
+            # (e.g. the LLM streamed nothing). Returning an empty fenced
+            # block to the parent agent leaves the student staring at "```"
+            # — surface it as a tool error so the LLM can retry differently
+            # (try a different `mode`, give more `request` context, or fall
+            # back to a textual explanation).
+            if not final_code or not final_code.strip():
+                _log.warning(
+                    "VisualizeAdapterTool: empty codegen output (mode=%r render_type=%r) — "
+                    "returning error so LLM can retry",
+                    raw_mode, render_type,
+                )
+                return (
+                    f"Error: visualize tool produced no content for mode={raw_mode!r}. "
+                    f"This usually means the codegen LLM stalled. "
+                    f"You can: (a) retry with more specific `request` text, "
+                    f"(b) try a different `mode` (plot/figure/diagram), or "
+                    f"(c) explain the concept with text instead of a figure."
+                )
+
             lang_tag = analysis.render_type
             return f"{_DIRECT_RESULT_PREFIX}```{lang_tag}\n{final_code}\n```"
-        except Exception:
+        except Exception as exc:
             _log.exception(
                 "VisualizeAdapterTool.execute failed (mode=%r render_type=%r)",
                 raw_mode,
                 render_type,
             )
-            raise
+            return (
+                f"Error: visualize failed ({type(exc).__name__}: {exc}). "
+                f"Try a different `mode` or fall back to a text explanation."
+            )
