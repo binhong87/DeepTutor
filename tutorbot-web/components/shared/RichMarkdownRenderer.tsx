@@ -248,9 +248,16 @@ export default function RichMarkdownRenderer({
       const nextPlugins: PluginBundle = {};
 
       if (enableMath) {
+        // Importing `katex/contrib/mhchem` is a side-effect import that
+        // registers the `\ce{...}` and `\pu{...}` macros on the global
+        // KaTeX instance — without it, chemistry equations like
+        // `$\ce{H2 + Cl2 -> 2HCl}$` render as literal text. It must load
+        // BEFORE rehype-katex sees the math, hence the explicit await
+        // ahead of the rehype-katex import below.
         const [remarkMathModule, rehypeKatexModule] = await Promise.all([
           import("remark-math"),
           import("rehype-katex"),
+          import("katex/contrib/mhchem"),
         ]);
         nextPlugins.remarkMath = remarkMathModule.default;
         nextPlugins.rehypeKatex = rehypeKatexModule.default;
@@ -774,7 +781,16 @@ export default function RichMarkdownRenderer({
   const rehypePlugins = useMemo(() => {
     const p: Array<any> = [];
     if (allowHtml && plugins.rehypeRaw) p.push(plugins.rehypeRaw as never);
-    if (enableMath && plugins.rehypeKatex) p.push(plugins.rehypeKatex as never);
+    if (enableMath && plugins.rehypeKatex) {
+      // `strict: "ignore"` lets KaTeX render unknown commands (incl. mhchem
+      // arrow shapes like `->`) instead of throwing. `trust: true` allows
+      // the macros mhchem registers internally; without it `\ce{...}` is
+      // refused as an "unsafe" command.
+      p.push([
+        plugins.rehypeKatex as never,
+        { strict: "ignore", trust: true },
+      ]);
+    }
     return p;
   }, [allowHtml, enableMath, plugins.rehypeRaw, plugins.rehypeKatex]);
 
