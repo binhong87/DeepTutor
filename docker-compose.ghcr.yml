@@ -82,6 +82,13 @@ services:
       - ./data/user:/app/data/user
       - ./data/memory:/app/data/memory
       - ./data/knowledge_bases:/app/data/knowledge_bases
+      # TutorBot per-bot configs (souls, channels, prompts) and the
+      # admin-wide soul template library — must persist across image rebuilds
+      # so admins don't lose their bots when the backend image is replaced.
+      - ./data/tutorbot:/app/data/tutorbot
+      # Per-user workspaces and the auth store. Without this mount, every
+      # backend image rebuild wipes all registered accounts.
+      - ./multi-user:/app/multi-user
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${BACKEND_PORT:-8001}/"]

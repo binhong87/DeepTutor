@@ -1,0 +1,3 @@
+FROM deeptutor:chatv2
+
+COPY deeptutor/ /app/deeptutor/
