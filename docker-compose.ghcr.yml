@@ -57,6 +57,11 @@ services:
       - LLM_HOST=${LLM_HOST}
       - LLM_API_VERSION=${LLM_API_VERSION:-}
       - DISABLE_SSL_VERIFY=${DISABLE_SSL_VERIFY:-false}
+      # Optional: override the model used by the `visualize` codegen stage.
+      # Codegen emits schema-constrained JSON, so a fast non-reasoning model
+      # (e.g. `deepseek-chat`, `gpt-4o-mini`) is dramatically faster and just
+      # as reliable as the main reasoning model.
+      - VISUALIZE_MODEL=${VISUALIZE_MODEL:-}
       # Embedding Configuration (Required for Knowledge Base)
       - EMBEDDING_BINDING=${EMBEDDING_BINDING:-openai}
       - EMBEDDING_MODEL=${EMBEDDING_MODEL:-text-embedding-3-large}
