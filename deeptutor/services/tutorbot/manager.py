@@ -22,7 +22,7 @@ from typing import Any
 
 import yaml
 
-from deeptutor.services.path_service import get_path_service
+from deeptutor.multi_user.models import UserScope
 
 logger = logging.getLogger(__name__)
 
@@ -190,34 +190,35 @@ class TutorBotInstance:
 
 
 class TutorBotManager:
-    """Manage TutorBot instances running in-process."""
+    """Manage TutorBot instances for a single user (one manager per user)."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, scope: UserScope) -> None:
+        from deeptutor.multi_user.paths import get_path_service_for_scope
+
+        self._scope = scope
+        self._path_service = get_path_service_for_scope(scope)
         self._bots: dict[str, TutorBotInstance] = {}
-        self._path_service = get_path_service()
 
     # ── Path helpers ──────────────────────────────────────────────
 
-    def _bot_key(self, bot_id: str) -> str:
-        """Return the dict key for self._bots, scoped to the current user."""
-        from deeptutor.multi_user.context import get_current_user
-        user = get_current_user()
-        return f"{user.id}/{bot_id}"
-
     @property
     def _tutorbot_dir(self) -> Path:
-        from deeptutor.multi_user.context import get_current_user
-        from deeptutor.multi_user.paths import MULTI_USER_ROOT
-
-        user = get_current_user()
-        if user and not user.is_admin:
-            return MULTI_USER_ROOT / user.id / "tutorbot"
-        return self._path_service.project_root / "data" / "tutorbot"
+        return self._scope.root / "tutorbot"
 
     @property
-    def _shared_memory_dir(self) -> Path:
-        """Public memory shared by DeepTutor and all bots."""
-        return self._path_service.get_memory_dir()
+    def _memory_dir(self) -> Path:
+        return self._scope.root / "memory"
+
+    @property
+    def _user_souls_file(self) -> Path:
+        return self._tutorbot_dir / "_souls.yaml"
+
+    @staticmethod
+    def _builtin_souls_file() -> Path:
+        return (
+            Path(__file__).resolve().parent.parent.parent
+            / "tutorbot" / "souls" / "_builtin.yaml"
+        )
 
     def _bot_dir(self, bot_id: str) -> Path:
         return self._tutorbot_dir / bot_id
@@ -403,9 +404,8 @@ class TutorBotManager:
 
     async def start_bot(self, bot_id: str, config: BotConfig | None = None) -> TutorBotInstance:
         """Start a TutorBot instance with its own isolated workspace."""
-        key = self._bot_key(bot_id)
-        if key in self._bots and self._bots[key].running:
-            return self._bots[key]
+        if bot_id in self._bots and self._bots[bot_id].running:
+            return self._bots[bot_id]
 
         self._ensure_bot_dirs(bot_id)
 
@@ -448,7 +448,7 @@ class TutorBotManager:
             context_window_tokens=llm_config.context_window or 65_536,
             exec_config=exec_config,
             session_manager=session_adapter,
-            shared_memory_dir=self._shared_memory_dir,
+            shared_memory_dir=self._memory_dir,
             restrict_to_workspace=False,
             default_session_key=canonical_key,
         )
@@ -512,16 +512,15 @@ class TutorBotManager:
         instance.heartbeat = heartbeat
         await heartbeat.start()
 
-        from deeptutor.multi_user.context import get_current_user
-        instance.owner_id = get_current_user().id
-        self._bots[key] = instance
+        instance.owner_id = self._scope.user_id
+        self._bots[bot_id] = instance
         self.save_bot_config(bot_id, config)
         logger.info("TutorBot '%s' started (workspace=%s)", bot_id, workspace)
         return instance
 
     async def reload_llm(self, bot_id: str) -> None:
         """Apply the bot's current LLM config to an already-running instance."""
-        instance = self._bots.get(self._bot_key(bot_id))
+        instance = self._bots.get(bot_id)
         if not instance or not instance.running or not instance.agent_loop:
             return
 
@@ -606,7 +605,7 @@ class TutorBotManager:
         must preserve the persisted auto-start intent so Docker/host restarts
         bring the same bots back online.
         """
-        instance = self._bots.get(self._bot_key(bot_id))
+        instance = self._bots.get(bot_id)
         if not instance:
             return False
         auto_start = self._load_auto_start(bot_id, default=True) if preserve_auto_start else False
@@ -636,7 +635,7 @@ class TutorBotManager:
                 pass
 
         self.save_bot_config(bot_id, instance.config, auto_start=auto_start)
-        del self._bots[self._bot_key(bot_id)]
+        del self._bots[bot_id]
         logger.info(
             "TutorBot '%s' stopped (auto_start=%s, preserve_auto_start=%s)",
             bot_id,
@@ -686,7 +685,7 @@ class TutorBotManager:
         listeners are torn down (bot is left running with no channels) and the
         error is recorded; callers should surface it to the user.
         """
-        instance = self._bots.get(self._bot_key(bot_id))
+        instance = self._bots.get(bot_id)
         if not instance or not instance.running:
             return
 
@@ -775,10 +774,8 @@ class TutorBotManager:
         """
         result: dict[str, dict[str, Any]] = {}
 
-        prefix = self._bot_key("")
-        for key, inst in self._bots.items():
-            if key.startswith(prefix):
-                result[inst.bot_id] = inst.to_dict()
+        for bot_id, inst in self._bots.items():
+            result[bot_id] = inst.to_dict()
 
         for bid in self._discover_bot_ids():
             if bid in result:
@@ -800,7 +797,7 @@ class TutorBotManager:
         return list(result.values())
 
     def get_bot(self, bot_id: str) -> TutorBotInstance | None:
-        return self._bots.get(self._bot_key(bot_id))
+        return self._bots.get(bot_id)
 
     def get_bot_history(self, bot_id: str, limit: int = 100) -> list[dict[str, Any]]:
         """Read chat messages from a bot's JSONL session files."""
@@ -871,7 +868,7 @@ class TutorBotManager:
                 pass
 
             cfg = self.load_bot_config(bid)
-            instance = self._bots.get(self._bot_key(bid))
+            instance = self._bots.get(bid)
             bot_activity.append(
                 (
                     mtime,
@@ -898,7 +895,7 @@ class TutorBotManager:
         on_lesson_update: Callable[[dict], Awaitable[None]] | None = None,
     ) -> str:
         """Send a message to a running bot and return the response."""
-        instance = self._bots.get(self._bot_key(bot_id))
+        instance = self._bots.get(bot_id)
         if not instance or not instance.running:
             raise RuntimeError(f"Bot '{bot_id}' is not running")
 
@@ -950,8 +947,7 @@ class TutorBotManager:
     async def auto_start_bots(self) -> None:
         """Scan persisted configs and start bots marked with auto_start: true."""
         for bid in self._discover_bot_ids():
-            key = self._bot_key(bid)
-            if key in self._bots and self._bots[key].running:
+            if bid in self._bots and self._bots[bid].running:
                 continue
             try:
                 self._maybe_migrate_legacy(bid)
@@ -1048,12 +1044,8 @@ class TutorBotManager:
 
     # ── Soul template library ─────────────────────────────────────
 
-    @property
-    def _souls_file(self) -> Path:
-        return self._path_service.project_root / "data" / "tutorbot" / "_souls.yaml"
-
     def _load_souls(self) -> list[dict[str, str]]:
-        path = self._souls_file
+        path = self._user_souls_file
         if not path.exists():
             self._seed_default_souls()
         try:
@@ -1064,7 +1056,7 @@ class TutorBotManager:
 
     def _save_souls(self, souls: list[dict[str, str]]) -> None:
         self._tutorbot_dir.mkdir(parents=True, exist_ok=True)
-        self._souls_file.write_text(
+        self._user_souls_file.write_text(
             yaml.dump(souls, allow_unicode=True, default_flow_style=False),
             encoding="utf-8",
         )
@@ -1228,11 +1220,28 @@ class TutorBotManager:
         return True
 
 
-_manager: TutorBotManager | None = None
+_managers: dict[str, TutorBotManager] = {}
 
 
 def get_tutorbot_manager() -> TutorBotManager:
-    global _manager
-    if _manager is None:
-        _manager = TutorBotManager()
-    return _manager
+    """Return the TutorBotManager for the current user, cached by user.id."""
+    from deeptutor.multi_user.context import get_current_user
+
+    user = get_current_user()
+    mgr = _managers.get(user.id)
+    if mgr is None:
+        mgr = TutorBotManager(scope=user.scope)
+        _managers[user.id] = mgr
+    return mgr
+
+
+def shutdown_all_managers() -> None:
+    """Used at process shutdown to stop bots across every cached manager."""
+    for mgr in list(_managers.values()):
+        for bot_id in list(mgr._bots):
+            try:
+                instance = mgr._bots.pop(bot_id, None)
+                if instance and instance.heartbeat:
+                    instance.heartbeat.stop()
+            except Exception:
+                pass
