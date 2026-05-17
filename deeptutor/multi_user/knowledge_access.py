@@ -13,10 +13,11 @@ from deeptutor.knowledge.manager import KnowledgeBaseManager
 from .context import get_current_user
 from .grants import load_grant
 from .models import KnowledgeResource
-from .paths import get_admin_path_service, get_current_path_service
+from .paths import get_admin_path_service, get_current_path_service, get_shared_path_service
 
 ADMIN_PREFIX = "admin:kb:"
 USER_PREFIX = "user:kb:"
+SHARED_PREFIX = "shared:kb:"
 DEFAULT_KB_ALIASES = {"", "default", "current", "selected", "默认", "默认知识库", "当前知识库"}
 
 
@@ -33,12 +34,20 @@ def admin_kb_base_dir() -> Path:
     return get_admin_path_service().get_knowledge_bases_root()
 
 
+def shared_kb_base_dir() -> Path:
+    return get_shared_path_service().get_knowledge_bases_root()
+
+
 def current_kb_manager() -> KnowledgeBaseManager:
     return _manager_for(str(current_kb_base_dir().resolve()))
 
 
 def admin_kb_manager() -> KnowledgeBaseManager:
     return _manager_for(str(admin_kb_base_dir().resolve()))
+
+
+def shared_kb_manager() -> KnowledgeBaseManager:
+    return _manager_for(str(shared_kb_base_dir().resolve()))
 
 
 def user_kb_manager_for_current_user() -> KnowledgeBaseManager:
@@ -51,6 +60,8 @@ def _strip_resource_prefix(value: str) -> tuple[str | None, str]:
         return "admin", raw[len(ADMIN_PREFIX) :]
     if raw.startswith(USER_PREFIX):
         return "user", raw[len(USER_PREFIX) :]
+    if raw.startswith(SHARED_PREFIX):
+        return "shared", raw[len(SHARED_PREFIX) :]
     return None, raw
 
 
@@ -72,6 +83,16 @@ def _assigned_admin_names() -> set[str]:
 def resolve_kb(kb_ref: str, *, require_write: bool = False) -> KnowledgeResource:
     user = get_current_user()
     requested_source, name = _strip_resource_prefix(kb_ref)
+
+    if requested_source == "shared":
+        return KnowledgeResource(
+            id=f"shared:kb:{name}",
+            name=name,
+            base_dir=shared_kb_base_dir(),
+            source="shared",
+            assigned=True,
+            read_only=True,
+        )
 
     if user.is_admin:
         manager = admin_kb_manager()

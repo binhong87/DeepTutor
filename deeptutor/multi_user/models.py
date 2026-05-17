@@ -64,7 +64,7 @@ class KnowledgeResource:
     id: str
     name: str
     base_dir: Path
-    source: Literal["admin", "user"]
+    source: Literal["admin", "user", "shared"]
     assigned: bool = False
     read_only: bool = False
     metadata: dict[str, Any] = field(default_factory=dict)
