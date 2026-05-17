@@ -90,6 +90,7 @@ class AgentLoop:
 
         self.context = ContextBuilder(workspace, user_memory_dir=self._user_memory_dir, user_id=user_id)
         self.sessions = session_manager or SessionManager(workspace)
+        self._on_session_promoted: Callable[[str, str | None], None] | None = None
         self.tools = ToolRegistry()
         self.subagents = SubagentManager(
             provider=provider,
@@ -258,7 +259,22 @@ class AgentLoop:
         for name in ("plan_lesson", "complete_step", "insert_step"):
             if tool := self.tools.get(name):
                 if hasattr(tool, "set_session_accessor"):
-                    tool.set_session_accessor(session_getter, on_update)
+                    tool.set_session_accessor(
+                        session_getter,
+                        on_update,
+                        session_manager=self.sessions,
+                        on_session_promoted=self._on_session_promoted,
+                    )
+
+    def set_session_promoted_callback(
+        self, cb: Callable[[str, str | None], None] | None
+    ) -> None:
+        """Set the per-turn callback invoked when a default session is promoted.
+
+        Receives (promoted_key, new_default_key). The WS layer uses this to
+        push a session_promoted event so the sidebar tree updates live.
+        """
+        self._on_session_promoted = cb
 
     @staticmethod
     def _strip_think(text: str | None) -> str | None:

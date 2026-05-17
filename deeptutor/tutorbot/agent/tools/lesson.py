@@ -42,15 +42,22 @@ class _SessionAwareTool(Tool):
     def __init__(self) -> None:
         self._session_getter: Callable[[], Session | None] = lambda: None
         self._on_update: Callable[[dict], Awaitable[None]] | None = None
+        self._session_manager: Any = None
+        self._on_session_promoted: Callable[[str, str | None], Any] | None = None
 
     def set_session_accessor(
         self,
         getter: Callable[[], Session | None],
         on_update: Callable[[dict], Awaitable[None]] | None = None,
+        *,
+        session_manager: Any = None,
+        on_session_promoted: Callable[[str, str | None], Any] | None = None,
     ) -> None:
         """Called by the agent loop at the start of each turn."""
         self._session_getter = getter
         self._on_update = on_update
+        self._session_manager = session_manager
+        self._on_session_promoted = on_session_promoted
 
     def _session(self) -> Session | None:
         try:
@@ -188,6 +195,25 @@ class PlanLessonTool(_SessionAwareTool):
         first.status = "in_progress"
         plan.current_step_id = first.id
         save(session, plan)
+
+        # B1: promote the default session into a named session (rule 3) or
+        # update title in place when replanning inside an already-named
+        # session (rule 4).
+        if session.metadata.get("status") == "default" and self._session_manager is not None:
+            promoted, new_default = self._session_manager.promote_default(
+                session, title=plan.topic, title_source="lesson_plan", completed=False,
+            )
+            if new_default is not None and self._on_session_promoted is not None:
+                try:
+                    self._on_session_promoted(promoted.key, new_default.key)
+                except Exception:
+                    _log.exception("on_session_promoted callback raised")
+        else:
+            session.metadata["title"] = plan.topic
+            session.metadata["title_source"] = "lesson_plan"
+            if self._session_manager is not None:
+                self._session_manager.save(session)
+
         await self._notify(plan)
 
         # Nudge the LLM to now execute step 1 — continues the same turn.

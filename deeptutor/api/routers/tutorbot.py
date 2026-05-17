@@ -391,6 +391,148 @@ async def get_bot_history(bot_id: str, limit: int = 100):
     return get_tutorbot_manager().get_bot_history(bot_id, limit=limit)
 
 
+@router.websocket("/{bot_id}/sessions/{sid}/ws")
+async def bot_chat_session_ws(ws: WebSocket, bot_id: str, sid: str):
+    """Session-scoped WebSocket. Same protocol as /ws, bound to a specific session.
+
+    Emits a `session_promoted` event when plan_lesson promotes the current
+    default — frontends listen and patch their sidebar tree in place.
+    """
+    disconnected = asyncio.Event()
+
+    async def _safe_send(payload: dict) -> bool:
+        try:
+            await ws.send_json(payload)
+            return True
+        except (WebSocketDisconnect, RuntimeError):
+            disconnected.set()
+            return False
+
+    mgr = get_tutorbot_manager()
+    instance = mgr.get_bot(bot_id)
+    await ws.accept()
+
+    if not instance or not instance.running:
+        config = mgr.load_bot_config(bot_id)
+        if config is None:
+            await _safe_send({"type": "error", "content": "Bot not found"})
+            await ws.close(code=4004, reason="Bot not found")
+            return
+        lock = await _get_start_lock(bot_id)
+        async with lock:
+            instance = mgr.get_bot(bot_id)
+            if not instance or not instance.running:
+                try:
+                    instance = await mgr.start_bot(bot_id, config)
+                except Exception:
+                    logger.exception("Failed to auto-start bot '%s' for session ws", bot_id)
+                    await _safe_send({"type": "error", "content": "Failed to start bot"})
+                    await ws.close(code=1011, reason="Failed to start bot")
+                    return
+
+    logger.info("WebSocket connected for bot '%s' session '%s'", bot_id, sid)
+
+    try:
+        session_mgr = getattr(instance.agent_loop, "sessions", None)
+        if session_mgr is not None:
+            session = session_mgr.get_or_create(f"bot:{bot_id}:s:{sid}")
+            plan_dict = (session.metadata or {}).get("lesson_plan")
+            if plan_dict:
+                await _safe_send({"type": "lesson_plan", "plan": plan_dict})
+    except Exception:
+        logger.exception("Failed to rehydrate lesson plan for bot '%s' session '%s'", bot_id, sid)
+
+    async def _handle_user_messages():
+        while not disconnected.is_set():
+            try:
+                raw = await ws.receive_text()
+            except WebSocketDisconnect:
+                disconnected.set()
+                break
+            try:
+                data = json.loads(raw)
+            except json.JSONDecodeError:
+                if not await _safe_send({"type": "error", "content": "Invalid JSON"}):
+                    break
+                continue
+            content = data.get("content", "").strip()
+            if not content:
+                continue
+
+            async def on_progress(text: str, *, tool_hint: bool = False, delta: bool = False) -> None:
+                payload: dict = {"type": "thinking", "content": text}
+                if delta:
+                    payload["delta"] = True
+                if tool_hint:
+                    payload["tool_hint"] = True
+                await _safe_send(payload)
+
+            async def on_lesson_update(plan_dict: dict) -> None:
+                await _safe_send({"type": "lesson_plan", "plan": plan_dict})
+
+            async def on_session_promoted(promoted: dict, new_default: dict) -> None:
+                await _safe_send({
+                    "type": "session_promoted",
+                    "promoted": promoted,
+                    "new_default": new_default,
+                })
+
+            try:
+                response = await mgr.send_message(
+                    bot_id, content,
+                    chat_id=data.get("chat_id", "web"),
+                    session_id=sid,
+                    on_progress=on_progress,
+                    on_lesson_update=on_lesson_update,
+                    on_session_promoted=on_session_promoted,
+                )
+                if not await _safe_send({"type": "content", "content": response}):
+                    break
+                if not await _safe_send({"type": "done"}):
+                    break
+            except RuntimeError as exc:
+                if not await _safe_send({"type": "error", "content": str(exc)}):
+                    break
+            except WebSocketDisconnect:
+                disconnected.set()
+                break
+            except Exception:
+                logger.exception("Error processing session message for bot '%s'", bot_id)
+                if not await _safe_send({"type": "error", "content": "Internal error"}):
+                    break
+
+    async def _handle_notifications():
+        while not disconnected.is_set():
+            get_task = asyncio.create_task(instance.notify_queue.get())
+            wait_task = asyncio.create_task(disconnected.wait())
+            done, pending = await asyncio.wait(
+                {get_task, wait_task},
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+            for t in pending:
+                t.cancel()
+            if get_task not in done:
+                break
+            content = get_task.result()
+            if not await _safe_send({"type": "proactive", "content": content}):
+                break
+
+    user_task = asyncio.create_task(_handle_user_messages())
+    notify_task = asyncio.create_task(_handle_notifications())
+    try:
+        done, pending = await asyncio.wait(
+            [user_task, notify_task], return_when=asyncio.FIRST_COMPLETED,
+        )
+        disconnected.set()
+        for t in pending:
+            t.cancel()
+    except Exception:
+        disconnected.set()
+        user_task.cancel()
+        notify_task.cancel()
+    logger.info("WebSocket closed for bot '%s' session '%s'", bot_id, sid)
+
+
 @router.websocket("/{bot_id}/ws")
 async def bot_chat_ws(ws: WebSocket, bot_id: str):
     # `disconnected` is the single source of truth for "client is gone".
@@ -437,11 +579,12 @@ async def bot_chat_ws(ws: WebSocket, bot_id: str):
 
     # On connect, rehydrate any active lesson plan so the UI can render the
     # timeline on page reload. The plan lives on Session.metadata["lesson_plan"]
-    # (written by plan_lesson/complete_step via the lesson store).
+    # (written by plan_lesson/complete_step via the lesson store). Legacy /ws
+    # binds to the bot's current default session.
     try:
         session_mgr = getattr(instance.agent_loop, "sessions", None)
         if session_mgr is not None:
-            session = session_mgr.get_or_create(f"bot:{bot_id}")
+            session = session_mgr.ensure_default_session(bot_id)
             plan_dict = (session.metadata or {}).get("lesson_plan")
             if plan_dict:
                 await _safe_send({"type": "lesson_plan", "plan": plan_dict})

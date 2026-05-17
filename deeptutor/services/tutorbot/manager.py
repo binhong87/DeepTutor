@@ -81,6 +81,18 @@ def mask_channel_secrets(channels: dict[str, Any]) -> dict[str, Any]:
     return walked
 
 
+def _lesson_brief(plan_dict: dict | None) -> dict | None:
+    if not plan_dict:
+        return None
+    steps = plan_dict.get("steps") or []
+    return {
+        "topic": plan_dict.get("topic", ""),
+        "current_step_id": plan_dict.get("current_step_id"),
+        "total_steps": len(steps),
+        "done_steps": sum(1 for s in steps if s.get("status") in ("done", "skipped")),
+    }
+
+
 def normalize_message_content(content: Any) -> str:
     """Return a display-safe string for text or multimodal message content."""
     if content is None:
@@ -893,15 +905,53 @@ class TutorBotManager:
         bot_id: str,
         content: str,
         chat_id: str = "web",
+        session_id: str | None = None,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
         on_lesson_update: Callable[[dict], Awaitable[None]] | None = None,
+        on_session_promoted: Callable[[dict, dict], Awaitable[None]] | None = None,
     ) -> str:
         """Send a message to a running bot and return the response."""
         instance = self._bots.get(bot_id)
         if not instance or not instance.running:
             raise RuntimeError(f"Bot '{bot_id}' is not running")
 
-        canonical_key = f"bot:{bot_id}"
+        if session_id is None:
+            default = instance.agent_loop.sessions.ensure_default_session(bot_id)
+            session_id = default.key.split(":s:")[-1]
+
+        canonical_key = f"bot:{bot_id}:s:{session_id}"
+
+        # Bridge the per-turn promotion callback into the agent loop, which
+        # will pass it to lesson tools via set_session_accessor.
+        if on_session_promoted is not None:
+            loop = asyncio.get_running_loop()
+
+            def _bridge(promoted_key: str, new_default_key: str | None) -> None:
+                async def _emit() -> None:
+                    sm = instance.agent_loop.sessions
+                    promoted = sm.get_or_create(promoted_key)
+                    promoted_view = {
+                        "id": promoted_key.split(":s:")[-1],
+                        "title": promoted.metadata.get("title", ""),
+                        "title_source": promoted.metadata.get("title_source"),
+                        "lesson_plan_brief": _lesson_brief(promoted.metadata.get("lesson_plan")),
+                    }
+                    new_default_view: dict = {}
+                    if new_default_key:
+                        new_default_view = {
+                            "id": new_default_key.split(":s:")[-1],
+                            "title": "",
+                            "status": "default",
+                        }
+                    try:
+                        await on_session_promoted(promoted_view, new_default_view)
+                    except Exception:
+                        logger.exception("on_session_promoted callback raised")
+                loop.create_task(_emit())
+
+            instance.agent_loop.set_session_promoted_callback(_bridge)
+        else:
+            instance.agent_loop.set_session_promoted_callback(None)
 
         async def _progress(text: str, *, tool_hint: bool = False, delta: bool = False) -> None:
             if on_progress:
