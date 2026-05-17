@@ -22,6 +22,23 @@ if TYPE_CHECKING:
     from deeptutor.tutorbot.session.manager import Session, SessionManager
 
 
+_memory_locks: weakref.WeakValueDictionary[str, asyncio.Lock] = weakref.WeakValueDictionary()
+
+
+def _memory_lock(user_memory_dir: Path) -> asyncio.Lock:
+    """Return the asyncio lock keyed on a resolved user memory dir.
+
+    All consolidators sharing the same user_memory_dir serialize through this
+    lock so concurrent PROFILE.md writers don't corrupt the file.
+    """
+    key = str(Path(user_memory_dir).resolve())
+    lock = _memory_locks.get(key)
+    if lock is None:
+        lock = asyncio.Lock()
+        _memory_locks[key] = lock
+    return lock
+
+
 _SAVE_MEMORY_TOOL = [
     {
         "type": "function",
@@ -261,7 +278,8 @@ class MemoryConsolidator:
 
     async def consolidate_messages(self, messages: list[dict[str, object]]) -> bool:
         """Archive a selected message chunk into persistent memory."""
-        return await self.store.consolidate(messages, self.provider, self.model)
+        async with _memory_lock(self.store.memory_dir):
+            return await self.store.consolidate(messages, self.provider, self.model)
 
     def pick_consolidation_boundary(
         self,
