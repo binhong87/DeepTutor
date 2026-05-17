@@ -48,7 +48,6 @@ def get_legacy_sessions_dir() -> Path:
 
 
 def get_bot_dir(bot_id: str) -> Path:
-    """data/tutorbot/{bot_id}/ — flat layout, no bots/ sub-directory."""
     return ensure_dir(_base_dir() / bot_id)
 
 
