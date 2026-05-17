@@ -16,14 +16,14 @@ from deeptutor.services.tutorbot.model_runtime import resolve_tutorbot_llm_confi
 
 @pytest.fixture
 def manager(tmp_path: Path) -> TutorBotManager:
-    """Return a TutorBotManager whose data dir is a fresh temp directory."""
-    mgr = TutorBotManager()
-    # Replace the path service with a stub so reads/writes stay sandboxed.
-    mgr._path_service = SimpleNamespace(  # type: ignore[assignment]
-        project_root=tmp_path,
-        get_memory_dir=lambda: tmp_path / "memory",
+    """Return a TutorBotManager rooted at a fresh temp user directory."""
+    from deeptutor.multi_user.models import UserScope
+    scope = UserScope(
+        kind="user",
+        user_id="test-user",
+        root=(tmp_path / "test-user").resolve(),
     )
-    return mgr
+    return TutorBotManager(scope=scope)
 
 
 def _append_session_line(manager: TutorBotManager, bot_id: str, payload: dict) -> None:
@@ -377,16 +377,17 @@ class TestAutoStartPersistence:
         assert self._config_data(manager, "manual-only-bot")["auto_start"] is False
 
 
-def test_start_bot_passes_shared_memory_dir(
+def test_start_bot_passes_user_memory_dir(
     manager: TutorBotManager,
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    captured: dict[str, Path | None] = {}
+    captured: dict[str, Path | str | None] = {}
 
     class FakeAgentLoop:
         def __init__(self, *args, **kwargs) -> None:
-            captured["shared_memory_dir"] = kwargs.get("shared_memory_dir")
+            captured["user_memory_dir"] = kwargs.get("user_memory_dir")
+            captured["user_id"] = kwargs.get("user_id")
             captured["model"] = kwargs.get("model")
             captured["context_window_tokens"] = kwargs.get("context_window_tokens")
             self.model = kwargs.get("model") or "fake-model"
@@ -404,6 +405,9 @@ def test_start_bot_passes_shared_memory_dir(
 
         async def start(self) -> None:
             return None
+
+    async def _done() -> None:
+        return None
 
     monkeypatch.setattr("deeptutor.tutorbot.agent.loop.AgentLoop", FakeAgentLoop)
     monkeypatch.setattr(
@@ -425,16 +429,15 @@ def test_start_bot_passes_shared_memory_dir(
     monkeypatch.setattr("deeptutor.tutorbot.heartbeat.HeartbeatService", FakeHeartbeat)
 
     async def run_start() -> None:
-        instance = await manager.start_bot("shared-memory-bot", BotConfig(name="bot"))
+        instance = await manager.start_bot("user-memory-bot", BotConfig(name="bot"))
         for task in instance.tasks:
             task.cancel()
 
-    async def _done() -> None:
-        return None
-
     asyncio.run(run_start())
 
-    assert captured["shared_memory_dir"] == tmp_path / "memory"
+    expected_memory = (tmp_path / "test-user" / "memory").resolve()
+    assert captured["user_memory_dir"] == expected_memory
+    assert captured["user_id"] == "test-user"
     assert captured["model"] == "selected-model"
     assert captured["context_window_tokens"] == 123456
 
