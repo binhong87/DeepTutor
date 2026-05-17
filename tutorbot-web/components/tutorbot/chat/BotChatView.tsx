@@ -18,7 +18,7 @@ interface BotInfo {
   running: boolean;
 }
 
-export default function BotChatView({ botId }: { botId: string }) {
+export default function BotChatView({ botId, sessionId }: { botId: string; sessionId: string }) {
   const [bot, setBot] = useState<BotInfo | null>(null);
   const [turns, setTurns] = useState<BotChatTurn[]>([]);
   const [lessonPlan, setLessonPlan] = useState<LessonPlan | null>(null);
@@ -52,7 +52,7 @@ export default function BotChatView({ botId }: { botId: string }) {
   useEffect(() => {
     let cancelled = false;
     setLoadingHistory(true);
-    apiFetch(apiUrl(`/api/v1/tutorbot/${botId}/history`))
+    apiFetch(apiUrl(`/api/v1/tutorbot/${botId}/sessions/${sessionId}/history`))
       .then((r) => (r.ok ? r.json() : []))
       .then((history: { role: string; content: string }[]) => {
         if (cancelled) return;
@@ -74,7 +74,7 @@ export default function BotChatView({ botId }: { botId: string }) {
       })
       .catch(() => { if (!cancelled) setLoadingHistory(false); });
     return () => { cancelled = true; };
-  }, [botId, scrollToBottom]);
+  }, [botId, sessionId, scrollToBottom]);
 
   const updateTurn = useCallback((turnId: string, updater: (turn: BotChatTurn) => BotChatTurn) => {
     setTurns((prev) => {
@@ -98,8 +98,12 @@ export default function BotChatView({ botId }: { botId: string }) {
 
   useEffect(() => {
     const ac = new AbortController();
-    const ws = connectBotWS(botId, updateTurn, ac.signal, (plan) => {
-      setLessonPlan(plan);
+    const ws = connectBotWS(botId, sessionId, updateTurn, ac.signal, {
+      onLessonPlan: (plan) => setLessonPlan(plan),
+      onSessionPromoted: (ev) => {
+        // Sidebar live-update wiring lands in Phase 6; log for now.
+        console.info("[session-promoted]", ev);
+      },
     });
     wsRef.current = ws;
 
@@ -111,7 +115,7 @@ export default function BotChatView({ botId }: { botId: string }) {
       ac.abort();
       wsRef.current = null;
     };
-  }, [botId, updateTurn]);
+  }, [botId, sessionId, updateTurn]);
 
   useEffect(() => {
     scrollToBottom();

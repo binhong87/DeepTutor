@@ -18,13 +18,26 @@ export interface LessonPlan {
   current_step_id?: string | null;
 }
 
+export interface SessionPromotedEvent {
+  type: "session_promoted";
+  promoted: {
+    id: string;
+    title: string;
+    title_source: "lesson_plan" | "manual" | "auto" | null;
+    lesson_plan_brief: { topic: string; current_step_id: string | null;
+                         total_steps: number; done_steps: number } | null;
+  };
+  new_default: { id: string; title: string; status: "default" };
+}
+
 export type BotMessage =
   | { type: "thinking"; content: string; delta?: boolean; tool_hint?: boolean }
   | { type: "content"; content: string }
   | { type: "done" }
   | { type: "error"; content: string }
   | { type: "proactive"; content: string }
-  | { type: "lesson_plan"; plan: LessonPlan };
+  | { type: "lesson_plan"; plan: LessonPlan }
+  | SessionPromotedEvent;
 
 export type BotChatTurn = {
   id: string;
@@ -44,11 +57,17 @@ export function nextTurnId(): string {
 
 export function connectBotWS(
   botId: string,
+  sessionId: string,
   onTurnUpdate: (turnId: string, updater: (turn: BotChatTurn) => BotChatTurn) => void,
   signal: AbortSignal,
-  onLessonPlan?: (plan: LessonPlan) => void,
+  callbacks?: {
+    onLessonPlan?: (plan: LessonPlan) => void;
+    onSessionPromoted?: (ev: SessionPromotedEvent) => void;
+  },
 ): WebSocket {
-  const socket = new WebSocket(wsUrl(`/api/v1/tutorbot/${botId}/ws`));
+  const socket = new WebSocket(
+    wsUrl(`/api/v1/tutorbot/${botId}/sessions/${sessionId}/ws`),
+  );
 
   let currentTurnId: string | null = null;
   let currentTurnIsStreaming = false;
@@ -67,7 +86,12 @@ export function connectBotWS(
     }
 
     if (msg.type === "lesson_plan") {
-      onLessonPlan?.(msg.plan);
+      callbacks?.onLessonPlan?.(msg.plan);
+      return;
+    }
+
+    if (msg.type === "session_promoted") {
+      callbacks?.onSessionPromoted?.(msg);
       return;
     }
 

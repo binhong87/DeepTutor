@@ -160,3 +160,59 @@ export async function deleteSoul(soulId: string): Promise<{ id: string; deleted:
 export async function getChannelSchemas(): Promise<ChannelSchemas> {
   return apiFetch(url("/channels/schema")).then(r => r.json());
 }
+
+// ── Sessions ─────────────────────────────────────────────────────
+
+export interface LessonPlanBrief {
+  topic: string;
+  current_step_id: string | null;
+  total_steps: number;
+  done_steps: number;
+}
+
+export type SessionStatus = "default" | "active" | "completed" | "archived";
+
+export interface SessionRow {
+  id: string;
+  title: string;
+  title_source: "lesson_plan" | "manual" | "auto" | null;
+  status: SessionStatus;
+  updated_at: string;
+  has_user_messages: boolean;
+  lesson_plan_brief: LessonPlanBrief | null;
+}
+
+export interface BotTreeRow {
+  bot_id: string;
+  name: string;
+  running: boolean;
+  sessions: SessionRow[];
+}
+
+export async function listBotSessions(botId: string): Promise<SessionRow[]> {
+  return apiFetch(url(`/${botId}/sessions`)).then(r => r.json());
+}
+
+/** Returns the new default session, or throws an Error with .code = 409
+ *  carrying `{ existing_default_id }` when the current default is empty. */
+export async function createBotSession(botId: string): Promise<SessionRow> {
+  const res = await apiFetch(url(`/${botId}/sessions`), { method: "POST" });
+  if (res.status === 409) {
+    const body = await res.json();
+    const err = new Error("default-session-empty") as Error & { code: number; data: unknown };
+    err.code = 409;
+    err.data = body.detail;
+    throw err;
+  }
+  return res.json();
+}
+
+export async function getBotSessionHistory(
+  botId: string, sessionId: string, limit = 100,
+): Promise<{ role: string; content: string }[]> {
+  return apiFetch(url(`/${botId}/sessions/${sessionId}/history?limit=${limit}`)).then(r => r.json());
+}
+
+export async function getTutorbotTree(): Promise<BotTreeRow[]> {
+  return apiFetch(url(`/tree`)).then(r => r.json());
+}
