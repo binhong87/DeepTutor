@@ -11,6 +11,7 @@ import {
 import { apiFetch, apiUrl } from "@/lib/api";
 import AssistantResponse from "@/components/shared/AssistantResponse";
 import LessonPlanCard from "@/components/tutorbot/chat/LessonPlanCard";
+import { useSessionTree } from "@/context/SessionTreeContext";
 
 interface BotInfo {
   bot_id: string;
@@ -28,6 +29,15 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
   const [loadingHistory, setLoadingHistory] = useState(true);
   const wsRef = useRef<WebSocket | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { patchPromotion, setActive, refresh: refreshTree } = useSessionTree();
+
+  useEffect(() => {
+    setActive(botId, sessionId);
+    return () => setActive(null, null);
+  }, [botId, sessionId, setActive]);
+
+  // Surface the bot in the tree the first time a chat page is visited.
+  useEffect(() => { void refreshTree(); }, [botId, refreshTree]);
 
   const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
     requestAnimationFrame(() => {
@@ -100,10 +110,7 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     const ac = new AbortController();
     const ws = connectBotWS(botId, sessionId, updateTurn, ac.signal, {
       onLessonPlan: (plan) => setLessonPlan(plan),
-      onSessionPromoted: (ev) => {
-        // Sidebar live-update wiring lands in Phase 6; log for now.
-        console.info("[session-promoted]", ev);
-      },
+      onSessionPromoted: (ev) => patchPromotion(botId, ev),
     });
     wsRef.current = ws;
 
@@ -115,7 +122,7 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
       ac.abort();
       wsRef.current = null;
     };
-  }, [botId, sessionId, updateTurn]);
+  }, [botId, sessionId, updateTurn, patchPromotion]);
 
   useEffect(() => {
     scrollToBottom();
