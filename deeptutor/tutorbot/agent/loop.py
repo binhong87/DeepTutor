@@ -67,6 +67,7 @@ class AgentLoop:
         mcp_servers: dict | None = None,
         channels_config: ChannelsConfig | None = None,
         user_memory_dir: Path | None = None,
+        user_id: str | None = None,
         default_session_key: str | None = None,
     ):
         from deeptutor.tutorbot.config.schema import ExecToolConfig, WebSearchConfig
@@ -84,9 +85,10 @@ class AgentLoop:
         self.cron_service = cron_service
         self.restrict_to_workspace = restrict_to_workspace
         self._user_memory_dir = user_memory_dir or (workspace / "memory")
+        self._user_id = user_id
         self._default_session_key = default_session_key
 
-        self.context = ContextBuilder(workspace, user_memory_dir=self._user_memory_dir)
+        self.context = ContextBuilder(workspace, user_memory_dir=self._user_memory_dir, user_id=user_id)
         self.sessions = session_manager or SessionManager(workspace)
         self.tools = ToolRegistry()
         self.subagents = SubagentManager(
@@ -131,6 +133,7 @@ class AgentLoop:
             context_window_tokens=context_window_tokens,
             build_messages=self.context.build_messages,
             get_tool_definitions=self.tools.get_definitions,
+            user_id=user_id,
         )
         self._register_default_tools()
 

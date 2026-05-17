@@ -449,6 +449,7 @@ class TutorBotManager:
             exec_config=exec_config,
             session_manager=session_adapter,
             user_memory_dir=self._memory_dir,
+            user_id=self._scope.user_id,
             restrict_to_workspace=False,
             default_session_key=canonical_key,
         )

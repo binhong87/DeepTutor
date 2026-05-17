@@ -104,11 +104,18 @@ class MemoryStore:
 
     _MAX_FAILURES_BEFORE_RAW_ARCHIVE = 3
 
-    def __init__(self, user_memory_dir: Path):
+    _STAMP_PREFIX = "> User: "
+    _STAMP_NOTE = " (this profile is private to this user; do not infer identity from prior sessions of other users)."
+
+    def __init__(self, user_memory_dir: Path, *, user_id: str | None = None):
         self.memory_dir = ensure_dir(user_memory_dir)
         self.memory_file = self.memory_dir / "PROFILE.md"
         self.history_file = self.memory_dir / "SUMMARY.md"
+        self._user_id = user_id or self.memory_dir.parent.name
         self._consecutive_failures = 0
+
+    def _stamp(self) -> str:
+        return f"{self._STAMP_PREFIX}{self._user_id}{self._STAMP_NOTE}"
 
     def read_long_term(self) -> str:
         if self.memory_file.exists():
@@ -116,6 +123,9 @@ class MemoryStore:
         return ""
 
     def write_long_term(self, content: str) -> None:
+        stamp = self._stamp()
+        if not content.startswith(self._STAMP_PREFIX):
+            content = f"{stamp}\n\n{content}"
         self.memory_file.write_text(content, encoding="utf-8")
 
     def append_history(self, entry: str) -> None:
@@ -262,8 +272,10 @@ class MemoryConsolidator:
         context_window_tokens: int,
         build_messages: Callable[..., list[dict[str, Any]]],
         get_tool_definitions: Callable[[], list[dict[str, Any]]],
+        *,
+        user_id: str | None = None,
     ):
-        self.store = MemoryStore(user_memory_dir)
+        self.store = MemoryStore(user_memory_dir, user_id=user_id)
         self.provider = provider
         self.model = model
         self.sessions = sessions

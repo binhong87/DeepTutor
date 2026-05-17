@@ -28,9 +28,32 @@ def test_memory_store_creates_dir_on_init(tmp_path: Path) -> None:
 def test_memory_store_writes_and_reads_long_term(tmp_path: Path) -> None:
     store = MemoryStore(tmp_path / "u" / "memory")
     store.write_long_term("hello")
-    assert store.read_long_term() == "hello"
+    assert "hello" in store.read_long_term()
 
 
 def test_memory_store_init_rejects_no_path() -> None:
     with pytest.raises(TypeError):
         MemoryStore()  # type: ignore[call-arg]
+
+
+def test_first_write_to_empty_profile_gets_user_stamp(tmp_path: Path) -> None:
+    user_dir = tmp_path / "u_alice" / "memory"
+    store = MemoryStore(user_dir)
+
+    store.write_long_term("## Identity\n- Likes geometry\n")
+    content = store.read_long_term()
+
+    assert content.startswith("> User: u_alice")
+    assert "private to this user" in content
+    assert "## Identity\n- Likes geometry" in content
+
+
+def test_existing_profile_with_stamp_is_not_double_stamped(tmp_path: Path) -> None:
+    user_dir = tmp_path / "u_alice" / "memory"
+    store = MemoryStore(user_dir)
+    store.write_long_term("first content")
+    store.write_long_term("second content")
+
+    content = store.read_long_term()
+    assert content.count("> User: u_alice") == 1
+    assert "second content" in content
