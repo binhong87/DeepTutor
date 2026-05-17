@@ -10,11 +10,20 @@ from __future__ import annotations
 
 import pytest
 
+from pathlib import Path
+
+from deeptutor.multi_user.models import UserScope
 from deeptutor.services.tutorbot.manager import (
     BotConfig,
+    TutorBotManager,
     TutorBotInstance,
     mask_channel_secrets,
 )
+
+
+def _make_manager(tmp_path: Path) -> TutorBotManager:
+    scope = UserScope(kind="user", user_id="test", root=(tmp_path / "test").resolve())
+    return TutorBotManager(scope=scope)
 
 # ---------------------------------------------------------------------------
 # mask_channel_secrets
@@ -134,13 +143,11 @@ class TestToDictDefaultsAreSafe:
 
 
 @pytest.mark.asyncio
-async def test_reload_lock_serialises_concurrent_calls(monkeypatch):
+async def test_reload_lock_serialises_concurrent_calls(tmp_path, monkeypatch):
     """Two concurrent reload_channels calls must not run their bodies in parallel."""
     import asyncio
 
-    from deeptutor.services.tutorbot.manager import TutorBotManager
-
-    mgr = TutorBotManager()
+    mgr = _make_manager(tmp_path)
     inst = _make_instance()
 
     class _FakeBus:
@@ -183,12 +190,10 @@ async def test_reload_lock_serialises_concurrent_calls(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_reload_failure_records_last_reload_error(monkeypatch):
+async def test_reload_failure_records_last_reload_error(tmp_path, monkeypatch):
     import asyncio
 
-    from deeptutor.services.tutorbot.manager import TutorBotManager
-
-    mgr = TutorBotManager()
+    mgr = _make_manager(tmp_path)
     inst = _make_instance()
 
     class _FakeAgentLoop:
