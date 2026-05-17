@@ -474,7 +474,7 @@ Następnie: `docker compose up -d`
 | Ścieżka kontenera | Ścieżka hosta | Zawartość |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | Ustawienia, workspace, sesje, logi |
-| `/app/data/memory` | `./data/memory` | Pamięć długoterminowa (`SUMMARY.md`, `PROFILE.md`) |
+| `/app/multi-user` | `./multi-user` | Pamięć per-użytkownik, konfiguracje TutorBot, magazyn auth |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | Dokumenty i indeksy wektorowe |
 
 </details>

@@ -446,7 +446,7 @@ Dados do usuário e bases de conhecimento persistem via volumes Docker mapeados 
 | Caminho no contêiner | Caminho no host | Conteúdo |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | Configurações, workspace, sessões, logs |
-| `/app/data/memory` | `./data/memory` | Memória compartilhada de longo prazo (`SUMMARY.md`, `PROFILE.md`) |
+| `/app/multi-user` | `./multi-user` | Memória por usuário, configs do TutorBot e autenticação |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | Documentos enviados e índices vetoriais |
 
 Esses diretórios permanecem após `docker compose down` e são reutilizados no próximo `docker compose up`.

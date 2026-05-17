@@ -552,8 +552,8 @@ User data and knowledge bases are persisted via Docker volumes mapped to local d
 | Container path | Host path | Content |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | Settings, workspace, sessions, logs |
-| `/app/data/memory` | `./data/memory` | Shared long-term memory (`SUMMARY.md`, `PROFILE.md`) |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | Uploaded documents & vector indices |
+| `/app/multi-user` | `./multi-user` | Per-user memory, TutorBot configs, auth store |
 
 These directories survive `docker compose down` and are reused on the next `docker compose up`.
 

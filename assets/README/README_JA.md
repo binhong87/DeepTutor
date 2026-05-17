@@ -511,7 +511,7 @@ docker compose up -d     # または docker compose -f docker-compose.ghcr.yml u
 | コンテナパス | ホストパス | コンテンツ |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | 設定、ワークスペース、セッション、ログ |
-| `/app/data/memory` | `./data/memory` | 共有長期メモリ（`SUMMARY.md`、`PROFILE.md`） |
+| `/app/multi-user` | `./multi-user` | ユーザーごとのメモリ、TutorBot 設定、認証ストア |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | アップロードドキュメントとベクターインデックス |
 
 これらのディレクトリは `docker compose down` 後も残り、次の `docker compose up` で再利用されます。

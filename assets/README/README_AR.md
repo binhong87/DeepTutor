@@ -446,7 +446,7 @@ docker compose up -d     # أو docker compose -f docker-compose.ghcr.yml up -d
 | مسار الحاوية | مسار المضيف | المحتوى |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | الإعدادات، مساحة العمل، الجلسات، السجلات |
-| `/app/data/memory` | `./data/memory` | الذاكرة طويلة الأمد المشتركة (`SUMMARY.md`، `PROFILE.md`) |
+| `/app/multi-user` | `./multi-user` | بيانات المستخدم، ذاكرة TutorBot، وسجل المصادقة |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | المستندات المرفوعة وفهارس المتجهات |
 
 تبقى هذه المجلدات بعد `docker compose down` وتُعاد استخدامها في `docker compose up` التالي.

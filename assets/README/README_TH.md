@@ -441,7 +441,7 @@ docker compose up -d     # หรือ docker compose -f docker-compose.ghcr.ym
 | Container path | Host path | เนื้อหา |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | Settings, workspace, sessions, logs |
-| `/app/data/memory` | `./data/memory` | หน่วยความจำระยะยาวที่ใช้ร่วมกัน (`SUMMARY.md`, `PROFILE.md`) |
+| `/app/multi-user` | `./multi-user` | หน่วยความจำต่อผู้ใช้, การตั้งค่า TutorBot และที่เก็บ auth |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | เอกสารที่อัปโหลด & vector indices |
 
 Directory เหล่านี้จะอยู่หลังจาก `docker compose down` และถูกนำมาใช้ใหม่เมื่อ `docker compose up` ครั้งต่อไป

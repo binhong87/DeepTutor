@@ -446,7 +446,7 @@ docker compose up -d     # या docker compose -f docker-compose.ghcr.yml up -
 | कंटेनर पथ | होस्ट पथ | सामग्री |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | सेटिंग्स, वर्कस्पेस, सत्र, लॉग |
-| `/app/data/memory` | `./data/memory` | साझा दीर्घकालिक मेमोरी (`SUMMARY.md`, `PROFILE.md`) |
+| `/app/multi-user` | `./multi-user` | प्रति-उपयोगकर्ता मेमोरी, TutorBot कॉन्फ़िग, और प्रमाणीकरण स्टोर |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | अपलोड दस्तावेज़ व वेक्टर इंडेक्स |
 
 `docker compose down` के बाद भी ये निर्देशिकाएँ बनी रहती हैं और अगले `up` पर पुनः उपयोग होती हैं।

@@ -504,7 +504,7 @@ FRONTEND_PORT=4000
 | 容器路径 | 主机路径 | 内容 |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | 设置、工作区、会话、日志 |
-| `/app/data/memory` | `./data/memory` | 长期记忆（`SUMMARY.md`、`PROFILE.md`） |
+| `/app/multi-user` | `./multi-user` | 每用户记忆、TutorBot 配置、认证存储 |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | 文档与向量索引 |
 
 `docker compose down` 后目录仍保留。

@@ -446,7 +446,7 @@ docker compose up -d     # или docker compose -f docker-compose.ghcr.yml up -
 | Путь в контейнере | Путь на хосте | Содержимое |
 |:---|:---|:---|
 | `/app/data/user` | `./data/user` | Настройки, workspace, сессии, логи |
-| `/app/data/memory` | `./data/memory` | Общая долгосрочная память (`SUMMARY.md`, `PROFILE.md`) |
+| `/app/multi-user` | `./multi-user` | Память пользователей, настройки TutorBot, хранилище auth |
 | `/app/data/knowledge_bases` | `./data/knowledge_bases` | Загруженные документы и векторные индексы |
 
 Каталоги сохраняются после `docker compose down` и используются снова при следующем `up`.
