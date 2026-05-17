@@ -66,7 +66,7 @@ class AgentLoop:
         session_manager: SessionManager | None = None,
         mcp_servers: dict | None = None,
         channels_config: ChannelsConfig | None = None,
-        shared_memory_dir: Path | None = None,
+        user_memory_dir: Path | None = None,
         default_session_key: str | None = None,
     ):
         from deeptutor.tutorbot.config.schema import ExecToolConfig, WebSearchConfig
@@ -83,10 +83,10 @@ class AgentLoop:
         self.exec_config = exec_config or ExecToolConfig()
         self.cron_service = cron_service
         self.restrict_to_workspace = restrict_to_workspace
-        self._shared_memory_dir = shared_memory_dir
+        self._user_memory_dir = user_memory_dir or (workspace / "memory")
         self._default_session_key = default_session_key
 
-        self.context = ContextBuilder(workspace, shared_memory_dir=shared_memory_dir)
+        self.context = ContextBuilder(workspace, user_memory_dir=self._user_memory_dir)
         self.sessions = session_manager or SessionManager(workspace)
         self.tools = ToolRegistry()
         self.subagents = SubagentManager(
@@ -124,14 +124,13 @@ class AgentLoop:
         self._active_tasks: dict[str, list[asyncio.Task]] = {}  # session_key -> tasks
         self._processing_lock = asyncio.Lock()
         self.memory_consolidator = MemoryConsolidator(
-            workspace=workspace,
+            user_memory_dir=self._user_memory_dir,
             provider=provider,
             model=self.model,
             sessions=self.sessions,
             context_window_tokens=context_window_tokens,
             build_messages=self.context.build_messages,
             get_tool_definitions=self.tools.get_definitions,
-            shared_memory_dir=shared_memory_dir,
         )
         self._register_default_tools()
 

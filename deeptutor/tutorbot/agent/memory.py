@@ -78,24 +78,19 @@ def _is_tool_choice_unsupported(content: str | None) -> bool:
 
 
 class MemoryStore:
-    """Two-layer memory: long-term facts + grep-searchable history log.
+    """User-level long-term memory.
 
-    Reads/writes go to ``data/memory/`` (shared with DeepTutor) — PROFILE.md
-    for long-term facts, SUMMARY.md for history.  Standalone fallback uses
-    workspace/memory/MEMORY.md + HISTORY.md when no shared dir is given.
+    Reads/writes ``PROFILE.md`` (long-term facts) and ``SUMMARY.md`` (history
+    log) under the user's ``multi-user/<uid>/memory/`` directory.  All of a
+    user's bots share these two files; isolation is at the user boundary.
     """
 
     _MAX_FAILURES_BEFORE_RAW_ARCHIVE = 3
 
-    def __init__(self, workspace: Path, *, shared_memory_dir: Path | None = None):
-        if shared_memory_dir:
-            self.memory_dir = ensure_dir(shared_memory_dir)
-            self.memory_file = self.memory_dir / "PROFILE.md"
-            self.history_file = self.memory_dir / "SUMMARY.md"
-        else:
-            self.memory_dir = ensure_dir(workspace / "memory")
-            self.memory_file = self.memory_dir / "MEMORY.md"
-            self.history_file = self.memory_dir / "HISTORY.md"
+    def __init__(self, user_memory_dir: Path):
+        self.memory_dir = ensure_dir(user_memory_dir)
+        self.memory_file = self.memory_dir / "PROFILE.md"
+        self.history_file = self.memory_dir / "SUMMARY.md"
         self._consecutive_failures = 0
 
     def read_long_term(self) -> str:
@@ -243,16 +238,15 @@ class MemoryConsolidator:
 
     def __init__(
         self,
-        workspace: Path,
+        user_memory_dir: Path,
         provider: LLMProvider,
         model: str,
         sessions: SessionManager,
         context_window_tokens: int,
         build_messages: Callable[..., list[dict[str, Any]]],
         get_tool_definitions: Callable[[], list[dict[str, Any]]],
-        shared_memory_dir: Path | None = None,
     ):
-        self.store = MemoryStore(workspace, shared_memory_dir=shared_memory_dir)
+        self.store = MemoryStore(user_memory_dir)
         self.provider = provider
         self.model = model
         self.sessions = sessions

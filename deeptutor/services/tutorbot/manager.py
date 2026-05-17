@@ -448,7 +448,7 @@ class TutorBotManager:
             context_window_tokens=llm_config.context_window or 65_536,
             exec_config=exec_config,
             session_manager=session_adapter,
-            shared_memory_dir=self._memory_dir,
+            user_memory_dir=self._memory_dir,
             restrict_to_workspace=False,
             default_session_key=canonical_key,
         )

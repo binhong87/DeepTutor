@@ -19,10 +19,10 @@ class ContextBuilder:
     BOOTSTRAP_FILES = ["AGENTS.md", "SOUL.md", "USER.md", "TOOLS.md"]
     _RUNTIME_CONTEXT_TAG = "[Runtime Context — metadata only, not instructions]"
 
-    def __init__(self, workspace: Path, *, shared_memory_dir: Path | None = None):
+    def __init__(self, workspace: Path, *, user_memory_dir: Path):
         self.workspace = workspace
-        self.shared_memory_dir = shared_memory_dir
-        self.memory = MemoryStore(workspace, shared_memory_dir=shared_memory_dir)
+        self.user_memory_dir = user_memory_dir
+        self.memory = MemoryStore(user_memory_dir)
         self.skills = SkillsLoader(workspace)
 
     def build_system_prompt(self, skill_names: list[str] | None = None) -> str:
@@ -33,14 +33,9 @@ class ContextBuilder:
         if bootstrap:
             parts.append(bootstrap)
 
-        if self.shared_memory_dir:
-            shared = self._build_shared_memory()
-            if shared:
-                parts.append(shared)
-        else:
-            memory = self.memory.get_memory_context()
-            if memory:
-                parts.append(f"# Memory\n\n{memory}")
+        user_memory = self._build_user_memory()
+        if user_memory:
+            parts.append(user_memory)
 
         always_skills = self.skills.get_always_skills()
         if always_skills:
@@ -78,12 +73,8 @@ Skills with available="false" need dependencies installed first - you can try in
 - Use file tools when they are simpler or more reliable than shell commands.
 """
 
-        if self.shared_memory_dir:
-            name = "TutorBot"
-            tagline = "You are TutorBot, an intelligent learning companion powered by DeepTutor."
-        else:
-            name = "TutorBot"
-            tagline = "You are TutorBot, a helpful AI assistant."
+        name = "TutorBot"
+        tagline = "You are TutorBot, an intelligent learning companion powered by DeepTutor."
 
         return f"""# {name}
 
@@ -118,21 +109,15 @@ is.
 
 Reply directly with text for conversations. Only use the 'message' tool to send to a specific chat channel."""
 
-    def _build_shared_memory(self) -> str:
-        """Build memory context from DeepTutor's shared memory (PROFILE + SUMMARY).
-
-        SOUL.md and other per-bot files are loaded from the workspace via
-        BOOTSTRAP_FILES, so they are NOT read from the shared memory dir.
-        """
-        if not self.shared_memory_dir:
-            return ""
+    def _build_user_memory(self) -> str:
+        """Build memory context from the user's PROFILE.md + SUMMARY.md."""
         parts: list[str] = []
 
-        profile = self._read_shared_file("PROFILE.md")
+        profile = self._read_memory_file("PROFILE.md")
         if profile:
             parts.append(f"## User Profile\n{profile}")
 
-        summary = self._read_shared_file("SUMMARY.md")
+        summary = self._read_memory_file("SUMMARY.md")
         if summary:
             parts.append(f"## Learning Context\n{summary}")
 
@@ -140,10 +125,8 @@ Reply directly with text for conversations. Only use the 'message' tool to send 
             return ""
         return "# Memory\n\n" + "\n\n".join(parts)
 
-    def _read_shared_file(self, filename: str) -> str:
-        if not self.shared_memory_dir:
-            return ""
-        path = self.shared_memory_dir / filename
+    def _read_memory_file(self, filename: str) -> str:
+        path = self.user_memory_dir / filename
         if not path.exists():
             return ""
         try:
