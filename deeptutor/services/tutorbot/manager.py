@@ -1045,22 +1045,81 @@ class TutorBotManager:
 
     # ── Soul template library ─────────────────────────────────────
 
-    def _load_souls(self) -> list[dict[str, str]]:
+    def _load_builtin_souls(self) -> list[dict[str, str]]:
+        path = self._builtin_souls_file()
+        if not path.exists():
+            logger.warning("Builtin souls file missing: %s", path)
+            return []
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+        return data if isinstance(data, list) else []
+
+    def _load_user_souls(self) -> list[dict[str, str]]:
         path = self._user_souls_file
         if not path.exists():
-            self._seed_default_souls()
-        try:
-            data = yaml.safe_load(path.read_text(encoding="utf-8"))
-            return data if isinstance(data, list) else []
-        except Exception:
             return []
+        data = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+        return data if isinstance(data, list) else []
 
-    def _save_souls(self, souls: list[dict[str, str]]) -> None:
+    def _save_user_souls(self, souls: list[dict[str, str]]) -> None:
         self._tutorbot_dir.mkdir(parents=True, exist_ok=True)
         self._user_souls_file.write_text(
             yaml.dump(souls, allow_unicode=True, default_flow_style=False),
             encoding="utf-8",
         )
+
+    def list_souls(self) -> list[dict]:
+        by_id: dict[str, dict] = {}
+        for soul in self._load_builtin_souls():
+            by_id[soul["id"]] = {**soul, "source": "builtin", "editable": False}
+        for soul in self._load_user_souls():
+            by_id[soul["id"]] = {**soul, "source": "user", "editable": True}
+        return list(by_id.values())
+
+    def get_soul(self, soul_id: str) -> dict | None:
+        for s in self.list_souls():
+            if s["id"] == soul_id:
+                return s
+        return None
+
+    def create_soul(self, soul_id: str, name: str, content: str) -> dict:
+        """Create or override a soul in the user's _souls.yaml."""
+        user_souls = self._load_user_souls()
+        entry = {"id": soul_id, "name": name, "content": content}
+        user_souls = [s for s in user_souls if s.get("id") != soul_id] + [entry]
+        self._save_user_souls(user_souls)
+        return {**entry, "source": "user", "editable": True}
+
+    def update_soul(self, soul_id: str, name: str | None, content: str | None) -> dict | None:
+        user_souls = self._load_user_souls()
+        for s in user_souls:
+            if s.get("id") == soul_id:
+                if name is not None:
+                    s["name"] = name
+                if content is not None:
+                    s["content"] = content
+                self._save_user_souls(user_souls)
+                return {**s, "source": "user", "editable": True}
+        for s in self._load_builtin_souls():
+            if s.get("id") == soul_id:
+                new = dict(s)
+                if name is not None:
+                    new["name"] = name
+                if content is not None:
+                    new["content"] = content
+                user_souls.append(new)
+                self._save_user_souls(user_souls)
+                return {**new, "source": "user", "editable": True}
+        return None
+
+    def delete_soul(self, soul_id: str) -> bool:
+        user_souls = self._load_user_souls()
+        new = [s for s in user_souls if s.get("id") != soul_id]
+        if len(new) == len(user_souls):
+            return False
+        self._save_user_souls(new)
+        return True
+
+    # ── DEAD CODE (kept for reference; removed by T11) ────────────
 
     def _seed_default_souls(self) -> None:
         defaults = [
@@ -1180,45 +1239,7 @@ class TutorBotManager:
                 ),
             },
         ]
-        self._save_souls(defaults)
-
-    def list_souls(self) -> list[dict[str, str]]:
-        return self._load_souls()
-
-    def get_soul(self, soul_id: str) -> dict[str, str] | None:
-        for s in self._load_souls():
-            if s.get("id") == soul_id:
-                return s
-        return None
-
-    def create_soul(self, soul_id: str, name: str, content: str) -> dict[str, str]:
-        souls = self._load_souls()
-        entry = {"id": soul_id, "name": name, "content": content}
-        souls.append(entry)
-        self._save_souls(souls)
-        return entry
-
-    def update_soul(
-        self, soul_id: str, name: str | None, content: str | None
-    ) -> dict[str, str] | None:
-        souls = self._load_souls()
-        for s in souls:
-            if s.get("id") == soul_id:
-                if name is not None:
-                    s["name"] = name
-                if content is not None:
-                    s["content"] = content
-                self._save_souls(souls)
-                return s
-        return None
-
-    def delete_soul(self, soul_id: str) -> bool:
-        souls = self._load_souls()
-        new = [s for s in souls if s.get("id") != soul_id]
-        if len(new) == len(souls):
-            return False
-        self._save_souls(new)
-        return True
+        self._save_user_souls(defaults)
 
 
 _managers: dict[str, TutorBotManager] = {}
