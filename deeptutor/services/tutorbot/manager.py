@@ -81,6 +81,25 @@ def mask_channel_secrets(channels: dict[str, Any]) -> dict[str, Any]:
     return walked
 
 
+def _has_user_message(path: Path) -> bool:
+    if not path.exists():
+        return False
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                data = json.loads(line)
+                if data.get("_type") == "metadata":
+                    continue
+                if data.get("role") == "user" and data.get("content"):
+                    return True
+    except Exception:
+        return False
+    return False
+
+
 def _lesson_brief(plan_dict: dict | None) -> dict | None:
     if not plan_dict:
         return None
@@ -813,42 +832,141 @@ class TutorBotManager:
     def get_bot(self, bot_id: str) -> TutorBotInstance | None:
         return self._bots.get(bot_id)
 
-    def get_bot_history(self, bot_id: str, limit: int = 100) -> list[dict[str, Any]]:
-        """Read chat messages from a bot's JSONL session files."""
+    def get_bot_history(
+        self,
+        bot_id: str,
+        *,
+        session_id: str | None = None,
+        limit: int = 100,
+    ) -> list[dict[str, Any]]:
+        """Read chat messages from one bot session JSONL.
+
+        When ``session_id`` is None, resolves to the bot's current default
+        session (backward-compatible behaviour for the legacy /history route).
+        """
         sessions_dir = self._bot_workspace(bot_id) / "sessions"
         if not sessions_dir.exists():
             return []
 
+        if session_id is None:
+            from deeptutor.tutorbot.session.manager import SessionManager as _SM
+            default = _SM(self._bot_workspace(bot_id)).ensure_default_session(bot_id)
+            session_id = default.key.split(":s:")[-1]
+
+        from deeptutor.tutorbot.utils.helpers import safe_filename
+        safe_bot = safe_filename(bot_id)
+        sid_tail = session_id[2:] if session_id.startswith("s_") else session_id
+        path = sessions_dir / f"bot_{safe_bot}_s_{sid_tail}.jsonl"
+        if not path.exists():
+            # Belt-and-braces: glob in case the on-disk name keeps the s_ prefix.
+            matches = list(sessions_dir.glob(f"bot_{safe_bot}_s_{session_id}*.jsonl"))
+            if not matches:
+                matches = list(sessions_dir.glob(f"bot_{safe_bot}_s_{sid_tail}*.jsonl"))
+            if not matches:
+                return []
+            path = matches[0]
+
         indexed_messages: list[tuple[float, int, dict[str, Any]]] = []
         sequence = 0
-        for path in sorted(sessions_dir.glob("*.jsonl"), key=lambda p: p.stat().st_mtime):
-            file_mtime = path.stat().st_mtime
-            try:
-                with open(path, encoding="utf-8") as f:
-                    for line in f:
-                        line = line.strip()
-                        if not line:
-                            continue
-                        data = json.loads(line)
-                        if data.get("_type") == "metadata":
-                            continue
-                        if data.get("role") in ("user", "assistant") and data.get("content"):
-                            data["content"] = normalize_message_content(data["content"])
-                            data.pop("reasoning_content", None)
-                            indexed_messages.append(
-                                (
-                                    _history_sort_timestamp(data, file_mtime),
-                                    sequence,
-                                    data,
-                                )
-                            )
-                            sequence += 1
-            except Exception:
-                continue
+        file_mtime = path.stat().st_mtime
+        try:
+            with open(path, encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    data = json.loads(line)
+                    if data.get("_type") == "metadata":
+                        continue
+                    if data.get("role") in ("user", "assistant") and data.get("content"):
+                        data["content"] = normalize_message_content(data["content"])
+                        data.pop("reasoning_content", None)
+                        indexed_messages.append(
+                            (_history_sort_timestamp(data, file_mtime), sequence, data)
+                        )
+                        sequence += 1
+        except Exception:
+            return []
 
         indexed_messages.sort(key=lambda item: (item[0], item[1]))
         messages = [item[2] for item in indexed_messages]
         return messages[-limit:]
+
+    def list_sessions(self, bot_id: str) -> list[dict[str, Any]]:
+        """Return session rows for the sidebar: default first, then updated_at desc."""
+        from deeptutor.tutorbot.session.manager import SessionManager as _SM
+
+        workspace = self._bot_workspace(bot_id)
+        sm = _SM(workspace)
+        sm.ensure_default_session(bot_id)
+
+        from deeptutor.tutorbot.utils.helpers import safe_filename
+        safe_bot = safe_filename(bot_id)
+        sessions_dir = workspace / "sessions"
+
+        out: list[dict[str, Any]] = []
+        for row in sm.list_for_bot(bot_id):
+            sid = row["id"]
+            sid_tail = sid[2:] if sid.startswith("s_") else sid
+            path = sessions_dir / f"bot_{safe_bot}_s_{sid_tail}.jsonl"
+            out.append({
+                "id": sid,
+                "title": row["title"],
+                "title_source": row["title_source"],
+                "status": row["status"],
+                "updated_at": row["updated_at"],
+                "has_user_messages": _has_user_message(path),
+                "lesson_plan_brief": _lesson_brief(row.get("lesson_plan")),
+            })
+        return out
+
+    def create_session(self, bot_id: str) -> dict[str, Any]:
+        """M3: promote the current default (status=completed) and allocate a new default.
+
+        409 with {existing_default_id} when the current default has no user messages.
+        """
+        from fastapi import HTTPException
+
+        from deeptutor.tutorbot.session.manager import SessionManager as _SM
+
+        workspace = self._bot_workspace(bot_id)
+        sm = _SM(workspace)
+        default = sm.ensure_default_session(bot_id)
+
+        has_user_msg = any(m.get("role") == "user" and m.get("content") for m in default.messages)
+        if not has_user_msg:
+            existing_id = default.key.split(":s:")[-1]
+            raise HTTPException(
+                status_code=409, detail={"existing_default_id": existing_id},
+            )
+
+        _, new_default = sm.promote_default(
+            default, title="", title_source="manual", completed=True,
+        )
+        assert new_default is not None
+        return {
+            "id": new_default.key.split(":s:")[-1],
+            "title": "",
+            "title_source": None,
+            "status": "default",
+            "updated_at": new_default.updated_at.isoformat(),
+            "has_user_messages": False,
+            "lesson_plan_brief": None,
+        }
+
+    def get_tree(self) -> list[dict[str, Any]]:
+        """Whole sidebar tree: every discovered bot + its sessions."""
+        out: list[dict[str, Any]] = []
+        for bid in self._discover_bot_ids():
+            cfg = self.load_bot_config(bid)
+            instance = self._bots.get(bid)
+            out.append({
+                "bot_id": bid,
+                "name": cfg.name if cfg else bid,
+                "running": bool(instance and instance.running),
+                "sessions": self.list_sessions(bid),
+            })
+        return out
 
     def get_recent_active_bots(self, limit: int = 3) -> list[dict[str, Any]]:
         """Return the most recently active bots with their last message preview."""

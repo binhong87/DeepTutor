@@ -129,6 +129,12 @@ async def recent_bots(limit: int = 3):
     return get_tutorbot_manager().get_recent_active_bots(limit=limit)
 
 
+@router.get("/tree")
+async def get_tutorbot_tree():
+    """Whole sidebar tree: bots + per-bot sessions in one round-trip."""
+    return get_tutorbot_manager().get_tree()
+
+
 @router.get("/channels/schema")
 async def list_channel_schemas():
     """Return JSON-Schema metadata for every available channel.
@@ -387,8 +393,30 @@ async def write_bot_file(bot_id: str, filename: str, payload: FileUpdateRequest)
 
 @router.get("/{bot_id}/history")
 async def get_bot_history(bot_id: str, limit: int = 100):
-    """Read chat history from the bot's per-bot JSONL session files."""
+    """Read chat history from the bot's current default session.
+
+    Backward-compatible alias for /sessions/<default-sid>/history.
+    """
     return get_tutorbot_manager().get_bot_history(bot_id, limit=limit)
+
+
+@router.get("/{bot_id}/sessions")
+async def list_bot_sessions(bot_id: str):
+    """List all sessions for a bot. Default session first, then updated_at desc."""
+    return get_tutorbot_manager().list_sessions(bot_id)
+
+
+@router.post("/{bot_id}/sessions", status_code=201)
+async def create_bot_session(bot_id: str):
+    """Implements the M3 rule: 409 if the current default is empty; else
+    promotes the current default with empty title (status=completed) and
+    returns the newly-allocated empty default."""
+    return get_tutorbot_manager().create_session(bot_id)
+
+
+@router.get("/{bot_id}/sessions/{sid}/history")
+async def get_session_history(bot_id: str, sid: str, limit: int = 100):
+    return get_tutorbot_manager().get_bot_history(bot_id, session_id=sid, limit=limit)
 
 
 @router.websocket("/{bot_id}/sessions/{sid}/ws")
