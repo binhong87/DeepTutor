@@ -27,24 +27,13 @@ def manager(tmp_path: Path) -> TutorBotManager:
 
 
 def _append_session_line(manager: TutorBotManager, bot_id: str, payload: dict) -> None:
-    """Append a chat line to the bot's current default session JSONL.
-
-    Pre-multi-session this wrote to an arbitrary `chat.jsonl`; under
-    multi-session each bot has per-session JSONL files keyed
-    bot_<id>_s_<sid>.jsonl, so we route appends to whichever file
-    ensure_default_session points at.
-    """
+    """Append a chat line to the bot's current default session JSONL."""
     from deeptutor.tutorbot.session.manager import SessionManager
-    from deeptutor.tutorbot.utils.helpers import safe_filename
 
     workspace = manager._bot_workspace(bot_id)
     sm = SessionManager(workspace)
     default = sm.ensure_default_session(bot_id)
-    safe_bot = safe_filename(bot_id)
-    sid_tail = default.key.split(":s:")[-1]
-    if sid_tail.startswith("s_"):
-        sid_tail = sid_tail[2:]
-    path = workspace / "sessions" / f"bot_{safe_bot}_s_{sid_tail}.jsonl"
+    path = sm._get_session_path(default.key)
     with open(path, "a", encoding="utf-8") as handle:
         handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
 

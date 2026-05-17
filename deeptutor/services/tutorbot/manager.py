@@ -853,18 +853,14 @@ class TutorBotManager:
             default = _SM(self._bot_workspace(bot_id)).ensure_default_session(bot_id)
             session_id = default.key.split(":s:")[-1]
 
-        from deeptutor.tutorbot.utils.helpers import safe_filename
-        safe_bot = safe_filename(bot_id)
-        sid_tail = session_id[2:] if session_id.startswith("s_") else session_id
-        path = sessions_dir / f"bot_{safe_bot}_s_{sid_tail}.jsonl"
+        # The on-disk filename comes from SessionManager._get_session_path,
+        # which slugifies the full key `bot:<id>:s:<sid>` → `bot_<id>_s_<sid>`
+        # (double `s_` when the sid itself starts with `s_`, which ours do).
+        from deeptutor.tutorbot.session.manager import SessionManager as _SM
+        sm_path = _SM(self._bot_workspace(bot_id))
+        path = sm_path._get_session_path(f"bot:{bot_id}:s:{session_id}")
         if not path.exists():
-            # Belt-and-braces: glob in case the on-disk name keeps the s_ prefix.
-            matches = list(sessions_dir.glob(f"bot_{safe_bot}_s_{session_id}*.jsonl"))
-            if not matches:
-                matches = list(sessions_dir.glob(f"bot_{safe_bot}_s_{sid_tail}*.jsonl"))
-            if not matches:
-                return []
-            path = matches[0]
+            return []
 
         indexed_messages: list[tuple[float, int, dict[str, Any]]] = []
         sequence = 0
@@ -900,15 +896,10 @@ class TutorBotManager:
         sm = _SM(workspace)
         sm.ensure_default_session(bot_id)
 
-        from deeptutor.tutorbot.utils.helpers import safe_filename
-        safe_bot = safe_filename(bot_id)
-        sessions_dir = workspace / "sessions"
-
         out: list[dict[str, Any]] = []
         for row in sm.list_for_bot(bot_id):
             sid = row["id"]
-            sid_tail = sid[2:] if sid.startswith("s_") else sid
-            path = sessions_dir / f"bot_{safe_bot}_s_{sid_tail}.jsonl"
+            path = sm._get_session_path(f"bot:{bot_id}:s:{sid}")
             out.append({
                 "id": sid,
                 "title": row["title"],

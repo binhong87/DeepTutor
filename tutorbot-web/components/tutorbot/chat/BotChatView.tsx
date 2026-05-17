@@ -162,8 +162,12 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     const last = turns[turns.length - 1];
     if (last && last.role === "bot" && (last.status === "done" || last.status === "error")) {
       setSending(false);
+      // Refresh tree so the sidebar's `has_user_messages` flag (and any
+      // server-side mutations the bot made) catch up — e.g. M3 "+ New chat"
+      // becomes enabled after the first user message lands.
+      void refreshTree();
     }
-  }, [turns, sending]);
+  }, [turns, sending, refreshTree]);
 
   const showEmpty = turns.length === 0 && !sending && !loadingHistory;
 
