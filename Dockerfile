@@ -166,7 +166,12 @@ COPY requirements.txt ./
 # Create necessary directories (these will be overwritten by volume mounts)
 RUN mkdir -p \
     data/user/settings \
-    data/memory \
+    multi-user/admin/memory \
+    multi-user/admin/tutorbot \
+    multi-user/_shared/knowledge_bases \
+    multi-user/_system/auth \
+    multi-user/_system/grants \
+    multi-user/_system/audit \
     data/user/workspace/memory \
     data/user/workspace/notebook \
     data/user/workspace/co-writer/audio \
