@@ -13,6 +13,26 @@ from deeptutor.tutorbot.config.paths import get_legacy_sessions_dir
 from deeptutor.tutorbot.utils.helpers import ensure_dir, safe_filename
 
 
+def _iso_to_ts(value: str | None) -> float:
+    if not value:
+        return 0.0
+    try:
+        return datetime.fromisoformat(value).timestamp()
+    except Exception:
+        return 0.0
+
+
+def _parse_bot_id_from_key(key: str) -> str | None:
+    """Key shape: bot:<bot_id>:s:<sid>."""
+    if not key.startswith("bot:"):
+        return None
+    rest = key[4:]
+    sep = rest.rfind(":s:")
+    if sep < 0:
+        return None
+    return rest[:sep]
+
+
 @dataclass
 class Session:
     """
@@ -181,6 +201,175 @@ class SessionManager:
     def invalidate(self, key: str) -> None:
         """Remove a session from the in-memory cache."""
         self._cache.pop(key, None)
+
+    # ── Multi-session-per-bot helpers ─────────────────────────────
+
+    def list_for_bot(self, bot_id: str) -> list[dict[str, Any]]:
+        """Return session rows for one bot, default first then updated_at desc.
+
+        Each row: {key, id, title, title_source, status, updated_at, lesson_plan}
+        """
+        safe_bot = safe_filename(bot_id)
+        prefix = f"bot_{safe_bot}_s_"
+        rows: list[dict[str, Any]] = []
+        for path in self.sessions_dir.glob(f"{prefix}*.jsonl"):
+            try:
+                with open(path, encoding="utf-8") as f:
+                    first_line = f.readline().strip()
+                if not first_line:
+                    continue
+                data = json.loads(first_line)
+                if data.get("_type") != "metadata":
+                    continue
+                key = data.get("key") or ""
+                meta = data.get("metadata") or {}
+                sid_tail = path.stem[len(prefix):]
+                sid = sid_tail if sid_tail.startswith("s_") else f"s_{sid_tail}"
+                rows.append({
+                    "key": key,
+                    "id": sid,
+                    "title": meta.get("title") or "",
+                    "title_source": meta.get("title_source"),
+                    "status": meta.get("status") or "active",
+                    "updated_at": data.get("updated_at"),
+                    "lesson_plan": meta.get("lesson_plan"),
+                })
+            except Exception:
+                continue
+
+        def _sort_key(r: dict[str, Any]):
+            is_default = 0 if r["status"] == "default" else 1
+            return (is_default, -_iso_to_ts(r.get("updated_at")))
+
+        rows.sort(key=_sort_key)
+        return rows
+
+    def ensure_default_session(self, bot_id: str) -> Session:
+        """Return the bot's current default session, creating one if missing.
+
+        Bootstrap-only path uses DEFAULT_SID. Subsequent defaults (created by
+        promote_default) have ULID ids; this method just finds whichever
+        session currently has status="default".
+        """
+        from deeptutor.tutorbot.session.ids import DEFAULT_SID
+
+        self._maybe_migrate_legacy_bot(bot_id)
+
+        for row in self.list_for_bot(bot_id):
+            if row["status"] == "default":
+                return self.get_or_create(row["key"])
+
+        key = f"bot:{bot_id}:s:{DEFAULT_SID}"
+        session = self.get_or_create(key)
+        session.metadata.update({
+            "status": "default",
+            "title": "",
+            "title_source": None,
+        })
+        self.save(session)
+        return session
+
+    def promote_default(
+        self,
+        session: Session,
+        *,
+        title: str,
+        title_source: str,
+        completed: bool,
+    ) -> tuple[Session, Session | None]:
+        """Promote a default session to active/completed and allocate a new default.
+
+        Returns (promoted, new_default). If the session is already non-default,
+        returns (session, None) — caller should use replan-in-place semantics.
+        """
+        from deeptutor.tutorbot.session.ids import new_session_id
+
+        if session.metadata.get("status") != "default":
+            return session, None
+
+        bot_id = _parse_bot_id_from_key(session.key)
+        if bot_id is None:
+            raise ValueError(f"Cannot promote — session key lacks bot prefix: {session.key!r}")
+
+        session.metadata["title"] = title
+        session.metadata["title_source"] = title_source
+        session.metadata["status"] = "completed" if completed else "active"
+        self.save(session)
+
+        new_key = f"bot:{bot_id}:s:{new_session_id()}"
+        new_default = self.get_or_create(new_key)
+        new_default.metadata.update({
+            "status": "default",
+            "title": "",
+            "title_source": None,
+        })
+        self.save(new_default)
+        return session, new_default
+
+    def _maybe_migrate_legacy_bot(self, bot_id: str) -> None:
+        """G1: collapse legacy bot_<id>.jsonl into one archived session + fresh default."""
+        from deeptutor.tutorbot.session.ids import DEFAULT_SID, new_session_id
+
+        safe_bot = safe_filename(bot_id)
+        legacy = self.sessions_dir / f"bot_{safe_bot}.jsonl"
+        migrated_marker = self.sessions_dir / f"bot_{safe_bot}.jsonl.migrated"
+
+        if not legacy.exists():
+            return
+        if migrated_marker.exists():
+            logger.warning(
+                "Legacy session file present alongside .migrated marker for bot {}; "
+                "refusing to re-migrate. Resolve manually.",
+                bot_id,
+            )
+            return
+
+        try:
+            messages: list[dict[str, Any]] = []
+            legacy_lesson: dict | None = None
+            with legacy.open(encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line:
+                        continue
+                    data = json.loads(line)
+                    if data.get("_type") == "metadata":
+                        legacy_lesson = (data.get("metadata") or {}).get("lesson_plan")
+                    else:
+                        messages.append(data)
+        except Exception:
+            logger.exception("Migration: malformed legacy JSONL for bot {}; leaving in place", bot_id)
+            return
+
+        archived_sid = new_session_id()
+        archived_key = f"bot:{bot_id}:s:{archived_sid}"
+        archived = self.get_or_create(archived_key)
+        archived.messages = list(messages)
+        archived.metadata.update({
+            "status": "archived",
+            "title": "之前的对话",
+            "title_source": "auto",
+        })
+        if legacy_lesson:
+            archived.metadata["lesson_plan"] = legacy_lesson
+        self.save(archived)
+
+        default_key = f"bot:{bot_id}:s:{DEFAULT_SID}"
+        default = self.get_or_create(default_key)
+        default.metadata.update({
+            "status": "default",
+            "title": "",
+            "title_source": None,
+        })
+        self.save(default)
+
+        legacy.rename(migrated_marker)
+        logger.info(
+            "Migrated legacy session for bot {} ({} messages → archived {})",
+            bot_id, len(messages), archived_sid,
+        )
+
+    # ── Legacy listing (cross-bot) ────────────────────────────────
 
     def list_sessions(self) -> list[dict[str, Any]]:
         """
