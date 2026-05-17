@@ -27,9 +27,25 @@ def manager(tmp_path: Path) -> TutorBotManager:
 
 
 def _append_session_line(manager: TutorBotManager, bot_id: str, payload: dict) -> None:
-    sessions_dir = manager._bot_workspace(bot_id) / "sessions"
-    sessions_dir.mkdir(parents=True, exist_ok=True)
-    with open(sessions_dir / "chat.jsonl", "a", encoding="utf-8") as handle:
+    """Append a chat line to the bot's current default session JSONL.
+
+    Pre-multi-session this wrote to an arbitrary `chat.jsonl`; under
+    multi-session each bot has per-session JSONL files keyed
+    bot_<id>_s_<sid>.jsonl, so we route appends to whichever file
+    ensure_default_session points at.
+    """
+    from deeptutor.tutorbot.session.manager import SessionManager
+    from deeptutor.tutorbot.utils.helpers import safe_filename
+
+    workspace = manager._bot_workspace(bot_id)
+    sm = SessionManager(workspace)
+    default = sm.ensure_default_session(bot_id)
+    safe_bot = safe_filename(bot_id)
+    sid_tail = default.key.split(":s:")[-1]
+    if sid_tail.startswith("s_"):
+        sid_tail = sid_tail[2:]
+    path = workspace / "sessions" / f"bot_{safe_bot}_s_{sid_tail}.jsonl"
+    with open(path, "a", encoding="utf-8") as handle:
         handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
 
@@ -98,51 +114,33 @@ class TestMessageHistory:
 
         assert history == [{"role": "assistant", "content": "Here is the image diagram"}]
 
-    def test_history_is_chronological_across_legacy_and_canonical_sessions(
+    def test_history_is_chronological_within_default_session(
         self, manager: TutorBotManager
     ):
-        _write_session_file(
-            manager,
-            "bot-history",
-            "web_legacy.jsonl",
-            [
-                {
-                    "role": "user",
-                    "content": "old user",
-                    "timestamp": "2026-03-20T20:12:59.665712",
-                },
-                {
-                    "role": "assistant",
-                    "content": "old assistant",
-                    "timestamp": "2026-03-20T20:13:00.665712",
-                },
-            ],
-        )
-        _write_session_file(
-            manager,
-            "bot-history",
-            "bot_history.jsonl",
-            [
-                {
-                    "role": "user",
-                    "content": "new user",
-                    "timestamp": "2026-05-03T15:25:53.085811",
-                },
-                {
-                    "role": "assistant",
-                    "content": "new assistant",
-                    "timestamp": "2026-05-03T15:25:54.085811",
-                },
-            ],
-        )
+        """Per-session history returns messages in chronological order.
+
+        Cross-file chronological aggregation was removed with the
+        multi-session refactor — each session is its own ordered stream.
+        """
+        for payload in [
+            {"role": "user", "content": "earlier user",
+             "timestamp": "2026-03-20T20:12:59.665712"},
+            {"role": "assistant", "content": "earlier assistant",
+             "timestamp": "2026-03-20T20:13:00.665712"},
+            {"role": "user", "content": "later user",
+             "timestamp": "2026-05-03T15:25:53.085811"},
+            {"role": "assistant", "content": "later assistant",
+             "timestamp": "2026-05-03T15:25:54.085811"},
+        ]:
+            _append_session_line(manager, "bot-history", payload)
 
         history = manager.get_bot_history("bot-history")
 
         assert [m["content"] for m in history] == [
-            "old user",
-            "old assistant",
-            "new user",
-            "new assistant",
+            "earlier user",
+            "earlier assistant",
+            "later user",
+            "later assistant",
         ]
 
     def test_recent_active_bots_normalizes_last_message(self, manager: TutorBotManager):
