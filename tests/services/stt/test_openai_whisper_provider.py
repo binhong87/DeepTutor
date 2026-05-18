@@ -97,3 +97,50 @@ async def test_transcribe_passes_language_hint(monkeypatch):
     call_kwargs = mock_client.audio.transcriptions.create.call_args.kwargs
     assert call_kwargs["language"] == "zh"
     assert call_kwargs["file"].name.endswith(".m4a")
+
+
+@pytest.mark.asyncio
+async def test_stt_api_key_beats_llm_api_key(monkeypatch):
+    """When both env vars are set, STT_API_KEY wins."""
+    monkeypatch.setenv("STT_API_KEY", "sk-stt-wins")
+    monkeypatch.setenv("LLM_API_KEY", "sk-llm-loses")
+    from deeptutor.services.stt.providers.openai_whisper import OpenAIWhisperProvider
+
+    patcher, _client, fake_ctor = _patch_openai()
+    with patcher:
+        OpenAIWhisperProvider()
+        assert fake_ctor.call_args.kwargs["api_key"] == "sk-stt-wins"
+
+
+@pytest.mark.asyncio
+async def test_stt_model_override(monkeypatch):
+    """STT_MODEL env var overrides the whisper-1 default."""
+    monkeypatch.setenv("STT_API_KEY", "sk-test")
+    monkeypatch.setenv("STT_MODEL", "whisper-large-v3")
+    from deeptutor.services.stt.providers.openai_whisper import OpenAIWhisperProvider
+
+    patcher, mock_client, _ = _patch_openai()
+    fake_resp = MagicMock(text="", language=None, duration=0.0)
+    fake_resp.model_dump = lambda: {}
+    mock_client.audio.transcriptions.create.return_value = fake_resp
+    with patcher:
+        provider = OpenAIWhisperProvider()
+        await provider.transcribe(b"\x00", mime_type="audio/webm")
+    assert mock_client.audio.transcriptions.create.call_args.kwargs["model"] == "whisper-large-v3"
+
+
+@pytest.mark.asyncio
+async def test_unknown_mime_falls_back_to_bin(monkeypatch):
+    """An unrecognized MIME type results in filename suffix '.bin' so the SDK
+    forwards as octet-stream; Whisper will reject, but we don't crash here."""
+    monkeypatch.setenv("STT_API_KEY", "sk-test")
+    from deeptutor.services.stt.providers.openai_whisper import OpenAIWhisperProvider
+
+    patcher, mock_client, _ = _patch_openai()
+    fake_resp = MagicMock(text="", language=None, duration=0.0)
+    fake_resp.model_dump = lambda: {}
+    mock_client.audio.transcriptions.create.return_value = fake_resp
+    with patcher:
+        provider = OpenAIWhisperProvider()
+        await provider.transcribe(b"\x00", mime_type="audio/never-heard-of-it")
+    assert mock_client.audio.transcriptions.create.call_args.kwargs["file"].name.endswith(".bin")
