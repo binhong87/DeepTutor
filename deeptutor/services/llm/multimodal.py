@@ -18,7 +18,7 @@ import logging
 from typing import Any
 from urllib.parse import unquote, urlparse
 
-from .capabilities import supports_vision, supports_vision_url
+from .capabilities import supports_audio, supports_vision, supports_vision_url
 
 logger = logging.getLogger(__name__)
 
@@ -37,6 +37,9 @@ class MultimodalResult:
     # base64 and we couldn't resolve the URL locally (external URL or missing
     # file). The caller can surface this to the user.
     url_images_dropped: int = 0
+    # Number of audio attachments that were dropped (currently unused — audio
+    # with no base64 data is silently skipped, not counted as "dropped").
+    audio_dropped: int = 0
 
 
 def _guess_mime_type(filename: str, fallback: str = MIME_FALLBACK) -> str:
@@ -77,6 +80,56 @@ def _build_anthropic_image_part(
             "data": base64_data,
         },
     }
+
+
+_AUDIO_MIME_TO_FORMAT: dict[str, str] = {
+    "audio/webm": "webm",
+    "audio/mp4": "mp4",
+    "audio/x-m4a": "mp4",
+    "audio/wav": "wav",
+    "audio/x-wav": "wav",
+    "audio/mpeg": "mp3",
+    "audio/mp3": "mp3",
+    "audio/ogg": "ogg",
+}
+
+
+def _build_openai_audio_part(*, base64_data: str, mime_type: str) -> dict[str, Any]:
+    audio_format = _AUDIO_MIME_TO_FORMAT.get((mime_type or "").lower(), "webm")
+    return {
+        "type": "input_audio",
+        "input_audio": {"data": base64_data, "format": audio_format},
+    }
+
+
+def _inject_audio(
+    messages: list[dict[str, Any]],
+    user_idx: int,
+    audio_attachments: list[Any],
+) -> None:
+    """Append audio content parts to the user message at *user_idx*.
+
+    Caller must have already gated on ``supports_audio()``. Anthropic is
+    intentionally unsupported (no public audio-in API today).
+    """
+    msg = messages[user_idx]
+    original_content = msg.get("content", "")
+
+    if isinstance(original_content, str):
+        content_parts: list[dict[str, Any]] = [{"type": "text", "text": original_content}]
+    elif isinstance(original_content, list):
+        content_parts = list(original_content)
+    else:
+        content_parts = [{"type": "text", "text": str(original_content)}]
+
+    for att in audio_attachments:
+        b64 = getattr(att, "base64", "") or ""
+        if not b64:
+            continue
+        mime = getattr(att, "mime_type", "") or "audio/webm"
+        content_parts.append(_build_openai_audio_part(base64_data=b64, mime_type=mime))
+
+    messages[user_idx] = {**msg, "content": content_parts}
 
 
 def _image_placeholder(url: str = "", filename: str = "") -> str:
@@ -127,15 +180,18 @@ def prepare_multimodal_messages(
     model: str | None = None,
 ) -> MultimodalResult:
     """
-    Inject image attachments into the last user message.
+    Inject image and audio attachments into the last user message.
 
-    If the model supports vision the last user message ``content`` field is
-    converted from a plain string into a content-parts array that includes
-    both the original text and the image(s).
+    Image handling: if the model supports vision the last user message
+    ``content`` field is converted from a plain string into a content-parts
+    array that includes both the original text and the image(s). If vision is
+    not supported, ``images_stripped`` is set to ``True`` so the caller can
+    emit a warning.
 
-    If the model does **not** support vision, the messages are returned
-    unchanged and ``images_stripped`` is set to ``True`` so the caller
-    can emit a warning to the user.
+    Audio handling: if the model supports native audio input (``supports_audio``
+    returns True) raw audio blobs are appended as ``input_audio`` content parts.
+    If audio is not supported the attachment is silently ignored — the STT
+    transcript text is already present in the message body.
 
     Args:
         messages: The OpenAI-style messages list (may be mutated).
@@ -154,54 +210,51 @@ def prepare_multimodal_messages(
         )
 
     image_attachments = [a for a in attachments if getattr(a, "type", "") == "image"]
-    if not image_attachments:
-        return MultimodalResult(
-            messages=messages,
-            vision_supported=True,
-            images_stripped=False,
-        )
+    audio_attachments = [a for a in attachments if getattr(a, "type", "") == "audio"]
 
-    vision_ok = supports_vision(binding, model)
+    vision_ok = True
+    images_stripped = False
+    url_images_dropped = 0
 
-    if not vision_ok:
-        logger.info(
-            "Model %s/%s does not support vision – stripping %d image(s)",
-            binding,
-            model,
-            len(image_attachments),
-        )
-        return MultimodalResult(
-            messages=messages,
-            vision_supported=False,
-            images_stripped=True,
-        )
+    # ── Image injection ───────────────────────────────────────────────────────
+    if image_attachments:
+        vision_ok = supports_vision(binding, model)
+        if not vision_ok:
+            logger.info(
+                "Model %s/%s does not support vision – stripping %d image(s)",
+                binding,
+                model,
+                len(image_attachments),
+            )
+            images_stripped = True
+        else:
+            last_user_idx = _find_last_user_message(messages)
+            if last_user_idx is not None:
+                is_anthropic = (binding or "").lower() in ("anthropic", "claude")
+                # Anthropic adapter only emits base64 source blocks, and
+                # providers like Moonshot reject URL form outright. In both
+                # cases url-only attachments must be resolved to bytes.
+                require_base64 = is_anthropic or not supports_vision_url(binding, model)
+                url_images_dropped = _inject_images(
+                    messages,
+                    last_user_idx,
+                    image_attachments,
+                    anthropic=is_anthropic,
+                    require_base64=require_base64,
+                )
 
-    last_user_idx = _find_last_user_message(messages)
-    if last_user_idx is None:
-        return MultimodalResult(
-            messages=messages,
-            vision_supported=True,
-            images_stripped=False,
-        )
-
-    is_anthropic = (binding or "").lower() in ("anthropic", "claude")
-    # Anthropic adapter only emits base64 source blocks, and providers like
-    # Moonshot reject URL form outright. In both cases url-only attachments
-    # must be resolved to bytes before injection.
-    require_base64 = is_anthropic or not supports_vision_url(binding, model)
-    dropped = _inject_images(
-        messages,
-        last_user_idx,
-        image_attachments,
-        anthropic=is_anthropic,
-        require_base64=require_base64,
-    )
+    # ── Audio injection ───────────────────────────────────────────────────────
+    # Append audio parts AFTER image parts so content ordering is stable.
+    if audio_attachments and supports_audio(binding, model):
+        last_user_idx = _find_last_user_message(messages)
+        if last_user_idx is not None:
+            _inject_audio(messages, last_user_idx, audio_attachments)
 
     return MultimodalResult(
         messages=messages,
-        vision_supported=True,
-        images_stripped=False,
-        url_images_dropped=dropped,
+        vision_supported=vision_ok,
+        images_stripped=images_stripped,
+        url_images_dropped=url_images_dropped,
     )
 
 

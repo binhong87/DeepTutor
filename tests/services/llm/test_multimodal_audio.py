@@ -1,0 +1,85 @@
+"""Tests for audio attachment handling in multimodal message preparation."""
+
+from dataclasses import dataclass
+
+from deeptutor.services.llm.multimodal import prepare_multimodal_messages
+
+
+@dataclass
+class _Attachment:
+    type: str
+    base64: str = ""
+    mime_type: str = ""
+    filename: str = ""
+    url: str = ""
+
+
+def _msgs():
+    return [{"role": "user", "content": "What did I say?"}]
+
+
+def test_audio_injected_for_supported_model():
+    audio = _Attachment(type="audio", base64="ZmFrZQ==", mime_type="audio/webm",
+                        filename="voice.webm")
+    result = prepare_multimodal_messages(
+        _msgs(), [audio], binding="openai", model="gpt-4o-audio-preview",
+    )
+    content = result.messages[0]["content"]
+    assert isinstance(content, list)
+    # Text part still present
+    assert any(p.get("type") == "text" and p.get("text") == "What did I say?" for p in content)
+    # Audio part present
+    audio_parts = [p for p in content if p.get("type") == "input_audio"]
+    assert len(audio_parts) == 1
+    assert audio_parts[0]["input_audio"]["data"] == "ZmFrZQ=="
+    assert audio_parts[0]["input_audio"]["format"] == "webm"
+    assert result.audio_dropped == 0
+
+
+def test_audio_silently_dropped_for_unsupported_model():
+    audio = _Attachment(type="audio", base64="ZmFrZQ==", mime_type="audio/webm")
+    result = prepare_multimodal_messages(
+        _msgs(), [audio], binding="openai", model="gpt-4o",
+    )
+    # Message unchanged — no audio part, text content preserved
+    msg = result.messages[0]
+    assert msg["content"] == "What did I say?" or msg["content"] == [
+        {"type": "text", "text": "What did I say?"}
+    ]
+    assert result.audio_dropped == 0  # Not "dropped" — never injected; transcript is fallback
+
+
+def test_audio_and_image_coexist():
+    audio = _Attachment(type="audio", base64="QQ==", mime_type="audio/webm")
+    image = _Attachment(type="image", base64="Qg==", mime_type="image/png", filename="x.png")
+    result = prepare_multimodal_messages(
+        _msgs(), [audio, image], binding="openai", model="gpt-4o-audio-preview",
+    )
+    content = result.messages[0]["content"]
+    types = [p.get("type") for p in content]
+    assert "input_audio" in types
+    assert "image_url" in types
+    assert "text" in types
+
+
+def test_audio_mime_to_format_mapping():
+    cases = [
+        ("audio/webm", "webm"),
+        ("audio/mp4", "mp4"),
+        ("audio/wav", "wav"),
+        ("audio/mpeg", "mp3"),
+    ]
+    for mime, expected_format in cases:
+        audio = _Attachment(type="audio", base64="QQ==", mime_type=mime)
+        result = prepare_multimodal_messages(
+            _msgs(), [audio], binding="openai", model="gpt-4o-audio-preview",
+        )
+        part = next(p for p in result.messages[0]["content"] if p.get("type") == "input_audio")
+        assert part["input_audio"]["format"] == expected_format, mime
+
+
+def test_no_audio_no_change():
+    msgs = [{"role": "user", "content": "hi"}]
+    result = prepare_multimodal_messages(msgs, [], binding="openai", model="gpt-4o-audio-preview")
+    assert result.messages[0]["content"] == "hi"
+    assert result.audio_dropped == 0

@@ -13,9 +13,9 @@ from deeptutor.services.llm.capabilities import supports_audio
         ("openai", "gpt-4o-mini-audio-preview", True),
         ("openai", "gpt-4o", False),                          # vision only, no audio
         ("openai", "gpt-3.5-turbo", False),
-        ("gemini", "gemini-2.0-flash", True),
-        ("gemini", "gemini-2.5-pro", True),
-        ("gemini", "gemini-1.5-pro", False),                  # older version
+        ("gemini", "gemini-2.0-flash", False),   # no Gemini provider in provider_core/
+        ("gemini", "gemini-2.5-pro", False),   # no Gemini provider in provider_core/
+        ("gemini", "gemini-1.5-pro", False),   # no Gemini provider in provider_core/
         ("anthropic", "claude-opus-4-7", False),              # no audio support
         ("OpenAI", "gpt-4o-audio-preview", True),             # case-insensitive binding
         ("openai", None, False),

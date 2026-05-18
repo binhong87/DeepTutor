@@ -430,8 +430,11 @@ def requires_api_version(binding: str, model: str | None = None) -> bool:
 # Prefix-matched so version suffixes (e.g. "-2026-01-15") still count.
 # Phase 2: read overrides from services/model_selection catalog.
 _AUDIO_INPUT_MODELS: dict[str, list[str]] = {
+    # NOTE: Only providers with a concrete implementation in
+    # services/llm/provider_core/ should be listed here.  Gemini was removed
+    # because there is no GeminiProvider in that package today — re-add when
+    # a real Gemini provider is implemented.
     "openai": ["gpt-4o-audio-preview", "gpt-4o-mini-audio-preview"],
-    "gemini": ["gemini-2.0-flash", "gemini-2.5-flash", "gemini-2.5-pro"],
 }
 
 
