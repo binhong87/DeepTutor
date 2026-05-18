@@ -6,6 +6,7 @@ import { Send } from 'lucide-react'
 import { AttachmentChipRow } from './AttachmentChipRow'
 import { AttachmentPicker, processImageFile } from './AttachmentPicker'
 import { MicButton } from './MicButton'
+import { useToast } from '../../ui/Toast'
 import type { Attachment } from '../../../lib/agent-chat-types'
 
 async function blobToBase64(blob: Blob): Promise<string> {
@@ -40,6 +41,7 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
   const [attachments, setAttachments] = useState<Attachment[]>([])
   const [isDragging, setIsDragging] = useState(false)
   const { t } = useTranslation('app')
+  const { toast } = useToast()
 
   function removeAttachment(id: string) {
     setAttachments((prev) => {
@@ -55,7 +57,7 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
   }
 
   function showError(msg: string) {
-    alert(msg)
+    toast(msg, { kind: 'error' })
   }
 
   function handleVoiceTranscribed(transcript: string, blob: Blob, mimeType: string, durationMs: number) {
