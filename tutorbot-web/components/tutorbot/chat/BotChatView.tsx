@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef, useEffect, useCallback, useState } from "react";
-import { Bot, Loader2, Send } from "lucide-react";
+import { Bot, Loader2 } from "lucide-react";
+import { Composer } from "./Composer";
 import {
   connectBotWS,
   nextTurnId,
@@ -23,7 +24,6 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
   const [bot, setBot] = useState<BotInfo | null>(null);
   const [turns, setTurns] = useState<BotChatTurn[]>([]);
   const [lessonPlan, setLessonPlan] = useState<LessonPlan | null>(null);
-  const [input, setInput] = useState("");
   const [connected, setConnected] = useState(false);
   const [sending, setSending] = useState(false);
   const [loadingHistory, setLoadingHistory] = useState(true);
@@ -128,9 +128,8 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     scrollToBottom();
   }, [turns, scrollToBottom]);
 
-  function handleSend() {
-    const text = input.trim();
-    if (!text || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+  function handleSend(text: string) {
+    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
 
     const turnId = nextTurnId();
     const userTurn: BotChatTurn = {
@@ -142,18 +141,10 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
       timestamp: Date.now(),
     };
     setTurns((prev) => [...prev, userTurn]);
-    setInput("");
     setSending(true);
     scrollToBottom();
 
     wsRef.current.send(JSON.stringify({ content: text }));
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
   }
 
   // Detect when sending is done
@@ -269,26 +260,12 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
       </div>
 
       {/* Input */}
-      <div className="border-t border-[var(--border)] px-5 py-3 shrink-0">
-        <div className="mx-auto flex max-w-[720px] items-end gap-2">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            rows={1}
-            className="flex-1 resize-none rounded-xl border border-[var(--border)] bg-[var(--background)] px-4 py-2.5 text-[14px] leading-[1.5] placeholder:text-[var(--muted-foreground)]/60 focus:outline-none focus:ring-2 focus:ring-[var(--ring)]"
-            placeholder={connected ? "Type a message..." : "Connecting..."}
-            disabled={!connected || sending}
-          />
-          <button
-            onClick={handleSend}
-            disabled={!connected || !input.trim() || sending}
-            className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] transition-opacity hover:opacity-90 disabled:opacity-30"
-          >
-            <Send className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
+      <Composer
+        onSend={handleSend}
+        disabled={!connected}
+        sending={sending}
+        placeholder={connected ? "Type a message..." : "Connecting..."}
+      />
     </div>
   );
 }
