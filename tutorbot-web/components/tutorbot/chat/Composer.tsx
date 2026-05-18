@@ -2,6 +2,8 @@
 
 import { useState, KeyboardEvent } from 'react'
 import { Send } from 'lucide-react'
+import { AttachmentChipRow } from './AttachmentChipRow'
+import type { Attachment } from '../../../lib/agent-chat-types'
 
 export type ComposerProps = {
   onSend: (text: string) => void
@@ -12,6 +14,16 @@ export type ComposerProps = {
 
 export function Composer({ onSend, disabled, sending, placeholder }: ComposerProps) {
   const [text, setText] = useState('')
+  const [attachments, setAttachments] = useState<Attachment[]>([])
+
+  function removeAttachment(id: string) {
+    setAttachments((prev) => {
+      const target = prev.find((a) => a.id === id)
+      if (target?.previewUrl) URL.revokeObjectURL(target.previewUrl)
+      if (target?.objectUrl) URL.revokeObjectURL(target.objectUrl)
+      return prev.filter((a) => a.id !== id)
+    })
+  }
 
   function handleSend() {
     const trimmed = text.trim()
@@ -29,6 +41,7 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
 
   return (
     <div className="border-t border-[var(--border)] px-5 py-3 shrink-0">
+      <AttachmentChipRow attachments={attachments} onRemove={removeAttachment} />
       <div className="mx-auto flex max-w-[720px] items-end gap-2">
         <textarea
           value={text}

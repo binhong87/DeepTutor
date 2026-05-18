@@ -95,6 +95,34 @@ export type AgentAction =
   | { type: "SET_LLM"; llmSelection: AgentLLMSelection | null }
   | { type: "SET_HINTS"; hints: string[] };
 
+export interface Attachment {
+  id: string;                 // uuid for keying + remove
+  type: "image" | "audio";
+  filename: string;
+  mimeType: string;
+  sizeBytes: number;
+  base64: string;             // raw base64, no data: prefix
+  previewUrl?: string;        // image only — object URL for thumbnail
+  durationMs?: number;        // audio only
+  objectUrl?: string;         // audio only — for playback in chip
+}
+
+export interface AttachmentWire {
+  type: "image" | "audio";
+  filename: string;
+  mime_type: string;
+  base64: string;
+}
+
+export function attachmentToWire(a: Attachment): AttachmentWire {
+  return {
+    type: a.type,
+    filename: a.filename,
+    mime_type: a.mimeType,
+    base64: a.base64,
+  };
+}
+
 export function agentChatReducer(
   state: AgentSession,
   action: AgentAction,
