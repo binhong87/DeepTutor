@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, KeyboardEvent } from 'react'
+import { useState, KeyboardEvent, ClipboardEvent, DragEvent } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Send } from 'lucide-react'
 import { AttachmentChipRow } from './AttachmentChipRow'
-import { AttachmentPicker } from './AttachmentPicker'
+import { AttachmentPicker, processImageFile } from './AttachmentPicker'
 import type { Attachment } from '../../../lib/agent-chat-types'
 
 export type ComposerProps = {
@@ -16,6 +17,8 @@ export type ComposerProps = {
 export function Composer({ onSend, disabled, sending, placeholder }: ComposerProps) {
   const [text, setText] = useState('')
   const [attachments, setAttachments] = useState<Attachment[]>([])
+  const [isDragging, setIsDragging] = useState(false)
+  const { t } = useTranslation('app')
 
   function removeAttachment(id: string) {
     setAttachments((prev) => {
@@ -48,8 +51,46 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
     }
   }
 
+  async function handlePaste(e: ClipboardEvent<HTMLDivElement>) {
+    for (const item of Array.from(e.clipboardData.items)) {
+      if (item.kind === 'file') {
+        const file = item.getAsFile()
+        if (file && file.type.startsWith('image/')) {
+          e.preventDefault()
+          await processImageFile(file, addAttachment, showError, t)
+        }
+      }
+    }
+  }
+
+  function handleDragOver(e: DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+
+  function handleDragLeave(e: DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    setIsDragging(false)
+  }
+
+  async function handleDrop(e: DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    setIsDragging(false)
+    for (const file of Array.from(e.dataTransfer.files)) {
+      if (file.type.startsWith('image/')) {
+        await processImageFile(file, addAttachment, showError, t)
+      }
+    }
+  }
+
   return (
-    <div className="border-t border-[var(--border)] px-5 py-3 shrink-0">
+    <div
+      onPaste={handlePaste}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      className={`border-t border-[var(--border)] px-5 py-3 shrink-0${isDragging ? ' border-2 border-dashed border-blue-500' : ''}`}
+    >
       <AttachmentChipRow attachments={attachments} onRemove={removeAttachment} />
       <div className="mx-auto flex max-w-[720px] items-end gap-2">
         <AttachmentPicker onAdd={addAttachment} onError={showError} />

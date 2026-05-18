@@ -12,6 +12,58 @@ const ALLOWED_IMAGE_MIMES = new Set([
   'image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml',
 ])
 
+// Exported so Composer can call it from paste/drop handlers.
+export async function processImageFile(
+  file: File,
+  onAdd: (a: Attachment) => void,
+  onError: (msg: string) => void,
+  t: (key: string) => string,
+): Promise<void> {
+  const mime = (file.type || '').toLowerCase()
+  if (!ALLOWED_IMAGE_MIMES.has(mime)) {
+    onError(t('composer.imageWrongType'))
+    return
+  }
+  if (file.size > MAX_IMAGE_BYTES) {
+    onError(t('composer.imageTooLarge'))
+    return
+  }
+
+  const buffer = await file.arrayBuffer()
+  const bytes = new Uint8Array(buffer)
+
+  // SVG XSS guard: refuse SVGs that contain inline scripts.
+  if (mime === 'image/svg+xml') {
+    const text = new TextDecoder().decode(bytes)
+    if (/<script/i.test(text)) {
+      onError(t('composer.imageWrongType'))
+      return
+    }
+  }
+
+  const base64 = bytesToBase64(bytes)
+  const previewUrl = URL.createObjectURL(file)
+
+  onAdd({
+    id: crypto.randomUUID(),
+    type: 'image',
+    filename: file.name,
+    mimeType: mime,
+    sizeBytes: file.size,
+    base64,
+    previewUrl,
+  })
+}
+
+function bytesToBase64(bytes: Uint8Array): string {
+  let binary = ''
+  const chunkSize = 0x8000
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize))
+  }
+  return btoa(binary)
+}
+
 export type AttachmentPickerProps = {
   onAdd: (attachment: Attachment) => void
   onError: (message: string) => void
@@ -22,40 +74,7 @@ export function AttachmentPicker({ onAdd, onError }: AttachmentPickerProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   async function handleFile(file: File) {
-    const mime = (file.type || '').toLowerCase()
-    if (!ALLOWED_IMAGE_MIMES.has(mime)) {
-      onError(t('composer.imageWrongType'))
-      return
-    }
-    if (file.size > MAX_IMAGE_BYTES) {
-      onError(t('composer.imageTooLarge'))
-      return
-    }
-
-    const buffer = await file.arrayBuffer()
-    const bytes = new Uint8Array(buffer)
-
-    // SVG XSS guard: refuse SVGs that contain inline scripts.
-    if (mime === 'image/svg+xml') {
-      const text = new TextDecoder().decode(bytes)
-      if (/<script/i.test(text)) {
-        onError(t('composer.imageWrongType'))
-        return
-      }
-    }
-
-    const base64 = bytesToBase64(bytes)
-    const previewUrl = URL.createObjectURL(file)
-
-    onAdd({
-      id: crypto.randomUUID(),
-      type: 'image',
-      filename: file.name,
-      mimeType: mime,
-      sizeBytes: file.size,
-      base64,
-      previewUrl,
-    })
+    await processImageFile(file, onAdd, onError, t)
   }
 
   function handleClick() {
@@ -86,13 +105,4 @@ export function AttachmentPicker({ onAdd, onError }: AttachmentPickerProps) {
       </button>
     </>
   )
-}
-
-function bytesToBase64(bytes: Uint8Array): string {
-  let binary = ''
-  const chunkSize = 0x8000
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize))
-  }
-  return btoa(binary)
 }
