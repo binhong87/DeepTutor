@@ -1162,11 +1162,26 @@ class AgentLoop:
                 )
                 for a in msg.attachments
             ]
+            logger.info(
+                "tutorbot multimodal turn: binding=%s model=%s attachments=%s",
+                self.provider.binding,
+                self.model,
+                [(a.type, a.mime_type, len(a.base64 or "")) for a in canonical_attachments],
+            )
             user_content = self.context.build_user_message_with_media(
                 current_message,
                 canonical_attachments,
                 binding=self.provider.binding,
                 model=self.model,
+            )
+            logger.info(
+                "tutorbot multimodal result: kind=%s parts=%s",
+                type(user_content).__name__,
+                (
+                    [p.get("type") for p in user_content]
+                    if isinstance(user_content, list)
+                    else "(plain string — image stripped or model not vision-capable)"
+                ),
             )
             # Re-use build_messages for system prompt + history wiring, but
             # override the final user message content with the multimodal payload.

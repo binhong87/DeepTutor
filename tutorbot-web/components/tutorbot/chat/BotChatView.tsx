@@ -141,6 +141,15 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
       thinking: [],
       status: "done",
       timestamp: Date.now(),
+      attachments: attachments.length
+        ? attachments.map((a) => ({
+            type: a.type,
+            filename: a.filename,
+            mimeType: a.mimeType,
+            base64: a.base64,
+            previewUrl: a.previewUrl,
+          }))
+        : undefined,
     };
     setTurns((prev) => [...prev, userTurn]);
     setSending(true);
@@ -223,8 +232,52 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
               className={turn.role === "user" ? "flex justify-end" : ""}
             >
               {turn.role === "user" ? (
-                <div className="max-w-[80%] rounded-2xl rounded-br-md bg-[var(--primary)] px-4 py-2.5 text-[14px] text-[var(--primary-foreground)] whitespace-pre-wrap">
-                  {turn.content}
+                <div className="flex max-w-[80%] flex-col items-end gap-2">
+                  {turn.attachments && turn.attachments.length > 0 && (
+                    <div className="flex flex-wrap justify-end gap-2">
+                      {turn.attachments.map((att, i) => {
+                        if (att.type === "image") {
+                          const src =
+                            att.previewUrl ??
+                            (att.base64
+                              ? `data:${att.mimeType};base64,${att.base64}`
+                              : undefined);
+                          return src ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              key={i}
+                              src={src}
+                              alt={att.filename}
+                              className="max-h-48 max-w-full rounded-lg border border-[var(--border)] object-contain"
+                            />
+                          ) : (
+                            <span key={i} className="text-xs text-[var(--muted-foreground)]">
+                              {att.filename}
+                            </span>
+                          );
+                        }
+                        if (att.type === "audio") {
+                          const src = att.base64
+                            ? `data:${att.mimeType};base64,${att.base64}`
+                            : undefined;
+                          return src ? (
+                            // eslint-disable-next-line jsx-a11y/media-has-caption
+                            <audio key={i} src={src} controls className="max-w-full" />
+                          ) : (
+                            <span key={i} className="text-xs text-[var(--muted-foreground)]">
+                              🎤 {att.filename}
+                            </span>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+                  )}
+                  {turn.content && (
+                    <div className="rounded-2xl rounded-br-md bg-[var(--primary)] px-4 py-2.5 text-[14px] text-[var(--primary-foreground)] whitespace-pre-wrap">
+                      {turn.content}
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="max-w-full">

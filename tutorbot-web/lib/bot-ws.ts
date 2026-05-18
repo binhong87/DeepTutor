@@ -39,6 +39,19 @@ export type BotMessage =
   | { type: "lesson_plan"; plan: LessonPlan }
   | SessionPromotedEvent;
 
+export type BotChatTurnAttachment = {
+  // Mirrors the on-wire shape (AttachmentWire) plus a previewUrl that the
+  // composer captured before send. previewUrl is local-only — it lives on
+  // the in-memory turn so we can render the thumbnail in the user bubble
+  // without re-decoding the base64. After page reload, restored turns lose
+  // previewUrl and fall back to inlining the base64 as a data: URL.
+  type: "image" | "audio";
+  filename: string;
+  mimeType: string;
+  base64?: string;
+  previewUrl?: string;
+};
+
 export type BotChatTurn = {
   id: string;
   role: "user" | "bot";
@@ -46,6 +59,7 @@ export type BotChatTurn = {
   thinking: string[];
   status: "thinking" | "done" | "error";
   timestamp: number;
+  attachments?: BotChatTurnAttachment[];
 };
 
 let _turnCounter = 0;
