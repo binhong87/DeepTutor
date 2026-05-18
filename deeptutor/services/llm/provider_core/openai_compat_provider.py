@@ -146,6 +146,16 @@ class OpenAICompatProvider(LLMProvider):
         self._responses_failures: dict[str, int] = {}
         self._responses_tripped_at: dict[str, float] = {}
 
+    @property
+    def binding(self) -> str:
+        """Resolve the provider binding name for multimodal capability gating.
+
+        Mirrors the internal resolution used by ``_render_user_messages`` so
+        external callers (e.g. the tutorbot agent loop's multimodal routing)
+        see the same binding the provider uses internally.
+        """
+        return self._provider_name or (self._spec.name if self._spec else "openai")
+
     def _setup_env(self, api_key: str, api_base: str | None) -> None:
         import os
 

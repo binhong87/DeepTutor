@@ -119,6 +119,17 @@ class LLMProvider(ABC):
         self.api_base = api_base
         self.generation: GenerationSettings = GenerationSettings()
 
+    @property
+    def binding(self) -> str:
+        """Return the provider binding name used by the multimodal capability layer.
+
+        Used by ``services/llm/multimodal.prepare_multimodal_messages`` and
+        ``services/llm/capabilities.supports_audio``/``supports_vision`` to
+        pick the right capability table. Subclasses override for non-OpenAI
+        providers.
+        """
+        return "openai"
+
     @staticmethod
     def _sanitize_empty_content(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Replace empty text content that causes provider 400 errors."""
