@@ -14,9 +14,14 @@ class InboundMessage:
     chat_id: str  # Chat/channel identifier
     content: str  # Message text
     timestamp: datetime = field(default_factory=datetime.now)
-    media: list[str] = field(default_factory=list)  # Media URLs
+    media: list[str] = field(default_factory=list)  # Media URLs (file paths)
     metadata: dict[str, Any] = field(default_factory=dict)  # Channel-specific data
     session_key_override: str | None = None  # Optional override for thread-scoped sessions
+    # Wire-format attachments from the WebSocket frontend.  Each dict has the
+    # shape: {"type": "image"|"audio", "base64": "...", "mime_type": "...",
+    # "filename": "..."}.  Converted to Attachment objects at the agent-loop
+    # boundary.  Channel adapters (matrix, wecom, etc.) leave this as None.
+    attachments: list[dict[str, Any]] | None = None
 
     @property
     def session_key(self) -> str:

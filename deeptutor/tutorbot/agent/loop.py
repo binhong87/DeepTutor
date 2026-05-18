@@ -15,6 +15,7 @@ from typing import TYPE_CHECKING, Awaitable, Callable
 
 from loguru import logger
 
+from deeptutor.core.context import Attachment
 from deeptutor.tutorbot.agent.context import ContextBuilder
 from deeptutor.tutorbot.agent.memory import MemoryConsolidator
 from deeptutor.tutorbot.agent.subagent import SubagentManager
@@ -1147,13 +1148,49 @@ class AgentLoop:
             if isinstance(message_tool, MessageTool):
                 message_tool.start_turn()
 
-        initial_messages = self.context.build_messages(
-            history=history,
-            current_message=current_message,
-            media=msg.media if msg.media else None,
-            channel=msg.channel,
-            chat_id=msg.chat_id,
-        )
+        if msg.attachments:
+            # Wire-format attachments from the WebSocket frontend: convert
+            # dict → Attachment dataclass once at the agent-loop boundary,
+            # then delegate to build_user_message_with_media which routes
+            # through the multimodal capability layer (vision/audio gating).
+            canonical_attachments = [
+                Attachment(
+                    type=a.get("type", "image"),
+                    base64=a.get("base64", ""),
+                    mime_type=a.get("mime_type", ""),
+                    filename=a.get("filename"),
+                )
+                for a in msg.attachments
+            ]
+            user_content = self.context.build_user_message_with_media(
+                current_message,
+                canonical_attachments,
+                binding=self.provider.binding,
+                model=self.model,
+            )
+            # Re-use build_messages for system prompt + history wiring, but
+            # override the final user message content with the multimodal payload.
+            initial_messages = self.context.build_messages(
+                history=history,
+                current_message=current_message,
+                media=None,
+                channel=msg.channel,
+                chat_id=msg.chat_id,
+            )
+            # Replace the last user message content with the multimodal-aware one.
+            for m in reversed(initial_messages):
+                if m.get("role") == "user":
+                    m["content"] = user_content
+                    break
+        else:
+            # Existing path: file-path-based media (channel adapters) or plain text.
+            initial_messages = self.context.build_messages(
+                history=history,
+                current_message=current_message,
+                media=msg.media if msg.media else None,
+                channel=msg.channel,
+                chat_id=msg.chat_id,
+            )
 
         async def _bus_progress(content: str, *, tool_hint: bool = False, delta: bool = False) -> None:
             meta = dict(msg.metadata or {})
@@ -1297,10 +1334,32 @@ class AgentLoop:
         chat_id: str = "direct",
         on_progress: Callable[[str], Awaitable[None]] | None = None,
         on_lesson_update: Callable[[dict], Awaitable[None]] | None = None,
+        attachments: list[dict] | None = None,
     ) -> str:
-        """Process a message directly (for CLI or cron usage)."""
+        """Process a message directly (for CLI or cron usage).
+
+        Args:
+            content: The user's text message.
+            session_key: Key identifying the conversation session.
+            channel: Channel name (e.g. "cli", "web").
+            chat_id: Chat identifier within the channel.
+            on_progress: Optional progress callback.
+            on_lesson_update: Optional lesson-plan update callback.
+            attachments: Wire-format attachment dicts from the WebSocket
+                frontend.  Each dict has the shape
+                ``{"type": "image"|"audio", "base64": "...",
+                "mime_type": "...", "filename": "..."}``.
+                Channel adapters that pass ``media`` (file paths) leave
+                this as ``None`` and use the existing path.
+        """
         await self._connect_mcp()
-        msg = InboundMessage(channel=channel, sender_id="user", chat_id=chat_id, content=content)
+        msg = InboundMessage(
+            channel=channel,
+            sender_id="user",
+            chat_id=chat_id,
+            content=content,
+            attachments=attachments or None,
+        )
         response = await self._process_message(
             msg,
             session_key=session_key,

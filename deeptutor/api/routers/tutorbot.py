@@ -486,6 +486,7 @@ async def bot_chat_session_ws(ws: WebSocket, bot_id: str, sid: str):
             content = data.get("content", "").strip()
             if not content:
                 continue
+            attachments: list[dict] | None = data.get("attachments") or None
 
             async def on_progress(text: str, *, tool_hint: bool = False, delta: bool = False) -> None:
                 payload: dict = {"type": "thinking", "content": text}
@@ -513,6 +514,7 @@ async def bot_chat_session_ws(ws: WebSocket, bot_id: str, sid: str):
                     on_progress=on_progress,
                     on_lesson_update=on_lesson_update,
                     on_session_promoted=on_session_promoted,
+                    attachments=attachments,
                 )
                 if not await _safe_send({"type": "content", "content": response}):
                     break
@@ -636,6 +638,7 @@ async def bot_chat_ws(ws: WebSocket, bot_id: str):
             content = data.get("content", "").strip()
             if not content:
                 continue
+            attachments: list[dict] | None = data.get("attachments") or None
 
             async def on_progress(text: str, *, tool_hint: bool = False, delta: bool = False) -> None:
                 # Best-effort: never raise. If the client is gone, just stop
@@ -662,6 +665,7 @@ async def bot_chat_ws(ws: WebSocket, bot_id: str):
                     chat_id=data.get("chat_id", "web"),
                     on_progress=on_progress,
                     on_lesson_update=on_lesson_update,
+                    attachments=attachments,
                 )
                 if not await _safe_send({"type": "content", "content": response}):
                     break

@@ -1018,8 +1018,25 @@ class TutorBotManager:
         on_progress: Callable[[str], Awaitable[None]] | None = None,
         on_lesson_update: Callable[[dict], Awaitable[None]] | None = None,
         on_session_promoted: Callable[[dict, dict], Awaitable[None]] | None = None,
+        attachments: list[dict] | None = None,
     ) -> str:
-        """Send a message to a running bot and return the response."""
+        """Send a message to a running bot and return the response.
+
+        Args:
+            bot_id: The bot to message.
+            content: The user's text message.
+            chat_id: Chat identifier (default "web").
+            session_id: Optional explicit session ID.
+            on_progress: Optional streaming progress callback.
+            on_lesson_update: Optional lesson-plan update callback.
+            on_session_promoted: Optional session-promotion callback.
+            attachments: Wire-format attachment dicts from the WebSocket
+                frontend.  Each dict has the shape
+                ``{"type": "image"|"audio", "base64": "...",
+                "mime_type": "...", "filename": "..."}``.
+                Channel adapters (matrix, wecom, etc.) leave this as
+                ``None`` — the existing path-based media flow is used.
+        """
         instance = self._bots.get(bot_id)
         if not instance or not instance.running:
             raise RuntimeError(f"Bot '{bot_id}' is not running")
@@ -1078,6 +1095,7 @@ class TutorBotManager:
             chat_id=chat_id,
             on_progress=_progress,
             on_lesson_update=on_lesson_update,
+            attachments=attachments or None,
         )
 
         # Forward the reply to any bound external channels so mobile users

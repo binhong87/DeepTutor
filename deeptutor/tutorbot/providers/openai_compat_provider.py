@@ -110,6 +110,11 @@ class OpenAICompatProvider(LLMProvider):
             max_retries=0,
         )
 
+    @property
+    def binding(self) -> str:
+        """Return the provider name for multimodal capability gating."""
+        return self._provider_name or "openai"
+
     def _setup_env(self, api_key: str, api_base: str | None) -> None:
         import os
 

@@ -49,6 +49,10 @@ class AnthropicProvider(LLMProvider):
             client_kw["default_headers"] = extra_headers
         self._client = AsyncAnthropic(**client_kw)
 
+    @property
+    def binding(self) -> str:
+        return "anthropic"
+
     @classmethod
     def _handle_error(cls, e: Exception) -> LLMResponse:
         payload = (
