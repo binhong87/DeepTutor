@@ -1719,5 +1719,9 @@
   "PDF, DOCX, XLSX, PPTX, Markdown, and text files supported": "PDF, DOCX, XLSX, PPTX, Markdown, and text files supported",
   "Browse Files": "Browse Files",
   "{{count}} files selected": "{{count}} files selected",
-  "Failed to create knowledge base": "Failed to create knowledge base"
+  "Failed to create knowledge base": "Failed to create knowledge base",
+  "composer.attach": "Attach",
+  "composer.attachImage": "Attach image",
+  "composer.imageTooLarge": "Image too large (max 10 MB)",
+  "composer.imageWrongType": "Unsupported image type"
 }

@@ -3,6 +3,7 @@
 import { useState, KeyboardEvent } from 'react'
 import { Send } from 'lucide-react'
 import { AttachmentChipRow } from './AttachmentChipRow'
+import { AttachmentPicker } from './AttachmentPicker'
 import type { Attachment } from '../../../lib/agent-chat-types'
 
 export type ComposerProps = {
@@ -25,6 +26,14 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
     })
   }
 
+  function addAttachment(a: Attachment) {
+    setAttachments((prev) => [...prev, a])
+  }
+
+  function showError(msg: string) {
+    alert(msg)
+  }
+
   function handleSend() {
     const trimmed = text.trim()
     if (!trimmed || disabled || sending) return
@@ -43,6 +52,7 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
     <div className="border-t border-[var(--border)] px-5 py-3 shrink-0">
       <AttachmentChipRow attachments={attachments} onRemove={removeAttachment} />
       <div className="mx-auto flex max-w-[720px] items-end gap-2">
+        <AttachmentPicker onAdd={addAttachment} onError={showError} />
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}

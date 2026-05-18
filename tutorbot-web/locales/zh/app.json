@@ -1719,5 +1719,9 @@
   "PDF, DOCX, XLSX, PPTX, Markdown, and text files supported": "支持 PDF、DOCX、XLSX、PPTX、Markdown 及文本文件",
   "Browse Files": "浏览文件",
   "{{count}} files selected": "已选择 {{count}} 个文件",
-  "Failed to create knowledge base": "创建知识库失败"
+  "Failed to create knowledge base": "创建知识库失败",
+  "composer.attach": "附件",
+  "composer.attachImage": "上传图片",
+  "composer.imageTooLarge": "图片过大 (上限 10 MB)",
+  "composer.imageWrongType": "不支持的图片格式"
 }
