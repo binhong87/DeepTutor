@@ -5,7 +5,28 @@ import { useTranslation } from 'react-i18next'
 import { Send } from 'lucide-react'
 import { AttachmentChipRow } from './AttachmentChipRow'
 import { AttachmentPicker, processImageFile } from './AttachmentPicker'
+import { MicButton } from './MicButton'
 import type { Attachment } from '../../../lib/agent-chat-types'
+
+async function blobToBase64(blob: Blob): Promise<string> {
+  const buffer = await blob.arrayBuffer()
+  const bytes = new Uint8Array(buffer)
+  let binary = ''
+  const chunkSize = 0x8000
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize))
+  }
+  return btoa(binary)
+}
+
+function extFromMime(mime: string): string {
+  const m = (mime || '').toLowerCase()
+  if (m.includes('webm')) return 'webm'
+  if (m.includes('mp4')) return 'm4a'
+  if (m.includes('wav')) return 'wav'
+  if (m.includes('mpeg') || m.includes('mp3')) return 'mp3'
+  return 'bin'
+}
 
 export type ComposerProps = {
   onSend: (text: string, attachments: Attachment[]) => void
@@ -35,6 +56,23 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
 
   function showError(msg: string) {
     alert(msg)
+  }
+
+  function handleVoiceTranscribed(transcript: string, blob: Blob, mimeType: string, durationMs: number) {
+    // STT-M1 merge rule: empty input → replace; non-empty → append with space
+    setText((prev) => (prev.trim() ? `${prev} ${transcript}` : transcript))
+    void blobToBase64(blob).then((base64) => {
+      addAttachment({
+        id: crypto.randomUUID(),
+        type: 'audio',
+        filename: `voice.${extFromMime(mimeType)}`,
+        mimeType,
+        sizeBytes: blob.size,
+        base64,
+        durationMs,
+        objectUrl: URL.createObjectURL(blob),
+      })
+    })
   }
 
   function handleSend() {
@@ -99,6 +137,12 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
       <AttachmentChipRow attachments={attachments} onRemove={removeAttachment} />
       <div className="mx-auto flex max-w-[720px] items-end gap-2">
         <AttachmentPicker onAdd={addAttachment} onError={showError} />
+        <MicButton
+          onTranscribed={handleVoiceTranscribed}
+          onError={showError}
+          disabled={disabled}
+          language={typeof navigator !== 'undefined' ? navigator.language?.split('-')?.[0] : undefined}
+        />
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
