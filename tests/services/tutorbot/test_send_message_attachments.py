@@ -209,6 +209,7 @@ class TestProcessDirectAttachmentsReachContextBuilder:
         asyncio.run(run())
 
         assert call_args, "build_user_message_with_media was never called"
+        assert call_args["binding"] == "openai"
         assert len(call_args["attachments"]) == 1
         att = call_args["attachments"][0]
         # Must be converted to Attachment dataclass
