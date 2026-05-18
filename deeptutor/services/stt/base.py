@@ -40,4 +40,16 @@ class STTProvider(Protocol):
         *,
         mime_type: str,
         language: str | None = None,
-    ) -> STTResult: ...
+    ) -> STTResult:
+        """Transcribe audio bytes and return the recognised text.
+
+        Args:
+            audio: Raw audio bytes to transcribe.
+            mime_type: MIME type of the audio (e.g. ``"audio/webm"``, ``"audio/wav"``).
+            language: Optional ISO 639-1 language hint (e.g. ``"en"``, ``"zh"``).
+                The provider may auto-detect if not specified.
+
+        Returns:
+            An :class:`STTResult` containing the transcript, detected language,
+            and provider-specific metadata.
+        """
