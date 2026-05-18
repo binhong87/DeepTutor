@@ -255,6 +255,7 @@ from deeptutor.api.routers import (
     skills,
     solve,
     system,
+    transcribe,
     tutorbot,
     unified_ws,
     vision_solver,
@@ -327,6 +328,9 @@ app.include_router(
     prefix="/api/attachments",
     tags=["attachments"],
     dependencies=_auth,
+)
+app.include_router(
+    transcribe.router, prefix="/api/v1", tags=["transcribe"], dependencies=_auth
 )
 
 # Unified WebSocket endpoint — auth is checked inside the handler (WebSockets
