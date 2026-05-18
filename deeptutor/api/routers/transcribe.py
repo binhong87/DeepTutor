@@ -56,24 +56,26 @@ async def transcribe(
         raise HTTPException(status_code=415, detail=f"Unsupported audio MIME: {mime!r}")
 
     audio = await file.read()
-    if len(audio) > _max_bytes():
-        raise HTTPException(
-            status_code=413,
-            detail=f"Audio exceeds {_max_bytes()} byte limit",
-        )
+    limit = _max_bytes()
+    if len(audio) > limit:
+        raise HTTPException(status_code=413, detail=f"Audio exceeds {limit} byte limit")
 
     try:
         provider = get_stt_provider()
         result = await provider.transcribe(
             audio,
             mime_type=mime,
-            language=(language or os.environ.get("STT_DEFAULT_LANGUAGE") or None) or None,
+            # Prefer explicit hint → env default → let provider auto-detect
+            language=(language or os.environ.get("STT_DEFAULT_LANGUAGE") or "").strip() or None,
         )
     except HTTPException:
         raise
     except Exception as exc:
         logger.exception("STT provider failed")
-        raise HTTPException(status_code=502, detail=f"Transcription failed: {exc}") from exc
+        raise HTTPException(
+            status_code=502,
+            detail="Transcription failed: upstream provider error",
+        ) from exc
 
     return {
         "transcript": result.transcript,
