@@ -82,10 +82,10 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
     if ((!trimmed && attachments.length === 0) || disabled || sending) return
     onSend(trimmed, attachments)
     setText('')
-    attachments.forEach((a) => {
-      if (a.previewUrl) URL.revokeObjectURL(a.previewUrl)
-      if (a.objectUrl) URL.revokeObjectURL(a.objectUrl)
-    })
+    // Don't revoke previewUrl / objectUrl here — the user-message turn now
+    // owns those URLs and renders them in the chat bubble. Revoking would
+    // turn the bubble's <img> / <audio> into a broken-resource placeholder.
+    // Browser GC will free them when the document unloads.
     setAttachments([])
   }
 
