@@ -13,6 +13,8 @@ import { apiFetch, apiUrl } from "@/lib/api";
 import AssistantResponse from "@/components/shared/AssistantResponse";
 import LessonPlanCard from "@/components/tutorbot/chat/LessonPlanCard";
 import { useSessionTree } from "@/context/SessionTreeContext";
+import type { Attachment } from "../../../lib/agent-chat-types";
+import { attachmentToWire } from "../../../lib/agent-chat-types";
 
 interface BotInfo {
   bot_id: string;
@@ -128,7 +130,7 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     scrollToBottom();
   }, [turns, scrollToBottom]);
 
-  function handleSend(text: string) {
+  function handleSend(text: string, attachments: Attachment[] = []) {
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
 
     const turnId = nextTurnId();
@@ -144,7 +146,11 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     setSending(true);
     scrollToBottom();
 
-    wsRef.current.send(JSON.stringify({ content: text }));
+    const frame: Record<string, unknown> = { content: text };
+    if (attachments.length > 0) {
+      frame.attachments = attachments.map(attachmentToWire);
+    }
+    wsRef.current.send(JSON.stringify(frame));
   }
 
   // Detect when sending is done

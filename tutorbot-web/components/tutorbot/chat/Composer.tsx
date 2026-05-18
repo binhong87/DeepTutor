@@ -8,7 +8,7 @@ import { AttachmentPicker, processImageFile } from './AttachmentPicker'
 import type { Attachment } from '../../../lib/agent-chat-types'
 
 export type ComposerProps = {
-  onSend: (text: string) => void
+  onSend: (text: string, attachments: Attachment[]) => void
   disabled?: boolean
   sending?: boolean
   placeholder?: string
@@ -39,9 +39,14 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
 
   function handleSend() {
     const trimmed = text.trim()
-    if (!trimmed || disabled || sending) return
-    onSend(trimmed)
+    if ((!trimmed && attachments.length === 0) || disabled || sending) return
+    onSend(trimmed, attachments)
     setText('')
+    attachments.forEach((a) => {
+      if (a.previewUrl) URL.revokeObjectURL(a.previewUrl)
+      if (a.objectUrl) URL.revokeObjectURL(a.objectUrl)
+    })
+    setAttachments([])
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
@@ -105,7 +110,7 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
         />
         <button
           onClick={handleSend}
-          disabled={disabled || sending || text.trim().length === 0}
+          disabled={disabled || sending || (text.trim().length === 0 && attachments.length === 0)}
           className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] transition-opacity hover:opacity-90 disabled:opacity-30"
         >
           <Send className="h-4 w-4" />

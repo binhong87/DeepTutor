@@ -11,6 +11,7 @@
  */
 
 import { wsUrl } from "./api";
+import type { AttachmentWire } from "./agent-chat-types";
 
 // ---- StreamEvent types (mirror Python StreamEventType) ----
 
@@ -212,6 +213,26 @@ export class UnifiedWSClient {
       return;
     }
     this.ws.send(JSON.stringify(msg));
+  }
+
+  /**
+   * Convenience helper: send a user message, optionally with image/audio
+   * attachments. Callers that pass no opts continue to work unchanged.
+   * The `attachments` field is omitted from the wire frame when the array
+   * is empty so the backend receives clean JSON.
+   */
+  sendMessage(
+    content: string,
+    opts?: { attachments?: AttachmentWire[] },
+  ): void {
+    const frame: StartTurnMessage = {
+      type: "message",
+      content,
+    };
+    if (opts?.attachments && opts.attachments.length > 0) {
+      frame.attachments = opts.attachments;
+    }
+    this.send(frame);
   }
 
   disconnect(): void {
