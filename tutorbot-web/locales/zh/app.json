@@ -1723,5 +1723,12 @@
   "composer.attach": "附件",
   "composer.attachImage": "上传图片",
   "composer.imageTooLarge": "图片过大 (上限 10 MB)",
-  "composer.imageWrongType": "不支持的图片格式"
+  "composer.imageWrongType": "不支持的图片格式",
+  "composer.recordVoice": "录音",
+  "composer.stopRecording": "停止录音",
+  "composer.recordingTooLong": "录音过长",
+  "composer.transcribing": "识别中...",
+  "composer.transcribeFailed": "语音识别失败，请重试",
+  "composer.noSpeechDetected": "未检测到语音",
+  "composer.micDenied": "麦克风访问被拒绝，请检查浏览器设置"
 }

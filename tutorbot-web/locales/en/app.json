@@ -1723,5 +1723,12 @@
   "composer.attach": "Attach",
   "composer.attachImage": "Attach image",
   "composer.imageTooLarge": "Image too large (max 10 MB)",
-  "composer.imageWrongType": "Unsupported image type"
+  "composer.imageWrongType": "Unsupported image type",
+  "composer.recordVoice": "Record voice",
+  "composer.stopRecording": "Stop recording",
+  "composer.recordingTooLong": "Recording too long",
+  "composer.transcribing": "Transcribing...",
+  "composer.transcribeFailed": "Couldn't transcribe — try again",
+  "composer.noSpeechDetected": "No speech detected",
+  "composer.micDenied": "Microphone access denied — check browser settings"
 }
