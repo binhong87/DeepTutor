@@ -425,6 +425,28 @@ def requires_api_version(binding: str, model: str | None = None) -> bool:
     return bool(value)
 
 
+# ─── Audio input capability ──────────────────────────────────────────────────
+# Models that accept native audio input in chat completions / generation calls.
+# Prefix-matched so version suffixes (e.g. "-2026-01-15") still count.
+# Phase 2: read overrides from services/model_selection catalog.
+_AUDIO_INPUT_MODELS: dict[str, list[str]] = {
+    "openai": ["gpt-4o-audio-preview", "gpt-4o-mini-audio-preview"],
+    "gemini": ["gemini-2.0-flash", "gemini-2.5-flash", "gemini-2.5-pro"],
+}
+
+
+def supports_audio(binding: str, model: str | None) -> bool:
+    """Return True when the LLM accepts raw audio input (alongside text).
+
+    Used by ``multimodal.prepare_multimodal_messages`` to decide whether
+    to forward the raw audio blob along with the STT transcript text.
+    """
+    if not model:
+        return False
+    prefixes = _AUDIO_INPUT_MODELS.get((binding or "").lower(), [])
+    return any(model == p or model.startswith(p + "-") for p in prefixes)
+
+
 def get_effective_temperature(
     binding: str,
     model: str | None = None,
@@ -461,6 +483,7 @@ __all__ = [
     "has_thinking_tags",
     "supports_tools",
     "supports_vision",
+    "supports_audio",
     "requires_api_version",
     "get_effective_temperature",
     "disable_response_format_at_runtime",
