@@ -1272,6 +1272,10 @@ class AgentLoop:
                             if stripped:
                                 filtered.append({"type": "text", "text": stripped})
                             continue
+                        # Audit (Task 9): this block affects user-message content parts saved to
+                        # session history. Inline base64 images are replaced with "[image]" to
+                        # avoid bloating history. Audio "input_audio" parts fall through to the
+                        # else branch below and are preserved as-is — no special-casing needed.
                         if c.get("type") == "image_url" and c.get("image_url", {}).get(
                             "url", ""
                         ).startswith("data:image/"):

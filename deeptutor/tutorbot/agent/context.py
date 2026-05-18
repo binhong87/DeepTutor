@@ -8,6 +8,7 @@ import platform
 import time
 from typing import Any
 
+from deeptutor.core.context import Attachment
 from deeptutor.tutorbot.agent.memory import MemoryStore
 from deeptutor.tutorbot.agent.skills import SkillsLoader
 from deeptutor.tutorbot.utils.helpers import build_assistant_message, detect_image_mime
@@ -204,6 +205,42 @@ Reply directly with text for conversations. Only use the 'message' tool to send 
         if not images:
             return text
         return images + [{"type": "text", "text": text}]
+
+    def build_user_message_with_media(
+        self,
+        text: str,
+        attachments: list[Attachment],
+        *,
+        binding: str,
+        model: str | None,
+    ) -> str | list[dict[str, Any]]:
+        """Build user message content from canonical Attachment objects.
+
+        Routes through services/llm/multimodal.py so the same vision/audio
+        capability gating used by the chat turn runtime applies here too.
+        Returns either a plain string (when no media parts get injected) or
+        an OpenAI-style content-parts array.
+
+        For path-based callers (existing tutorbot file uploads), keep using
+        ``_build_user_content(text, media: list[str])`` — it remains the
+        canonical path for that flow.
+        """
+        if not attachments:
+            return text
+
+        from deeptutor.services.llm.multimodal import prepare_multimodal_messages
+
+        # multimodal mutates the messages list in place; pass a fresh one and
+        # extract the post-mutation content.
+        messages: list[dict[str, Any]] = [{"role": "user", "content": text}]
+        prepare_multimodal_messages(
+            messages,
+            attachments,
+            binding=binding,
+            model=model,
+        )
+        content = messages[0].get("content", text)
+        return content if isinstance(content, list) else text
 
     def add_tool_result(
         self,
