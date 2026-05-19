@@ -37,8 +37,10 @@ class MultimodalResult:
     # base64 and we couldn't resolve the URL locally (external URL or missing
     # file). The caller can surface this to the user.
     url_images_dropped: int = 0
-    # Number of audio attachments that were dropped (currently unused — audio
-    # with no base64 data is silently skipped, not counted as "dropped").
+    # Number of url-only audio attachments dropped because the local
+    # AttachmentStore couldn't resolve their URL to bytes. Audio with no
+    # base64 AND no URL is silently skipped (not counted as dropped) since
+    # there's no failure to attribute.
     audio_dropped: int = 0
 
 
