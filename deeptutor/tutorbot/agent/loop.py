@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, Awaitable, Callable
 from loguru import logger
 
 from deeptutor.core.context import Attachment
+from deeptutor.tutorbot.agent.attachment_persistence import persist_attachments
 from deeptutor.tutorbot.agent.context import ContextBuilder
 from deeptutor.tutorbot.agent.memory import MemoryConsolidator
 from deeptutor.tutorbot.agent.subagent import SubagentManager
@@ -33,6 +34,15 @@ from deeptutor.tutorbot.session.manager import Session, SessionManager
 if TYPE_CHECKING:
     from deeptutor.tutorbot.config.schema import ChannelsConfig, ExecToolConfig, WebSearchConfig
     from deeptutor.tutorbot.cron.service import CronService
+
+
+def _session_id_from_key(session_key: str) -> str:
+    """Extract the bare session-id from canonical key 'bot:<bot_id>:s:<sid>'.
+
+    Used as the AttachmentStore session_id so persisted file paths match
+    the legacy chat path's shape (data/user/workspace/chat/attachments/<sid>/...).
+    """
+    return session_key.split(":s:")[-1]
 
 
 class AgentLoop:
@@ -1162,11 +1172,19 @@ class AgentLoop:
                 )
                 for a in msg.attachments
             ]
+            # Phase 2: persist to AttachmentStore so the saved session JSONL
+            # stores URL refs (not inline base64) — survives page reload.
+            # On failure this is a no-op; the LLM call below still works from
+            # the in-memory base64.
+            await persist_attachments(
+                _session_id_from_key(session_key),
+                canonical_attachments,
+            )
             logger.info(
                 "tutorbot multimodal turn: binding=%s model=%s attachments=%s",
                 self.provider.binding,
                 self.model,
-                [(a.type, a.mime_type, len(a.base64 or "")) for a in canonical_attachments],
+                [(a.type, a.mime_type, bool(a.url), len(a.base64 or "")) for a in canonical_attachments],
             )
             user_content = self.context.build_user_message_with_media(
                 current_message,
