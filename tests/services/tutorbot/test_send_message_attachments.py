@@ -217,7 +217,12 @@ class TestProcessDirectAttachmentsReachContextBuilder:
 
         assert isinstance(att, Attachment)
         assert att.type == "image"
-        assert att.base64 == "abc=="
+        # Phase 2: persist_attachments runs before build_user_message_with_media,
+        # persisting the base64 bytes to the AttachmentStore and clearing the
+        # in-memory base64. After persistence, the attachment carries a url
+        # ref instead of inline bytes.
+        assert att.base64 == "", f"expected base64 cleared post-persist, got {att.base64!r}"
+        assert att.url.startswith("/api/attachments/"), f"expected URL ref post-persist, got {att.url!r}"
         assert att.mime_type == "image/png"
         assert att.filename == "x.png"
 
