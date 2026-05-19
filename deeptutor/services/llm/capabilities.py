@@ -66,6 +66,20 @@ PROVIDER_CAPABILITIES: dict[str, dict[str, object]] = {
         "system_in_messages": True,
         "has_thinking_tags": True,  # DeepSeek reasoner has thinking tags
     },
+    # Zhipu AI (智谱) — OpenAI-compatible at https://open.bigmodel.cn/api/paas/v4.
+    # Vision is per-model (GLM-*V family); see MODEL_OVERRIDES below.
+    # Zhipu's API does NOT fetch external image URLs server-side — its OpenAI-
+    # compatible vision endpoint requires inline base64 image bytes. The
+    # multimodal layer must resolve any /api/attachments/... URL to bytes
+    # before sending. (Same pattern as Moonshot / Anthropic.)
+    "zhipu": {
+        "supports_response_format": True,
+        "supports_streaming": True,
+        "supports_tools": True,
+        "supports_vision": False,
+        "vision_url_supported": False,
+        "system_in_messages": True,
+    },
     # OpenRouter (aggregator, generally OpenAI-compatible)
     "openrouter": {
         "supports_response_format": True,  # Depends on underlying model
@@ -220,6 +234,10 @@ MODEL_OVERRIDES: dict[str, dict[str, object]] = {
     "moonshot-v1-128k-vision": {"supports_vision": True},
     "kimi-k2.5": {"supports_vision": True},
     "kimi-k2.6": {"supports_vision": True},
+    # Zhipu GLM vision family — any model whose name starts with "glm-" and
+    # carries the "v" qualifier (e.g. glm-4v, glm-5v-turbo) accepts images.
+    "glm-4v": {"supports_vision": True},
+    "glm-5v": {"supports_vision": True},
 }
 
 

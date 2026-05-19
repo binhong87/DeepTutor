@@ -251,10 +251,15 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
                   {turn.attachments && turn.attachments.length > 0 && (
                     <div className="flex flex-wrap justify-end gap-2">
                       {turn.attachments.map((att, i) => {
+                        // Persisted URLs from history are backend-relative
+                        // (`/api/attachments/...`) — apiUrl() prepends the
+                        // backend origin so the browser doesn't 404 against
+                        // the frontend dev server.
+                        const persistedSrc = att.url ? apiUrl(att.url) : undefined;
                         if (att.type === "image") {
                           const src =
                             att.previewUrl ??
-                            att.url ??
+                            persistedSrc ??
                             (att.base64
                               ? `data:${att.mimeType};base64,${att.base64}`
                               : undefined);
@@ -275,7 +280,7 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
                         if (att.type === "audio") {
                           const src =
                             att.previewUrl ??
-                            att.url ??
+                            persistedSrc ??
                             (att.base64
                               ? `data:${att.mimeType};base64,${att.base64}`
                               : undefined);

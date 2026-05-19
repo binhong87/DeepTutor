@@ -1158,6 +1158,7 @@ class AgentLoop:
             if isinstance(message_tool, MessageTool):
                 message_tool.start_turn()
 
+        canonical_attachments: list[Attachment] = []
         if msg.attachments:
             # Wire-format attachments from the WebSocket frontend: convert
             # dict → Attachment dataclass once at the agent-loop boundary,
@@ -1247,7 +1248,14 @@ class AgentLoop:
         if final_content is None:
             final_content = "I've completed processing but have no response to give."
 
-        self._save_turn(session, all_msgs, 1 + len(history))
+        # Phase 2: pass the persisted /api/attachments/... URL for each image
+        # attachment so _save_turn can record a URL ref instead of "[image]".
+        image_url_refs = [
+            a.url for a in canonical_attachments if a.type == "image" and a.url
+        ]
+        self._save_turn(
+            session, all_msgs, 1 + len(history), image_url_refs=image_url_refs
+        )
         self.sessions.save(session)
         await self.memory_consolidator.maybe_consolidate_by_tokens(session)
 
@@ -1315,8 +1323,23 @@ class AgentLoop:
                 return tail[1].strip()
         return text
 
-    def _save_turn(self, session: Session, messages: list[dict], skip: int) -> None:
-        """Save new-turn messages into session, truncating large tool results."""
+    def _save_turn(
+        self,
+        session: Session,
+        messages: list[dict],
+        skip: int,
+        *,
+        image_url_refs: list[str] | None = None,
+    ) -> None:
+        """Save new-turn messages into session, truncating large tool results.
+
+        Phase 2: ``image_url_refs`` carries the persisted ``/api/attachments/...``
+        URL for each image in the new turn (in order). When set, inline
+        ``data:image/...`` parts are rewritten to the persistent URL form
+        instead of being collapsed to a ``[image]`` text placeholder — that's
+        what lets the bubble render on page reload.
+        """
+        url_refs = list(image_url_refs or [])
         for m in messages[skip:]:
             entry = dict(m)
             role, content = entry.get("role"), entry.get("content")
@@ -1349,7 +1372,13 @@ class AgentLoop:
                         if c.get("type") == "image_url" and c.get("image_url", {}).get(
                             "url", ""
                         ).startswith("data:image/"):
-                            filtered.append({"type": "text", "text": "[image]"})
+                            if url_refs:
+                                ref = url_refs.pop(0)
+                                filtered.append(
+                                    {"type": "image_url", "image_url": {"url": ref}}
+                                )
+                            else:
+                                filtered.append({"type": "text", "text": "[image]"})
                         else:
                             filtered.append(c)
                     if not filtered:
