@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 import json
 import logging
+import mimetypes as _mimetypes
 from pathlib import Path
 import shutil
 import sys
@@ -134,6 +135,42 @@ def normalize_message_content(content: Any) -> str:
         except TypeError:
             return str(content)
     return str(content)
+
+
+_ATTACHMENT_URL_PREFIX = "/api/attachments/"
+
+
+def _extract_attachments_and_clean_content(content: Any) -> tuple[str, list[dict] | None]:
+    """Split a multimodal content list into (display_text, attachments).
+
+    For each image_url part whose URL starts with /api/attachments/, emit
+    a flat attachment dict and skip it from the text rendering. All other
+    parts go through ``normalize_message_content`` as before.
+
+    Returns ``(text, None)`` when there are no attachment parts —
+    behavior is unchanged for text-only entries.
+    """
+    if not isinstance(content, list):
+        return normalize_message_content(content), None
+
+    attachments: list[dict] = []
+    text_parts: list[Any] = []
+    for part in content:
+        if isinstance(part, dict) and part.get("type") == "image_url":
+            url = (part.get("image_url") or {}).get("url", "")
+            if isinstance(url, str) and url.startswith(_ATTACHMENT_URL_PREFIX):
+                filename = url.rsplit("/", 1)[-1]
+                attachments.append({
+                    "type": "image",
+                    "url": url,
+                    "mime_type": _mimetypes.guess_type(filename)[0] or "",
+                    "filename": filename,
+                })
+                continue  # don't include in display text
+        text_parts.append(part)
+
+    text = normalize_message_content(text_parts) if text_parts else ""
+    return text, (attachments or None)
 
 
 def _history_sort_timestamp(message: dict[str, Any], fallback: float) -> float:
@@ -875,7 +912,14 @@ class TutorBotManager:
                     if data.get("_type") == "metadata":
                         continue
                     if data.get("role") in ("user", "assistant") and data.get("content"):
-                        data["content"] = normalize_message_content(data["content"])
+                        raw_content = data["content"]
+                        if data.get("role") == "user":
+                            text, attachments = _extract_attachments_and_clean_content(raw_content)
+                            data["content"] = text
+                            if attachments:
+                                data["attachments"] = attachments
+                        else:
+                            data["content"] = normalize_message_content(raw_content)
                         data.pop("reasoning_content", None)
                         indexed_messages.append(
                             (_history_sort_timestamp(data, file_mtime), sequence, data)
