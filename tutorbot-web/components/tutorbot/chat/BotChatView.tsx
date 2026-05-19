@@ -53,7 +53,7 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
   // Load bot info
   useEffect(() => {
     let cancelled = false;
-    fetch(apiUrl(`/api/v1/tutorbot/${botId}`))
+    apiFetch(apiUrl(`/api/v1/tutorbot/${botId}`))
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => { if (!cancelled) setBot(data); })
       .catch(() => {});
