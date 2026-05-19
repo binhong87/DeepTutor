@@ -66,7 +66,16 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     setLoadingHistory(true);
     apiFetch(apiUrl(`/api/v1/tutorbot/${botId}/sessions/${sessionId}/history`))
       .then((r) => (r.ok ? r.json() : []))
-      .then((history: { role: string; content: string }[]) => {
+      .then((history: Array<{
+        role: string;
+        content: string;
+        attachments?: Array<{
+          type: "image" | "audio";
+          url: string;
+          mime_type: string;
+          filename: string;
+        }>;
+      }>) => {
         if (cancelled) return;
         const restored: BotChatTurn[] = history
           .filter((m) => m.role === "user" || m.role === "assistant")
@@ -77,6 +86,12 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
             thinking: [],
             status: "done" as const,
             timestamp: Date.now() - (history.length - i) * 1000,
+            attachments: m.attachments?.map((a) => ({
+              type: a.type,
+              filename: a.filename,
+              mimeType: a.mime_type,
+              url: a.url,
+            })),
           }));
         setTurns(restored);
         setLoadingHistory(false);
@@ -239,6 +254,7 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
                         if (att.type === "image") {
                           const src =
                             att.previewUrl ??
+                            att.url ??
                             (att.base64
                               ? `data:${att.mimeType};base64,${att.base64}`
                               : undefined);
@@ -257,9 +273,12 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
                           );
                         }
                         if (att.type === "audio") {
-                          const src = att.base64
-                            ? `data:${att.mimeType};base64,${att.base64}`
-                            : undefined;
+                          const src =
+                            att.previewUrl ??
+                            att.url ??
+                            (att.base64
+                              ? `data:${att.mimeType};base64,${att.base64}`
+                              : undefined);
                           return src ? (
                             // eslint-disable-next-line jsx-a11y/media-has-caption
                             <audio key={i} src={src} controls className="max-w-full" />
