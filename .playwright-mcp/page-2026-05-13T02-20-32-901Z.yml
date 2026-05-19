@@ -1,0 +1,40 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]
+  - alert [ref=e33]
+  - generic [ref=e40]:
+    - complementary [ref=e41]:
+      - generic [ref=e42]:
+        - link "DeepTutor" [ref=e43] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - navigation [ref=e48]:
+        - link "辅导机器人" [ref=e49] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e50]
+          - generic [ref=e53]: 辅导机器人
+        - link "知识库" [ref=e54] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e55]
+          - generic [ref=e57]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e59]
+          - generic [ref=e64]: 灵魂
+      - button "退出登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - generic [ref=e70]: 退出登录
+    - main [ref=e71]:
+      - generic [ref=e218]:
+        - generic [ref=e219]:
+          - img [ref=e220]
+          - generic [ref=e223]: viz-bot
+        - generic [ref=e227]:
+          - img [ref=e229]
+          - paragraph [ref=e232]: Chat with viz-bot
+          - paragraph [ref=e233]: Send a message to start the conversation.
+        - generic [ref=e235]:
+          - textbox "Type a message..." [ref=e236]
+          - button [disabled] [ref=e237]:
+            - img [ref=e238]

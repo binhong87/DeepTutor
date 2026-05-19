@@ -1,0 +1,68 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e79]:
+        - link "Settings" [ref=e80] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e81]
+          - text: Settings
+        - button "Sign out" [ref=e84] [cursor=pointer]:
+          - img [ref=e85]
+          - text: Sign out
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e28]:
+            - img [ref=e29]
+            - text: Welcome
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - text: Choose Soul
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: Name & Describe
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - text: Model
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - text: Done
+        - generic [ref=e111]:
+          - heading "Name Your Bot" [level=2] [ref=e112]
+          - paragraph [ref=e113]: Choose a unique ID and a display name. The ID becomes part of your bot's URL.
+          - generic [ref=e114]:
+            - text: Bot ID
+            - textbox "my-math-tutor" [ref=e115]
+            - paragraph [ref=e116]: Only lowercase letters, numbers, hyphens, and underscores.
+          - generic [ref=e117]:
+            - text: Display Name
+            - textbox "My Math Tutor" [ref=e118]
+          - generic [ref=e119]:
+            - text: Description (optional)
+            - textbox "A helpful math tutor that explains concepts step by step..." [ref=e120]
+        - generic [ref=e63]:
+          - button "Back" [ref=e64] [cursor=pointer]:
+            - img [ref=e65]
+            - text: Back
+          - button "Next" [disabled] [ref=e67]:
+            - text: Next
+            - img [ref=e68]
+  - alert [ref=e88]

@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e92]:
+    - complementary [ref=e93]:
+      - generic [ref=e94]:
+        - link "DeepTutor" [ref=e95] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e96] [cursor=pointer]:
+          - img [ref=e97]
+      - navigation [ref=e100]:
+        - link "辅导机器人" [ref=e101] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e102]
+          - generic [ref=e105]: 辅导机器人
+        - generic [ref=e267]:
+          - generic [ref=e268] [cursor=pointer]:
+            - img [ref=e270]
+            - img [ref=e272]
+            - generic [ref=e275]: Smoke Bot
+            - button "新会话" [disabled] [ref=e277]:
+              - img [ref=e278]
+          - button "新会话" [ref=e280] [cursor=pointer]:
+            - img [ref=e281]
+            - generic [ref=e282]: 新会话
+        - generic [ref=e106]:
+          - link "知识库" [ref=e107] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e108]
+            - generic [ref=e110]: 知识库
+          - link "灵魂" [ref=e111] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e112]
+            - generic [ref=e117]: 灵魂
+      - generic [ref=e118]:
+        - link "配置文件" [ref=e119] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e120]
+          - generic [ref=e123]: 配置文件
+        - button "退出登录" [ref=e124] [cursor=pointer]:
+          - img [ref=e125]
+          - generic [ref=e128]: 退出登录
+    - main [ref=e129]:
+      - button "Switch to English" [ref=e130] [cursor=pointer]:
+        - img [ref=e131]
+        - generic [ref=e135]: EN
+      - generic [ref=e284]:
+        - generic [ref=e285]:
+          - img [ref=e286]
+          - generic [ref=e289]: smoke-bot
+        - generic [ref=e292]:
+          - generic [ref=e322]: What can you see in this image?
+          - generic [ref=e323]:
+            - img [ref=e324]
+            - generic [ref=e326]: Thinking...
+        - generic [ref=e301]:
+          - button "上传图片" [ref=e302] [cursor=pointer]:
+            - img [ref=e303]
+          - button "录音" [ref=e305] [cursor=pointer]:
+            - img [ref=e306]
+          - textbox "Type a message..." [disabled] [ref=e315]
+          - button [disabled] [ref=e310]:
+            - img [ref=e311]

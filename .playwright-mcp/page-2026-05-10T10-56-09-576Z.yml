@@ -1,0 +1,82 @@
+- generic [ref=e1]:
+  - generic [active]:
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - generic [ref=e164]:
+          - navigation [ref=e165]:
+            - button "previous" [disabled] [ref=e166]:
+              - img "previous" [ref=e167]
+            - generic [ref=e169]:
+              - generic [ref=e170]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e171]:
+              - img "next" [ref=e172]
+          - img
+        - generic [ref=e174]:
+          - generic [ref=e175]:
+            - img [ref=e176]
+            - generic "Latest available version is detected (16.2.6)." [ref=e178]: Next.js 16.2.6
+            - generic [ref=e179]: Turbopack
+          - img
+      - dialog "Runtime TypeError" [ref=e181]:
+        - generic [ref=e184]:
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - generic [ref=e188]: Runtime TypeError
+              - generic [ref=e189]:
+                - button "Copy Error Info" [ref=e190] [cursor=pointer]:
+                  - img [ref=e191]
+                - button "No related documentation found" [disabled] [ref=e193]:
+                  - img [ref=e194]
+                - button "Attach Node.js inspector" [ref=e196] [cursor=pointer]:
+                  - img [ref=e197]
+            - generic [ref=e206]: souls.map is not a function
+          - generic [ref=e207]:
+            - generic [ref=e208]:
+              - paragraph [ref=e210]:
+                - img [ref=e212]
+                - generic [ref=e215]: app/(app)/tutorbot/boarding/page.tsx (127:20) @ BoardingPage
+                - button "Open in editor" [ref=e216] [cursor=pointer]:
+                  - img [ref=e218]
+              - generic [ref=e221]:
+                - generic [ref=e222]: 125 | <p className="text-sm text-[var(--muted-foreground)] mb-6">Pick a teaching pers...
+                - generic [ref=e223]: 126 | <div className="grid gap-3 sm:grid-cols-2">
+                - generic [ref=e224]: "> 127 | {souls.map(soul => ("
+                - generic [ref=e225]: "| ^"
+                - generic [ref=e226]: 128 | <button
+                - generic [ref=e227]: "129 | key={soul.id}"
+                - generic [ref=e228]: "130 | onClick={() => setSelectedSoul(soul)}"
+            - generic [ref=e229]:
+              - generic [ref=e230]:
+                - paragraph [ref=e231]:
+                  - text: Call Stack
+                  - generic [ref=e232]: "15"
+                - button "Show 14 ignore-listed frame(s)" [ref=e233] [cursor=pointer]:
+                  - text: Show 14 ignore-listed frame(s)
+                  - img [ref=e234]
+              - generic [ref=e236]:
+                - generic [ref=e237]:
+                  - text: BoardingPage
+                  - button "Open BoardingPage in editor" [ref=e238] [cursor=pointer]:
+                    - img [ref=e239]
+                - text: app/(app)/tutorbot/boarding/page.tsx (127:20)
+        - generic [ref=e241]: "1"
+        - generic [ref=e242]: "2"
+    - generic [ref=e8] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e9]:
+        - img [ref=e10]
+      - generic [ref=e243]:
+        - button "Open issues overlay" [ref=e244]:
+          - generic [ref=e245]:
+            - generic [ref=e246]: "0"
+            - generic [ref=e247]: "1"
+          - generic [ref=e248]: Issue
+        - button "Collapse issues badge" [ref=e249]:
+          - img [ref=e250]
+  - generic [ref=e253]:
+    - img [ref=e254]
+    - heading "This page couldn’t load" [level=1] [ref=e256]
+    - paragraph [ref=e257]: Reload to try again, or go back.
+    - generic [ref=e258]:
+      - button "Reload" [ref=e260] [cursor=pointer]
+      - button "Back" [ref=e261] [cursor=pointer]

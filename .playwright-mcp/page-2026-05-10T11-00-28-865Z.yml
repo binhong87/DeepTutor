@@ -1,0 +1,26 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "Create your account" [level=1] [ref=e6]
+      - paragraph [ref=e7]: Get started with your personal TutorBot
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: Username or email
+        - textbox "Username or email" [ref=e11]:
+          - /placeholder: you@example.com
+      - generic [ref=e12]:
+        - generic [ref=e13]: Password
+        - textbox "Password" [ref=e14]:
+          - /placeholder: At least 8 characters
+      - generic [ref=e15]:
+        - generic [ref=e16]: Confirm password
+        - textbox "Confirm password" [ref=e17]
+      - button "Create account" [ref=e18] [cursor=pointer]:
+        - img [ref=e19]
+        - text: Create account
+    - paragraph [ref=e22]:
+      - text: Already have an account?
+      - link "Sign in" [ref=e23] [cursor=pointer]:
+        - /url: /login
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]

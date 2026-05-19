@@ -1,0 +1,495 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot-2
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "一元二次方程的定义和解法 2/6" [ref=e165] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 一元二次方程的定义和解法
+              - generic [ref=e93]: 2/6
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "done" [ref=e96]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Assess
+                    - generic [ref=e100]: 了解学生当前对一元二次方程的已有认知程度
+                  - generic [ref=e101]: ↳ 通过三个开放式问题了解学生对一元二次方程的已有认知，包括是否见过标准形式、对"一元""二次"含义的理解、以及是否尝试过任何解法。等待学生回答。
+              - listitem [ref=e102]:
+                - generic "done" [ref=e166]: ✓
+                - generic [ref=e104]:
+                  - generic [ref=e105]:
+                    - generic [ref=e106]: Define
+                    - generic [ref=e107]: 给出一元二次方程的严格定义和标准形式
+                  - generic [ref=e167]: ↳ 给出了一元二次方程的严格定义（一元、二次、整式方程三个要点），标准形式 ax²+bx+c=0 (a≠0)，以及 b=0 或 c=0 的三种特殊情形。学生已有初中基础，理解顺畅。
+              - listitem [ref=e108]:
+                - generic "in progress" [ref=e168]: ▶
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Explain
+                  - generic [ref=e113]: 讲解三种基本解法：因式分解法、配方法、公式法
+              - listitem [ref=e114]:
+                - generic "pending" [ref=e115]: ·
+                - generic [ref=e117]:
+                  - generic [ref=e118]: Explain
+                  - generic [ref=e119]: 深入讲解求根公式与判别式 Δ 的含义
+              - listitem [ref=e120]:
+                - generic "pending" [ref=e121]: ·
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Check
+                  - generic [ref=e125]: 用一道典型题目检验学生的理解程度
+              - listitem [ref=e126]:
+                - generic "pending" [ref=e127]: ·
+                - generic [ref=e129]:
+                  - generic [ref=e130]: Wrap-up
+                  - generic [ref=e131]: 总结一元二次方程的核心要点及三种解法的适用场景
+          - generic [ref=e80]: 一元二次方程的定义和解法
+          - generic [ref=e133]:
+            - group [ref=e134]:
+              - generic "Thinking (5 steps)" [ref=e135] [cursor=pointer]
+            - generic [ref=e143]:
+              - paragraph [ref=e144]: 好的！一元二次方程是初中代数的重要基础，让我来系统地为你讲解。先来规划一下课程结构。
+              - paragraph [ref=e145]: 好的，在正式讲解之前，我想先了解一下你目前的程度，这样我能更有针对性地讲解。我问几个简单的问题：
+              - list [ref=e146]:
+                - listitem [ref=e147]:
+                  - strong [ref=e148]:
+                    - text: 你以前见过类似
+                    - code [ref=e149]: x² + 3x + 2 = 0
+                    - text: 这样的方程吗？
+                - listitem [ref=e150]:
+                  - strong [ref=e151]: 你知道"一元"和"二次"分别指的是什么吗？
+                - listitem [ref=e152]:
+                  - strong [ref=e153]: 如果见过的话，你尝试过用什么方法来解它？
+              - paragraph [ref=e154]: 不用有压力，知道多少说多少就好，这样我后续可以调整讲解的深度和节奏 😊
+              - separator [ref=e155]
+              - paragraph [ref=e156]: 说说你的想法吧，知道多少都没关系～
+          - generic [ref=e158]: 见过，初中学过。一元就是一个未知数，二次就是最高次是 2。我会用因式分解法解过简单的。
+          - generic [ref=e160]:
+            - group [ref=e161]:
+              - generic "Thinking (3 steps)" [ref=e169] [cursor=pointer]
+            - generic [ref=e171]:
+              - paragraph [ref=e172]: 很好，你对"一元"和"二次"的理解非常准确！那我们直接进入正题，把定义讲清楚。
+              - separator [ref=e173]
+              - heading "步骤 s2：一元二次方程的定义与标准形式" [level=2] [ref=e174]
+              - heading "一、定义" [level=3] [ref=e175]
+              - paragraph [ref=e176]:
+                - strong [ref=e177]: 一元二次方程
+                - text: 是指只含有
+                - strong [ref=e178]: 一个未知数
+                - text: ，且未知数的
+                - strong [ref=e179]: 最高次数为 2
+                - text: 的
+                - strong [ref=e180]: 整式方程
+                - text: 。
+              - paragraph [ref=e181]: 三个关键词缺一不可：
+              - table [ref=e183]:
+                - rowgroup [ref=e184]:
+                  - row "关键词 含义 反例" [ref=e185]:
+                    - columnheader "关键词" [ref=e186]
+                    - columnheader "含义" [ref=e187]
+                    - columnheader "反例" [ref=e188]
+                - rowgroup [ref=e189]:
+                  - row "一元 只有一个未知数（通常用 ） （二元）" [ref=e190]:
+                    - cell "一元" [ref=e191]:
+                      - strong [ref=e192]: 一元
+                    - cell "只有一个未知数（通常用 ）" [ref=e193]:
+                      - text: 只有一个未知数（通常用
+                      - generic [ref=e194]:
+                        - math [ref=e196]:
+                          - generic [ref=e199]: x
+                        - generic [ref=e201]: x
+                      - text: ）
+                    - cell "（二元）" [ref=e202]:
+                      - generic [ref=e203]:
+                        - math [ref=e205]:
+                          - generic [ref=e207]:
+                            - generic [ref=e208]: x
+                            - generic [ref=e209]: +
+                            - generic [ref=e210]:
+                              - generic [ref=e211]: "y"
+                              - generic [ref=e212]: "2"
+                            - generic [ref=e213]: =
+                            - generic [ref=e214]: "5"
+                        - generic [ref=e215]:
+                          - generic [ref=e216]: x +
+                          - generic [ref=e217]:
+                            - generic [ref=e218]:
+                              - text: "y"
+                              - generic [ref=e223]: "2"
+                            - text: =
+                          - generic [ref=e224]: "5"
+                      - text: （二元）
+                  - row "二次 最高次项的次数为 2 （三次）" [ref=e225]:
+                    - cell "二次" [ref=e226]:
+                      - strong [ref=e227]: 二次
+                    - cell "最高次项的次数为 2" [ref=e228]
+                    - cell "（三次）" [ref=e229]:
+                      - generic [ref=e230]:
+                        - math [ref=e232]:
+                          - generic [ref=e234]:
+                            - generic [ref=e235]:
+                              - generic [ref=e236]: x
+                              - generic [ref=e237]: "3"
+                            - generic [ref=e238]: −
+                            - generic [ref=e239]: x
+                            - generic [ref=e240]: =
+                            - generic [ref=e241]: "0"
+                        - generic [ref=e242]:
+                          - generic [ref=e243]:
+                            - generic [ref=e244]:
+                              - text: x
+                              - generic [ref=e249]: "3"
+                            - text: −
+                          - generic [ref=e250]: x =
+                          - generic [ref=e251]: "0"
+                      - text: （三次）
+                  - row "整式 分母和根号里不能出现未知数 （分式方程）" [ref=e252]:
+                    - cell "整式" [ref=e253]:
+                      - strong [ref=e254]: 整式
+                    - cell "分母和根号里不能出现未知数" [ref=e255]
+                    - cell "（分式方程）" [ref=e256]:
+                      - generic [ref=e257]:
+                        - math [ref=e259]:
+                          - generic [ref=e261]:
+                            - generic [ref=e262]:
+                              - generic [ref=e263]: "1"
+                              - generic [ref=e264]: x
+                            - generic [ref=e265]: +
+                            - generic [ref=e266]: x
+                            - generic [ref=e267]: =
+                            - generic [ref=e268]: "3"
+                        - generic [ref=e269]:
+                          - generic [ref=e270]:
+                            - generic [ref=e275]:
+                              - generic [ref=e277]: x
+                              - generic [ref=e280]: "1"
+                            - text: +
+                          - generic [ref=e284]: x =
+                          - generic [ref=e285]: "3"
+                      - text: （分式方程）
+              - heading "二、一般形式（标准形式）" [level=3] [ref=e286]
+              - paragraph [ref=e287]: 任何一个一元二次方程，通过移项、合并同类项，都可以写成：
+              - generic [ref=e289]:
+                - math [ref=e291]:
+                  - generic [ref=e298]:
+                    - generic [ref=e299]: a
+                    - generic [ref=e300]:
+                      - generic [ref=e301]: x
+                      - generic [ref=e302]: "2"
+                    - generic [ref=e303]: +
+                    - generic [ref=e304]: b
+                    - generic [ref=e305]: x
+                    - generic [ref=e306]: +
+                    - generic [ref=e307]: c
+                    - generic [ref=e308]: =
+                    - generic [ref=e309]: "0"
+                    - generic [ref=e310]: (
+                    - generic [ref=e311]: a
+                    - generic [ref=e312]: ≠
+                    - generic [ref=e313]: "0"
+                    - generic [ref=e314]: )
+                - generic [ref=e323]:
+                  - text: a
+                  - generic [ref=e324]:
+                    - text: x
+                    - generic [ref=e329]: "2"
+                  - text: + bx + c = 0 (a
+                  - generic [ref=e330]:
+                    - generic [ref=e332]: 
+                    - text: =
+                  - text: 0)
+              - paragraph [ref=e337]: 其中：
+              - list [ref=e338]:
+                - listitem [ref=e339]:
+                  - text: "**"
+                  - generic [ref=e340]:
+                    - math [ref=e342]:
+                      - generic [ref=e345]: a
+                    - generic [ref=e347]: a
+                  - text: "**：二次项系数（"
+                  - strong [ref=e348]: 必须 ≠ 0
+                  - text: ，否则就退化成一元一次方程了）
+                - listitem [ref=e349]:
+                  - text: "**"
+                  - generic [ref=e350]:
+                    - math [ref=e352]:
+                      - generic [ref=e355]: b
+                    - generic [ref=e357]: b
+                  - text: "**：一次项系数（可以为 0）"
+                - listitem [ref=e358]:
+                  - text: "**"
+                  - generic [ref=e359]:
+                    - math [ref=e361]:
+                      - generic [ref=e364]: c
+                    - generic [ref=e366]: c
+                  - text: "**：常数项（可以为 0）"
+              - heading "三、三种特殊情形" [level=3] [ref=e367]
+              - paragraph [ref=e368]:
+                - text: 由
+                - generic [ref=e369]:
+                  - math [ref=e371]:
+                    - generic [ref=e373]:
+                      - generic [ref=e374]: a
+                      - generic [ref=e375]: ≠
+                      - generic [ref=e376]: "0"
+                  - generic [ref=e377]:
+                    - generic [ref=e378]:
+                      - text: a
+                      - generic [ref=e379]:
+                        - generic [ref=e381]: 
+                        - text: =
+                    - generic [ref=e382]: "0"
+                - text: ，但
+                - generic [ref=e383]:
+                  - math [ref=e385]:
+                    - generic [ref=e388]: b
+                  - generic [ref=e390]: b
+                - text: 或
+                - generic [ref=e391]:
+                  - math [ref=e393]:
+                    - generic [ref=e396]: c
+                  - generic [ref=e398]: c
+                - text: 可以为 0，我们得到三种常见变体：
+              - table [ref=e400]:
+                - rowgroup [ref=e401]:
+                  - row "类型 形式 例子" [ref=e402]:
+                    - columnheader "类型" [ref=e403]
+                    - columnheader "形式" [ref=e404]
+                    - columnheader "例子" [ref=e405]
+                - rowgroup [ref=e406]:
+                  - row "完全形式" [ref=e407]:
+                    - cell "完全形式" [ref=e408]
+                    - cell [ref=e409]:
+                      - generic [ref=e410]:
+                        - math [ref=e412]:
+                          - generic [ref=e414]:
+                            - generic [ref=e415]: a
+                            - generic [ref=e416]:
+                              - generic [ref=e417]: x
+                              - generic [ref=e418]: "2"
+                            - generic [ref=e419]: +
+                            - generic [ref=e420]: b
+                            - generic [ref=e421]: x
+                            - generic [ref=e422]: +
+                            - generic [ref=e423]: c
+                            - generic [ref=e424]: =
+                            - generic [ref=e425]: "0"
+                        - generic [ref=e426]:
+                          - generic [ref=e427]:
+                            - text: a
+                            - generic [ref=e428]:
+                              - text: x
+                              - generic [ref=e433]: "2"
+                            - text: +
+                          - generic [ref=e434]: bx +
+                          - generic [ref=e435]: c =
+                          - generic [ref=e436]: "0"
+                    - cell [ref=e437]:
+                      - generic [ref=e438]:
+                        - math [ref=e440]:
+                          - generic [ref=e442]:
+                            - generic [ref=e443]: "2"
+                            - generic [ref=e444]:
+                              - generic [ref=e445]: x
+                              - generic [ref=e446]: "2"
+                            - generic [ref=e447]: −
+                            - generic [ref=e448]: "5"
+                            - generic [ref=e449]: x
+                            - generic [ref=e450]: +
+                            - generic [ref=e451]: "3"
+                            - generic [ref=e452]: =
+                            - generic [ref=e453]: "0"
+                        - generic [ref=e454]:
+                          - generic [ref=e455]:
+                            - text: "2"
+                            - generic [ref=e456]:
+                              - text: x
+                              - generic [ref=e461]: "2"
+                            - text: −
+                          - generic [ref=e462]: 5x +
+                          - generic [ref=e463]: 3 =
+                          - generic [ref=e464]: "0"
+                  - row [ref=e465]:
+                    - cell [ref=e466]:
+                      - generic [ref=e467]:
+                        - math [ref=e469]:
+                          - generic [ref=e471]:
+                            - generic [ref=e472]: b
+                            - generic [ref=e473]: =
+                            - generic [ref=e474]: "0"
+                        - generic [ref=e475]:
+                          - generic [ref=e476]: b =
+                          - generic [ref=e477]: "0"
+                    - cell [ref=e478]:
+                      - generic [ref=e479]:
+                        - math [ref=e481]:
+                          - generic [ref=e483]:
+                            - generic [ref=e484]: a
+                            - generic [ref=e485]:
+                              - generic [ref=e486]: x
+                              - generic [ref=e487]: "2"
+                            - generic [ref=e488]: +
+                            - generic [ref=e489]: c
+                            - generic [ref=e490]: =
+                            - generic [ref=e491]: "0"
+                        - generic [ref=e492]:
+                          - generic [ref=e493]:
+                            - text: a
+                            - generic [ref=e494]:
+                              - text: x
+                              - generic [ref=e499]: "2"
+                            - text: +
+                          - generic [ref=e500]: c =
+                          - generic [ref=e501]: "0"
+                    - cell [ref=e502]:
+                      - generic [ref=e503]:
+                        - math [ref=e505]:
+                          - generic [ref=e507]:
+                            - generic [ref=e508]:
+                              - generic [ref=e509]: x
+                              - generic [ref=e510]: "2"
+                            - generic [ref=e511]: −
+                            - generic [ref=e512]: "9"
+                            - generic [ref=e513]: =
+                            - generic [ref=e514]: "0"
+                        - generic [ref=e515]:
+                          - generic [ref=e516]:
+                            - generic [ref=e517]:
+                              - text: x
+                              - generic [ref=e522]: "2"
+                            - text: −
+                          - generic [ref=e523]: 9 =
+                          - generic [ref=e524]: "0"
+                  - row [ref=e525]:
+                    - cell [ref=e526]:
+                      - generic [ref=e527]:
+                        - math [ref=e529]:
+                          - generic [ref=e531]:
+                            - generic [ref=e532]: c
+                            - generic [ref=e533]: =
+                            - generic [ref=e534]: "0"
+                        - generic [ref=e535]:
+                          - generic [ref=e536]: c =
+                          - generic [ref=e537]: "0"
+                    - cell [ref=e538]:
+                      - generic [ref=e539]:
+                        - math [ref=e541]:
+                          - generic [ref=e543]:
+                            - generic [ref=e544]: a
+                            - generic [ref=e545]:
+                              - generic [ref=e546]: x
+                              - generic [ref=e547]: "2"
+                            - generic [ref=e548]: +
+                            - generic [ref=e549]: b
+                            - generic [ref=e550]: x
+                            - generic [ref=e551]: =
+                            - generic [ref=e552]: "0"
+                        - generic [ref=e553]:
+                          - generic [ref=e554]:
+                            - text: a
+                            - generic [ref=e555]:
+                              - text: x
+                              - generic [ref=e560]: "2"
+                            - text: +
+                          - generic [ref=e561]: bx =
+                          - generic [ref=e562]: "0"
+                    - cell [ref=e563]:
+                      - generic [ref=e564]:
+                        - math [ref=e566]:
+                          - generic [ref=e568]:
+                            - generic [ref=e569]: "3"
+                            - generic [ref=e570]:
+                              - generic [ref=e571]: x
+                              - generic [ref=e572]: "2"
+                            - generic [ref=e573]: +
+                            - generic [ref=e574]: "6"
+                            - generic [ref=e575]: x
+                            - generic [ref=e576]: =
+                            - generic [ref=e577]: "0"
+                        - generic [ref=e578]:
+                          - generic [ref=e579]:
+                            - text: "3"
+                            - generic [ref=e580]:
+                              - text: x
+                              - generic [ref=e585]: "2"
+                            - text: +
+                          - generic [ref=e586]: 6x =
+                          - generic [ref=e587]: "0"
+              - paragraph [ref=e588]:
+                - text: 后两种不完全形式通常比完全形式更容易解，比如
+                - generic [ref=e589]:
+                  - math [ref=e591]:
+                    - generic [ref=e593]:
+                      - generic [ref=e594]:
+                        - generic [ref=e595]: x
+                        - generic [ref=e596]: "2"
+                      - generic [ref=e597]: −
+                      - generic [ref=e598]: "9"
+                      - generic [ref=e599]: =
+                      - generic [ref=e600]: "0"
+                  - generic [ref=e601]:
+                    - generic [ref=e602]:
+                      - generic [ref=e603]:
+                        - text: x
+                        - generic [ref=e608]: "2"
+                      - text: −
+                    - generic [ref=e609]: 9 =
+                    - generic [ref=e610]: "0"
+                - text: 直接移项就能得到
+                - generic [ref=e611]:
+                  - math [ref=e613]:
+                    - generic [ref=e615]:
+                      - generic [ref=e616]: x
+                      - generic [ref=e617]: =
+                      - generic [ref=e618]: ±
+                      - generic [ref=e619]: "3"
+                  - generic [ref=e620]:
+                    - generic [ref=e621]: x =
+                    - generic [ref=e622]: ±3
+                - text: 。
+              - separator [ref=e623]
+              - paragraph [ref=e624]: 有了这个清晰的定义和分类，下一步我们就来看看如何系统地解这些方程。准备好了吗？
+              - paragraph [ref=e625]: 这部分定义清晰吗？接下来我们进入核心——三种解法，继续？
+          - generic [ref=e627]: 清晰，请讲三种解法
+          - group [ref=e634]:
+            - generic "Thinking (1 step)" [ref=e635] [cursor=pointer]
+            - paragraph [ref=e637]: 好的，现在执行步骤 s3：讲解三种基本解法——因式分解法、配方法、公式法。学生已经有一定基础，我需要把这三种方法讲清楚，包括它们的核心思路、步骤和适用场景。 让我来详细讲解这三种解法。
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e78]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

@@ -1,0 +1,53 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "DeepTutor" [ref=e6]
+          - generic [ref=e7]: DeepTutor
+        - button "收起侧边栏" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+      - navigation [ref=e12]:
+        - generic [ref=e13]:
+          - button "新对话" [ref=e14] [cursor=pointer]:
+            - img [ref=e15]
+            - generic [ref=e16]: 新对话
+          - link "聊天" [ref=e18] [cursor=pointer]:
+            - /url: /v2/chat
+            - img [ref=e19]
+            - generic [ref=e21]: 聊天
+          - link "辅导机器人" [ref=e28] [cursor=pointer]:
+            - /url: /agents
+            - img [ref=e29]
+            - generic [ref=e32]: 辅导机器人
+          - link "智能写作" [ref=e34] [cursor=pointer]:
+            - /url: /co-writer
+            - img [ref=e35]
+            - generic [ref=e37]: 智能写作
+          - link "书籍" [ref=e39] [cursor=pointer]:
+            - /url: /book
+            - img [ref=e40]
+            - generic [ref=e42]: 书籍
+          - link "知识库" [ref=e44] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e45]
+            - generic [ref=e47]: 知识库
+          - link "空间" [ref=e49] [cursor=pointer]:
+            - /url: /space
+            - img [ref=e50]
+            - generic [ref=e55]: 空间
+      - generic [ref=e57]:
+        - link "设置" [ref=e58] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e59]
+          - generic [ref=e62]: 设置
+        - generic [ref=e63]:
+          - link "v1.3.8+22·dev" [ref=e64] [cursor=pointer]:
+            - /url: https://github.com/HKUDS/DeepTutor/releases
+            - generic [ref=e66]: v1.3.8+22·dev
+          - link "GitHub" [ref=e67] [cursor=pointer]:
+            - /url: https://github.com/HKUDS/DeepTutor
+            - img [ref=e68]
+    - main [ref=e71]
+  - alert [ref=e72]

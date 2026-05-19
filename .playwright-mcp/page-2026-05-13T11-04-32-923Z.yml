@@ -1,0 +1,108 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Draw a 3-4-5 right triangle with vertices A, B, C. Right angle at C. Label the sides.
+          - paragraph [ref=e74]: 让我画一个直角三角形，直角在 C，边长为 3-4-5，并标注各边。
+          - region [ref=e80]:
+            - img [ref=e81]:
+              - generic [ref=e87]:
+                - generic [ref=e88]: "0.5"
+                - generic [ref=e89]: "1"
+                - generic [ref=e90]: "1.5"
+                - generic [ref=e91]: "2"
+                - generic [ref=e92]: "2.5"
+                - generic [ref=e93]: "3"
+                - generic [ref=e94]: "3.5"
+                - generic [ref=e95]: "4"
+                - generic [ref=e96]: "4.5"
+                - generic [ref=e97]: −0.5
+                - generic [ref=e98]: "0.5"
+                - generic [ref=e99]: "1"
+                - generic [ref=e100]: "1.5"
+                - generic [ref=e101]: "2"
+                - generic [ref=e102]: "2.5"
+                - generic [ref=e103]: "3"
+                - generic [ref=e104]: "3.5"
+                - generic [ref=e105]: −0.5
+            - generic [ref=e110]: C
+            - generic [ref=e111]: A
+            - generic [ref=e112]: B
+            - generic [ref=e113]: "3"
+            - generic [ref=e114]: "4"
+            - generic [ref=e115]: "5"
+          - generic [ref=e117]: Show me a flowchart of the steps to solve a quadratic equation.
+          - document [ref=e556]:
+            - generic [ref=e558]:
+              - generic [ref=e569]:
+                - generic [ref=e575]: 是
+                - generic [ref=e581]: 否
+                - generic [ref=e587]: Δ 0
+                - generic [ref=e593]: Δ = 0
+                - generic [ref=e599]: Δ < 0
+              - generic [ref=e600]:
+                - paragraph [ref=e609]: 给定 ax² + bx + c = 0
+                - paragraph [ref=e616]: 可因式分解？
+                - paragraph [ref=e623]: 因式分解
+                - paragraph [ref=e630]: 设各因子为0
+                - paragraph [ref=e637]: 求解
+                - paragraph [ref=e644]: 检查解
+                - paragraph [ref=e651]: 计算判别式 Δ = b² - 4ac
+                - paragraph [ref=e658]: Δ ?
+                - paragraph [ref=e665]: "两个实根: x = (-b ± √Δ) / (2a)"
+                - paragraph [ref=e672]: "一个实根（重根）: x = -b / (2a)"
+                - paragraph [ref=e679]: 无实根（两个复数根）
+                - paragraph [ref=e688]: 完成
+          - generic [ref=e258]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - generic [ref=e262]:
+            - paragraph [ref=e263]: 好的！让我用图文结合的方式，系统地讲解三角函数的基本概念。
+            - paragraph [ref=e264]: 先画一个标准的直角三角形，把 sin、cos、tan 的定义标清楚：
+          - paragraph [ref=e269]: I tried to use the tool but it timed out. It might be temporarily slow or stuck. Try rephrasing or ask for a simpler version.
+          - generic [ref=e271]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - group [ref=e413]:
+            - generic "Thinking (11 steps)" [ref=e689] [cursor=pointer]
+            - generic [ref=e415]:
+              - paragraph [ref=e416]: 好的！让我为你用图文结合的方式讲解三角函数的三个核心概念。 先画一个标准直角三角形，标注清楚三边和角度：
+              - paragraph [ref=e417]: visualize("figure")
+              - paragraph [ref=e418]: Working on visualize…
+              - paragraph [ref=e419]: Working on visualize…
+              - paragraph [ref=e554]: Working on visualize…
+              - paragraph [ref=e555]: Working on visualize…
+              - paragraph [ref=e690]: Working on visualize…
+              - paragraph [ref=e691]: Working on visualize…
+              - paragraph [ref=e692]: Working on visualize…
+              - paragraph [ref=e693]: Working on visualize…
+              - paragraph [ref=e694]: Working on visualize…
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e276]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e277]

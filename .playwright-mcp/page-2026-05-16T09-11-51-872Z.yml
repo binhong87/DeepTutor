@@ -1,0 +1,1994 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot-2
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "一元二次方程的定义和解法 3/6" [ref=e638] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 一元二次方程的定义和解法
+              - generic [ref=e93]: 3/6
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "done" [ref=e96]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Assess
+                    - generic [ref=e100]: 了解学生当前对一元二次方程的已有认知程度
+                  - generic [ref=e101]: ↳ 通过三个开放式问题了解学生对一元二次方程的已有认知，包括是否见过标准形式、对"一元""二次"含义的理解、以及是否尝试过任何解法。等待学生回答。
+              - listitem [ref=e102]:
+                - generic "done" [ref=e166]: ✓
+                - generic [ref=e104]:
+                  - generic [ref=e105]:
+                    - generic [ref=e106]: Define
+                    - generic [ref=e107]: 给出一元二次方程的严格定义和标准形式
+                  - generic [ref=e167]: ↳ 给出了一元二次方程的严格定义（一元、二次、整式方程三个要点），标准形式 ax²+bx+c=0 (a≠0)，以及 b=0 或 c=0 的三种特殊情形。学生已有初中基础，理解顺畅。
+              - listitem [ref=e108]:
+                - generic "done" [ref=e639]: ✓
+                - generic [ref=e110]:
+                  - generic [ref=e111]:
+                    - generic [ref=e112]: Explain
+                    - generic [ref=e113]: 讲解三种基本解法：因式分解法、配方法、公式法
+                  - generic [ref=e640]: ↳ 讲解了三种基本解法：因式分解法（零乘积原理+十字相乘）、配方法（加一次项系数一半的平方）、公式法（求根公式），每种方法都给了完整步骤和一个实例，最后用对比表格总结了三者的适用场景和优缺点。
+              - listitem [ref=e114]:
+                - generic "in progress" [ref=e641]: ▶
+                - generic [ref=e117]:
+                  - generic [ref=e118]: Explain
+                  - generic [ref=e119]: 深入讲解求根公式与判别式 Δ 的含义
+              - listitem [ref=e120]:
+                - generic "pending" [ref=e121]: ·
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Check
+                  - generic [ref=e125]: 用一道典型题目检验学生的理解程度
+              - listitem [ref=e126]:
+                - generic "pending" [ref=e127]: ·
+                - generic [ref=e129]:
+                  - generic [ref=e130]: Wrap-up
+                  - generic [ref=e131]: 总结一元二次方程的核心要点及三种解法的适用场景
+          - generic [ref=e80]: 一元二次方程的定义和解法
+          - generic [ref=e133]:
+            - group [ref=e134]:
+              - generic "Thinking (5 steps)" [ref=e135] [cursor=pointer]
+            - generic [ref=e143]:
+              - paragraph [ref=e144]: 好的！一元二次方程是初中代数的重要基础，让我来系统地为你讲解。先来规划一下课程结构。
+              - paragraph [ref=e145]: 好的，在正式讲解之前，我想先了解一下你目前的程度，这样我能更有针对性地讲解。我问几个简单的问题：
+              - list [ref=e146]:
+                - listitem [ref=e147]:
+                  - strong [ref=e148]:
+                    - text: 你以前见过类似
+                    - code [ref=e149]: x² + 3x + 2 = 0
+                    - text: 这样的方程吗？
+                - listitem [ref=e150]:
+                  - strong [ref=e151]: 你知道"一元"和"二次"分别指的是什么吗？
+                - listitem [ref=e152]:
+                  - strong [ref=e153]: 如果见过的话，你尝试过用什么方法来解它？
+              - paragraph [ref=e154]: 不用有压力，知道多少说多少就好，这样我后续可以调整讲解的深度和节奏 😊
+              - separator [ref=e155]
+              - paragraph [ref=e156]: 说说你的想法吧，知道多少都没关系～
+          - generic [ref=e158]: 见过，初中学过。一元就是一个未知数，二次就是最高次是 2。我会用因式分解法解过简单的。
+          - generic [ref=e160]:
+            - group [ref=e161]:
+              - generic "Thinking (3 steps)" [ref=e169] [cursor=pointer]
+            - generic [ref=e171]:
+              - paragraph [ref=e172]: 很好，你对"一元"和"二次"的理解非常准确！那我们直接进入正题，把定义讲清楚。
+              - separator [ref=e173]
+              - heading "步骤 s2：一元二次方程的定义与标准形式" [level=2] [ref=e174]
+              - heading "一、定义" [level=3] [ref=e175]
+              - paragraph [ref=e176]:
+                - strong [ref=e177]: 一元二次方程
+                - text: 是指只含有
+                - strong [ref=e178]: 一个未知数
+                - text: ，且未知数的
+                - strong [ref=e179]: 最高次数为 2
+                - text: 的
+                - strong [ref=e180]: 整式方程
+                - text: 。
+              - paragraph [ref=e181]: 三个关键词缺一不可：
+              - table [ref=e183]:
+                - rowgroup [ref=e184]:
+                  - row "关键词 含义 反例" [ref=e185]:
+                    - columnheader "关键词" [ref=e186]
+                    - columnheader "含义" [ref=e187]
+                    - columnheader "反例" [ref=e188]
+                - rowgroup [ref=e189]:
+                  - row "一元 只有一个未知数（通常用 ） （二元）" [ref=e190]:
+                    - cell "一元" [ref=e191]:
+                      - strong [ref=e192]: 一元
+                    - cell "只有一个未知数（通常用 ）" [ref=e193]:
+                      - text: 只有一个未知数（通常用
+                      - generic [ref=e194]:
+                        - math [ref=e196]:
+                          - generic [ref=e199]: x
+                        - generic [ref=e201]: x
+                      - text: ）
+                    - cell "（二元）" [ref=e202]:
+                      - generic [ref=e203]:
+                        - math [ref=e205]:
+                          - generic [ref=e207]:
+                            - generic [ref=e208]: x
+                            - generic [ref=e209]: +
+                            - generic [ref=e210]:
+                              - generic [ref=e211]: "y"
+                              - generic [ref=e212]: "2"
+                            - generic [ref=e213]: =
+                            - generic [ref=e214]: "5"
+                        - generic [ref=e215]:
+                          - generic [ref=e216]: x +
+                          - generic [ref=e217]:
+                            - generic [ref=e218]:
+                              - text: "y"
+                              - generic [ref=e223]: "2"
+                            - text: =
+                          - generic [ref=e224]: "5"
+                      - text: （二元）
+                  - row "二次 最高次项的次数为 2 （三次）" [ref=e225]:
+                    - cell "二次" [ref=e226]:
+                      - strong [ref=e227]: 二次
+                    - cell "最高次项的次数为 2" [ref=e228]
+                    - cell "（三次）" [ref=e229]:
+                      - generic [ref=e230]:
+                        - math [ref=e232]:
+                          - generic [ref=e234]:
+                            - generic [ref=e235]:
+                              - generic [ref=e236]: x
+                              - generic [ref=e237]: "3"
+                            - generic [ref=e238]: −
+                            - generic [ref=e239]: x
+                            - generic [ref=e240]: =
+                            - generic [ref=e241]: "0"
+                        - generic [ref=e242]:
+                          - generic [ref=e243]:
+                            - generic [ref=e244]:
+                              - text: x
+                              - generic [ref=e249]: "3"
+                            - text: −
+                          - generic [ref=e250]: x =
+                          - generic [ref=e251]: "0"
+                      - text: （三次）
+                  - row "整式 分母和根号里不能出现未知数 （分式方程）" [ref=e252]:
+                    - cell "整式" [ref=e253]:
+                      - strong [ref=e254]: 整式
+                    - cell "分母和根号里不能出现未知数" [ref=e255]
+                    - cell "（分式方程）" [ref=e256]:
+                      - generic [ref=e257]:
+                        - math [ref=e259]:
+                          - generic [ref=e261]:
+                            - generic [ref=e262]:
+                              - generic [ref=e263]: "1"
+                              - generic [ref=e264]: x
+                            - generic [ref=e265]: +
+                            - generic [ref=e266]: x
+                            - generic [ref=e267]: =
+                            - generic [ref=e268]: "3"
+                        - generic [ref=e269]:
+                          - generic [ref=e270]:
+                            - generic [ref=e275]:
+                              - generic [ref=e277]: x
+                              - generic [ref=e280]: "1"
+                            - text: +
+                          - generic [ref=e284]: x =
+                          - generic [ref=e285]: "3"
+                      - text: （分式方程）
+              - heading "二、一般形式（标准形式）" [level=3] [ref=e286]
+              - paragraph [ref=e287]: 任何一个一元二次方程，通过移项、合并同类项，都可以写成：
+              - generic [ref=e289]:
+                - math [ref=e291]:
+                  - generic [ref=e298]:
+                    - generic [ref=e299]: a
+                    - generic [ref=e300]:
+                      - generic [ref=e301]: x
+                      - generic [ref=e302]: "2"
+                    - generic [ref=e303]: +
+                    - generic [ref=e304]: b
+                    - generic [ref=e305]: x
+                    - generic [ref=e306]: +
+                    - generic [ref=e307]: c
+                    - generic [ref=e308]: =
+                    - generic [ref=e309]: "0"
+                    - generic [ref=e310]: (
+                    - generic [ref=e311]: a
+                    - generic [ref=e312]: ≠
+                    - generic [ref=e313]: "0"
+                    - generic [ref=e314]: )
+                - generic [ref=e323]:
+                  - text: a
+                  - generic [ref=e324]:
+                    - text: x
+                    - generic [ref=e329]: "2"
+                  - text: + bx + c = 0 (a
+                  - generic [ref=e330]:
+                    - generic [ref=e332]: 
+                    - text: =
+                  - text: 0)
+              - paragraph [ref=e337]: 其中：
+              - list [ref=e338]:
+                - listitem [ref=e339]:
+                  - text: "**"
+                  - generic [ref=e340]:
+                    - math [ref=e342]:
+                      - generic [ref=e345]: a
+                    - generic [ref=e347]: a
+                  - text: "**：二次项系数（"
+                  - strong [ref=e348]: 必须 ≠ 0
+                  - text: ，否则就退化成一元一次方程了）
+                - listitem [ref=e349]:
+                  - text: "**"
+                  - generic [ref=e350]:
+                    - math [ref=e352]:
+                      - generic [ref=e355]: b
+                    - generic [ref=e357]: b
+                  - text: "**：一次项系数（可以为 0）"
+                - listitem [ref=e358]:
+                  - text: "**"
+                  - generic [ref=e359]:
+                    - math [ref=e361]:
+                      - generic [ref=e364]: c
+                    - generic [ref=e366]: c
+                  - text: "**：常数项（可以为 0）"
+              - heading "三、三种特殊情形" [level=3] [ref=e367]
+              - paragraph [ref=e368]:
+                - text: 由
+                - generic [ref=e369]:
+                  - math [ref=e371]:
+                    - generic [ref=e373]:
+                      - generic [ref=e374]: a
+                      - generic [ref=e375]: ≠
+                      - generic [ref=e376]: "0"
+                  - generic [ref=e377]:
+                    - generic [ref=e378]:
+                      - text: a
+                      - generic [ref=e379]:
+                        - generic [ref=e381]: 
+                        - text: =
+                    - generic [ref=e382]: "0"
+                - text: ，但
+                - generic [ref=e383]:
+                  - math [ref=e385]:
+                    - generic [ref=e388]: b
+                  - generic [ref=e390]: b
+                - text: 或
+                - generic [ref=e391]:
+                  - math [ref=e393]:
+                    - generic [ref=e396]: c
+                  - generic [ref=e398]: c
+                - text: 可以为 0，我们得到三种常见变体：
+              - table [ref=e400]:
+                - rowgroup [ref=e401]:
+                  - row "类型 形式 例子" [ref=e402]:
+                    - columnheader "类型" [ref=e403]
+                    - columnheader "形式" [ref=e404]
+                    - columnheader "例子" [ref=e405]
+                - rowgroup [ref=e406]:
+                  - row "完全形式" [ref=e407]:
+                    - cell "完全形式" [ref=e408]
+                    - cell [ref=e409]:
+                      - generic [ref=e410]:
+                        - math [ref=e412]:
+                          - generic [ref=e414]:
+                            - generic [ref=e415]: a
+                            - generic [ref=e416]:
+                              - generic [ref=e417]: x
+                              - generic [ref=e418]: "2"
+                            - generic [ref=e419]: +
+                            - generic [ref=e420]: b
+                            - generic [ref=e421]: x
+                            - generic [ref=e422]: +
+                            - generic [ref=e423]: c
+                            - generic [ref=e424]: =
+                            - generic [ref=e425]: "0"
+                        - generic [ref=e426]:
+                          - generic [ref=e427]:
+                            - text: a
+                            - generic [ref=e428]:
+                              - text: x
+                              - generic [ref=e433]: "2"
+                            - text: +
+                          - generic [ref=e434]: bx +
+                          - generic [ref=e435]: c =
+                          - generic [ref=e436]: "0"
+                    - cell [ref=e437]:
+                      - generic [ref=e438]:
+                        - math [ref=e440]:
+                          - generic [ref=e442]:
+                            - generic [ref=e443]: "2"
+                            - generic [ref=e444]:
+                              - generic [ref=e445]: x
+                              - generic [ref=e446]: "2"
+                            - generic [ref=e447]: −
+                            - generic [ref=e448]: "5"
+                            - generic [ref=e449]: x
+                            - generic [ref=e450]: +
+                            - generic [ref=e451]: "3"
+                            - generic [ref=e452]: =
+                            - generic [ref=e453]: "0"
+                        - generic [ref=e454]:
+                          - generic [ref=e455]:
+                            - text: "2"
+                            - generic [ref=e456]:
+                              - text: x
+                              - generic [ref=e461]: "2"
+                            - text: −
+                          - generic [ref=e462]: 5x +
+                          - generic [ref=e463]: 3 =
+                          - generic [ref=e464]: "0"
+                  - row [ref=e465]:
+                    - cell [ref=e466]:
+                      - generic [ref=e467]:
+                        - math [ref=e469]:
+                          - generic [ref=e471]:
+                            - generic [ref=e472]: b
+                            - generic [ref=e473]: =
+                            - generic [ref=e474]: "0"
+                        - generic [ref=e475]:
+                          - generic [ref=e476]: b =
+                          - generic [ref=e477]: "0"
+                    - cell [ref=e478]:
+                      - generic [ref=e479]:
+                        - math [ref=e481]:
+                          - generic [ref=e483]:
+                            - generic [ref=e484]: a
+                            - generic [ref=e485]:
+                              - generic [ref=e486]: x
+                              - generic [ref=e487]: "2"
+                            - generic [ref=e488]: +
+                            - generic [ref=e489]: c
+                            - generic [ref=e490]: =
+                            - generic [ref=e491]: "0"
+                        - generic [ref=e492]:
+                          - generic [ref=e493]:
+                            - text: a
+                            - generic [ref=e494]:
+                              - text: x
+                              - generic [ref=e499]: "2"
+                            - text: +
+                          - generic [ref=e500]: c =
+                          - generic [ref=e501]: "0"
+                    - cell [ref=e502]:
+                      - generic [ref=e503]:
+                        - math [ref=e505]:
+                          - generic [ref=e507]:
+                            - generic [ref=e508]:
+                              - generic [ref=e509]: x
+                              - generic [ref=e510]: "2"
+                            - generic [ref=e511]: −
+                            - generic [ref=e512]: "9"
+                            - generic [ref=e513]: =
+                            - generic [ref=e514]: "0"
+                        - generic [ref=e515]:
+                          - generic [ref=e516]:
+                            - generic [ref=e517]:
+                              - text: x
+                              - generic [ref=e522]: "2"
+                            - text: −
+                          - generic [ref=e523]: 9 =
+                          - generic [ref=e524]: "0"
+                  - row [ref=e525]:
+                    - cell [ref=e526]:
+                      - generic [ref=e527]:
+                        - math [ref=e529]:
+                          - generic [ref=e531]:
+                            - generic [ref=e532]: c
+                            - generic [ref=e533]: =
+                            - generic [ref=e534]: "0"
+                        - generic [ref=e535]:
+                          - generic [ref=e536]: c =
+                          - generic [ref=e537]: "0"
+                    - cell [ref=e538]:
+                      - generic [ref=e539]:
+                        - math [ref=e541]:
+                          - generic [ref=e543]:
+                            - generic [ref=e544]: a
+                            - generic [ref=e545]:
+                              - generic [ref=e546]: x
+                              - generic [ref=e547]: "2"
+                            - generic [ref=e548]: +
+                            - generic [ref=e549]: b
+                            - generic [ref=e550]: x
+                            - generic [ref=e551]: =
+                            - generic [ref=e552]: "0"
+                        - generic [ref=e553]:
+                          - generic [ref=e554]:
+                            - text: a
+                            - generic [ref=e555]:
+                              - text: x
+                              - generic [ref=e560]: "2"
+                            - text: +
+                          - generic [ref=e561]: bx =
+                          - generic [ref=e562]: "0"
+                    - cell [ref=e563]:
+                      - generic [ref=e564]:
+                        - math [ref=e566]:
+                          - generic [ref=e568]:
+                            - generic [ref=e569]: "3"
+                            - generic [ref=e570]:
+                              - generic [ref=e571]: x
+                              - generic [ref=e572]: "2"
+                            - generic [ref=e573]: +
+                            - generic [ref=e574]: "6"
+                            - generic [ref=e575]: x
+                            - generic [ref=e576]: =
+                            - generic [ref=e577]: "0"
+                        - generic [ref=e578]:
+                          - generic [ref=e579]:
+                            - text: "3"
+                            - generic [ref=e580]:
+                              - text: x
+                              - generic [ref=e585]: "2"
+                            - text: +
+                          - generic [ref=e586]: 6x =
+                          - generic [ref=e587]: "0"
+              - paragraph [ref=e588]:
+                - text: 后两种不完全形式通常比完全形式更容易解，比如
+                - generic [ref=e589]:
+                  - math [ref=e591]:
+                    - generic [ref=e593]:
+                      - generic [ref=e594]:
+                        - generic [ref=e595]: x
+                        - generic [ref=e596]: "2"
+                      - generic [ref=e597]: −
+                      - generic [ref=e598]: "9"
+                      - generic [ref=e599]: =
+                      - generic [ref=e600]: "0"
+                  - generic [ref=e601]:
+                    - generic [ref=e602]:
+                      - generic [ref=e603]:
+                        - text: x
+                        - generic [ref=e608]: "2"
+                      - text: −
+                    - generic [ref=e609]: 9 =
+                    - generic [ref=e610]: "0"
+                - text: 直接移项就能得到
+                - generic [ref=e611]:
+                  - math [ref=e613]:
+                    - generic [ref=e615]:
+                      - generic [ref=e616]: x
+                      - generic [ref=e617]: =
+                      - generic [ref=e618]: ±
+                      - generic [ref=e619]: "3"
+                  - generic [ref=e620]:
+                    - generic [ref=e621]: x =
+                    - generic [ref=e622]: ±3
+                - text: 。
+              - separator [ref=e623]
+              - paragraph [ref=e624]: 有了这个清晰的定义和分类，下一步我们就来看看如何系统地解这些方程。准备好了吗？
+              - paragraph [ref=e625]: 这部分定义清晰吗？接下来我们进入核心——三种解法，继续？
+          - generic [ref=e627]: 清晰，请讲三种解法
+          - generic [ref=e633]:
+            - group [ref=e634]:
+              - generic "Thinking (3 steps)" [ref=e642] [cursor=pointer]
+            - generic [ref=e644]:
+              - paragraph [ref=e645]: 好的，我们进入核心部分！
+              - separator [ref=e646]
+              - heading "步骤 s3：一元二次方程的三种基本解法" [level=2] [ref=e647]
+              - paragraph [ref=e648]:
+                - text: 解一元二次方程，本质上就是求出使
+                - generic [ref=e649]:
+                  - math [ref=e651]:
+                    - generic [ref=e653]:
+                      - generic [ref=e654]: a
+                      - generic [ref=e655]:
+                        - generic [ref=e656]: x
+                        - generic [ref=e657]: "2"
+                      - generic [ref=e658]: +
+                      - generic [ref=e659]: b
+                      - generic [ref=e660]: x
+                      - generic [ref=e661]: +
+                      - generic [ref=e662]: c
+                      - generic [ref=e663]: =
+                      - generic [ref=e664]: "0"
+                  - generic [ref=e665]:
+                    - generic [ref=e666]:
+                      - text: a
+                      - generic [ref=e667]:
+                        - text: x
+                        - generic [ref=e672]: "2"
+                      - text: +
+                    - generic [ref=e673]: bx +
+                    - generic [ref=e674]: c =
+                    - generic [ref=e675]: "0"
+                - text: 成立的
+                - generic [ref=e676]:
+                  - math [ref=e678]:
+                    - generic [ref=e681]: x
+                  - generic [ref=e683]: x
+                - text: 值。三种经典方法，由浅入深：
+              - separator [ref=e684]
+              - heading "一、因式分解法（十字相乘法）" [level=3] [ref=e685]
+              - paragraph [ref=e686]:
+                - strong [ref=e687]: 核心思路
+                - text: ：如果能把
+                - generic [ref=e688]:
+                  - math [ref=e690]:
+                    - generic [ref=e692]:
+                      - generic [ref=e693]: a
+                      - generic [ref=e694]:
+                        - generic [ref=e695]: x
+                        - generic [ref=e696]: "2"
+                      - generic [ref=e697]: +
+                      - generic [ref=e698]: b
+                      - generic [ref=e699]: x
+                      - generic [ref=e700]: +
+                      - generic [ref=e701]: c
+                  - generic [ref=e702]:
+                    - generic [ref=e703]:
+                      - text: a
+                      - generic [ref=e704]:
+                        - text: x
+                        - generic [ref=e709]: "2"
+                      - text: +
+                    - generic [ref=e710]: bx +
+                    - generic [ref=e711]: c
+                - text: 拆成两个一次因式的乘积，就可以利用「零乘积原理」——**若
+                - generic [ref=e712]:
+                  - math [ref=e714]:
+                    - generic [ref=e716]:
+                      - generic [ref=e717]: A
+                      - generic [ref=e718]: ×
+                      - generic [ref=e719]: B
+                      - generic [ref=e720]: =
+                      - generic [ref=e721]: "0"
+                  - generic [ref=e722]:
+                    - generic [ref=e723]: A ×
+                    - generic [ref=e724]: B =
+                    - generic [ref=e725]: "0"
+                - text: ，则
+                - generic [ref=e726]:
+                  - math [ref=e728]:
+                    - generic [ref=e730]:
+                      - generic [ref=e731]: A
+                      - generic [ref=e732]: =
+                      - generic [ref=e733]: "0"
+                  - generic [ref=e734]:
+                    - generic [ref=e735]: A =
+                    - generic [ref=e736]: "0"
+                - text: 或
+                - generic [ref=e737]:
+                  - math [ref=e739]:
+                    - generic [ref=e741]:
+                      - generic [ref=e742]: B
+                      - generic [ref=e743]: =
+                      - generic [ref=e744]: "0"
+                  - generic [ref=e745]:
+                    - generic [ref=e746]: B =
+                    - generic [ref=e747]: "0"
+                - text: "**。"
+              - paragraph [ref=e748]:
+                - strong [ref=e749]: 步骤
+                - text: ：
+              - list [ref=e750]:
+                - listitem [ref=e751]:
+                  - text: 将方程化为标准形式
+                  - generic [ref=e752]:
+                    - math [ref=e754]:
+                      - generic [ref=e756]:
+                        - generic [ref=e757]: a
+                        - generic [ref=e758]:
+                          - generic [ref=e759]: x
+                          - generic [ref=e760]: "2"
+                        - generic [ref=e761]: +
+                        - generic [ref=e762]: b
+                        - generic [ref=e763]: x
+                        - generic [ref=e764]: +
+                        - generic [ref=e765]: c
+                        - generic [ref=e766]: =
+                        - generic [ref=e767]: "0"
+                    - generic [ref=e768]:
+                      - generic [ref=e769]:
+                        - text: a
+                        - generic [ref=e770]:
+                          - text: x
+                          - generic [ref=e775]: "2"
+                        - text: +
+                      - generic [ref=e776]: bx +
+                      - generic [ref=e777]: c =
+                      - generic [ref=e778]: "0"
+                - listitem [ref=e779]:
+                  - text: 把左边分解为
+                  - generic [ref=e780]:
+                    - math [ref=e782]:
+                      - generic [ref=e784]:
+                        - generic [ref=e785]: (
+                        - generic [ref=e786]: p
+                        - generic [ref=e787]: x
+                        - generic [ref=e788]: +
+                        - generic [ref=e789]: q
+                        - generic [ref=e790]: )
+                        - generic [ref=e791]: (
+                        - generic [ref=e792]: r
+                        - generic [ref=e793]: x
+                        - generic [ref=e794]: +
+                        - generic [ref=e795]: s
+                        - generic [ref=e796]: )
+                        - generic [ref=e797]: =
+                        - generic [ref=e798]: "0"
+                    - generic [ref=e799]:
+                      - generic [ref=e800]: (px +
+                      - generic [ref=e801]: q)(rx +
+                      - generic [ref=e802]: s) =
+                      - generic [ref=e803]: "0"
+                - listitem [ref=e804]:
+                  - text: 令每个因式等于零：
+                  - generic [ref=e805]:
+                    - math [ref=e807]:
+                      - generic [ref=e809]:
+                        - generic [ref=e810]: p
+                        - generic [ref=e811]: x
+                        - generic [ref=e812]: +
+                        - generic [ref=e813]: q
+                        - generic [ref=e814]: =
+                        - generic [ref=e815]: "0"
+                    - generic [ref=e816]:
+                      - generic [ref=e817]: px +
+                      - generic [ref=e818]: q =
+                      - generic [ref=e819]: "0"
+                  - text: 或
+                  - generic [ref=e820]:
+                    - math [ref=e822]:
+                      - generic [ref=e824]:
+                        - generic [ref=e825]: r
+                        - generic [ref=e826]: x
+                        - generic [ref=e827]: +
+                        - generic [ref=e828]: s
+                        - generic [ref=e829]: =
+                        - generic [ref=e830]: "0"
+                    - generic [ref=e831]:
+                      - generic [ref=e832]: rx +
+                      - generic [ref=e833]: s =
+                      - generic [ref=e834]: "0"
+                - listitem [ref=e835]: 分别解出两个根
+              - paragraph [ref=e836]:
+                - strong [ref=e837]: 例子
+                - text: ：解
+                - generic [ref=e838]:
+                  - math [ref=e840]:
+                    - generic [ref=e842]:
+                      - generic [ref=e843]:
+                        - generic [ref=e844]: x
+                        - generic [ref=e845]: "2"
+                      - generic [ref=e846]: −
+                      - generic [ref=e847]: "5"
+                      - generic [ref=e848]: x
+                      - generic [ref=e849]: +
+                      - generic [ref=e850]: "6"
+                      - generic [ref=e851]: =
+                      - generic [ref=e852]: "0"
+                  - generic [ref=e853]:
+                    - generic [ref=e854]:
+                      - generic [ref=e855]:
+                        - text: x
+                        - generic [ref=e860]: "2"
+                      - text: −
+                    - generic [ref=e861]: 5x +
+                    - generic [ref=e862]: 6 =
+                    - generic [ref=e863]: "0"
+              - blockquote [ref=e864]:
+                - paragraph [ref=e865]:
+                  - text: 找两个数，
+                  - strong [ref=e866]: 和为 -5，积为 +6
+                  - text: → 这两个数是
+                  - generic [ref=e867]:
+                    - math [ref=e869]:
+                      - generic [ref=e871]:
+                        - generic [ref=e872]: −
+                        - generic [ref=e873]: "2"
+                    - generic [ref=e875]: −2
+                  - text: 和
+                  - generic [ref=e876]:
+                    - math [ref=e878]:
+                      - generic [ref=e880]:
+                        - generic [ref=e881]: −
+                        - generic [ref=e882]: "3"
+                    - generic [ref=e884]: −3
+                  - text: 。
+                - paragraph [ref=e885]:
+                  - text: 分解：
+                  - generic [ref=e886]:
+                    - math [ref=e888]:
+                      - generic [ref=e890]:
+                        - generic [ref=e891]: (
+                        - generic [ref=e892]: x
+                        - generic [ref=e893]: −
+                        - generic [ref=e894]: "2"
+                        - generic [ref=e895]: )
+                        - generic [ref=e896]: (
+                        - generic [ref=e897]: x
+                        - generic [ref=e898]: −
+                        - generic [ref=e899]: "3"
+                        - generic [ref=e900]: )
+                        - generic [ref=e901]: =
+                        - generic [ref=e902]: "0"
+                    - generic [ref=e903]:
+                      - generic [ref=e904]: (x −
+                      - generic [ref=e905]: 2)(x −
+                      - generic [ref=e906]: 3) =
+                      - generic [ref=e907]: "0"
+                - paragraph [ref=e908]:
+                  - text: 得：
+                  - generic [ref=e909]:
+                    - math [ref=e911]:
+                      - generic [ref=e913]:
+                        - generic [ref=e914]: x
+                        - generic [ref=e915]: −
+                        - generic [ref=e916]: "2"
+                        - generic [ref=e917]: =
+                        - generic [ref=e918]: "0"
+                    - generic [ref=e919]:
+                      - generic [ref=e920]: x −
+                      - generic [ref=e921]: 2 =
+                      - generic [ref=e922]: "0"
+                  - text: 或
+                  - generic [ref=e923]:
+                    - math [ref=e925]:
+                      - generic [ref=e927]:
+                        - generic [ref=e928]: x
+                        - generic [ref=e929]: −
+                        - generic [ref=e930]: "3"
+                        - generic [ref=e931]: =
+                        - generic [ref=e932]: "0"
+                    - generic [ref=e933]:
+                      - generic [ref=e934]: x −
+                      - generic [ref=e935]: 3 =
+                      - generic [ref=e936]: "0"
+                  - text: →
+                  - generic [ref=e937]:
+                    - math [ref=e939]:
+                      - generic [ref=e941]:
+                        - generic [ref=e942]:
+                          - generic [ref=e943]: x
+                          - generic [ref=e944]: "1"
+                        - generic [ref=e945]: =
+                        - generic [ref=e946]: "2"
+                        - generic [ref=e947]: ","
+                        - generic [ref=e948]:
+                          - generic [ref=e949]: x
+                          - generic [ref=e950]: "2"
+                        - generic [ref=e951]: =
+                        - generic [ref=e952]: "3"
+                    - generic [ref=e953]:
+                      - generic [ref=e954]:
+                        - generic [ref=e955]:
+                          - text: x
+                          - generic [ref=e960]: "1"
+                        - text: =
+                      - generic [ref=e964]:
+                        - text: 2,
+                        - generic [ref=e966]:
+                          - text: x
+                          - generic [ref=e971]: "2"
+                        - text: =
+                      - generic [ref=e975]: "3"
+              - paragraph [ref=e976]:
+                - text: ✅
+                - strong [ref=e977]: 优点
+                - text: ：快，一步到位
+                - text: ⚠️
+                - strong [ref=e978]: 局限
+                - text: ：只对能"凑"出有理根的方程好用，像
+                - generic [ref=e979]:
+                  - math [ref=e981]:
+                    - generic [ref=e983]:
+                      - generic [ref=e984]:
+                        - generic [ref=e985]: x
+                        - generic [ref=e986]: "2"
+                      - generic [ref=e987]: −
+                      - generic [ref=e988]: "2"
+                      - generic [ref=e989]: x
+                      - generic [ref=e990]: −
+                      - generic [ref=e991]: "1"
+                      - generic [ref=e992]: =
+                      - generic [ref=e993]: "0"
+                  - generic [ref=e994]:
+                    - generic [ref=e995]:
+                      - generic [ref=e996]:
+                        - text: x
+                        - generic [ref=e1001]: "2"
+                      - text: −
+                    - generic [ref=e1002]: 2x −
+                    - generic [ref=e1003]: 1 =
+                    - generic [ref=e1004]: "0"
+                - text: 就不好分解了
+              - separator [ref=e1005]
+              - heading "二、配方法（完全平方法）" [level=3] [ref=e1006]
+              - paragraph [ref=e1007]:
+                - strong [ref=e1008]: 核心思路
+                - text: ：把
+                - generic [ref=e1009]:
+                  - math [ref=e1011]:
+                    - generic [ref=e1013]:
+                      - generic [ref=e1014]: a
+                      - generic [ref=e1015]:
+                        - generic [ref=e1016]: x
+                        - generic [ref=e1017]: "2"
+                      - generic [ref=e1018]: +
+                      - generic [ref=e1019]: b
+                      - generic [ref=e1020]: x
+                  - generic [ref=e1021]:
+                    - generic [ref=e1022]:
+                      - text: a
+                      - generic [ref=e1023]:
+                        - text: x
+                        - generic [ref=e1028]: "2"
+                      - text: +
+                    - generic [ref=e1029]: bx
+                - text: 加上一个合适的常数，配成完全平方
+                - generic [ref=e1030]:
+                  - math [ref=e1032]:
+                    - generic [ref=e1034]:
+                      - generic [ref=e1035]: (
+                      - generic [ref=e1036]: x
+                      - generic [ref=e1037]: +
+                      - generic [ref=e1038]: p
+                      - generic [ref=e1039]:
+                        - generic [ref=e1040]: )
+                        - generic [ref=e1041]: "2"
+                  - generic [ref=e1042]:
+                    - generic [ref=e1043]: (x +
+                    - generic [ref=e1044]:
+                      - text: p
+                      - generic [ref=e1045]:
+                        - text: )
+                        - generic [ref=e1050]: "2"
+                - text: 的形式，然后开方。
+              - paragraph [ref=e1051]:
+                - strong [ref=e1052]: 来源
+                - text: ：恒等式
+                - generic [ref=e1053]:
+                  - math [ref=e1055]:
+                    - generic [ref=e1057]:
+                      - generic [ref=e1058]: (
+                      - generic [ref=e1059]: x
+                      - generic [ref=e1060]: +
+                      - generic [ref=e1061]: p
+                      - generic [ref=e1062]:
+                        - generic [ref=e1063]: )
+                        - generic [ref=e1064]: "2"
+                      - generic [ref=e1065]: =
+                      - generic [ref=e1066]:
+                        - generic [ref=e1067]: x
+                        - generic [ref=e1068]: "2"
+                      - generic [ref=e1069]: +
+                      - generic [ref=e1070]: "2"
+                      - generic [ref=e1071]: p
+                      - generic [ref=e1072]: x
+                      - generic [ref=e1073]: +
+                      - generic [ref=e1074]:
+                        - generic [ref=e1075]: p
+                        - generic [ref=e1076]: "2"
+                  - generic [ref=e1077]:
+                    - generic [ref=e1078]: (x +
+                    - generic [ref=e1079]:
+                      - text: p
+                      - generic [ref=e1080]:
+                        - text: )
+                        - generic [ref=e1085]: "2"
+                      - text: =
+                    - generic [ref=e1086]:
+                      - generic [ref=e1087]:
+                        - text: x
+                        - generic [ref=e1092]: "2"
+                      - text: +
+                    - generic [ref=e1093]: 2px +
+                    - generic [ref=e1095]:
+                      - text: p
+                      - generic [ref=e1100]: "2"
+              - paragraph [ref=e1101]:
+                - strong [ref=e1102]: 步骤
+                - text: ：
+              - list [ref=e1103]:
+                - listitem [ref=e1104]:
+                  - text: 把二次项系数化为 1（两边同除以
+                  - generic [ref=e1105]:
+                    - math [ref=e1107]:
+                      - generic [ref=e1110]: a
+                    - generic [ref=e1112]: a
+                  - text: ）
+                - listitem [ref=e1113]: 把常数项移到等号右边
+                - listitem [ref=e1114]:
+                  - text: 两边同时加上
+                  - generic [ref=e1115]:
+                    - math [ref=e1117]:
+                      - generic [ref=e1120]:
+                        - generic [ref=e1121]:
+                          - generic [ref=e1122]: (
+                          - generic [ref=e1123]:
+                            - generic [ref=e1124]: b
+                            - generic [ref=e1125]: "2"
+                          - generic [ref=e1126]: )
+                        - generic [ref=e1127]: "2"
+                    - generic [ref=e1130]:
+                      - generic [ref=e1131]:
+                        - generic [ref=e1132]: (
+                        - generic [ref=e1137]:
+                          - generic [ref=e1139]: "2"
+                          - generic [ref=e1142]: b
+                        - generic [ref=e1146]: )
+                      - generic [ref=e1151]: "2"
+                  - text: （一次项系数一半的平方）
+                - listitem [ref=e1152]: 左边写成完全平方，右边合并
+                - listitem [ref=e1153]:
+                  - text: 开平方，解出
+                  - generic [ref=e1154]:
+                    - math [ref=e1156]:
+                      - generic [ref=e1159]: x
+                    - generic [ref=e1161]: x
+              - paragraph [ref=e1162]:
+                - strong [ref=e1163]: 例子
+                - text: ：解
+                - generic [ref=e1164]:
+                  - math [ref=e1166]:
+                    - generic [ref=e1168]:
+                      - generic [ref=e1169]:
+                        - generic [ref=e1170]: x
+                        - generic [ref=e1171]: "2"
+                      - generic [ref=e1172]: −
+                      - generic [ref=e1173]: "6"
+                      - generic [ref=e1174]: x
+                      - generic [ref=e1175]: +
+                      - generic [ref=e1176]: "5"
+                      - generic [ref=e1177]: =
+                      - generic [ref=e1178]: "0"
+                  - generic [ref=e1179]:
+                    - generic [ref=e1180]:
+                      - generic [ref=e1181]:
+                        - text: x
+                        - generic [ref=e1186]: "2"
+                      - text: −
+                    - generic [ref=e1187]: 6x +
+                    - generic [ref=e1188]: 5 =
+                    - generic [ref=e1189]: "0"
+              - blockquote [ref=e1190]:
+                - paragraph [ref=e1191]:
+                  - text: ① 移常数项：
+                  - generic [ref=e1192]:
+                    - math [ref=e1194]:
+                      - generic [ref=e1196]:
+                        - generic [ref=e1197]:
+                          - generic [ref=e1198]: x
+                          - generic [ref=e1199]: "2"
+                        - generic [ref=e1200]: −
+                        - generic [ref=e1201]: "6"
+                        - generic [ref=e1202]: x
+                        - generic [ref=e1203]: =
+                        - generic [ref=e1204]: −
+                        - generic [ref=e1205]: "5"
+                    - generic [ref=e1206]:
+                      - generic [ref=e1207]:
+                        - generic [ref=e1208]:
+                          - text: x
+                          - generic [ref=e1213]: "2"
+                        - text: −
+                      - generic [ref=e1214]: 6x =
+                      - generic [ref=e1215]: −5
+                - paragraph [ref=e1216]:
+                  - text: ② 一次项系数是
+                  - generic [ref=e1217]:
+                    - math [ref=e1219]:
+                      - generic [ref=e1221]:
+                        - generic [ref=e1222]: −
+                        - generic [ref=e1223]: "6"
+                    - generic [ref=e1225]: −6
+                  - text: ，一半是
+                  - generic [ref=e1226]:
+                    - math [ref=e1228]:
+                      - generic [ref=e1230]:
+                        - generic [ref=e1231]: −
+                        - generic [ref=e1232]: "3"
+                    - generic [ref=e1234]: −3
+                  - text: ，平方是
+                  - generic [ref=e1235]:
+                    - math [ref=e1237]:
+                      - generic [ref=e1240]: "9"
+                    - generic [ref=e1242]: "9"
+                - paragraph [ref=e1243]:
+                  - text: ③ 两边加 9：
+                  - generic [ref=e1244]:
+                    - math [ref=e1246]:
+                      - generic [ref=e1248]:
+                        - generic [ref=e1249]:
+                          - generic [ref=e1250]: x
+                          - generic [ref=e1251]: "2"
+                        - generic [ref=e1252]: −
+                        - generic [ref=e1253]: "6"
+                        - generic [ref=e1254]: x
+                        - generic [ref=e1255]: +
+                        - generic [ref=e1256]: "9"
+                        - generic [ref=e1257]: =
+                        - generic [ref=e1258]: −
+                        - generic [ref=e1259]: "5"
+                        - generic [ref=e1260]: +
+                        - generic [ref=e1261]: "9"
+                    - generic [ref=e1262]:
+                      - generic [ref=e1263]:
+                        - generic [ref=e1264]:
+                          - text: x
+                          - generic [ref=e1269]: "2"
+                        - text: −
+                      - generic [ref=e1270]: 6x +
+                      - generic [ref=e1271]: 9 =
+                      - generic [ref=e1272]: −5 +
+                      - generic [ref=e1273]: "9"
+                - paragraph [ref=e1274]:
+                  - text: ④ 配方：
+                  - generic [ref=e1275]:
+                    - math [ref=e1277]:
+                      - generic [ref=e1279]:
+                        - generic [ref=e1280]: (
+                        - generic [ref=e1281]: x
+                        - generic [ref=e1282]: −
+                        - generic [ref=e1283]: "3"
+                        - generic [ref=e1284]:
+                          - generic [ref=e1285]: )
+                          - generic [ref=e1286]: "2"
+                        - generic [ref=e1287]: =
+                        - generic [ref=e1288]: "4"
+                    - generic [ref=e1289]:
+                      - generic [ref=e1290]: (x −
+                      - generic [ref=e1291]:
+                        - text: "3"
+                        - generic [ref=e1292]:
+                          - text: )
+                          - generic [ref=e1297]: "2"
+                        - text: =
+                      - generic [ref=e1298]: "4"
+                - paragraph [ref=e1299]:
+                  - text: ⑤ 开方：
+                  - generic [ref=e1300]:
+                    - math [ref=e1302]:
+                      - generic [ref=e1304]:
+                        - generic [ref=e1305]: x
+                        - generic [ref=e1306]: −
+                        - generic [ref=e1307]: "3"
+                        - generic [ref=e1308]: =
+                        - generic [ref=e1309]: ±
+                        - generic [ref=e1310]: "2"
+                    - generic [ref=e1311]:
+                      - generic [ref=e1312]: x −
+                      - generic [ref=e1313]: 3 =
+                      - generic [ref=e1314]: ±2
+                  - text: →
+                  - generic [ref=e1315]:
+                    - math [ref=e1317]:
+                      - generic [ref=e1319]:
+                        - generic [ref=e1320]:
+                          - generic [ref=e1321]: x
+                          - generic [ref=e1322]: "1"
+                        - generic [ref=e1323]: =
+                        - generic [ref=e1324]: "5"
+                        - generic [ref=e1325]: ","
+                        - generic [ref=e1326]:
+                          - generic [ref=e1327]: x
+                          - generic [ref=e1328]: "2"
+                        - generic [ref=e1329]: =
+                        - generic [ref=e1330]: "1"
+                    - generic [ref=e1331]:
+                      - generic [ref=e1332]:
+                        - generic [ref=e1333]:
+                          - text: x
+                          - generic [ref=e1338]: "1"
+                        - text: =
+                      - generic [ref=e1342]:
+                        - text: 5,
+                        - generic [ref=e1344]:
+                          - text: x
+                          - generic [ref=e1349]: "2"
+                        - text: =
+                      - generic [ref=e1353]: "1"
+              - paragraph [ref=e1354]:
+                - text: ✅
+                - strong [ref=e1355]: 核心地位
+                - text: ：配方法是
+                - strong [ref=e1356]: 求根公式的来源
+                - text: ，也是理解二次函数图像（顶点式）的关键
+                - text: ⚠️
+                - strong [ref=e1357]: 局限
+                - text: ：手工计算步骤多，系数复杂时容易出错
+              - separator [ref=e1358]
+              - heading "三、公式法（求根公式）" [level=3] [ref=e1359]
+              - paragraph [ref=e1360]:
+                - strong [ref=e1361]:
+                  - text: 把配方法用于一般形式
+                  - generic [ref=e1362]:
+                    - math [ref=e1364]:
+                      - generic [ref=e1366]:
+                        - generic [ref=e1367]: a
+                        - generic [ref=e1368]:
+                          - generic [ref=e1369]: x
+                          - generic [ref=e1370]: "2"
+                        - generic [ref=e1371]: +
+                        - generic [ref=e1372]: b
+                        - generic [ref=e1373]: x
+                        - generic [ref=e1374]: +
+                        - generic [ref=e1375]: c
+                        - generic [ref=e1376]: =
+                        - generic [ref=e1377]: "0"
+                    - generic [ref=e1378]:
+                      - generic [ref=e1379]:
+                        - text: a
+                        - generic [ref=e1380]:
+                          - text: x
+                          - generic [ref=e1385]: "2"
+                        - text: +
+                      - generic [ref=e1386]: bx +
+                      - generic [ref=e1387]: c =
+                      - generic [ref=e1388]: "0"
+                  - text: ，直接推导出通用公式
+                - text: ：
+              - generic [ref=e1390]:
+                - math [ref=e1392]:
+                  - generic [ref=e1399]:
+                    - generic [ref=e1400]: x
+                    - generic [ref=e1401]: =
+                    - generic [ref=e1402]:
+                      - generic [ref=e1403]:
+                        - generic [ref=e1404]: −
+                        - generic [ref=e1405]: b
+                        - generic [ref=e1406]: ±
+                        - generic [ref=e1408]:
+                          - generic [ref=e1409]:
+                            - generic [ref=e1410]: b
+                            - generic [ref=e1411]: "2"
+                          - generic [ref=e1412]: −
+                          - generic [ref=e1413]: "4"
+                          - generic [ref=e1414]: a
+                          - generic [ref=e1415]: c
+                      - generic [ref=e1416]:
+                        - generic [ref=e1417]: "2"
+                        - generic [ref=e1418]: a
+                - generic [ref=e1427]:
+                  - text: x =
+                  - generic [ref=e1432]:
+                    - generic [ref=e1433]: 2a
+                    - generic [ref=e1435]:
+                      - text: −b ±
+                      - generic [ref=e1439]:
+                        - generic [ref=e1440]:
+                          - generic [ref=e1441]:
+                            - text: b
+                            - generic [ref=e1446]: "2"
+                          - text: − 4ac
+                        - img [ref=e1448]
+              - paragraph [ref=e1460]:
+                - strong [ref=e1461]: 步骤
+                - text: ：
+              - list [ref=e1462]:
+                - listitem [ref=e1463]:
+                  - text: 将方程化为标准形式，确定
+                  - generic [ref=e1464]:
+                    - math [ref=e1466]:
+                      - generic [ref=e1468]:
+                        - generic [ref=e1469]: a
+                        - generic [ref=e1470]: ","
+                        - generic [ref=e1471]: b
+                        - generic [ref=e1472]: ","
+                        - generic [ref=e1473]: c
+                    - generic [ref=e1475]: a, b, c
+                - listitem [ref=e1476]:
+                  - text: 计算判别式
+                  - generic [ref=e1477]:
+                    - math [ref=e1479]:
+                      - generic [ref=e1481]:
+                        - generic [ref=e1482]: Δ
+                        - generic [ref=e1483]: =
+                        - generic [ref=e1484]:
+                          - generic [ref=e1485]: b
+                          - generic [ref=e1486]: "2"
+                        - generic [ref=e1487]: −
+                        - generic [ref=e1488]: "4"
+                        - generic [ref=e1489]: a
+                        - generic [ref=e1490]: c
+                    - generic [ref=e1491]:
+                      - generic [ref=e1492]: Δ =
+                      - generic [ref=e1493]:
+                        - generic [ref=e1494]:
+                          - text: b
+                          - generic [ref=e1499]: "2"
+                        - text: −
+                      - generic [ref=e1500]: 4ac
+                - listitem [ref=e1501]: 代入公式，算出两根
+              - paragraph [ref=e1502]:
+                - strong [ref=e1503]: 例子
+                - text: ：解
+                - generic [ref=e1504]:
+                  - math [ref=e1506]:
+                    - generic [ref=e1508]:
+                      - generic [ref=e1509]: "2"
+                      - generic [ref=e1510]:
+                        - generic [ref=e1511]: x
+                        - generic [ref=e1512]: "2"
+                      - generic [ref=e1513]: +
+                      - generic [ref=e1514]: "3"
+                      - generic [ref=e1515]: x
+                      - generic [ref=e1516]: −
+                      - generic [ref=e1517]: "2"
+                      - generic [ref=e1518]: =
+                      - generic [ref=e1519]: "0"
+                  - generic [ref=e1520]:
+                    - generic [ref=e1521]:
+                      - text: "2"
+                      - generic [ref=e1522]:
+                        - text: x
+                        - generic [ref=e1527]: "2"
+                      - text: +
+                    - generic [ref=e1528]: 3x −
+                    - generic [ref=e1529]: 2 =
+                    - generic [ref=e1530]: "0"
+              - blockquote [ref=e1531]:
+                - paragraph [ref=e1532]:
+                  - generic [ref=e1533]:
+                    - math [ref=e1535]:
+                      - generic [ref=e1537]:
+                        - generic [ref=e1538]: a
+                        - generic [ref=e1539]: =
+                        - generic [ref=e1540]: "2"
+                        - generic [ref=e1541]: ","
+                        - generic [ref=e1542]: b
+                        - generic [ref=e1543]: =
+                        - generic [ref=e1544]: "3"
+                        - generic [ref=e1545]: ","
+                        - generic [ref=e1546]: c
+                        - generic [ref=e1547]: =
+                        - generic [ref=e1548]: −
+                        - generic [ref=e1549]: "2"
+                    - generic [ref=e1550]:
+                      - generic [ref=e1551]: a =
+                      - generic [ref=e1552]:
+                        - text: 2,
+                        - text: b =
+                      - generic [ref=e1554]:
+                        - text: 3,
+                        - text: c =
+                      - generic [ref=e1556]: −2
+                - paragraph [ref=e1557]:
+                  - generic [ref=e1558]:
+                    - math [ref=e1560]:
+                      - generic [ref=e1562]:
+                        - generic [ref=e1563]: Δ
+                        - generic [ref=e1564]: =
+                        - generic [ref=e1565]:
+                          - generic [ref=e1566]: "3"
+                          - generic [ref=e1567]: "2"
+                        - generic [ref=e1568]: −
+                        - generic [ref=e1569]: "4"
+                        - generic [ref=e1570]: ×
+                        - generic [ref=e1571]: "2"
+                        - generic [ref=e1572]: ×
+                        - generic [ref=e1573]: (
+                        - generic [ref=e1574]: −
+                        - generic [ref=e1575]: "2"
+                        - generic [ref=e1576]: )
+                        - generic [ref=e1577]: =
+                        - generic [ref=e1578]: "9"
+                        - generic [ref=e1579]: +
+                        - generic [ref=e1580]: "16"
+                        - generic [ref=e1581]: =
+                        - generic [ref=e1582]: "25"
+                    - generic [ref=e1583]:
+                      - generic [ref=e1584]: Δ =
+                      - generic [ref=e1585]:
+                        - generic [ref=e1586]:
+                          - text: "3"
+                          - generic [ref=e1591]: "2"
+                        - text: −
+                      - generic [ref=e1592]: 4 ×
+                      - generic [ref=e1593]: 2 ×
+                      - generic [ref=e1594]: (−2) =
+                      - generic [ref=e1595]: 9 +
+                      - generic [ref=e1596]: 16 =
+                      - generic [ref=e1597]: "25"
+                - paragraph [ref=e1598]:
+                  - generic [ref=e1599]:
+                    - math [ref=e1601]:
+                      - generic [ref=e1603]:
+                        - generic [ref=e1604]: x
+                        - generic [ref=e1605]: =
+                        - generic [ref=e1606]:
+                          - generic [ref=e1607]:
+                            - generic [ref=e1608]: −
+                            - generic [ref=e1609]: "3"
+                            - generic [ref=e1610]: ±
+                            - generic [ref=e1612]: "25"
+                          - generic [ref=e1613]:
+                            - generic [ref=e1614]: "2"
+                            - generic [ref=e1615]: ×
+                            - generic [ref=e1616]: "2"
+                        - generic [ref=e1617]: =
+                        - generic [ref=e1618]:
+                          - generic [ref=e1619]:
+                            - generic [ref=e1620]: −
+                            - generic [ref=e1621]: "3"
+                            - generic [ref=e1622]: ±
+                            - generic [ref=e1623]: "5"
+                          - generic [ref=e1624]: "4"
+                    - generic [ref=e1625]:
+                      - generic [ref=e1626]: x =
+                      - generic [ref=e1627]:
+                        - generic [ref=e1632]:
+                          - generic [ref=e1634]: 2×2
+                          - generic [ref=e1637]:
+                            - text: −3±
+                            - generic [ref=e1641]:
+                              - generic [ref=e1642]: "25"
+                              - img [ref=e1644]
+                        - text: =
+                      - generic [ref=e1657]:
+                        - generic [ref=e1659]: "4"
+                        - generic [ref=e1662]: −3±5
+                - paragraph [ref=e1666]:
+                  - generic [ref=e1667]:
+                    - math [ref=e1669]:
+                      - generic [ref=e1671]:
+                        - generic [ref=e1672]:
+                          - generic [ref=e1673]: x
+                          - generic [ref=e1674]: "1"
+                        - generic [ref=e1675]: =
+                        - generic [ref=e1676]:
+                          - generic [ref=e1677]: "2"
+                          - generic [ref=e1678]: "4"
+                        - generic [ref=e1679]: =
+                        - generic [ref=e1680]:
+                          - generic [ref=e1681]: "1"
+                          - generic [ref=e1682]: "2"
+                        - generic [ref=e1683]: ","
+                        - generic [ref=e1684]:
+                          - generic [ref=e1685]: x
+                          - generic [ref=e1686]: "2"
+                        - generic [ref=e1687]: =
+                        - generic [ref=e1688]:
+                          - generic [ref=e1689]:
+                            - generic [ref=e1690]: −
+                            - generic [ref=e1691]: "8"
+                          - generic [ref=e1692]: "4"
+                        - generic [ref=e1693]: =
+                        - generic [ref=e1694]: −
+                        - generic [ref=e1695]: "2"
+                    - generic [ref=e1696]:
+                      - generic [ref=e1697]:
+                        - generic [ref=e1698]:
+                          - text: x
+                          - generic [ref=e1703]: "1"
+                        - text: =
+                      - generic [ref=e1707]:
+                        - generic [ref=e1712]:
+                          - generic [ref=e1714]: "4"
+                          - generic [ref=e1717]: "2"
+                        - text: =
+                      - generic [ref=e1721]:
+                        - generic [ref=e1726]:
+                          - generic [ref=e1728]: "2"
+                          - generic [ref=e1731]: "1"
+                        - text: ","
+                        - generic [ref=e1735]:
+                          - text: x
+                          - generic [ref=e1740]: "2"
+                        - text: =
+                      - generic [ref=e1744]:
+                        - generic [ref=e1749]:
+                          - generic [ref=e1751]: "4"
+                          - generic [ref=e1754]: −8
+                        - text: =
+                      - generic [ref=e1758]: −2
+              - paragraph [ref=e1759]:
+                - text: ✅
+                - strong [ref=e1760]: 万能
+                - text: ：任何一元二次方程都能用，系数再复杂也不怕
+                - text: ⚠️
+                - strong [ref=e1761]: 注意
+                - text: ：计算量大一些，要小心别算错符号
+              - separator [ref=e1762]
+              - heading "三种方法对比速览" [level=3] [ref=e1763]
+              - table [ref=e1765]:
+                - rowgroup [ref=e1766]:
+                  - row "方法 适用场景 关键技巧" [ref=e1767]:
+                    - columnheader "方法" [ref=e1768]
+                    - columnheader "适用场景" [ref=e1769]
+                    - columnheader "关键技巧" [ref=e1770]
+                - rowgroup [ref=e1771]:
+                  - row "因式分解法 系数简单、能一眼看出因子 十字相乘、零乘积原理" [ref=e1772]:
+                    - cell "因式分解法" [ref=e1773]:
+                      - strong [ref=e1774]: 因式分解法
+                    - cell "系数简单、能一眼看出因子" [ref=e1775]
+                    - cell "十字相乘、零乘积原理" [ref=e1776]
+                  - row "配方法 理解推导、处理二次函数 加\"一半的平方\"" [ref=e1777]:
+                    - cell "配方法" [ref=e1778]:
+                      - strong [ref=e1779]: 配方法
+                    - cell "理解推导、处理二次函数" [ref=e1780]
+                    - cell "加\"一半的平方\"" [ref=e1781]
+                  - row "公式法 万能通用、系数复杂 牢记" [ref=e1782]:
+                    - cell "公式法" [ref=e1783]:
+                      - strong [ref=e1784]: 公式法
+                    - cell "万能通用、系数复杂" [ref=e1785]
+                    - cell "牢记" [ref=e1786]:
+                      - text: 牢记
+                      - generic [ref=e1787]:
+                        - math [ref=e1789]:
+                          - generic [ref=e1792]:
+                            - generic [ref=e1793]:
+                              - generic [ref=e1794]: −
+                              - generic [ref=e1795]: b
+                              - generic [ref=e1796]: ±
+                              - generic [ref=e1798]: Δ
+                            - generic [ref=e1799]:
+                              - generic [ref=e1800]: "2"
+                              - generic [ref=e1801]: a
+                        - generic [ref=e1808]:
+                          - generic [ref=e1810]: 2a
+                          - generic [ref=e1813]:
+                            - text: −b±
+                            - generic [ref=e1817]:
+                              - generic [ref=e1818]: Δ
+                              - img [ref=e1820]
+              - separator [ref=e1828]
+              - paragraph [ref=e1829]:
+                - text: 三种方法各有千秋，下一节我会深入讲解判别式
+                - generic [ref=e1830]:
+                  - math [ref=e1832]:
+                    - generic [ref=e1835]: Δ
+                  - generic [ref=e1837]: Δ
+                - text: 如何决定根的个数与性质，这也是公式法的精髓所在。先消化一下，继续？
+              - paragraph [ref=e1838]: 三种方法都理解了吗？接下来我们深挖判别式 Δ 的奥秘，继续？
+          - generic [ref=e1840]: 理解了，继续讲判别式
+          - generic [ref=e1846]:
+            - group [ref=e1847]:
+              - generic "Thinking (8 steps)" [ref=e1853] [cursor=pointer]
+            - generic [ref=e1855]:
+              - paragraph [ref=e1856]: 好的，这一步我们深入求根公式的核心——判别式 Δ！
+              - separator [ref=e1857]
+              - heading "步骤 s4：求根公式与判别式 Δ" [level=2] [ref=e1858]
+              - heading "一、求根公式从何而来？" [level=3] [ref=e1859]
+              - paragraph [ref=e1860]:
+                - text: 回顾配方法，把它用在
+                - strong [ref=e1861]: 一般形式
+                - generic [ref=e1862]:
+                  - math [ref=e1864]:
+                    - generic [ref=e1866]:
+                      - generic [ref=e1867]: a
+                      - generic [ref=e1868]:
+                        - generic [ref=e1869]: x
+                        - generic [ref=e1870]: "2"
+                      - generic [ref=e1871]: +
+                      - generic [ref=e1872]: b
+                      - generic [ref=e1873]: x
+                      - generic [ref=e1874]: +
+                      - generic [ref=e1875]: c
+                      - generic [ref=e1876]: =
+                      - generic [ref=e1877]: "0"
+                      - generic [ref=e1878]: (
+                      - generic [ref=e1879]: a
+                      - generic [ref=e1880]: ≠
+                      - generic [ref=e1881]: "0"
+                      - generic [ref=e1882]: )
+                  - generic [ref=e1883]:
+                    - generic [ref=e1884]:
+                      - text: a
+                      - generic [ref=e1885]:
+                        - text: x
+                        - generic [ref=e1890]: "2"
+                      - text: +
+                    - generic [ref=e1891]: bx +
+                    - generic [ref=e1892]: c =
+                    - generic [ref=e1893]:
+                      - text: "0"
+                      - text: (a
+                      - generic [ref=e1895]:
+                        - generic [ref=e1897]: 
+                        - text: =
+                    - generic [ref=e1898]: 0)
+                - text: 上：
+              - generic [ref=e1900]:
+                - math [ref=e1902]:
+                  - generic [ref=e1904]:
+                    - generic [ref=e1905]:
+                      - generic [ref=e1908]:
+                        - generic [ref=e1909]: a
+                        - generic [ref=e1910]:
+                          - generic [ref=e1911]: x
+                          - generic [ref=e1912]: "2"
+                        - generic [ref=e1913]: +
+                        - generic [ref=e1914]: b
+                        - generic [ref=e1915]: x
+                        - generic [ref=e1916]: +
+                        - generic [ref=e1917]: c
+                      - generic [ref=e1920]:
+                        - generic [ref=e1921]: =
+                        - generic [ref=e1922]: "0"
+                    - generic [ref=e1923]:
+                      - generic [ref=e1926]:
+                        - generic [ref=e1927]:
+                          - generic [ref=e1928]: x
+                          - generic [ref=e1929]: "2"
+                        - generic [ref=e1930]: +
+                        - generic [ref=e1931]:
+                          - generic [ref=e1932]: b
+                          - generic [ref=e1933]: a
+                        - generic [ref=e1934]: x
+                        - generic [ref=e1935]: +
+                        - generic [ref=e1936]:
+                          - generic [ref=e1937]: c
+                          - generic [ref=e1938]: a
+                      - generic [ref=e1941]:
+                        - generic [ref=e1942]: =
+                        - generic [ref=e1943]: "0"
+                      - generic [ref=e1946]: (两边除以 a)
+                    - generic [ref=e1947]:
+                      - generic [ref=e1950]:
+                        - generic [ref=e1951]:
+                          - generic [ref=e1952]: x
+                          - generic [ref=e1953]: "2"
+                        - generic [ref=e1954]: +
+                        - generic [ref=e1955]:
+                          - generic [ref=e1956]: b
+                          - generic [ref=e1957]: a
+                        - generic [ref=e1958]: x
+                      - generic [ref=e1961]:
+                        - generic [ref=e1962]: =
+                        - generic [ref=e1963]: −
+                        - generic [ref=e1964]:
+                          - generic [ref=e1965]: c
+                          - generic [ref=e1966]: a
+                      - generic [ref=e1969]: (常数项移右)
+                    - generic [ref=e1970]:
+                      - generic [ref=e1973]:
+                        - generic [ref=e1974]:
+                          - generic [ref=e1975]: x
+                          - generic [ref=e1976]: "2"
+                        - generic [ref=e1977]: +
+                        - generic [ref=e1978]:
+                          - generic [ref=e1979]: b
+                          - generic [ref=e1980]: a
+                        - generic [ref=e1981]: x
+                        - generic [ref=e1982]: +
+                        - generic [ref=e1983]:
+                          - generic [ref=e1984]:
+                            - generic [ref=e1985]: (
+                            - generic [ref=e1986]:
+                              - generic [ref=e1987]: b
+                              - generic [ref=e1988]:
+                                - generic [ref=e1989]: "2"
+                                - generic [ref=e1990]: a
+                            - generic [ref=e1991]: )
+                          - generic [ref=e1992]: "2"
+                      - generic [ref=e1995]:
+                        - generic [ref=e1996]: =
+                        - generic [ref=e1997]: −
+                        - generic [ref=e1998]:
+                          - generic [ref=e1999]: c
+                          - generic [ref=e2000]: a
+                        - generic [ref=e2001]: +
+                        - generic [ref=e2002]:
+                          - generic [ref=e2003]:
+                            - generic [ref=e2004]: (
+                            - generic [ref=e2005]:
+                              - generic [ref=e2006]: b
+                              - generic [ref=e2007]:
+                                - generic [ref=e2008]: "2"
+                                - generic [ref=e2009]: a
+                            - generic [ref=e2010]: )
+                          - generic [ref=e2011]: "2"
+                      - generic [ref=e2014]: (加"一半的平方")
+                    - generic [ref=e2015]:
+                      - generic [ref=e2018]:
+                        - generic [ref=e2019]:
+                          - generic [ref=e2020]: (
+                          - generic [ref=e2021]: x
+                          - generic [ref=e2022]: +
+                          - generic [ref=e2023]:
+                            - generic [ref=e2024]: b
+                            - generic [ref=e2025]:
+                              - generic [ref=e2026]: "2"
+                              - generic [ref=e2027]: a
+                          - generic [ref=e2028]: )
+                        - generic [ref=e2029]: "2"
+                      - generic [ref=e2032]:
+                        - generic [ref=e2033]: =
+                        - generic [ref=e2034]:
+                          - generic [ref=e2035]:
+                            - generic [ref=e2036]:
+                              - generic [ref=e2037]: b
+                              - generic [ref=e2038]: "2"
+                            - generic [ref=e2039]: −
+                            - generic [ref=e2040]: "4"
+                            - generic [ref=e2041]: a
+                            - generic [ref=e2042]: c
+                          - generic [ref=e2043]:
+                            - generic [ref=e2044]: "4"
+                            - generic [ref=e2045]:
+                              - generic [ref=e2046]: a
+                              - generic [ref=e2047]: "2"
+                      - generic [ref=e2050]: (左边配方，右边通分)
+                    - generic [ref=e2051]:
+                      - generic [ref=e2054]:
+                        - generic [ref=e2055]: x
+                        - generic [ref=e2056]: +
+                        - generic [ref=e2057]:
+                          - generic [ref=e2058]: b
+                          - generic [ref=e2059]:
+                            - generic [ref=e2060]: "2"
+                            - generic [ref=e2061]: a
+                      - generic [ref=e2064]:
+                        - generic [ref=e2065]: =
+                        - generic [ref=e2066]: ±
+                        - generic [ref=e2068]:
+                          - generic [ref=e2069]:
+                            - generic [ref=e2070]:
+                              - generic [ref=e2071]: b
+                              - generic [ref=e2072]: "2"
+                            - generic [ref=e2073]: −
+                            - generic [ref=e2074]: "4"
+                            - generic [ref=e2075]: a
+                            - generic [ref=e2076]: c
+                          - generic [ref=e2077]:
+                            - generic [ref=e2078]: "4"
+                            - generic [ref=e2079]:
+                              - generic [ref=e2080]: a
+                              - generic [ref=e2081]: "2"
+                      - generic [ref=e2084]: (开平方)
+                    - generic [ref=e2085]:
+                      - generic [ref=e2088]: x
+                      - generic [ref=e2091]:
+                        - generic [ref=e2092]: =
+                        - generic [ref=e2093]: −
+                        - generic [ref=e2094]:
+                          - generic [ref=e2095]: b
+                          - generic [ref=e2096]:
+                            - generic [ref=e2097]: "2"
+                            - generic [ref=e2098]: a
+                        - generic [ref=e2099]: ±
+                        - generic [ref=e2100]:
+                          - generic [ref=e2102]:
+                            - generic [ref=e2103]:
+                              - generic [ref=e2104]: b
+                              - generic [ref=e2105]: "2"
+                            - generic [ref=e2106]: −
+                            - generic [ref=e2107]: "4"
+                            - generic [ref=e2108]: a
+                            - generic [ref=e2109]: c
+                          - generic [ref=e2110]:
+                            - generic [ref=e2111]: "2"
+                            - generic [ref=e2112]: ∣
+                            - generic [ref=e2113]: a
+                            - generic [ref=e2114]: ∣
+                - generic [ref=e2118]:
+                  - generic [ref=e2122]:
+                    - generic [ref=e2123]:
+                      - text: a
+                      - generic [ref=e2124]:
+                        - text: x
+                        - generic [ref=e2129]: "2"
+                      - text: + bx + c
+                    - generic [ref=e2130]:
+                      - generic [ref=e2131]:
+                        - text: x
+                        - generic [ref=e2136]: "2"
+                      - text: +
+                      - generic [ref=e2141]:
+                        - generic [ref=e2142]: a
+                        - generic [ref=e2144]: b
+                      - text: x +
+                      - generic [ref=e2152]:
+                        - generic [ref=e2153]: a
+                        - generic [ref=e2155]: c
+                    - generic [ref=e2159]:
+                      - generic [ref=e2160]:
+                        - text: x
+                        - generic [ref=e2165]: "2"
+                      - text: +
+                      - generic [ref=e2170]:
+                        - generic [ref=e2171]: a
+                        - generic [ref=e2173]: b
+                      - text: x
+                    - generic [ref=e2177]:
+                      - generic [ref=e2178]:
+                        - text: x
+                        - generic [ref=e2183]: "2"
+                      - text: +
+                      - generic [ref=e2188]:
+                        - generic [ref=e2189]: a
+                        - generic [ref=e2191]: b
+                      - text: x +
+                      - generic [ref=e2195]:
+                        - generic [ref=e2196]:
+                          - generic [ref=e2197]: (
+                          - generic [ref=e2202]:
+                            - generic [ref=e2203]: 2a
+                            - generic [ref=e2205]: b
+                          - generic [ref=e2209]: )
+                        - generic [ref=e2214]: "2"
+                    - generic [ref=e2216]:
+                      - generic [ref=e2217]:
+                        - generic [ref=e2218]: (
+                        - text: x +
+                        - generic [ref=e2223]:
+                          - generic [ref=e2224]: 2a
+                          - generic [ref=e2226]: b
+                        - generic [ref=e2230]: )
+                      - generic [ref=e2235]: "2"
+                    - generic [ref=e2236]:
+                      - text: x +
+                      - generic [ref=e2241]:
+                        - generic [ref=e2242]: 2a
+                        - generic [ref=e2244]: b
+                    - generic [ref=e2248]: x
+                  - generic [ref=e2255]:
+                    - generic [ref=e2256]: = 0
+                    - generic [ref=e2257]: = 0
+                    - generic [ref=e2258]:
+                      - text: = −
+                      - generic [ref=e2263]:
+                        - generic [ref=e2264]: a
+                        - generic [ref=e2266]: c
+                    - generic [ref=e2270]:
+                      - text: = −
+                      - generic [ref=e2275]:
+                        - generic [ref=e2276]: a
+                        - generic [ref=e2278]: c
+                      - text: +
+                      - generic [ref=e2282]:
+                        - generic [ref=e2283]:
+                          - generic [ref=e2284]: (
+                          - generic [ref=e2289]:
+                            - generic [ref=e2290]: 2a
+                            - generic [ref=e2292]: b
+                          - generic [ref=e2296]: )
+                        - generic [ref=e2301]: "2"
+                    - generic [ref=e2302]:
+                      - text: =
+                      - generic [ref=e2307]:
+                        - generic [ref=e2308]:
+                          - text: "4"
+                          - generic [ref=e2309]:
+                            - text: a
+                            - generic [ref=e2314]: "2"
+                        - generic [ref=e2316]:
+                          - generic [ref=e2317]:
+                            - text: b
+                            - generic [ref=e2322]: "2"
+                          - text: − 4ac
+                    - generic [ref=e2326]:
+                      - text: = ±
+                      - generic [ref=e2330]:
+                        - generic [ref=e2336]:
+                          - generic [ref=e2337]:
+                            - text: "4"
+                            - generic [ref=e2338]:
+                              - text: a
+                              - generic [ref=e2343]: "2"
+                          - generic [ref=e2345]:
+                            - generic [ref=e2346]:
+                              - text: b
+                              - generic [ref=e2351]: "2"
+                            - text: − 4ac
+                        - img [ref=e2356]
+                    - generic [ref=e2361]:
+                      - text: = −
+                      - generic [ref=e2366]:
+                        - generic [ref=e2367]: 2a
+                        - generic [ref=e2369]: b
+                      - text: ±
+                      - generic [ref=e2377]:
+                        - generic [ref=e2378]: 2∣a∣
+                        - generic [ref=e2384]:
+                          - generic [ref=e2385]:
+                            - generic [ref=e2386]:
+                              - text: b
+                              - generic [ref=e2391]: "2"
+                            - text: − 4ac
+                          - img [ref=e2393]
+                  - generic [ref=e2407]:
+                    - generic [ref=e2409]: (两边除以 a)
+                    - generic [ref=e2411]: (常数项移右)
+                    - generic [ref=e2413]: (加"一半的平方")
+                    - generic [ref=e2415]: (左边配方，右边通分)
+                    - generic [ref=e2417]: (开平方)
+              - paragraph [ref=e2421]:
+                - text: 因为
+                - generic [ref=e2422]:
+                  - math [ref=e2424]:
+                    - generic [ref=e2426]:
+                      - generic [ref=e2427]: "4"
+                      - generic [ref=e2428]:
+                        - generic [ref=e2429]: a
+                        - generic [ref=e2430]: "2"
+                  - generic [ref=e2432]:
+                    - text: "4"
+                    - generic [ref=e2433]:
+                      - text: a
+                      - generic [ref=e2438]: "2"
+                - text: 恒为正，分母开方得
+                - generic [ref=e2439]:
+                  - math [ref=e2441]:
+                    - generic [ref=e2443]:
+                      - generic [ref=e2444]: "2"
+                      - generic [ref=e2445]: ∣
+                      - generic [ref=e2446]: a
+                      - generic [ref=e2447]: ∣
+                  - generic [ref=e2449]: 2∣a∣
+                - text: ，而正负号已经覆盖了符号，最终化简为：
+              - generic [ref=e2451]:
+                - math [ref=e2453]:
+                  - generic [ref=e2460]:
+                    - generic [ref=e2461]: x
+                    - generic [ref=e2462]: =
+                    - generic [ref=e2463]:
+                      - generic [ref=e2464]:
+                        - generic [ref=e2465]: −
+                        - generic [ref=e2466]: b
+                        - generic [ref=e2467]: ±
+                        - generic [ref=e2469]:
+                          - generic [ref=e2470]:
+                            - generic [ref=e2471]: b
+                            - generic [ref=e2472]: "2"
+                          - generic [ref=e2473]: −
+                          - generic [ref=e2474]: "4"
+                          - generic [ref=e2475]: a
+                          - generic [ref=e2476]: c
+                      - generic [ref=e2477]:
+                        - generic [ref=e2478]: "2"
+                        - generic [ref=e2479]: a
+                - generic [ref=e2488]:
+                  - text: x =
+                  - generic [ref=e2493]:
+                    - generic [ref=e2494]: 2a
+                    - generic [ref=e2496]:
+                      - text: −b ±
+                      - generic [ref=e2500]:
+                        - generic [ref=e2501]:
+                          - generic [ref=e2502]:
+                            - text: b
+                            - generic [ref=e2507]: "2"
+                          - text: − 4ac
+                        - img [ref=e2509]
+              - paragraph [ref=e2521]:
+                - text: 这就是
+                - strong [ref=e2522]: 求根公式
+                - text: ——配方法一步到位推导出的通用武器。
+              - separator [ref=e2523]
+              - heading "二、判别式 Δ —— 根的\"裁判\"" [level=3] [ref=e2524]
+              - paragraph [ref=e2525]: 定义：
+              - generic [ref=e2527]:
+                - math [ref=e2529]:
+                  - generic [ref=e2536]:
+                    - generic [ref=e2537]: Δ
+                    - generic [ref=e2538]: =
+                    - generic [ref=e2539]:
+                      - generic [ref=e2540]: b
+                      - generic [ref=e2541]: "2"
+                    - generic [ref=e2542]: −
+                    - generic [ref=e2543]: "4"
+                    - generic [ref=e2544]: a
+                    - generic [ref=e2545]: c
+                - generic [ref=e2554]:
+                  - text: Δ =
+                  - generic [ref=e2555]:
+                    - text: b
+                    - generic [ref=e2560]: "2"
+                  - text: − 4ac
+              - paragraph [ref=e2565]:
+                - text: Δ 出现在根号里面，它直接决定了一元二次方程
+                - strong [ref=e2566]: 有几个实数根
+                - text: 以及
+                - strong [ref=e2567]: 根的性质
+                - text: ：
+              - table [ref=e2569]:
+                - rowgroup [ref=e2570]:
+                  - row "Δ 的值 根的情况 几何意义" [ref=e2571]:
+                    - columnheader "Δ 的值" [ref=e2572]
+                    - columnheader "根的情况" [ref=e2573]
+                    - columnheader "几何意义" [ref=e2574]
+                - rowgroup [ref=e2575]:
+                  - row "Δ > 0 ✌️ 两个不相等的实数根 抛物线与 轴相交于两点" [ref=e2576]:
+                    - cell "Δ > 0" [ref=e2577]:
+                      - strong [ref=e2578]: Δ > 0
+                    - cell "✌️ 两个不相等的实数根" [ref=e2579]:
+                      - text: ✌️ 两个
+                      - strong [ref=e2580]: 不相等
+                      - text: 的实数根
+                    - cell "抛物线与 轴相交于两点" [ref=e2581]:
+                      - text: 抛物线与
+                      - generic [ref=e2582]:
+                        - math [ref=e2584]:
+                          - generic [ref=e2587]: x
+                        - generic [ref=e2589]: x
+                      - text: 轴相交于两点
+                  - row "Δ = 0 ☝️ 两个相等的实数根（一个二重根） 抛物线与 轴相切于一点（顶点在轴上）" [ref=e2590]:
+                    - cell "Δ = 0" [ref=e2591]:
+                      - strong [ref=e2592]: Δ = 0
+                    - cell "☝️ 两个相等的实数根（一个二重根）" [ref=e2593]:
+                      - text: ☝️ 两个
+                      - strong [ref=e2594]: 相等
+                      - text: 的实数根（一个二重根）
+                    - cell "抛物线与 轴相切于一点（顶点在轴上）" [ref=e2595]:
+                      - text: 抛物线与
+                      - generic [ref=e2596]:
+                        - math [ref=e2598]:
+                          - generic [ref=e2601]: x
+                        - generic [ref=e2603]: x
+                      - text: 轴相切于一点（顶点在轴上）
+                  - row "Δ < 0 🚫 没有实数根（有两个共轭复根） 抛物线与 轴无交点" [ref=e2604]:
+                    - cell "Δ < 0" [ref=e2605]:
+                      - strong [ref=e2606]: Δ < 0
+                    - cell "🚫 没有实数根（有两个共轭复根）" [ref=e2607]:
+                      - text: 🚫
+                      - strong [ref=e2608]: 没有
+                      - text: 实数根（有两个共轭复根）
+                    - cell "抛物线与 轴无交点" [ref=e2609]:
+                      - text: 抛物线与
+                      - generic [ref=e2610]:
+                        - math [ref=e2612]:
+                          - generic [ref=e2615]: x
+                        - generic [ref=e2617]: x
+                      - text: 轴无交点
+              - paragraph [ref=e2618]: 为了让你更直观地理解，我用图来展示这三种情况：
+              - img [ref=e2621]:
+                - generic [ref=e2622]: 判别式 Δ 的三种情况
+                - generic [ref=e2623]:
+                  - generic [ref=e2624]:
+                    - generic [ref=e2627]: −1
+                    - generic [ref=e2629]: "-0.5"
+                    - generic [ref=e2631]: "0"
+                    - generic [ref=e2633]: "0.5"
+                    - generic [ref=e2635]: "1"
+                    - generic [ref=e2637]: "1.5"
+                    - generic [ref=e2639]: "2"
+                    - generic [ref=e2641]: "2.5"
+                    - generic [ref=e2643]: "3"
+                    - generic [ref=e2645]: "3.5"
+                    - generic [ref=e2647]: "4"
+                    - generic [ref=e2649]: "4.5"
+                    - generic [ref=e2651]: "5"
+                    - generic [ref=e2653]: "5.5"
+                    - generic [ref=e2655]: "6"
+                  - generic [ref=e2656]:
+                    - generic [ref=e2659]: −2
+                    - generic [ref=e2661]: −1
+                    - generic [ref=e2663]: "0"
+                    - generic [ref=e2665]: "1"
+                    - generic [ref=e2667]: "2"
+                    - generic [ref=e2669]: "3"
+                    - generic [ref=e2671]: "4"
+                    - generic [ref=e2673]: "5"
+                    - generic [ref=e2675]: "6"
+                    - generic [ref=e2677]: "7"
+                    - generic [ref=e2679]: "8"
+                    - generic [ref=e2681]: "9"
+                    - generic [ref=e2683]: "10"
+                  - generic [ref=e2684]: x
+                  - generic [ref=e2685]: "y"
+        - generic [ref=e49]:
+          - textbox "Type a message..." [ref=e78]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

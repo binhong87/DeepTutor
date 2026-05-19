@@ -1,0 +1,79 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e24]:
+        - link "Settings" [ref=e25] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e26]
+          - text: Settings
+        - button "Sign out" [ref=e29] [cursor=pointer]:
+          - img [ref=e30]
+          - text: Sign out
+    - main [ref=e33]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - img [ref=e37]
+          - text: Test Bot 02
+        - generic [ref=e41]:
+          - generic [ref=e43]: Hello! What can you help me with?
+          - generic [ref=e47]:
+            - paragraph [ref=e48]:
+              - text: 你好！👋 我是
+              - strong [ref=e49]: TutorBot
+              - text: ，你的智能学习伙伴。
+            - paragraph [ref=e50]: 我可以帮你做很多事情，比如：
+            - list [ref=e51]:
+              - listitem [ref=e52]:
+                - text: 📖
+                - strong [ref=e53]: 语文/阅读
+                - text: ：分析课文、赏析段落、练习阅读理解
+              - listitem [ref=e54]:
+                - text: 🧮
+                - strong [ref=e55]: 数学
+                - text: ：讲解概念、解题、出练习题
+              - listitem [ref=e56]:
+                - text: 🔬
+                - strong [ref=e57]: 科学
+                - text: ：解释自然现象、做知识研究
+              - listitem [ref=e58]:
+                - text: 📝
+                - strong [ref=e59]: 出题自测
+                - text: ：生成选择题、开放题等练习
+              - listitem [ref=e60]:
+                - text: 🔍
+                - strong [ref=e61]: 深度研究
+                - text: ：对某个话题做全面分析，生成学习报告
+              - listitem [ref=e62]:
+                - text: 📚
+                - strong [ref=e63]: 知识库管理
+                - text: ：整理学习资料，随时检索
+              - listitem [ref=e64]:
+                - text: 🌤️
+                - strong [ref=e65]: 日常工具
+                - text: ：查天气、设提醒等
+            - paragraph [ref=e66]: 我看到你之前在学习六年级语文《故宫博物院》的御花园段落，需要继续这个话题，还是想聊点别的？😊
+        - generic [ref=e68]:
+          - textbox "Connecting..." [disabled] [ref=e69]
+          - button [disabled] [ref=e70]:
+            - img [ref=e71]
+  - button "Open Next.js Dev Tools" [ref=e79] [cursor=pointer]:
+    - img [ref=e80]
+  - alert [ref=e83]

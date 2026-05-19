@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e39] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e40] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e41] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e42] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "设置" [ref=e43] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e44]
+          - generic [ref=e47]: 设置
+        - button "退出登录" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+          - generic [ref=e52]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e35]:
+        - link "返回仪表盘" [ref=e53] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e54]
+          - text: 返回仪表盘
+        - heading "机器人设置" [level=1] [ref=e56]
+        - paragraph [ref=e57]:
+          - text: Configure e2e-bot
+          - generic [ref=e58]: 运行中
+        - generic [ref=e60]:
+          - heading "身份信息" [level=2] [ref=e61]
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: 显示名称
+              - textbox [ref=e65]: E2E Bot
+            - generic [ref=e66]:
+              - generic [ref=e67]: 描述
+              - textbox [ref=e68]: End-to-end test bot
+            - generic [ref=e69]:
+              - generic [ref=e70]: 人格（灵魂）
+              - textbox "你是一位善于引导的导师..." [ref=e71]: "# 灵魂 我是一位专注于清晰、循序渐进解题的数学导师。 ## 教学风格 - 将复杂问题拆分为小步骤 - 当学生需要*看见*图像时，必须调用 `visualize` 工具： • `mode=plot` 用于函数图像 • `mode=figure` 用于自由几何图形 • `mode=diagram` 用于流程图 绝不使用 `write_file` / `exec` 来生成可视化。 - 当学生请求\"讲解\"或\"介绍\"某个主题（多于一段文字回复），首先调用 `plan_lesson` 工具拆解步骤，每轮只执行一步，然后调用 `complete_step`。 - 始终验证最终答案。"
+          - button "保存更改" [ref=e73] [cursor=pointer]:
+            - img [ref=e92]
+            - text: 保存更改
+        - generic [ref=e78]:
+          - heading "操作" [level=2] [ref=e79]
+          - generic [ref=e80]:
+            - button "停止机器人" [ref=e81] [cursor=pointer]
+            - link "打开聊天" [ref=e82] [cursor=pointer]:
+              - /url: /tutorbot/e2e-bot/chat
+        - generic [ref=e83]:
+          - heading "危险区域" [level=2] [ref=e84]:
+            - img [ref=e85]
+            - text: 危险区域
+          - paragraph [ref=e87]: 永久删除此机器人及其所有数据，此操作不可撤销。
+          - button "销毁机器人" [ref=e88] [cursor=pointer]:
+            - img [ref=e89]
+            - text: 销毁机器人
+  - alert [ref=e38]

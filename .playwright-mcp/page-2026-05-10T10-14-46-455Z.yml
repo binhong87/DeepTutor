@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e37]:
+        - link "Settings" [ref=e38] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e39]
+          - text: Settings
+        - button "Sign out" [ref=e42] [cursor=pointer]:
+          - img [ref=e43]
+          - text: Sign out
+    - main [ref=e24]:
+      - generic [ref=e76]:
+        - link "Back to Dashboard" [ref=e77] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e78]
+          - text: Back to Dashboard
+        - heading "Bot Settings" [level=1] [ref=e80]
+        - paragraph [ref=e81]:
+          - text: Configure test-bot-02
+          - generic [ref=e82]: Running
+        - generic [ref=e83]:
+          - heading "Identity" [level=2] [ref=e84]
+          - generic [ref=e85]:
+            - generic [ref=e86]:
+              - text: Display Name
+              - textbox [ref=e87]: Test Bot 02
+            - generic [ref=e88]:
+              - text: Description
+              - textbox [ref=e89]: Integration test bot
+            - generic [ref=e90]:
+              - text: Persona (Soul)
+              - textbox "You are a helpful tutor..." [ref=e91]: "# Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and patient - Adapts explanations to the user's level ## Values - Accuracy over speed - User privacy and safety - Transparency in actions"
+          - button "Save Changes" [ref=e93] [cursor=pointer]:
+            - img [ref=e94]
+            - text: Save Changes
+        - generic [ref=e98]:
+          - heading "Actions" [level=2] [ref=e99]
+          - generic [ref=e100]:
+            - button "Stop Bot" [ref=e101] [cursor=pointer]
+            - link "Open Chat" [ref=e102] [cursor=pointer]:
+              - /url: /tutorbot/test-bot-02/chat
+        - generic [ref=e103]:
+          - heading "Danger Zone" [level=2] [ref=e104]:
+            - img [ref=e105]
+            - text: Danger Zone
+          - paragraph [ref=e107]: Permanently delete this bot and all its data. This action cannot be undone.
+          - button "Destroy Bot" [ref=e108] [cursor=pointer]:
+            - img [ref=e109]
+            - text: Destroy Bot
+  - button "Open Next.js Dev Tools" [ref=e33] [cursor=pointer]:
+    - img [ref=e34]
+  - alert [ref=e75]

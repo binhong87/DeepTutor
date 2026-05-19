@@ -1,0 +1,28 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading "创建账号" [level=1] [ref=e24]
+      - paragraph [ref=e7]: 开启你的专属导师机器人之旅
+    - generic [ref=e8]:
+      - generic [ref=e31]: Self-registration is closed. Ask an administrator to create your account.
+      - generic [ref=e9]:
+        - generic [ref=e10]: 用户名或邮箱
+        - textbox "用户名或邮箱" [ref=e25]:
+          - /placeholder: you@example.com
+          - text: e2e_tester
+      - generic [ref=e12]:
+        - generic [ref=e13]: 密码
+        - textbox "密码" [ref=e26]:
+          - /placeholder: 至少 8 个字符
+          - text: Passw0rd!Test
+      - generic [ref=e15]:
+        - generic [ref=e16]: 确认密码
+        - textbox "确认密码" [ref=e27]: Passw0rd!Test
+      - button "创建账号" [ref=e28] [cursor=pointer]:
+        - img [ref=e19]
+        - text: 创建账号
+    - paragraph [ref=e22]:
+      - text: 已有账号？
+      - link "登录" [ref=e29] [cursor=pointer]:
+        - /url: /login
+  - alert [ref=e30]

@@ -1,0 +1,105 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Draw a cosine wave from 0 to 360 degrees
+          - paragraph [ref=e74]: 我来给你画一个余弦函数图像，从 0° 到 360°，和之前正弦图一样包含度数标注、网格线和关键点高亮。
+          - paragraph [ref=e79]: 文件已生成，我给你发送余弦函数图像！
+          - generic [ref=e83]:
+            - paragraph [ref=e84]:
+              - text: 图像已发送！你可以打开
+              - code [ref=e85]: cosine_wave.html
+              - text: 在浏览器中查看交互式余弦曲线。
+            - paragraph [ref=e86]: 如果你想继续学习，我可以：
+            - list [ref=e87]:
+              - listitem [ref=e88]:
+                - text: 🔄 把
+                - strong [ref=e89]: 正弦和余弦画在同一张图
+                - text: 上对比，直观感受"平移关系"
+              - listitem [ref=e90]:
+                - text: 📐 讲解
+                - strong [ref=e91]: tan 函数图像
+                - text: （正切曲线很不一样，它会有"断崖"）
+              - listitem [ref=e92]:
+                - text: 📝 出几道
+                - strong [ref=e93]: 三角函数练习题
+            - paragraph [ref=e94]: 你想学哪个？
+          - generic [ref=e98]: Show me a sine wave plot inline
+          - generic [ref=e104]:
+            - group [ref=e105]:
+              - generic "Thinking (3 steps)" [ref=e106] [cursor=pointer]
+              - generic [ref=e139]:
+                - paragraph [ref=e140]: write_file("<svg xmlns="http://www.w3.org/2000/svg" …")
+                - paragraph [ref=e141]: "Here's the sine wave — SVG format so you can view it directly:"
+                - paragraph [ref=e142]: message("📈 **y = sin(x)** — 0° → 360° 🔴 关键点： | …")
+            - generic [ref=e108]:
+              - paragraph [ref=e109]:
+                - text: 📈
+                - strong [ref=e110]: y = sin(x)
+                - text: — 0° → 360°
+              - paragraph [ref=e111]: 🔴 关键点：
+              - table [ref=e113]:
+                - rowgroup [ref=e114]:
+                  - row "角度 sin 值" [ref=e115]:
+                    - columnheader "角度" [ref=e116]
+                    - columnheader "sin 值" [ref=e117]
+                - rowgroup [ref=e118]:
+                  - row "0° 0" [ref=e119]:
+                    - cell "0°" [ref=e120]
+                    - cell "0" [ref=e121]
+                  - row "30° 0.5" [ref=e122]:
+                    - cell "30°" [ref=e123]
+                    - cell "0.5" [ref=e124]
+                  - row "90° 1 (最高)" [ref=e125]:
+                    - cell "90°" [ref=e126]
+                    - cell "1 (最高)" [ref=e127]
+                  - row "180° 0" [ref=e128]:
+                    - cell "180°" [ref=e129]
+                    - cell "0" [ref=e130]
+                  - row "270° -1 (最低)" [ref=e131]:
+                    - cell "270°" [ref=e132]
+                    - cell "-1 (最低)" [ref=e133]
+                  - row "360° 0" [ref=e134]:
+                    - cell "360°" [ref=e135]
+                    - cell "0" [ref=e136]
+              - paragraph [ref=e137]:
+                - text: 🎢 形状就像一个
+                - strong [ref=e138]: 过山车
+                - text: ：从 0 出发 → 爬到 1 → 回到 0 → 跌到 -1 → 再回到 0，周而复始！
+          - generic [ref=e144]: Use the visualize tool to render a parabola y=x^2 from -5 to 5 right here in the chat.
+          - generic [ref=e145]:
+            - img [ref=e146]
+            - generic [ref=e148]: Thinking...
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e95]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e96]

@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e65] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e66] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - generic [ref=e68]:
+          - generic [ref=e69] [cursor=pointer]:
+            - img [ref=e71]
+            - img [ref=e73]
+            - generic [ref=e76]: Math Smoke
+            - button "新会话" [disabled] [ref=e78]:
+              - img [ref=e79]
+          - generic [ref=e80]:
+            - button "新会话" [ref=e81] [cursor=pointer]:
+              - img [ref=e82]
+              - generic [ref=e83]: 新会话
+            - button "二元一次方程的解法 0/7" [ref=e84] [cursor=pointer]:
+              - img [ref=e85]
+              - generic [ref=e87]: 二元一次方程的解法
+              - generic [ref=e88]: 0/7
+        - generic [ref=e16]:
+          - link "知识库" [ref=e89] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e18]
+            - generic [ref=e20]: 知识库
+          - link "灵魂" [ref=e90] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e22]
+            - generic [ref=e27]: 灵魂
+      - generic [ref=e28]:
+        - link "配置文件" [ref=e91] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e92]
+          - generic [ref=e95]: 配置文件
+        - button "退出登录" [ref=e96] [cursor=pointer]:
+          - img [ref=e97]
+          - generic [ref=e100]: 退出登录
+    - main [ref=e29]:
+      - button "Switch to English" [ref=e30] [cursor=pointer]:
+        - img [ref=e31]
+        - generic [ref=e35]: EN
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - img [ref=e39]
+          - generic [ref=e42]: math-smoke
+        - generic [ref=e45]:
+          - generic [ref=e103]: 你好
+          - generic [ref=e107]:
+            - paragraph [ref=e108]: 你好！👋 很高兴见到你！
+            - paragraph [ref=e109]: 我是你的数学导师，可以帮你讲解概念、解答题目、画图演示，也可以生成练习题来帮你巩固知识。
+            - paragraph [ref=e110]: 你现在在学什么内容？或者有什么数学问题想一起探讨的？尽管说～
+        - generic [ref=e50]:
+          - textbox "Type a message..." [ref=e111]
+          - button [disabled] [ref=e52]:
+            - img [ref=e53]
+  - button "Open Next.js Dev Tools" [ref=e61] [cursor=pointer]:
+    - img [ref=e62]
+  - alert [ref=e112]

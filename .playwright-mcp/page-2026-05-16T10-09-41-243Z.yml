@@ -1,0 +1,98 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: chem-bot
+        - generic [ref=e44]:
+          - generic [ref=e87]:
+            - button "氧化还原反应的概念和化合价知识 0/6" [ref=e88] [cursor=pointer]:
+              - img [ref=e89]
+              - img [ref=e91]
+              - generic [ref=e94]: 氧化还原反应的概念和化合价知识
+              - generic [ref=e95]: 0/6
+            - list [ref=e96]:
+              - listitem [ref=e97]:
+                - generic "in progress" [ref=e98]: ▶
+                - generic [ref=e100]:
+                  - generic [ref=e101]: Assess
+                  - generic [ref=e102]: 了解学生对氧化还原反应和化合价的已有认知和困惑
+              - listitem [ref=e103]:
+                - generic "pending" [ref=e104]: ·
+                - generic [ref=e106]:
+                  - generic [ref=e107]: Define
+                  - generic [ref=e108]: 给出氧化还原反应的核心定义：从得失氧到电子转移，再到氧化数（化合价）变化
+              - listitem [ref=e109]:
+                - generic "pending" [ref=e110]: ·
+                - generic [ref=e112]:
+                  - generic [ref=e113]: Explain
+                  - generic [ref=e114]: 讲解化合价（氧化数）的概念、判断规则和常见元素的化合价
+              - listitem [ref=e115]:
+                - generic "pending" [ref=e116]: ·
+                - generic [ref=e118]:
+                  - generic [ref=e119]: Explain
+                  - generic [ref=e120]: 用具体例子演示如何判断氧化还原反应、识别氧化剂和还原剂
+              - listitem [ref=e121]:
+                - generic "pending" [ref=e122]: ·
+                - generic [ref=e124]:
+                  - generic [ref=e125]: Check
+                  - generic [ref=e126]: 通过一道练习题检验学生对氧化还原反应和化合价判断的掌握程度
+              - listitem [ref=e127]:
+                - generic "pending" [ref=e128]: ·
+                - generic [ref=e130]:
+                  - generic [ref=e131]: Wrap-up
+                  - generic [ref=e132]: 总结氧化还原反应的核心要点：升失氧、降得还，以及化合价的判断口诀
+          - generic [ref=e80]: 氧化还原反应的概念和化学价知识
+          - generic [ref=e82]:
+            - group [ref=e83]:
+              - generic "Thinking (3 steps)" [ref=e133] [cursor=pointer]
+            - generic [ref=e135]:
+              - paragraph [ref=e136]: 好的！氧化还原反应是高中化学的核心板块之一，也是高考的必考点。在正式开始讲解之前，我想先了解一下你目前对这个话题的掌握情况——
+              - paragraph [ref=e137]:
+                - strong [ref=e138]: 请试着回答以下几个问题
+                - text: （想到多少说多少，没关系）：
+              - list [ref=e139]:
+                - listitem [ref=e140]: 说到「氧化还原反应」，你脑子里最先蹦出来的定义是什么？
+                - listitem [ref=e141]: 「化合价」和「氧化数」这两个词，你觉得自己分得清吗？常见的元素（比如 O、H、Na、Cl、Fe）的常见化合价你都能脱口而出吗？
+                - listitem [ref=e142]: 在你目前的教学中，学生在氧化还原这块最容易在什么地方卡住、出错？
+              - paragraph [ref=e143]: 你不用每条都答得非常完整，随便聊聊就行，主要是帮我摸个底，后面讲的时候好对准你的实际需求 😊
+          - generic [ref=e145]: 1. 得电子被还原，失电子被氧化。2. 大致能区分，常见化合价基本能记住，O 是 -2，H 是 +1，Na 是 +1，Cl 一般 -1，Fe 有 +2/+3。3. 学生常常把氧化剂和还原剂搞反，化合价升降也容易判断错。
+          - group [ref=e148]:
+            - generic "Thinking (1 step)" [ref=e149] [cursor=pointer]
+            - paragraph [ref=e151]: The
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e78]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

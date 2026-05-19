@@ -1,0 +1,62 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: 请帮我系统地讲解一下三角函数
+          - generic [ref=e73]:
+            - paragraph [ref=e74]: 好的！你已经接触过不少三角函数的内容了。既然是"系统地"讲解，我们就把知识像搭积木一样，从地基到房顶，一层一层来。
+            - paragraph [ref=e75]: 我们就按这个路线走：
+            - blockquote [ref=e76]:
+              - paragraph [ref=e77]:
+                - strong [ref=e78]: ① 先听你说
+                - text: →
+                - strong [ref=e79]: ② 直角三角形复习（配上图）
+                - text: →
+                - strong [ref=e80]: ③ 单位圆：为什么变成波浪线
+                - text: →
+                - strong [ref=e81]: ④ 特殊角（30°/45°/60°）
+                - text: →
+                - strong [ref=e82]: ⑤ 小测验
+                - text: →
+                - strong [ref=e83]: ⑥ 总结
+            - separator [ref=e84]
+            - heading "第一步：先听你说说" [level=2] [ref=e85]
+            - paragraph [ref=e86]: 你已经学过 sin、cos、tan 了，也看过它们的图像。在正式开讲之前，我想先听听——
+            - paragraph [ref=e87]:
+              - strong [ref=e88]: 用你自己的大白话，sin、cos、tan 分别表示什么？随便说，不用紧张，说错了也没关系。
+            - paragraph [ref=e89]: （这样我就知道你哪些地方已经很熟了，哪些地方需要多花时间，后面讲解更有针对性 😊）
+          - generic [ref=e93]: /new
+          - paragraph [ref=e102]: New session started.
+        - generic [ref=e43]:
+          - textbox "Type a message..." [ref=e90]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e91]

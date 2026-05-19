@@ -1,0 +1,23 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e49] [cursor=pointer]:
+    - img [ref=e50]
+  - alert [ref=e4]
+  - generic [ref=e55]:
+    - generic [ref=e56]:
+      - heading "登录 DeepTutor" [level=1] [ref=e57]
+      - paragraph [ref=e58]: 访问你的导师机器人和知识库
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - generic [ref=e61]: 用户名或邮箱
+        - textbox "用户名或邮箱" [ref=e62]:
+          - /placeholder: admin
+      - generic [ref=e63]:
+        - generic [ref=e64]: 密码
+        - textbox "密码" [ref=e65]
+      - button "登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - text: 登录
+    - paragraph [ref=e70]:
+      - text: 还没有账号？
+      - link "立即注册" [ref=e71] [cursor=pointer]:
+        - /url: /register

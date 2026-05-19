@@ -1177,7 +1177,7 @@ class AgentLoop:
             # On failure this is a no-op; the LLM call below still works from
             # the in-memory base64.
             await persist_attachments(
-                _session_id_from_key(session_key),
+                _session_id_from_key(key),
                 canonical_attachments,
             )
             logger.info(

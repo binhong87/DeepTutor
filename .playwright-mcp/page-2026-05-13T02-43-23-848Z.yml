@@ -1,0 +1,78 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Draw a cosine wave from 0 to 360 degrees
+          - paragraph [ref=e74]: 我来给你画一个余弦函数图像，从 0° 到 360°，和之前正弦图一样包含度数标注、网格线和关键点高亮。
+          - paragraph [ref=e79]: 文件已生成，我给你发送余弦函数图像！
+          - generic [ref=e83]:
+            - paragraph [ref=e84]:
+              - text: 图像已发送！你可以打开
+              - code [ref=e85]: cosine_wave.html
+              - text: 在浏览器中查看交互式余弦曲线。
+            - paragraph [ref=e86]: 如果你想继续学习，我可以：
+            - list [ref=e87]:
+              - listitem [ref=e88]:
+                - text: 🔄 把
+                - strong [ref=e89]: 正弦和余弦画在同一张图
+                - text: 上对比，直观感受"平移关系"
+              - listitem [ref=e90]:
+                - text: 📐 讲解
+                - strong [ref=e91]: tan 函数图像
+                - text: （正切曲线很不一样，它会有"断崖"）
+              - listitem [ref=e92]:
+                - text: 📝 出几道
+                - strong [ref=e93]: 三角函数练习题
+            - paragraph [ref=e94]: 你想学哪个？
+          - generic [ref=e96]: Show me a sine wave plot inline
+          - paragraph [ref=e101]: "Here's the sine wave — SVG format so you can view it directly:"
+          - generic [ref=e105]:
+            - paragraph [ref=e106]: "Now you have both:"
+            - list [ref=e107]:
+              - listitem [ref=e108]:
+                - strong [ref=e109]:
+                  - code [ref=e110]: sine_wave_inline.svg
+                - text: — the SVG above, crisp at any zoom level
+              - listitem [ref=e111]:
+                - strong [ref=e112]:
+                  - code [ref=e113]: sine_wave_v2.html
+                - text: — interactive version you can open in a browser (from last time)
+            - paragraph [ref=e114]: Want me to overlay sine + cosine on the same axes so you can see the "shift by 90°" relationship?
+          - generic [ref=e116]: Use the visualize tool to render a parabola y=x^2 from -5 to 5 right here in the chat.
+          - generic [ref=e120]: /new
+          - generic [ref=e121]:
+            - img [ref=e122]
+            - generic [ref=e124]: Thinking...
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e117]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e118]

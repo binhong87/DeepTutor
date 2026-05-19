@@ -1,0 +1,62 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - generic [ref=e14]:
+        - link "DeepTutor" [ref=e15] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e16] [cursor=pointer]:
+          - img [ref=e17]
+      - navigation [ref=e20]:
+        - link "TutorBot" [ref=e21] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e22]
+          - generic [ref=e25]: TutorBot
+        - link "Knowledge" [ref=e26] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e27]
+          - generic [ref=e29]: Knowledge
+        - link "Souls" [ref=e30] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e31]
+          - generic [ref=e36]: Souls
+      - generic [ref=e37]:
+        - link "Settings" [ref=e38] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e39]
+          - generic [ref=e42]: Settings
+        - button "Sign out" [active] [ref=e43] [cursor=pointer]:
+          - img [ref=e44]
+          - generic [ref=e47]: Sign out
+    - main [ref=e48]:
+      - generic [ref=e49]:
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - heading "Your TutorBots" [level=1] [ref=e82]
+            - paragraph [ref=e83]: Logged in as local
+          - link "Create New Bot" [ref=e84] [cursor=pointer]:
+            - /url: /tutorbot/boarding
+            - img [ref=e85]
+            - text: Create New Bot
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - img [ref=e91]
+              - generic [ref=e94]:
+                - heading "Test Bot 02" [level=3] [ref=e95]
+                - paragraph [ref=e96]: Integration test bot
+            - generic [ref=e97]: Running
+          - generic [ref=e99]:
+            - link "Chat" [ref=e100] [cursor=pointer]:
+              - /url: /tutorbot/test-bot-02/chat
+              - img [ref=e101]
+              - text: Chat
+            - link "Settings" [ref=e103] [cursor=pointer]:
+              - /url: /tutorbot/test-bot-02/settings
+              - img [ref=e104]
+              - text: Settings
+            - button "Stop" [ref=e107] [cursor=pointer]:
+              - img [ref=e108]
+              - text: Stop

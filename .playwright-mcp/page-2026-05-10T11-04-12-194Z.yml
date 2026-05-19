@@ -1,0 +1,79 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: TutorBot
+        - link "Knowledge" [ref=e16] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: Knowledge
+        - link "Souls" [ref=e20] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: Souls
+      - generic [ref=e27]:
+        - link "Settings" [ref=e96] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e97]
+          - generic [ref=e100]: Settings
+        - button "Sign out" [ref=e101] [cursor=pointer]:
+          - img [ref=e102]
+          - generic [ref=e105]: Sign out
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e32]:
+            - img [ref=e33]
+            - generic [ref=e36]: Welcome
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - generic [ref=e42]: Choose Soul
+          - generic [ref=e45]:
+            - img [ref=e46]
+            - generic [ref=e49]: Name & Describe
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - generic [ref=e56]: Model
+          - generic [ref=e59]:
+            - img [ref=e60]
+            - generic [ref=e62]: Done
+        - generic [ref=e107]:
+          - heading "Choose a Soul" [level=2] [ref=e108]
+          - paragraph [ref=e109]: Pick a teaching persona or use the default.
+          - generic [ref=e110]:
+            - 'button "Default TutorBot # Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and" [ref=e111] [cursor=pointer]':
+              - generic [ref=e112]: Default TutorBot
+              - generic [ref=e113]: "# Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and"
+            - 'button "Math Tutor # Soul I am a math tutor specializing in clear, step-by-step problem solving. ## Personality - Patient and methodical" [ref=e114] [cursor=pointer]':
+              - generic [ref=e115]: Math Tutor
+              - generic [ref=e116]: "# Soul I am a math tutor specializing in clear, step-by-step problem solving. ## Personality - Patient and methodical"
+            - 'button "Coding Assistant # Soul I am a coding assistant focused on helping developers write better software. ## Personality - Precise and deta" [ref=e117] [cursor=pointer]':
+              - generic [ref=e118]: Coding Assistant
+              - generic [ref=e119]: "# Soul I am a coding assistant focused on helping developers write better software. ## Personality - Precise and deta"
+            - 'button "Research Helper # Soul I am a research assistant helping users explore academic topics in depth. ## Personality - Curious and thoroug" [ref=e120] [cursor=pointer]':
+              - generic [ref=e121]: Research Helper
+              - generic [ref=e122]: "# Soul I am a research assistant helping users explore academic topics in depth. ## Personality - Curious and thoroug"
+            - 'button "Language Tutor # Soul I am a language learning companion helping users practice and improve. ## Personality - Encouraging and patien" [ref=e123] [cursor=pointer]':
+              - generic [ref=e124]: Language Tutor
+              - generic [ref=e125]: "# Soul I am a language learning companion helping users practice and improve. ## Personality - Encouraging and patien"
+            - button "Start Fresh No preset persona — define everything later." [ref=e126] [cursor=pointer]:
+              - generic [ref=e127]: Start Fresh
+              - generic [ref=e128]: No preset persona — define everything later.
+        - generic [ref=e80]:
+          - button "Back" [ref=e81] [cursor=pointer]:
+            - img [ref=e82]
+            - text: Back
+          - button "Next" [disabled] [ref=e84]:
+            - text: Next
+            - img [ref=e85]
+  - button "Open Next.js Dev Tools" [ref=e92] [cursor=pointer]:
+    - img [ref=e93]
+  - alert [ref=e106]

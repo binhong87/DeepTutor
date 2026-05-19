@@ -1,0 +1,46 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e94] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e95] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e96] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e97] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e98] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e99]
+          - generic [ref=e102]: 配置文件
+        - button "退出登录" [ref=e103] [cursor=pointer]:
+          - img [ref=e104]
+          - generic [ref=e107]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - img [ref=e183]
+          - generic [ref=e186]: math-bot
+        - generic [ref=e190]:
+          - img [ref=e192]
+          - paragraph [ref=e195]: Chat with math-bot
+          - paragraph [ref=e196]: Send a message to start the conversation.
+        - generic [ref=e198]:
+          - textbox "Type a message..." [ref=e199]
+          - button [disabled] [ref=e200]:
+            - img [ref=e201]
+  - alert [ref=e93]

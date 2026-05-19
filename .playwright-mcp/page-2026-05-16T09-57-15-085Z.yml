@@ -1,0 +1,131 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e55] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e56] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e57] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e59] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e60]
+          - generic [ref=e63]: 配置文件
+        - button "退出登录" [ref=e64] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e68]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: physics-bot
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "摩擦力的定义和计算公式 1/5" [ref=e154] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 摩擦力的定义和计算公式
+              - generic [ref=e93]: 1/5
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "done" [ref=e155]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Assess
+                    - generic [ref=e100]: 了解学生对摩擦力已有的认知基础，判断讲解起点
+                  - generic [ref=e156]: ↳ 学生基础扎实：能正确判断静摩擦力大小与方向（二力平衡），能区分静/动摩擦的本质差异。主要盲区：将 f=μN 泛化为所有摩擦力的公式，不清楚静摩擦力只有取值范围而无乘积公式。后续重点应放在区分两类摩擦力的不同计算方式。
+              - listitem [ref=e101]:
+                - generic "in progress" [ref=e157]: ▶
+                - generic [ref=e104]:
+                  - generic [ref=e105]: Define
+                  - generic [ref=e106]: 给出摩擦力的精确定义，区分静摩擦力与滑动摩擦力
+              - listitem [ref=e107]:
+                - generic "pending" [ref=e108]: ·
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Explain
+                  - generic [ref=e112]: 讲解滑动摩擦力公式 f=μN 及静摩擦力的取值范围，借助可视化辅助理解
+              - listitem [ref=e113]:
+                - generic "pending" [ref=e114]: ·
+                - generic [ref=e116]:
+                  - generic [ref=e117]: Check
+                  - generic [ref=e118]: 用一道典型例题检验学生对摩擦力计算的掌握情况
+              - listitem [ref=e119]:
+                - generic "pending" [ref=e120]: ·
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Wrap-up
+                  - generic [ref=e124]: 总结摩擦力定义与公式的核心要点，梳理易错点
+          - generic [ref=e80]: 请讲解摩擦力的定义和计算公式
+          - generic [ref=e126]:
+            - group [ref=e127]:
+              - generic "Thinking (3 steps)" [ref=e128] [cursor=pointer]
+            - generic [ref=e134]:
+              - paragraph [ref=e135]: 好的！在正式讲解之前，我想先了解一下你目前对摩擦力的掌握情况，这样可以更有针对性地展开。请简单回答下面几个问题：
+              - separator [ref=e136]
+              - paragraph [ref=e137]:
+                - strong [ref=e138]: 摸底小测 🧐
+              - list [ref=e139]:
+                - listitem [ref=e140]:
+                  - paragraph [ref=e141]: 一个木块放在水平桌面上，你用 2 N 的力拉它但没拉动，此时摩擦力多大？方向如何？
+                - listitem [ref=e142]:
+                  - paragraph [ref=e143]: 同一个木块，桌面给它施加的摩擦力大小和哪些因素有关？试写出你印象中的计算公式。
+                - listitem [ref=e144]:
+                  - paragraph [ref=e145]: 「静摩擦力」和「滑动摩擦力」最本质的区别是什么？
+              - separator [ref=e146]
+              - paragraph [ref=e147]: 不用追求完美，按你现有的理解回答就好。这能帮我判断从哪个深度开始讲起 😊
+          - generic [ref=e149]: 1. 静摩擦力 2N，方向与拉力相反。2. 跟正压力和接触面有关，公式 f=μN。3. 静摩擦还没动，滑动摩擦是物体已经在动。
+          - generic [ref=e159]:
+            - group [ref=e160]:
+              - generic "Thinking (3 steps)" [ref=e161] [cursor=pointer]
+            - generic [ref=e163]:
+              - paragraph [ref=e164]: 你的回答非常好！来快速对照一下：
+              - paragraph [ref=e165]:
+                - strong [ref=e166]: 第 1 题
+                - text: ✅ 完全正确。摩擦力 2 N，方向与拉力相反——你抓住了静摩擦力的核心：它是个
+                - strong [ref=e167]: 被动力
+                - text: ，物体静止时，摩擦力自动「匹配」外力的大小，通过二力平衡来确定。
+              - paragraph [ref=e168]:
+                - strong [ref=e169]: 第 2 题
+                - text: ⚠️ 方向对了，但有一个关键细节需要纠正。你写的公式
+                - strong [ref=e170]: f = μN
+                - text: 实际上是
+                - strong [ref=e171]: 滑动摩擦力
+                - text: 的计算公式，而不是静摩擦力的。静摩擦力没有一个简单的「乘积公式」，它只有一个
+                - strong [ref=e172]: 取值范围
+                - text: ，这点我们后面会重点展开。
+              - paragraph [ref=e173]:
+                - strong [ref=e174]: 第 3 题
+                - text: ✅ 抓住了本质区别——一个是「还没动」，一个是「已经在动」。这恰好对应两种摩擦力的不同计算方式。
+              - separator [ref=e175]
+              - paragraph [ref=e176]:
+                - strong [ref=e177]: 小结一下你的起点
+                - text: ：你对摩擦力的直觉很好，核心漏洞在于——把
+                - code [ref=e178]: f = μN
+                - text: 当成了所有摩擦力的通用公式。接下来我会从精确的定义出发，帮你把静摩擦力和滑动摩擦力的计算方式彻底分开，并用图像直观展示它们的区别。
+              - paragraph [ref=e179]:
+                - text: 总结得很准！接下来我们进入精确定义——
+                - strong [ref=e180]: 准备好了吗？
+          - generic [ref=e182]: 准备好了，请讲
+          - generic [ref=e183]:
+            - img [ref=e184]
+            - generic [ref=e186]: Thinking...
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e77]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e78]

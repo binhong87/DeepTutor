@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e94] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e95] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e96] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e97] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e98] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e99]
+          - generic [ref=e102]: 配置文件
+        - button "退出登录" [ref=e103] [cursor=pointer]:
+          - img [ref=e104]
+          - generic [ref=e107]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e181]:
+        - generic [ref=e182]:
+          - img [ref=e183]
+          - generic [ref=e186]: math-bot
+        - generic [ref=e189]:
+          - generic [ref=e210]:
+            - button "画出 y = x² 在 [-3, 3] 区间的图像 0/3" [ref=e211] [cursor=pointer]:
+              - img [ref=e212]
+              - img [ref=e214]
+              - generic [ref=e217]: 画出 y = x² 在 [-3, 3] 区间的图像
+              - generic [ref=e218]: 0/3
+            - list [ref=e219]:
+              - listitem [ref=e220]:
+                - generic "in progress" [ref=e221]: ▶
+                - generic [ref=e223]:
+                  - generic [ref=e224]: Explain
+                  - generic [ref=e225]: 画出抛物线 y=x², x∈[-3,3]，指出顶点、对称轴和关键点
+              - listitem [ref=e226]:
+                - generic "pending" [ref=e227]: ·
+                - generic [ref=e229]:
+                  - generic [ref=e230]: Check
+                  - generic [ref=e231]: 检验学生对函数值计算和图像对称性的理解
+              - listitem [ref=e232]:
+                - generic "pending" [ref=e233]: ·
+                - generic [ref=e235]:
+                  - generic [ref=e236]: Wrap-up
+                  - generic [ref=e237]: 总结二次函数图像特征，提示后续学习方向
+          - generic [ref=e205]: 请画一下 y = x^2 从 -3 到 3 的图像
+          - group [ref=e240]:
+            - generic "Thinking (3 steps)" [ref=e241] [cursor=pointer]
+            - generic [ref=e242]:
+              - paragraph [ref=e243]: "The student is asking me to draw the graph of y = x^2 from -3 to 3. This is a straightforward request, but according to the guidelines, I should plan this as a lesson. Let me think about what a lesson on graphing y = x² would look like. Actually, the student is simply asking \"请画一下 y = x^2 从 -3 到 3 的图像\" which means \"Please draw the graph of y = x^2 from -3 to 3.\" This seems like a fairly simple request. But the guidelines say if the student's message is non-trivial and asks me to explain, walk through, introduce, review, etc., I should plan_lesson. The student is just asking me to draw a graph. Let me think about whether this needs a full lesson plan. The instructions say: \"Skip plan_lesson only for trivially short answers ('what is 2+2', 'thanks'). Any 'explain X', 'how does Y work', '讲讲 Z' gets a plan.\" The student is explicitly asking me to draw/画 a graph. This is a direct request for a visualization, not really an \"explain\" or \"讲\" type request. But the runtime guidance says \"This looks like a teaching / explanation request. Your FIRST tool call this turn MUST be plan_lesson...\" I think the simplest approach is: this is a simple graphing request. But the runtime says I must use plan_lesson. Let me make a minimal plan. Actually, let me reconsider. The student just wants to see the graph. Maybe a very short plan with just 2 steps: one to draw the graph, and one wrap-up step. But the plan_lesson requires 3-6 steps minimum. Let me create a simple 3-step plan: 1. explain - show the graph of y = x² 2. check - ask a simple question about the graph 3. wrap_up - summarize Actually, I think the rule about plan_lesson is for substantive teaching topics. Drawing a simple graph might fall into the \"trivially short\" category. But the runtime guidance explicitly says I must call plan_lesson first. Let me follow the rules and create a minimal plan. Wait, let me re-read: \"If the student's message is non-trivial — it asks you to explain, walk through, introduce, review, 讲解, 介绍, or any similar verb for a topic that would need more than one short paragraph — your first action in the turn MUST be to call plan_lesson.\" The student said \"请画一下\" (please draw) - this is a single action request. It doesn't ask to explain or walk through. One could argue this IS trivially short - just draw a parabola. But the runtime guidance says \"This looks like a teaching / explanation request. Your FIRST tool call this turn MUST be plan_lesson.\" I'll follow the guidance. Let me create a minimal plan focused on the graph. Plan: - s1: explain - Draw the parabola y=x² from x=-3 to 3, pointing out key features (vertex, symmetry, shape) - s2: check - Ask about a key property (e.g., what's the y-value at x=2?) - s3: wrap_up - Encourage further exploration Then execute s1: draw the graph and explain it. Let me go ahead."
+              - paragraph [ref=e244]: plan_lesson("画出 y = x² 在 [-3, 3] 区间的图像")
+              - paragraph [ref=e245]: "Now I need to execute step s1: draw the graph of y = x² from x = -3 to 3. I'll use the visualize tool with mode=plot. Let me create a clear visualization with key"
+        - generic [ref=e198]:
+          - textbox "Type a message..." [disabled] [ref=e199]
+          - button [disabled] [ref=e200]:
+            - img [ref=e201]
+  - alert [ref=e93]

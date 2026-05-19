@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e94] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e95] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e96] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e97] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e98] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e99]
+          - generic [ref=e102]: 配置文件
+        - button "退出登录" [ref=e103] [cursor=pointer]:
+          - img [ref=e104]
+          - generic [ref=e107]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e38]:
+            - img [ref=e39]
+            - generic [ref=e42]: 欢迎
+          - generic [ref=e45]:
+            - img [ref=e46]
+            - generic [ref=e48]: 选择灵魂
+          - generic [ref=e51]:
+            - img [ref=e52]
+            - generic [ref=e55]: 命名与描述
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - generic [ref=e62]: 模型
+          - generic [ref=e65]:
+            - img [ref=e66]
+            - generic [ref=e68]: 完成
+        - generic [ref=e130]:
+          - heading "为机器人命名" [level=2] [ref=e131]
+          - paragraph [ref=e132]: 选择唯一 ID 和显示名称，ID 将成为机器人 URL 的一部分。
+          - generic [ref=e133]:
+            - generic [ref=e134]: 机器人 ID
+            - textbox "my-math-tutor" [ref=e135]
+            - paragraph [ref=e136]: 只允许小写字母、数字、连字符和下划线。
+          - generic [ref=e137]:
+            - generic [ref=e138]: 显示名称
+            - textbox "My Math Tutor" [ref=e139]
+          - generic [ref=e140]:
+            - generic [ref=e141]: 描述（可选）
+            - textbox "A helpful math tutor that explains concepts step by step..." [ref=e142]
+        - generic [ref=e86]:
+          - button "返回" [ref=e87] [cursor=pointer]:
+            - img [ref=e88]
+            - text: 返回
+          - button "下一个" [disabled] [ref=e90]:
+            - text: 下一个
+            - img [ref=e91]
+  - alert [ref=e93]

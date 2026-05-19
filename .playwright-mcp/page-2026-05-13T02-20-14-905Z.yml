@@ -1,0 +1,57 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]
+  - alert [ref=e33]
+  - generic [ref=e40]:
+    - complementary [ref=e41]:
+      - generic [ref=e42]:
+        - link "DeepTutor" [ref=e43] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - navigation [ref=e48]:
+        - link "辅导机器人" [ref=e49] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e50]
+          - generic [ref=e53]: 辅导机器人
+        - link "知识库" [ref=e54] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e55]
+          - generic [ref=e57]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e59]
+          - generic [ref=e64]: 灵魂
+      - button "退出登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - generic [ref=e70]: 退出登录
+    - main [ref=e71]:
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e75]:
+            - img [ref=e76]
+            - generic [ref=e79]: 欢迎
+          - generic [ref=e82]:
+            - img [ref=e83]
+            - generic [ref=e85]: 选择灵魂
+          - generic [ref=e88]:
+            - img [ref=e89]
+            - generic [ref=e92]: 命名与描述
+          - generic [ref=e95]:
+            - img [ref=e96]
+            - generic [ref=e99]: 模型
+          - generic [ref=e102]:
+            - img [ref=e103]
+            - generic [ref=e105]: 完成
+        - generic [ref=e205]:
+          - img [ref=e207]
+          - generic [ref=e209]:
+            - heading "机器人已创建！" [level=1] [ref=e210]
+            - paragraph [ref=e211]: viz-bot 已启动，可以开始聊天。
+          - generic [ref=e212]:
+            - link "开始聊天" [ref=e213] [cursor=pointer]:
+              - /url: /tutorbot/viz-bot/chat
+              - img [ref=e214]
+              - text: 开始聊天
+            - link "返回仪表盘" [ref=e216] [cursor=pointer]:
+              - /url: /tutorbot/dashboard

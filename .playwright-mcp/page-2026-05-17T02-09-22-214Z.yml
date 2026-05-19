@@ -1,0 +1,80 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e4]
+  - generic [ref=e5]:
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - link "DeepTutor" [ref=e8] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+      - navigation [ref=e13]:
+        - link "辅导机器人" [ref=e14] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e15]
+          - generic [ref=e18]: 辅导机器人
+        - link "知识库" [ref=e19] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e20]
+          - generic [ref=e22]: 知识库
+        - link "灵魂" [ref=e23] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e24]
+          - generic [ref=e29]: 灵魂
+      - generic [ref=e30]:
+        - link "配置文件" [ref=e31] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e32]
+          - generic [ref=e35]: 配置文件
+        - button "退出登录" [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e40]: 退出登录
+    - main [ref=e41]:
+      - button "Switch to English" [ref=e42] [cursor=pointer]:
+        - img [ref=e43]
+        - generic [ref=e47]: EN
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - generic [ref=e66]:
+            - img [ref=e67]
+            - generic [ref=e70]: 欢迎
+          - generic [ref=e73]:
+            - img [ref=e74]
+            - generic [ref=e76]: 选择灵魂
+          - generic [ref=e79]:
+            - img [ref=e80]
+            - generic [ref=e83]: 命名与描述
+          - generic [ref=e86]:
+            - img [ref=e87]
+            - generic [ref=e90]: 模型
+          - generic [ref=e93]:
+            - img [ref=e94]
+            - generic [ref=e96]: 完成
+        - generic [ref=e121]:
+          - heading "选择灵魂" [level=2] [ref=e122]
+          - paragraph [ref=e123]: 选择一个教学人格，或使用默认设置。
+          - generic [ref=e124]:
+            - 'button "默认导师 # 灵魂 我是 TutorBot，一位个性化的学习伙伴。 ## 人格 - 友善且乐于助人 - 表达清晰、富有耐心、给予鼓励 - 根据用户的水平调整讲解 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 在每一步行动中" [ref=e125] [cursor=pointer]':
+              - generic [ref=e126]: 默认导师
+              - generic [ref=e127]: "# 灵魂 我是 TutorBot，一位个性化的学习伙伴。 ## 人格 - 友善且乐于助人 - 表达清晰、富有耐心、给予鼓励 - 根据用户的水平调整讲解 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 在每一步行动中"
+            - 'button "数学导师 # 灵魂 我是一位专注于清晰、循序渐进解题的数学导师。 ## 人格 - 有耐心、有条理 - 鼓励学生展示解题过程 - 在难题取得进展时给予肯定 ## 教学风格 - 将复杂问题拆分为小步骤 - 当学生需要*看见*图像时，调用 `vi" [ref=e128] [cursor=pointer]':
+              - generic [ref=e129]: 数学导师
+              - generic [ref=e130]: "# 灵魂 我是一位专注于清晰、循序渐进解题的数学导师。 ## 人格 - 有耐心、有条理 - 鼓励学生展示解题过程 - 在难题取得进展时给予肯定 ## 教学风格 - 将复杂问题拆分为小步骤 - 当学生需要*看见*图像时，调用 `vi"
+            - 'button "编程助手 # 灵魂 我是一位编程助手，专注于帮助开发者写出更好的代码。 ## 人格 - 严谨、注重细节 - 务实——能跑起来的代码胜过完美的代码 - 清楚地解释取舍 ## 工作方式 - 先读后写，先理解上下文 - 在实现的同时建议合适的测试" [ref=e131] [cursor=pointer]':
+              - generic [ref=e132]: 编程助手
+              - generic [ref=e133]: "# 灵魂 我是一位编程助手，专注于帮助开发者写出更好的代码。 ## 人格 - 严谨、注重细节 - 务实——能跑起来的代码胜过完美的代码 - 清楚地解释取舍 ## 工作方式 - 先读后写，先理解上下文 - 在实现的同时建议合适的测试"
+            - 'button "研究助手 # 灵魂 我是一位研究助手，帮助用户深入探索学术主题。 ## 人格 - 好奇且周全 - 平衡——呈现多元视角 - 在可能时给出来源 ## 工作方式 - 将宽泛的问题拆解为聚焦的子问题 - 区分已确立的事实与仍有争议的问题 - 推荐" [ref=e134] [cursor=pointer]':
+              - generic [ref=e135]: 研究助手
+              - generic [ref=e136]: "# 灵魂 我是一位研究助手，帮助用户深入探索学术主题。 ## 人格 - 好奇且周全 - 平衡——呈现多元视角 - 在可能时给出来源 ## 工作方式 - 将宽泛的问题拆解为聚焦的子问题 - 区分已确立的事实与仍有争议的问题 - 推荐"
+            - 'button "语言导师 # 灵魂 我是一位语言学习伙伴，帮助用户练习与进步。 ## 人格 - 鼓励、耐心 - 难度随学习者水平调整 - 通过实例让学习更有趣 ## 教学风格 - 温和地纠正错误，并解释原因 - 使用具体语境中的例子，胜过抽象规则 - 鼓励" [ref=e137] [cursor=pointer]':
+              - generic [ref=e138]: 语言导师
+              - generic [ref=e139]: "# 灵魂 我是一位语言学习伙伴，帮助用户练习与进步。 ## 人格 - 鼓励、耐心 - 难度随学习者水平调整 - 通过实例让学习更有趣 ## 教学风格 - 温和地纠正错误，并解释原因 - 使用具体语境中的例子，胜过抽象规则 - 鼓励"
+            - button "从零开始 无预设人格，稍后自行定义。" [ref=e140] [cursor=pointer]:
+              - generic [ref=e141]: 从零开始
+              - generic [ref=e142]: 无预设人格，稍后自行定义。
+        - generic [ref=e114]:
+          - button "返回" [ref=e115] [cursor=pointer]:
+            - img [ref=e116]
+            - text: 返回
+          - button "下一个" [disabled] [ref=e118]:
+            - text: 下一个
+            - img [ref=e119]

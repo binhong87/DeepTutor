@@ -1,0 +1,82 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e55] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e56] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e57] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e59] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e60]
+          - generic [ref=e63]: 配置文件
+        - button "退出登录" [ref=e64] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e68]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "小数和分数 0/5" [ref=e86] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 小数和分数
+              - generic [ref=e93]: 0/5
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "in progress" [ref=e96]: ▶
+                - generic [ref=e98]:
+                  - generic [ref=e99]: Assess
+                  - generic [ref=e100]: 了解学生对小数和分数的已有认知，以及他们想重点学什么
+              - listitem [ref=e101]:
+                - generic "pending" [ref=e102]: ·
+                - generic [ref=e104]:
+                  - generic [ref=e105]: Define
+                  - generic [ref=e106]: 给出小数和分数的精确定义，建立核心概念
+              - listitem [ref=e107]:
+                - generic "pending" [ref=e108]: ·
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Explain
+                  - generic [ref=e112]: 讲解小数与分数之间的互相转换方法，并用可视化辅助理解
+              - listitem [ref=e113]:
+                - generic "pending" [ref=e114]: ·
+                - generic [ref=e116]:
+                  - generic [ref=e117]: Check
+                  - generic [ref=e118]: 通过一道转换题检验学生是否掌握
+              - listitem [ref=e119]:
+                - generic "pending" [ref=e120]: ·
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Wrap-up
+                  - generic [ref=e124]: 总结小数与分数的核心关系，指出常见易错点
+          - generic [ref=e80]: 小数和分数
+          - group [ref=e127]:
+            - generic "Thinking (3 steps)" [ref=e128] [cursor=pointer]
+            - generic [ref=e129]:
+              - paragraph [ref=e130]: "学生只是说了\"小数和分数\"这四个字，这看起来像是一个话题的起点——他们想让我讲解小数和分数。这是一个非平凡的话题，我需要调用 `plan_lesson` 来规划课程。 学生在学什么？不太确定。可能是小学数学的基础，也可能是想复习小数和分数之间的关系。让我先做一个初步评估，然后规划一节课。 考虑到这是一个基础数学话题，我设计一个结构化的课程： 1. assess - 了解学生当前对小数和分数的理解 2. define - 给出小数和分数的精确定义 3. explain - 解释小数和分数之间的转换关系 4. check - 测试理解 5. wrap_up - 总结 让我来规划这个课程。"
+              - paragraph [ref=e131]: plan_lesson("小数和分数")
+              - paragraph [ref=e132]: 好的，第一步是评估学生对小数和分数的已有认知。我需要先了解学生的基础，以及他们想重点学什么。让我来提出
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e77]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e78]

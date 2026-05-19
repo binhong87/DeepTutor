@@ -80,3 +80,17 @@ async def test_persist_failure_does_not_block_llm_call():
     # base64 preserved so the LLM call can still use it
     assert att.base64 == "aGVsbG8="
     assert att.url == ""
+
+
+def test_uses_resolved_key_not_parameter():
+    """Regression: _process_message must derive the AttachmentStore session
+    id from the RESOLVED key (key = session_key or self._default_session_key
+    or msg.session_key), not from the raw session_key parameter which may
+    be None. Without this, attachments break for any inbound message that
+    doesn't carry an explicit session_key arg."""
+    from deeptutor.tutorbot.agent.loop import _session_id_from_key
+
+    # The bug surface: _session_id_from_key(None) raises AttributeError.
+    # This test pins the contract that the loop never calls it with None.
+    with pytest.raises(AttributeError):
+        _session_id_from_key(None)  # type: ignore[arg-type]

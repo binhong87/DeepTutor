@@ -1,0 +1,67 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e9] [cursor=pointer]:
+    - img [ref=e10]
+  - alert [ref=e13]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "TutorBot" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: TutorBot
+        - link "Knowledge" [ref=e89] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e90]
+          - generic [ref=e92]: Knowledge
+        - link "Souls" [ref=e93] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e94]
+          - generic [ref=e99]: Souls
+    - main [ref=e101]:
+      - generic [ref=e102]:
+        - generic [ref=e103]:
+          - generic [ref=e105]:
+            - img [ref=e106]
+            - generic [ref=e109]: Welcome
+          - generic [ref=e112]:
+            - img [ref=e113]
+            - generic [ref=e115]: Choose Soul
+          - generic [ref=e118]:
+            - img [ref=e119]
+            - generic [ref=e122]: Name & Describe
+          - generic [ref=e125]:
+            - img [ref=e126]
+            - generic [ref=e129]: Model
+          - generic [ref=e132]:
+            - img [ref=e133]
+            - generic [ref=e135]: Done
+        - generic [ref=e136]:
+          - img [ref=e138]
+          - generic [ref=e141]:
+            - heading "Create Your First TutorBot" [level=1] [ref=e142]
+            - paragraph [ref=e143]: TutorBots are AI teaching agents powered by customizable personas, channel integrations, and RAG-powered knowledge bases.
+          - generic [ref=e144]:
+            - generic [ref=e145]:
+              - generic [ref=e146]: "1"
+              - text: Choose a teaching persona from our soul library
+            - generic [ref=e147]:
+              - generic [ref=e148]: "2"
+              - text: Give your bot a unique ID and description
+            - generic [ref=e149]:
+              - generic [ref=e150]: "3"
+              - text: Optionally select an LLM model or use the default
+            - generic [ref=e151]:
+              - generic [ref=e152]: "4"
+              - text: Chat, manage channels, and upload knowledge
+        - generic [ref=e153]:
+          - button "Back" [disabled] [ref=e154]:
+            - img [ref=e155]
+            - text: Back
+          - button "Next" [ref=e157] [cursor=pointer]:
+            - text: Next
+            - img [ref=e158]

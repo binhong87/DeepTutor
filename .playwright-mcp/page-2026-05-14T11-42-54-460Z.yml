@@ -1,0 +1,118 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "设置" [ref=e62] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e63]
+          - generic [ref=e66]: 设置
+        - button "退出登录" [ref=e67] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e71]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: demo-bot
+        - generic [ref=e38]:
+          - generic [ref=e73]:
+            - button "勾股定理（Pythagorean Theorem） 1/5" [ref=e180] [cursor=pointer]:
+              - img [ref=e75]
+              - img [ref=e77]
+              - generic [ref=e80]: 勾股定理（Pythagorean Theorem）
+              - generic [ref=e81]: 1/5
+            - list [ref=e82]:
+              - listitem [ref=e83]:
+                - generic "done" [ref=e181]: ✓
+                - generic [ref=e85]:
+                  - generic [ref=e86]:
+                    - generic [ref=e87]: Assess
+                    - generic [ref=e88]: 快速了解学生对勾股定理的已有印象，建立与之前三角函数的联系
+                  - generic [ref=e182]: ↳ 学生正确指出 3²+4²=5²（9+16=25），说明已从 3-4-5 三角形的反复使用中隐约感受到勾股关系。可以直接进入正式定义。
+              - listitem [ref=e89]:
+                - generic "in progress" [ref=e183]: ▶
+                - generic [ref=e92]:
+                  - generic [ref=e93]: Define
+                  - generic [ref=e94]: 用大白话定义勾股定理：直角三角形的两条直角边的平方和等于斜边的平方
+              - listitem [ref=e95]:
+                - generic "pending" [ref=e96]: ·
+                - generic [ref=e98]:
+                  - generic [ref=e99]: Explain
+                  - generic [ref=e100]: 用 3-4-5 三角形配图直观验证勾股定理（a²+b²=c² → 9+16=25）
+              - listitem [ref=e101]:
+                - generic "pending" [ref=e102]: ·
+                - generic [ref=e104]:
+                  - generic [ref=e105]: Check
+                  - generic [ref=e106]: 出一道小计算题检验理解
+              - listitem [ref=e107]:
+                - generic "pending" [ref=e108]: ·
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Wrap-up
+                  - generic [ref=e112]: 总结勾股定理的公式、与三角函数的关系、以及它的实际用途
+          - generic [ref=e114]: 帮我画一张余弦函数 y=cos(x) 在0到360度的图像，需要在聊天窗口中直接显示
+          - paragraph [ref=e119]: 我来帮你画 y=cos(x) 从 0° 到 360° 的图像。
+          - paragraph [ref=e124]: 函数图模式遇到了小问题，让我换一种方式来生成。
+          - generic [ref=e126]: 帮我画一张余弦函数 y=cos(x) 在0到360度的图像，需要在聊天窗口中直接显示
+          - paragraph [ref=e131]: function_graph 模式遇到了后端问题，我换用 HTML 渲染，然后把图像文件发给你。
+          - generic [ref=e133]: Say hi in one short sentence.
+          - paragraph [ref=e138]: 晚上好！有什么想学的或者想聊的，我随时在这儿 😊
+          - generic [ref=e140]: "[Runtime guidance — not student input] This looks like a teaching / explanation request. Your FIRST tool call this turn MUST be `plan_lesson` with 3–6 ordered steps. Do NOT answer free-form. Do NOT call `visualize` before `plan_lesson`. After planning, execute exactly ONE step this turn, then call `complete_step` and stop. --- Student message: 解释一下勾股定理"
+          - generic [ref=e144]:
+            - paragraph [ref=e145]: 好，我们先来摸底一下！🔍
+            - paragraph [ref=e146]:
+              - text: 你之前已经用过很多次
+              - strong [ref=e147]: 3-4-5 直角三角形
+              - text: 来学 sin/cos/tan 了——三条边分别是 3、4、5。
+            - paragraph [ref=e148]: 那我问你一个小问题：
+            - blockquote [ref=e149]:
+              - paragraph [ref=e150]: 你有没有注意到 3、4、5 这三个数之间，有什么特别的数学关系？
+            - paragraph [ref=e151]:
+              - text: 用你自己的话说就行，就算说不清楚也没关系，主要是让我知道你是
+              - strong [ref=e152]: 听过勾股定理这个名字但从没学过
+              - text: ，还是
+              - strong [ref=e153]: 已经有点印象了
+              - text: ～
+          - generic [ref=e155]: "# Current lesson: 勾股定理（Pythagorean Theorem） [>] s1 (assess): 快速了解学生对勾股定理的已有印象，建立与之前三角函数的联系 [ ] s2 (define): 用大白话定义勾股定理：直角三角形的两条直角边的平方和等于斜边的平方 [ ] s3 (explain): 用 3-4-5 三角形配图直观验证勾股定理（a²+b²=c² → 9+16=25） [ ] s4 (check): 出一道小计算题检验理解 [ ] s5 (wrap_up): 总结勾股定理的公式、与三角函数的关系、以及它的实际用途 **You are on step `s1`. Execute only that step, then call `complete_step`.** --- Student message: Hello"
+          - generic [ref=e159]:
+            - paragraph [ref=e160]: 你好呀！👋
+            - paragraph [ref=e161]:
+              - text: 刚才我问了你一个小问题——还记得吗？就是我们之前一直用的那个
+              - strong [ref=e162]: 3-4-5 直角三角形
+              - text: ：
+            - blockquote [ref=e163]:
+              - paragraph [ref=e164]: 你觉得 3²、4²、5² 这三个数之间，有没有什么特别的关系？
+            - paragraph [ref=e165]: 把你想到的随便说说就行，对了错了都无所谓，我先听听你的想法～ 😊
+          - generic [ref=e169]: 9+16=25, so 3²+4²=5²
+          - generic [ref=e175]:
+            - group [ref=e176]:
+              - generic "Thinking (3 steps)" [active] [ref=e184] [cursor=pointer]
+              - generic [ref=e178]:
+                - paragraph [ref=e179]: The student correctly identified that 3² + 4² = 5², which is the Pythagorean relationship. This tells me the student has some awareness of the Pythagorean theorem, at least intuitively from working with the 3-4-5 triangle so much. This is a great starting point. I should acknowledge their correct observation, briefly connect it to what they already know about right triangles (sin/cos/tan), and then complete this step so we can move on to the formal definition in s2.太对了！🎉 **9 + 16 = 25**，也就是 **3² + 4² = 5²**——完全正确！ 你其实已经**自己发现了勾股定理的核心**：直角三角形里，两条短边（直角边）的平方加起来，刚好等于斜边的平方。只不过你之前一直用它来算 sin/cos/tan，没注意到这三个数本身就有这个漂亮的关系。 那咱们正式开始学勾股定理，往下走！
+                - paragraph [ref=e188]: complete_step("s1")
+                - paragraph [ref=e189]: "I need to follow the instruction: stop here, end with one short sentence inviting student's reaction. I should NOT execute step s2 yet.准备好往下听勾股定理的正式定义了吗？😄"
+            - paragraph [ref=e187]: 准备好往下听勾股定理的正式定义了吗？😄
+        - generic [ref=e43]:
+          - textbox "Type a message..." [ref=e166]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e167]

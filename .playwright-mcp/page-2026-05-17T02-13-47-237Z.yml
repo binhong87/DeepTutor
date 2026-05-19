@@ -1,0 +1,47 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e4]
+  - generic [ref=e5]:
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - link "DeepTutor" [ref=e8] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+      - navigation [ref=e13]:
+        - link "辅导机器人" [ref=e14] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e15]
+          - generic [ref=e18]: 辅导机器人
+        - link "知识库" [ref=e19] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e20]
+          - generic [ref=e22]: 知识库
+        - link "灵魂" [ref=e23] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e24]
+          - generic [ref=e29]: 灵魂
+      - generic [ref=e30]:
+        - link "配置文件" [ref=e31] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e32]
+          - generic [ref=e35]: 配置文件
+        - button "退出登录" [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e40]: 退出登录
+    - main [ref=e41]:
+      - button "Switch to English" [ref=e42] [cursor=pointer]:
+        - img [ref=e43]
+        - generic [ref=e47]: EN
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - img [ref=e196]
+          - generic [ref=e199]: chem-tutor
+        - generic [ref=e202]:
+          - generic [ref=e218]: Teach me a lesson on chemical bonding — cover ionic, covalent and metallic bonds with examples.
+          - generic [ref=e219]:
+            - img [ref=e220]
+            - generic [ref=e222]: Thinking...
+        - generic [ref=e211]:
+          - textbox "Type a message..." [disabled] [ref=e212]
+          - button [disabled] [ref=e213]:
+            - img [ref=e214]

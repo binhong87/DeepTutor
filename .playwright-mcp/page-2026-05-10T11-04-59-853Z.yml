@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: TutorBot
+        - link "Knowledge" [ref=e16] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: Knowledge
+        - link "Souls" [ref=e20] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: Souls
+      - generic [ref=e27]:
+        - link "Settings" [ref=e96] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e97]
+          - generic [ref=e100]: Settings
+        - button "Sign out" [ref=e101] [cursor=pointer]:
+          - img [ref=e102]
+          - generic [ref=e105]: Sign out
+    - main [ref=e28]:
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - generic [ref=e32]:
+            - img [ref=e33]
+            - generic [ref=e36]: Welcome
+          - generic [ref=e39]:
+            - img [ref=e40]
+            - generic [ref=e42]: Choose Soul
+          - generic [ref=e45]:
+            - img [ref=e46]
+            - generic [ref=e49]: Name & Describe
+          - generic [ref=e52]:
+            - img [ref=e53]
+            - generic [ref=e56]: Model
+          - generic [ref=e59]:
+            - img [ref=e60]
+            - generic [ref=e62]: Done
+        - generic [ref=e142]:
+          - img [ref=e144]
+          - generic [ref=e147]:
+            - heading "Ready to Create" [level=2] [ref=e148]
+            - paragraph [ref=e149]: Your bot will use the default LLM model. You can change this later in settings.
+          - generic [ref=e150]:
+            - generic [ref=e151]: "Soul:"
+            - generic [ref=e152]: Default TutorBot
+            - generic [ref=e153]: "|"
+            - generic [ref=e154]: "ID:"
+            - generic [ref=e155]: demo-bot
+            - generic [ref=e156]: "|"
+            - generic [ref=e157]: "Name:"
+            - generic [ref=e158]: Demo Bot
+        - generic [ref=e159]:
+          - button "Back" [ref=e160] [cursor=pointer]:
+            - img [ref=e161]
+            - text: Back
+          - button "Create Bot" [ref=e163] [cursor=pointer]:
+            - img [ref=e164]
+            - text: Create Bot
+  - button "Open Next.js Dev Tools" [ref=e92] [cursor=pointer]:
+    - img [ref=e93]
+  - alert [ref=e106]

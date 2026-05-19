@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: 请讲解一下三角函数的概念
+          - paragraph [ref=e74]: 你好！三角函数是初中数学里非常有趣的一个工具，我用图文方式给你系统讲一遍。先画两个关键的图：
+          - region [ref=e80]:
+            - img [ref=e81]:
+              - generic [ref=e91]:
+                - generic [ref=e92]: "1"
+                - generic [ref=e93]: "2"
+                - generic [ref=e94]: "3"
+                - generic [ref=e95]: "4"
+                - generic [ref=e96]: "5"
+                - generic [ref=e97]: "6"
+                - generic [ref=e98]: "0.5"
+                - generic [ref=e99]: "1"
+                - generic [ref=e100]: "1.5"
+                - generic [ref=e101]: "2"
+                - generic [ref=e102]: "2.5"
+                - generic [ref=e103]: "3"
+            - generic [ref=e111]: A
+            - generic [ref=e112]: B
+            - generic [ref=e113]: C
+            - generic [ref=e114]: D
+            - generic [ref=e115]: E
+            - generic [ref=e116]: F
+            - generic [ref=e117]: θ
+            - generic [ref=e118]: SOH·CAH·TOA
+            - generic [ref=e119]: sinθ = 对边/斜边 = BC/AB
+            - generic [ref=e120]: sinθ = 3/5 = 0.6
+            - generic [ref=e121]: cosθ = 邻边/斜边 = AC/AB
+            - generic [ref=e122]: cosθ = 4/5 = 0.8
+            - generic [ref=e123]: tanθ = 对边/邻边 = BC/AC
+            - generic [ref=e124]: tanθ = 3/4 = 0.75
+          - generic [ref=e126]: /new
+          - paragraph [ref=e137]: New session started.
+          - generic [ref=e139]: 请讲解一下三角函数的概念
+          - generic [ref=e145]:
+            - group [ref=e146]:
+              - generic "Thinking (29 steps)" [ref=e165] [cursor=pointer]
+            - region [ref=e169]:
+              - img [ref=e170]:
+                - generic [ref=e180]:
+                  - generic [ref=e181]: "1"
+                  - generic [ref=e182]: "2"
+                  - generic [ref=e183]: "3"
+                  - generic [ref=e184]: "4"
+                  - generic [ref=e185]: "5"
+                  - generic [ref=e186]: "6"
+                  - generic [ref=e187]: "7"
+                  - generic [ref=e188]: "0.5"
+                  - generic [ref=e189]: "1"
+                  - generic [ref=e190]: "1.5"
+                  - generic [ref=e191]: "2"
+                  - generic [ref=e192]: "2.5"
+                  - generic [ref=e193]: "3"
+                  - generic [ref=e194]: "3.5"
+                  - generic [ref=e195]: "4"
+                  - generic [ref=e196]: −0.5
+              - generic [ref=e206]: A
+              - generic [ref=e207]: B
+              - generic [ref=e208]: C
+              - generic [ref=e209]: D
+              - generic [ref=e210]: E
+              - generic [ref=e211]: F
+              - generic [ref=e212]: G
+              - generic [ref=e213]: H
+              - generic [ref=e214]: θ
+              - generic [ref=e215]: 斜边 = 5
+              - generic [ref=e216]: 对边 = 3
+              - generic [ref=e217]: 邻边 = 4
+              - generic [ref=e218]: SOH · CAH · TOA
+              - generic [ref=e219]: sinθ = 对边/斜边 = 3/5 = 0.6
+              - generic [ref=e220]: cosθ = 邻边/斜边 = 4/5 = 0.8
+              - generic [ref=e221]: tanθ = 对边/邻边 = 3/4 = 0.75
+          - generic [ref=e223]: /new
+          - paragraph [ref=e232]: New session started.
+        - generic [ref=e43]:
+          - textbox "Type a message..." [ref=e131]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e132]

@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e124]
+  - generic [ref=e127]:
+    - complementary [ref=e128]:
+      - generic [ref=e129]:
+        - link "DeepTutor DeepTutor" [ref=e130] [cursor=pointer]:
+          - /url: /
+          - img "DeepTutor" [ref=e131]
+          - generic [ref=e132]: DeepTutor
+        - button "Collapse sidebar" [ref=e133] [cursor=pointer]:
+          - img [ref=e134]
+      - navigation [ref=e137]:
+        - generic [ref=e138]:
+          - button "New Chat" [ref=e139] [cursor=pointer]:
+            - img [ref=e140]
+            - generic [ref=e141]: New Chat
+          - link "Chat" [ref=e143] [cursor=pointer]:
+            - /url: /chat
+            - img [ref=e144]
+            - generic [ref=e146]: Chat
+          - link "TutorBot" [ref=e148] [cursor=pointer]:
+            - /url: /agents
+            - img [ref=e149]
+            - generic [ref=e152]: TutorBot
+          - link "Co-Writer" [ref=e154] [cursor=pointer]:
+            - /url: /co-writer
+            - img [ref=e155]
+            - generic [ref=e157]: Co-Writer
+          - link "Book" [ref=e159] [cursor=pointer]:
+            - /url: /book
+            - img [ref=e160]
+            - generic [ref=e162]: Book
+          - link "Knowledge" [ref=e164] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e165]
+            - generic [ref=e167]: Knowledge
+          - link "Space" [ref=e169] [cursor=pointer]:
+            - /url: /space
+            - img [ref=e170]
+            - generic [ref=e175]: Space
+      - generic [ref=e177]:
+        - link "Settings" [ref=e178] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e179]
+          - generic [ref=e182]: Settings
+        - generic [ref=e183]:
+          - link "v1.3.8" [ref=e184] [cursor=pointer]:
+            - /url: https://github.com/HKUDS/DeepTutor/releases
+            - generic [ref=e186]: v1.3.8
+          - link "GitHub" [ref=e187] [cursor=pointer]:
+            - /url: https://github.com/HKUDS/DeepTutor
+            - img [ref=e188]
+    - main [ref=e191]:
+      - generic [ref=e193]:
+        - generic [ref=e195]:
+          - heading "Settings" [level=1] [ref=e196]
+          - paragraph [ref=e197]: All changes saved
+        - generic [ref=e198]:
+          - generic [ref=e199]:
+            - generic [ref=e200]: Theme
+            - generic [ref=e201]:
+              - button "Snow" [ref=e202] [cursor=pointer]
+              - button "Light" [ref=e203] [cursor=pointer]
+              - button "Dark" [ref=e204] [cursor=pointer]
+              - button "Glass" [ref=e205] [cursor=pointer]
+          - generic [ref=e206]:
+            - generic [ref=e207]: Language
+            - generic [ref=e208]:
+              - button "English" [ref=e209] [cursor=pointer]
+              - button "中文" [ref=e210] [cursor=pointer]

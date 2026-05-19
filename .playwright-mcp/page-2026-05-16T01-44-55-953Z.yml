@@ -1,0 +1,76 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e39] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e40] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e41] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e42] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "设置" [ref=e43] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e44]
+          - generic [ref=e47]: 设置
+        - button "退出登录" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+          - generic [ref=e52]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e53]:
+        - generic [ref=e54]:
+          - generic [ref=e56]:
+            - img [ref=e57]
+            - generic [ref=e60]: 欢迎
+          - generic [ref=e63]:
+            - img [ref=e64]
+            - generic [ref=e66]: 选择灵魂
+          - generic [ref=e69]:
+            - img [ref=e70]
+            - generic [ref=e73]: 命名与描述
+          - generic [ref=e76]:
+            - img [ref=e77]
+            - generic [ref=e80]: 模型
+          - generic [ref=e83]:
+            - img [ref=e84]
+            - generic [ref=e86]: 完成
+        - generic [ref=e87]:
+          - img [ref=e89]
+          - generic [ref=e92]:
+            - heading "创建首个导师机器人" [level=1] [ref=e93]
+            - paragraph [ref=e94]: TutorBot 是由可定制人格、渠道集成和 RAG 知识库驱动的 AI 教学智能体。
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e97]: "1"
+              - text: 从灵魂库中选择教学人格
+            - generic [ref=e98]:
+              - generic [ref=e99]: "2"
+              - text: 为你的机器人设置唯一 ID 和描述
+            - generic [ref=e100]:
+              - generic [ref=e101]: "3"
+              - text: 可选择 LLM 模型，或使用默认模型
+            - generic [ref=e102]:
+              - generic [ref=e103]: "4"
+              - text: 开始聊天、管理渠道并上传知识
+        - generic [ref=e104]:
+          - button "返回" [disabled] [ref=e105]:
+            - img [ref=e106]
+            - text: 返回
+          - button "下一个" [ref=e108] [cursor=pointer]:
+            - text: 下一个
+            - img [ref=e109]
+  - alert [ref=e38]

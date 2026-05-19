@@ -1,0 +1,62 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e3]
+  - generic [ref=e22]:
+    - complementary [ref=e23]:
+      - generic [ref=e24]:
+        - link "DeepTutor" [ref=e25] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e26] [cursor=pointer]:
+          - img [ref=e27]
+      - navigation [ref=e30]:
+        - link "辅导机器人" [ref=e31] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e32]
+          - generic [ref=e35]: 辅导机器人
+        - link "知识库" [ref=e36] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e37]
+          - generic [ref=e39]: 知识库
+        - link "灵魂" [ref=e40] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e41]
+          - generic [ref=e46]: 灵魂
+      - generic [ref=e47]:
+        - link "配置文件" [ref=e48] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e49]
+          - generic [ref=e52]: 配置文件
+        - button "退出登录" [ref=e53] [cursor=pointer]:
+          - img [ref=e54]
+          - generic [ref=e57]: 退出登录
+    - main [ref=e58]:
+      - button "Switch to English" [ref=e59] [cursor=pointer]:
+        - img [ref=e60]
+        - generic [ref=e64]: EN
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - heading "我的导师机器人" [level=1] [ref=e68]
+            - paragraph [ref=e69]: 已登录为 e2e_admin
+          - link "创建新机器人" [ref=e70] [cursor=pointer]:
+            - /url: /tutorbot/boarding
+            - img [ref=e71]
+            - text: 创建新机器人
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - generic [ref=e75]:
+              - img [ref=e77]
+              - heading "信息化教研" [level=3] [ref=e81]
+            - generic [ref=e82]: 已停止
+          - generic [ref=e84]:
+            - link "聊天" [ref=e85] [cursor=pointer]:
+              - /url: /tutorbot/bot-ubc6pp/chat
+              - img [ref=e86]
+              - text: 聊天
+            - link "设置" [ref=e88] [cursor=pointer]:
+              - /url: /tutorbot/bot-ubc6pp/settings
+              - img [ref=e89]
+              - text: 设置
+            - link "开始" [ref=e92] [cursor=pointer]:
+              - /url: /tutorbot/bot-ubc6pp/chat
+              - img [ref=e93]
+              - text: 开始

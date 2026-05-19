@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e94] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e95] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e96] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e97] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e98] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e99]
+          - generic [ref=e102]: 配置文件
+        - button "退出登录" [ref=e103] [cursor=pointer]:
+          - img [ref=e104]
+          - generic [ref=e107]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e38]:
+            - img [ref=e39]
+            - generic [ref=e42]: 欢迎
+          - generic [ref=e45]:
+            - img [ref=e46]
+            - generic [ref=e48]: 选择灵魂
+          - generic [ref=e51]:
+            - img [ref=e52]
+            - generic [ref=e55]: 命名与描述
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - generic [ref=e62]: 模型
+          - generic [ref=e65]:
+            - img [ref=e66]
+            - generic [ref=e68]: 完成
+        - generic [ref=e143]:
+          - img [ref=e145]
+          - generic [ref=e148]:
+            - heading "准备创建" [level=2] [ref=e149]
+            - paragraph [ref=e150]: 你的机器人将使用默认 LLM 模型，稍后可在设置中更改。
+          - generic [ref=e151]:
+            - generic [ref=e152]: "灵魂:"
+            - generic [ref=e153]: 数学导师
+            - generic [ref=e154]: "|"
+            - generic [ref=e155]: "ID:"
+            - generic [ref=e156]: math-bot
+            - generic [ref=e157]: "|"
+            - generic [ref=e158]: "Name:"
+            - generic [ref=e159]: 数学导师 Bot
+        - generic [ref=e160]:
+          - button "返回" [ref=e161] [cursor=pointer]:
+            - img [ref=e162]
+            - text: 返回
+          - button "创建机器人" [ref=e164] [cursor=pointer]:
+            - img [ref=e165]
+            - text: 创建机器人
+  - alert [ref=e93]

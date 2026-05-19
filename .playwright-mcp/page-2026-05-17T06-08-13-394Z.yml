@@ -1,0 +1,75 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "辅导机器人" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: 辅导机器人
+        - generic [ref=e89]:
+          - link "知识库" [ref=e90] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e91]
+            - generic [ref=e93]: 知识库
+          - link "灵魂" [ref=e94] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e95]
+            - generic [ref=e100]: 灵魂
+      - generic [ref=e101]:
+        - link "配置文件" [ref=e102] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e103]
+          - generic [ref=e106]: 配置文件
+        - button "退出登录" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e111]: 退出登录
+    - main [ref=e112]:
+      - button "Switch to English" [ref=e113] [cursor=pointer]:
+        - img [ref=e114]
+        - generic [ref=e118]: EN
+      - generic [ref=e119]:
+        - generic [ref=e120]:
+          - generic [ref=e122]:
+            - img [ref=e123]
+            - generic [ref=e126]: 欢迎
+          - generic [ref=e129]:
+            - img [ref=e130]
+            - generic [ref=e132]: 选择灵魂
+          - generic [ref=e135]:
+            - img [ref=e136]
+            - generic [ref=e139]: 命名与描述
+          - generic [ref=e142]:
+            - img [ref=e143]
+            - generic [ref=e146]: 模型
+          - generic [ref=e149]:
+            - img [ref=e150]
+            - generic [ref=e152]: 完成
+        - generic [ref=e212]:
+          - img [ref=e214]
+          - generic [ref=e217]:
+            - heading "准备创建" [level=2] [ref=e218]
+            - paragraph [ref=e219]: 你的机器人将使用默认 LLM 模型，稍后可在设置中更改。
+          - generic [ref=e220]:
+            - generic [ref=e221]: "灵魂:"
+            - generic [ref=e222]: 数学导师
+            - generic [ref=e223]: "|"
+            - generic [ref=e224]: "ID:"
+            - generic [ref=e225]: math-smoke
+            - generic [ref=e226]: "|"
+            - generic [ref=e227]: "Name:"
+            - generic [ref=e228]: Math Smoke
+        - generic [ref=e229]:
+          - button "返回" [ref=e230] [cursor=pointer]:
+            - img [ref=e231]
+            - text: 返回
+          - button "创建机器人" [ref=e233] [cursor=pointer]:
+            - img [ref=e234]
+            - text: 创建机器人

@@ -1,0 +1,50 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e37]:
+        - link "Settings" [ref=e38] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e39]
+          - text: Settings
+        - button "Sign out" [ref=e42] [cursor=pointer]:
+          - img [ref=e43]
+          - text: Sign out
+    - main [ref=e24]:
+      - generic [ref=e73]:
+        - link "Back" [ref=e74] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e75]
+          - text: Back
+        - heading "Create Knowledge Base" [level=1] [ref=e77]
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - text: Name
+            - textbox "e.g. Course Materials" [ref=e80]
+          - generic [ref=e81]:
+            - img [ref=e82]
+            - paragraph [ref=e85]: Drag and drop files here, or click to browse
+            - paragraph [ref=e86]: PDF, DOCX, XLSX, PPTX, Markdown, and text files supported
+            - button "Choose File" [ref=e87]
+            - button "Browse Files" [ref=e88] [cursor=pointer]
+          - button "Create Knowledge Base" [disabled] [ref=e89]
+  - button "Open Next.js Dev Tools" [ref=e33] [cursor=pointer]:
+    - img [ref=e34]
+  - alert [ref=e72]

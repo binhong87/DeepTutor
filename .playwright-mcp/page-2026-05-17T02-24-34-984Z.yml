@@ -1,0 +1,363 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e4]
+  - generic [ref=e5]:
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - link "DeepTutor" [ref=e8] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+      - navigation [ref=e13]:
+        - link "辅导机器人" [ref=e14] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e15]
+          - generic [ref=e18]: 辅导机器人
+        - link "知识库" [ref=e19] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e20]
+          - generic [ref=e22]: 知识库
+        - link "灵魂" [ref=e23] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e24]
+          - generic [ref=e29]: 灵魂
+      - generic [ref=e30]:
+        - link "配置文件" [ref=e31] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e32]
+          - generic [ref=e35]: 配置文件
+        - button "退出登录" [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e40]: 退出登录
+    - main [ref=e41]:
+      - button "Switch to English" [ref=e42] [cursor=pointer]:
+        - img [ref=e43]
+        - generic [ref=e47]: EN
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - img [ref=e196]
+          - generic [ref=e199]: chem-tutor
+        - generic [ref=e202]:
+          - generic [ref=e229]:
+            - button "Chemical bonding — ionic, covalent, and metallic bonds with examples 4/6" [ref=e1739] [cursor=pointer]:
+              - img [ref=e231]
+              - img [ref=e233]
+              - generic [ref=e236]: Chemical bonding — ionic, covalent, and metallic bonds with examples
+              - generic [ref=e237]: 4/6
+            - list [ref=e238]:
+              - listitem [ref=e239]:
+                - generic "done" [ref=e240]: ✓
+                - generic [ref=e241]:
+                  - generic [ref=e242]:
+                    - generic [ref=e243]: Define
+                    - generic [ref=e244]: "Define what a chemical bond is and introduce the three main types: ionic, covalent, and metallic."
+                  - generic [ref=e245]: ↳ Defined chemical bonding as the attractive force holding atoms together to achieve stable electron configurations. Introduced the three main types — ionic (electron transfer, metal+non-metal), covalent (electron sharing, non-metal+non-metal), metallic (delocalised electron sea, metals only) — with a comparison table and memorable analogies.
+              - listitem [ref=e246]:
+                - generic "done" [ref=e541]: ✓
+                - generic [ref=e248]:
+                  - generic [ref=e249]:
+                    - generic [ref=e250]: Explain
+                    - generic [ref=e251]: Explain ionic bonding — electron transfer between metals and non-metals, with NaCl as the classic example.
+                  - generic [ref=e542]: "↳ Explained ionic bonding as electron transfer between metals and non-metals. Walked through NaCl example: Na (2,8,1) loses 1 e⁻ → Na⁺ (like Ne); Cl (2,8,7) gains 1 e⁻ → Cl⁻ (like Ar); opposite ions attract electrostatically. Diagram showed the process clearly. Student confirmed understanding."
+              - listitem [ref=e252]:
+                - generic "done" [ref=e954]: ✓
+                - generic [ref=e254]:
+                  - generic [ref=e255]:
+                    - generic [ref=e256]: Explain
+                    - generic [ref=e257]: Explain covalent bonding — electron sharing between non-metals, with H₂O and O₂ as examples.
+                  - generic [ref=e955]: "↳ Explained covalent bonding as electron sharing between non-metals. Covered O₂: two O atoms (6 valence e⁻ each) share two pairs → double bond O=O, both get octets. Covered H₂O: O shares one pair with each H → two single bonds H-O-H, O gets octet, each H gets 2e⁻ (like He). Diagram showed both examples clearly. Student confirmed understanding."
+              - listitem [ref=e258]:
+                - generic "done" [ref=e1740]: ✓
+                - generic [ref=e260]:
+                  - generic [ref=e261]:
+                    - generic [ref=e262]: Explain
+                    - generic [ref=e263]: Explain metallic bonding — the 'sea of electrons' model, with copper and iron as examples.
+                  - generic [ref=e1741]: "↳ Explained metallic bonding as the \"sea of electrons\" model: metal atoms pool their valence electrons into a delocalised, mobile sea around positive ion cores fixed in a lattice. Used Cu and Fe as examples. Covered three key properties that arise from this: electrical conductivity in solid state (mobile electrons), malleability/ductility (ions slide, electron sea re-forms), and high melting points"
+              - listitem [ref=e264]:
+                - generic "in progress" [ref=e1742]: ▶
+                - generic [ref=e267]:
+                  - generic [ref=e268]: Check
+                  - generic [ref=e269]: Quiz you on identifying bond types from element pairs and properties.
+              - listitem [ref=e270]:
+                - generic "pending" [ref=e271]: ·
+                - generic [ref=e273]:
+                  - generic [ref=e274]: Wrap-up
+                  - generic [ref=e275]: Summarise with a comparison table of the three bond types and suggest next steps.
+          - generic [ref=e218]: Teach me a lesson on chemical bonding — cover ionic, covalent and metallic bonds with examples.
+          - generic [ref=e224]:
+            - group [ref=e225]:
+              - generic "Thinking (5 steps)" [ref=e276] [cursor=pointer]
+            - generic [ref=e282]:
+              - heading "Step 1 — What is a Chemical Bond?" [level=2] [ref=e283]
+              - paragraph [ref=e284]: "At its simplest:"
+              - blockquote [ref=e285]:
+                - paragraph [ref=e286]:
+                  - text: A
+                  - strong [ref=e287]: chemical bond
+                  - text: is the attractive force that holds two or more atoms together, allowing them to form molecules, crystals, or extended structures.
+              - paragraph [ref=e288]:
+                - text: Atoms bond because, by doing so, they achieve a
+                - strong [ref=e289]: more stable (lower-energy) electron configuration
+                - text: — typically a full outer shell of electrons, like the noble gases have. This is often called the
+                - strong [ref=e290]: octet rule
+                - text: (8 electrons in the valence shell), though there are exceptions.
+              - separator [ref=e291]
+              - heading "The Three Main Types of Chemical Bonds" [level=3] [ref=e292]
+              - paragraph [ref=e293]:
+                - text: Chemical bonds fall into three broad categories, defined by
+                - emphasis [ref=e294]: how
+                - text: "the electrons are rearranged:"
+              - table [ref=e296]:
+                - rowgroup [ref=e297]:
+                  - row "Bond Type What happens to electrons? Typical partners" [ref=e298]:
+                    - columnheader "Bond Type" [ref=e299]
+                    - columnheader "What happens to electrons?" [ref=e300]
+                    - columnheader "Typical partners" [ref=e301]
+                - rowgroup [ref=e302]:
+                  - row "Ionic Electrons are transferred from one atom to another. Oppositely charged ions attract. Metal + Non-metal" [ref=e303]:
+                    - cell "Ionic" [ref=e304]:
+                      - strong [ref=e305]: Ionic
+                    - cell "Electrons are transferred from one atom to another. Oppositely charged ions attract." [ref=e306]:
+                      - text: Electrons are
+                      - strong [ref=e307]: transferred
+                      - text: from one atom to another. Oppositely charged ions attract.
+                    - cell "Metal + Non-metal" [ref=e308]
+                  - row "Covalent Electrons are shared between atoms. Each atom contributes one or more electrons to a shared pair. Non-metal + Non-metal" [ref=e309]:
+                    - cell "Covalent" [ref=e310]:
+                      - strong [ref=e311]: Covalent
+                    - cell "Electrons are shared between atoms. Each atom contributes one or more electrons to a shared pair." [ref=e312]:
+                      - text: Electrons are
+                      - strong [ref=e313]: shared
+                      - text: between atoms. Each atom contributes one or more electrons to a shared pair.
+                    - cell "Non-metal + Non-metal" [ref=e314]
+                  - row "Metallic Electrons are delocalised — they form a \"sea\" that flows freely around positive metal ion cores. Metal atoms only" [ref=e315]:
+                    - cell "Metallic" [ref=e316]:
+                      - strong [ref=e317]: Metallic
+                    - cell "Electrons are delocalised — they form a \"sea\" that flows freely around positive metal ion cores." [ref=e318]:
+                      - text: Electrons are
+                      - strong [ref=e319]: delocalised
+                      - text: — they form a "sea" that flows freely around positive metal ion cores.
+                    - cell "Metal atoms only" [ref=e320]
+              - paragraph [ref=e321]: "Think of it this way:"
+              - list [ref=e322]:
+                - listitem [ref=e323]:
+                  - strong [ref=e324]: Ionic
+                  - text: = one atom
+                  - emphasis [ref=e325]: gives
+                  - text: ", the other"
+                  - emphasis [ref=e326]: takes
+                  - text: ↔️
+                - listitem [ref=e327]:
+                  - strong [ref=e328]: Covalent
+                  - text: = atoms
+                  - emphasis [ref=e329]: share
+                  - text: 🤝
+                - listitem [ref=e330]:
+                  - strong [ref=e331]: Metallic
+                  - text: = all atoms
+                  - emphasis [ref=e332]: pool
+                  - text: their electrons together 🌊
+              - paragraph [ref=e333]: These three bonding types explain nearly all the materials around us — from table salt (ionic) and water (covalent) to copper wire (metallic). We'll explore each one in detail in the coming steps.
+              - separator [ref=e334]
+              - paragraph [ref=e335]: Does that high-level picture make sense so far? Ready to dive into ionic bonding next?
+          - generic [ref=e337]: Yes, that's clear! Let's dive into ionic bonding.
+          - generic [ref=e343]:
+            - group [ref=e344]:
+              - generic "Thinking (18 steps)" [ref=e369] [cursor=pointer]
+            - generic [ref=e372]:
+              - heading "Step 2 — Ionic Bonding 🔌" [level=2] [ref=e373]
+              - heading "The Core Idea" [level=3] [ref=e374]
+              - paragraph [ref=e375]:
+                - text: Ionic bonding happens between
+                - strong [ref=e376]: metals
+                - text: and
+                - strong [ref=e377]: non-metals
+                - text: . The metal atom
+                - emphasis [ref=e378]: gives up
+                - text: one or more electrons, and the non-metal
+                - emphasis [ref=e379]: takes
+                - text: them. This creates
+                - strong [ref=e380]: ions
+                - text: — charged particles — and opposite charges attract.
+              - paragraph [ref=e381]: "Why does this happen? Two driving forces:"
+              - list [ref=e382]:
+                - listitem [ref=e383]:
+                  - strong [ref=e384]: Metals
+                  - text: have low
+                  - strong [ref=e385]: ionisation energy
+                  - text: — they
+                  - emphasis [ref=e386]: want
+                  - text: to lose electrons to get a full outer shell.
+                - listitem [ref=e387]:
+                  - strong [ref=e388]: Non-metals
+                  - text: have high
+                  - strong [ref=e389]: electron affinity
+                  - text: — they
+                  - emphasis [ref=e390]: want
+                  - text: to gain electrons to fill their outer shell.
+              - separator [ref=e391]
+              - 'heading "Classic Example: NaCl (Sodium Chloride — Table Salt)" [level=3] [ref=e392]'
+              - paragraph [ref=e393]: "Let's look at the electron transfer visually:"
+              - paragraph [ref=e394]: "Let me try a different approach for the visual:"
+              - paragraph [ref=e395]: "Let me try one more time with a simpler request:"
+              - document [ref=e2010]:
+                - generic [ref=e2012]:
+                  - generic [ref=e2013]:
+                    - generic [ref=e2019]: Cl_side
+                    - generic [ref=e2025]: Na_side
+                  - generic [ref=e2029]:
+                    - generic [ref=e2035]: loses 1 electron
+                    - generic [ref=e2041]: gains 1 electron
+                    - generic [ref=e2046]:
+                      - generic [ref=e2047]: Opposite charges attract
+                      - generic [ref=e2048]: → IONIC BOND
+                  - generic [ref=e2049]:
+                    - paragraph [ref=e2056]: Na atom (2,8,1) — 1 valence electron
+                    - paragraph [ref=e2063]: Na⁺ ion (2,8)⁺ — like Neon
+                    - paragraph [ref=e2070]: Cl atom (2,8,7) — 7 valence electrons
+                    - paragraph [ref=e2077]: Cl⁻ ion (2,8,8)⁻ — like Argon
+          - generic [ref=e535]: Great diagram! That makes the electron transfer very clear. Ready for covalent bonding.
+          - generic [ref=e613]:
+            - group [ref=e614]:
+              - generic "Thinking (8 steps)" [ref=e689] [cursor=pointer]
+            - generic [ref=e691]:
+              - paragraph [ref=e692]: Great, glad the diagram helped! Let me close out the ionic bonding step first.
+              - paragraph [ref=e693]:
+                - text: Now let's move into covalent bonding — where atoms
+                - emphasis [ref=e694]: share
+                - text: instead of
+                - emphasis [ref=e695]: giving and taking
+                - text: .
+              - separator [ref=e696]
+              - heading "Step 3 — Covalent Bonding 🤝" [level=2] [ref=e697]
+              - heading "The Core Idea" [level=3] [ref=e698]
+              - paragraph [ref=e699]:
+                - text: Covalent bonding happens between
+                - strong [ref=e700]: two non-metals
+                - text: . Instead of transferring electrons, the atoms
+                - strong [ref=e701]: share
+                - text: pairs of electrons. Each shared pair =
+                - strong [ref=e702]: one covalent bond
+                - text: . Both atoms get to "count" the shared electrons toward their octet, so everyone wins.
+              - 'heading "Example 1: O₂ (Oxygen Gas)" [level=3] [ref=e703]'
+              - paragraph [ref=e704]:
+                - text: Each oxygen atom has 6 valence electrons (2,6) — needs 2 more. Two oxygen atoms come together and share
+                - strong [ref=e705]: two pairs
+                - text: of electrons, forming a
+                - strong [ref=e706]: double bond
+                - text: "(O=O):"
+              - code [ref=e707]: O atom + O atom → O=O (each O now "feels" 8 electrons)
+              - paragraph [ref=e708]: "Visualising this:"
+              - document [ref=e2078]:
+                - generic [ref=e2081]:
+                  - generic [ref=e2082]:
+                    - generic [ref=e2089]: Water Molecule (H₂O)
+                    - generic [ref=e2093]:
+                      - paragraph [ref=e2100]: O atom — 6 valence electrons, needs 2 more
+                      - paragraph [ref=e2107]: O shares one pair with each H → H-O-H (two single covalent bonds)
+                      - paragraph [ref=e2114]: Two H atoms — 1 valence electron each, need 1 more
+                      - paragraph [ref=e2121]: O has full octet, each H has 2 electrons (like Helium)
+                  - generic [ref=e2122]:
+                    - generic [ref=e2129]: Oxygen Molecule (O₂)
+                    - generic [ref=e2133]:
+                      - paragraph [ref=e2140]: O atom — 6 valence electrons, needs 2 more
+                      - paragraph [ref=e2147]: Share TWO pairs of electrons → O=O (double covalent bond)
+                      - paragraph [ref=e2154]: O atom — 6 valence electrons, needs 2 more
+                      - paragraph [ref=e2161]: Each O atom now has a full octet (8 electrons)
+          - generic [ref=e948]: Perfect, the shared pairs concept is clear. Let's do metallic bonding now.
+          - generic [ref=e1110]:
+            - group [ref=e1111]:
+              - generic "Thinking (5 steps)" [ref=e1423] [cursor=pointer]
+            - generic [ref=e1425]:
+              - paragraph [ref=e1426]: The covalent bonding step looks great — glad the shared pairs clicked! Let me close that out.
+              - paragraph [ref=e1427]: Now let's move on to the third and final bond type!
+              - separator [ref=e1428]
+              - heading "Step 4 — Metallic Bonding 🌊⚡" [level=2] [ref=e1429]
+              - heading "The Core Idea" [level=3] [ref=e1430]
+              - paragraph [ref=e1431]:
+                - text: Metallic bonding occurs between
+                - strong [ref=e1432]: metal atoms only
+                - text: . Instead of transferring or sharing electrons in pairs, metal atoms
+                - strong [ref=e1433]: pool all their valence electrons together
+                - text: into a "sea" that flows freely around the positive metal ion cores.
+              - paragraph [ref=e1434]: "Think of it like this:"
+              - blockquote [ref=e1435]:
+                - paragraph [ref=e1436]:
+                  - text: Positively charged metal ions sit in a regular lattice, and the valence electrons are
+                  - strong [ref=e1437]: delocalised
+                  - text: — they don't belong to any single atom but move freely throughout the entire structure.
+              - separator [ref=e1438]
+              - heading "The \"Sea of Electrons\" Model" [level=3] [ref=e1439]
+              - code [ref=e1443]: "[Cu⁺] [Cu⁺] [Cu⁺] [Cu⁺] ← positive metal ion cores e⁻ e⁻ e⁻ e⁻ e⁻ e⁻ ← delocalised \"sea\" of electrons [Cu⁺] [Cu⁺] [Cu⁺] [Cu⁺] ← flowing between and around them"
+              - paragraph [ref=e1444]: "Let me draw this more clearly:"
+              - document [ref=e2162]:
+                - generic [ref=e2172]:
+                  - paragraph [ref=e2179]: Metal atoms (e.g., Cu, Fe) — few valence electrons, low ionisation energy
+                  - paragraph [ref=e2186]: Atoms pack together in a regular lattice, each loses its valence electrons
+                  - paragraph [ref=e2193]: Positive metal ions (Cu⁺, Fe²⁺) — fixed in lattice positions
+                  - paragraph [ref=e2200]: Valence electrons — now DELOCALISED, form a mobile 'sea' flowing around all ions
+                  - paragraph [ref=e2207]: Electrostatic attraction between ion lattice AND electron sea = METALLIC BOND
+                  - paragraph [ref=e2214]: Conducts electricity (solid) — mobile electrons carry current
+                  - paragraph [ref=e2221]: Malleable & ductile — ions can slide past each other, electron sea re-forms around new positions
+                  - paragraph [ref=e2228]: High melting points — strong attraction between many ions and the electron sea
+          - generic [ref=e1734]: Great, the electron sea model makes perfect sense! Ready for the quiz.
+          - generic [ref=e1963]:
+            - group [ref=e1964]:
+              - generic "Thinking (3 steps)" [ref=e1965] [cursor=pointer]
+            - generic [ref=e1967]:
+              - paragraph [ref=e1968]: The metallic bonding step covered everything — let me close it out and jump to the quiz!
+              - paragraph [ref=e1969]: "Alright, quiz time! 🧪 Here are your questions:"
+              - separator [ref=e1970]
+              - heading "Step 5 — Bond Type Quiz" [level=2] [ref=e1971]
+              - 'heading "Q1: Identify the Bond Type" [level=3] [ref=e1972]'
+              - paragraph [ref=e1973]:
+                - text: For each pair of elements below, name the
+                - strong [ref=e1974]: bond type
+                - text: and briefly explain
+                - emphasis [ref=e1975]: why
+                - text: ":"
+              - table [ref=e1977]:
+                - rowgroup [ref=e1978]:
+                  - row "Pair Your answer?" [ref=e1979]:
+                    - columnheader "Pair" [ref=e1980]
+                    - columnheader "Your answer?" [ref=e1981]
+                - rowgroup [ref=e1982]:
+                  - row "(a) Potassium (K) + Fluorine (F)" [ref=e1983]:
+                    - cell "(a) Potassium (K) + Fluorine (F)" [ref=e1984]:
+                      - strong [ref=e1985]: (a)
+                      - text: Potassium (K) + Fluorine (F)
+                    - cell [ref=e1986]
+                  - row "(b) Nitrogen (N) + Nitrogen (N)" [ref=e1987]:
+                    - cell "(b) Nitrogen (N) + Nitrogen (N)" [ref=e1988]:
+                      - strong [ref=e1989]: (b)
+                      - text: Nitrogen (N) + Nitrogen (N)
+                    - cell [ref=e1990]
+                  - row "(c) Silver (Ag) atoms in a wire" [ref=e1991]:
+                    - cell "(c) Silver (Ag) atoms in a wire" [ref=e1992]:
+                      - strong [ref=e1993]: (c)
+                      - text: Silver (Ag) atoms in a wire
+                    - cell [ref=e1994]
+              - 'heading "Q2: Property Detective 🕵️" [level=3] [ref=e1995]'
+              - paragraph [ref=e1996]: "A solid substance has the following properties:"
+              - list [ref=e1997]:
+                - listitem [ref=e1998]:
+                  - strong [ref=e1999]: Melts at 801 °C
+                - listitem [ref=e2000]:
+                  - strong [ref=e2001]: Does NOT conduct electricity as a solid
+                - listitem [ref=e2002]:
+                  - strong [ref=e2003]: Does conduct electricity when melted (molten)
+              - paragraph [ref=e2004]: Which type of bonding does it have? Why?
+              - 'heading "Q3: Bonus 🌟" [level=3] [ref=e2005]'
+              - paragraph [ref=e2006]:
+                - text: Gold is a metal that can be hammered into extremely thin sheets (gold leaf). Which bonding type explains this, and
+                - emphasis [ref=e2007]: what specifically
+                - text: about the bonding allows it?
+              - separator [ref=e2008]
+              - paragraph [ref=e2009]: Take your time — answer any or all three!
+          - generic [ref=e2230]: "Q1: (a) Ionic — K is a metal, F is a non-metal, so K transfers its one valence electron to F, forming K⁺ and F⁻ ions held by electrostatic attraction. (b) Covalent — N and N are both non-metals, so they share electrons; in fact they share 3 pairs forming a triple bond N≡N. (c) Metallic — Ag atoms are all metals, so their valence electrons delocalise into a shared electron sea around Ag⁺ ion cores. Q2: Ionic bonding. The high melting point (801 °C) and inability to conduct as a solid (ions locked in lattice, can't move) but conductivity when molten (ions freed to carry charge) are the classic ionic fingerprint. This sounds exactly like NaCl. Q3: Metallic bonding. The electron sea is non-directional — when gold is hammered, the layers of Au⁺ ions slide past each other and the delocalised electrons instantly reform around the new positions, so the bond doesn't break. That's why metals are malleable and ductile."
+          - generic [ref=e2231]:
+            - img [ref=e2232]
+            - generic [ref=e2234]: Thinking...
+        - generic [ref=e211]:
+          - textbox "Type a message..." [disabled] [ref=e212]
+          - button [disabled] [ref=e213]:
+            - img [ref=e214]

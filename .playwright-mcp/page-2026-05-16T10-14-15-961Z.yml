@@ -1,0 +1,331 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: chem-bot
+        - generic [ref=e44]:
+          - generic [ref=e87]:
+            - button "氧化还原反应的概念和化合价知识 2/6" [ref=e602] [cursor=pointer]:
+              - img [ref=e89]
+              - img [ref=e91]
+              - generic [ref=e94]: 氧化还原反应的概念和化合价知识
+              - generic [ref=e95]: 2/6
+            - list [ref=e96]:
+              - listitem [ref=e97]:
+                - generic "done" [ref=e153]: ✓
+                - generic [ref=e99]:
+                  - generic [ref=e100]:
+                    - generic [ref=e101]: Assess
+                    - generic [ref=e102]: 了解学生对氧化还原反应和化合价的已有认知和困惑
+                  - generic [ref=e154]: ↳ 学生（高三物理教师，实际需要化学辅导）基础扎实：能用电子转移定义氧化还原反应，常见化合价记得准。指出学生两大痛点：(1) 氧化剂和还原剂方向常搞反；(2) 复杂化合物中化合价升降判断易错。后续讲解将重点围绕这两点展开。
+              - listitem [ref=e103]:
+                - generic "done" [ref=e603]: ✓
+                - generic [ref=e105]:
+                  - generic [ref=e106]:
+                    - generic [ref=e107]: Define
+                    - generic [ref=e108]: 给出氧化还原反应的核心定义：从得失氧到电子转移，再到氧化数（化合价）变化
+                  - generic [ref=e604]: ↳ 梳理了氧化还原反应概念的三层递进：得失氧（初中）→ 电子转移（高中核心）→ 化合价变化（最通用）。用流程图展示了核心逻辑链——化合价升高→失电子→被氧化（还原剂）；化合价降低→得电子→被还原（氧化剂）。学生表示非常清晰。
+              - listitem [ref=e109]:
+                - generic "in progress" [ref=e605]: ▶
+                - generic [ref=e112]:
+                  - generic [ref=e113]: Explain
+                  - generic [ref=e114]: 讲解化合价（氧化数）的概念、判断规则和常见元素的化合价
+              - listitem [ref=e115]:
+                - generic "pending" [ref=e116]: ·
+                - generic [ref=e118]:
+                  - generic [ref=e119]: Explain
+                  - generic [ref=e120]: 用具体例子演示如何判断氧化还原反应、识别氧化剂和还原剂
+              - listitem [ref=e121]:
+                - generic "pending" [ref=e122]: ·
+                - generic [ref=e124]:
+                  - generic [ref=e125]: Check
+                  - generic [ref=e126]: 通过一道练习题检验学生对氧化还原反应和化合价判断的掌握程度
+              - listitem [ref=e127]:
+                - generic "pending" [ref=e128]: ·
+                - generic [ref=e130]:
+                  - generic [ref=e131]: Wrap-up
+                  - generic [ref=e132]: 总结氧化还原反应的核心要点：升失氧、降得还，以及化合价的判断口诀
+          - generic [ref=e80]: 氧化还原反应的概念和化学价知识
+          - generic [ref=e82]:
+            - group [ref=e83]:
+              - generic "Thinking (3 steps)" [ref=e133] [cursor=pointer]
+            - generic [ref=e135]:
+              - paragraph [ref=e136]: 好的！氧化还原反应是高中化学的核心板块之一，也是高考的必考点。在正式开始讲解之前，我想先了解一下你目前对这个话题的掌握情况——
+              - paragraph [ref=e137]:
+                - strong [ref=e138]: 请试着回答以下几个问题
+                - text: （想到多少说多少，没关系）：
+              - list [ref=e139]:
+                - listitem [ref=e140]: 说到「氧化还原反应」，你脑子里最先蹦出来的定义是什么？
+                - listitem [ref=e141]: 「化合价」和「氧化数」这两个词，你觉得自己分得清吗？常见的元素（比如 O、H、Na、Cl、Fe）的常见化合价你都能脱口而出吗？
+                - listitem [ref=e142]: 在你目前的教学中，学生在氧化还原这块最容易在什么地方卡住、出错？
+              - paragraph [ref=e143]: 你不用每条都答得非常完整，随便聊聊就行，主要是帮我摸个底，后面讲的时候好对准你的实际需求 😊
+          - generic [ref=e145]: 1. 得电子被还原，失电子被氧化。2. 大致能区分，常见化合价基本能记住，O 是 -2，H 是 +1，Na 是 +1，Cl 一般 -1，Fe 有 +2/+3。3. 学生常常把氧化剂和还原剂搞反，化合价升降也容易判断错。
+          - generic [ref=e147]:
+            - group [ref=e148]:
+              - generic "Thinking (3 steps)" [ref=e156] [cursor=pointer]
+            - generic [ref=e158]:
+              - paragraph [ref=e159]: 好的，你的回答非常清晰，让我很快摸清了情况：
+              - separator [ref=e160]
+              - paragraph [ref=e161]:
+                - strong [ref=e162]: 我的判断：
+              - list [ref=e163]:
+                - listitem [ref=e164]:
+                  - paragraph [ref=e165]:
+                    - strong [ref=e166]: 你自己的基础很扎实。
+                    - text: 你用"得电子被还原、失电子被氧化"来定义氧化还原反应，这已经是目前最通用的电子转移定义，没有问题。常见元素的化合价你也记得很准。
+                - listitem [ref=e167]:
+                  - paragraph [ref=e168]:
+                    - strong [ref=e169]: 你提到的学生痛点非常典型：
+                  - list [ref=e170]:
+                    - listitem [ref=e171]:
+                      - text: 🔄
+                      - strong [ref=e172]: 氧化剂 / 还原剂搞反
+                      - text: — 这是全国高中生的共同难题。根源在于：学生把"谁得电子"和"谁是氧化剂"这两件事在脑子里搭错了桥。
+                    - listitem [ref=e173]:
+                      - text: 📐
+                      - strong [ref=e174]: 化合价升降判断出错
+                      - text: — 尤其是在复杂化合物（如有机物、含多种变价元素的物质）中，学生往往不确定该从哪个元素下手。
+              - separator [ref=e175]
+              - paragraph [ref=e176]:
+                - strong [ref=e177]: 那后面的讲解我会重点倾斜在两点上：
+              - list [ref=e178]:
+                - listitem [ref=e179]: 用一条清晰的逻辑链把"化合价升降 → 电子得失 → 氧化/还原 → 氧化剂/还原剂"串起来，帮你的学生告别方向混淆。
+                - listitem [ref=e180]: 给出化合价判断的优先级规则 + 几个容易踩坑的例子，让判断步骤可操作化。
+              - paragraph [ref=e181]:
+                - text: 咱们这就开始正式的讲解，进入下一步——
+                - strong [ref=e182]: 氧化还原反应的核心定义
+                - text: ，你看可以吗？
+              - paragraph [ref=e183]: 基础摸底完成，准备好进入正题了吗？
+          - generic [ref=e185]: 准备好了，请继续
+          - generic [ref=e191]:
+            - group [ref=e192]:
+              - generic "Thinking (10 steps)" [ref=e198] [cursor=pointer]
+            - generic [ref=e200]:
+              - paragraph [ref=e201]:
+                - text: 好的，正式进入
+                - strong [ref=e202]: s2——氧化还原反应的核心定义
+                - text: 。
+              - separator [ref=e203]
+              - heading "氧化还原反应：一个概念，三层理解" [level=2] [ref=e204]
+              - paragraph [ref=e205]: 氧化还原反应不是一开始就有"电子转移"这个定义的。它的概念在化学史上经历了三次飞跃，这三次飞跃恰好也对应了我们中学化学教学的三个梯度：
+              - separator [ref=e206]
+              - heading "第一层：得失氧（初中阶段）" [level=3] [ref=e207]
+              - paragraph [ref=e208]: 这是最朴素的定义：
+              - blockquote [ref=e209]:
+                - paragraph [ref=e210]:
+                  - strong [ref=e211]: 得氧 → 氧化 失氧 → 还原
+              - paragraph [ref=e212]: 经典例子：
+              - generic [ref=e214]:
+                - math [ref=e216]:
+                  - generic [ref=e218]:
+                    - generic [ref=e220]: \ce
+                    - generic [ref=e221]:
+                      - generic [ref=e222]: C
+                      - generic [ref=e223]: u
+                      - generic [ref=e224]: O
+                      - generic [ref=e225]: +
+                      - generic [ref=e226]: H
+                      - generic [ref=e227]: "2"
+                      - generic [ref=e228]: −
+                      - generic [ref=e229]: ">"
+                      - generic [ref=e230]: C
+                      - generic [ref=e231]: u
+                      - generic [ref=e232]: +
+                      - generic [ref=e233]: H
+                      - generic [ref=e234]: "2"
+                      - generic [ref=e235]: O
+                - generic [ref=e237]:
+                  - generic [ref=e238]: \ce
+                  - generic [ref=e239]: CuO + H2− > Cu + H2O
+              - list [ref=e240]:
+                - listitem [ref=e241]:
+                  - text: CuO
+                  - strong [ref=e242]: 失去氧
+                  - text: 变成 Cu →
+                  - strong [ref=e243]: 被还原
+                - listitem [ref=e244]:
+                  - text: H₂
+                  - strong [ref=e245]: 得到氧
+                  - text: 变成 H₂O →
+                  - strong [ref=e246]: 被氧化
+              - paragraph [ref=e247]:
+                - text: 这个定义直观好用，但局限也很明显——
+                - strong [ref=e248]: 没氧参与的反应它就管不着了
+                - text: 。比如：
+              - generic [ref=e250]:
+                - math [ref=e252]:
+                  - generic [ref=e254]:
+                    - generic [ref=e256]: \ce
+                    - generic [ref=e257]:
+                      - generic [ref=e258]: "2"
+                      - generic [ref=e259]: "N"
+                      - generic [ref=e260]: a
+                      - generic [ref=e261]: +
+                      - generic [ref=e262]: C
+                      - generic [ref=e263]: l
+                      - generic [ref=e264]: "2"
+                      - generic [ref=e265]: −
+                      - generic [ref=e266]: ">"
+                      - generic [ref=e267]: "2"
+                      - generic [ref=e268]: "N"
+                      - generic [ref=e269]: a
+                      - generic [ref=e270]: C
+                      - generic [ref=e271]: l
+                - generic [ref=e273]:
+                  - generic [ref=e274]: \ce
+                  - generic [ref=e275]: 2Na + Cl2− > 2NaCl
+              - paragraph [ref=e276]: 这里根本没有氧，但有剧烈的电子转移，按得失氧定义就说不通了。
+              - separator [ref=e277]
+              - heading "第二层：电子转移（高中核心）" [level=3] [ref=e278]
+              - paragraph [ref=e279]:
+                - text: 于是化学家把目光转到更本质的东西——
+                - strong [ref=e280]: 电子
+                - text: ：
+              - blockquote [ref=e281]:
+                - paragraph [ref=e282]:
+                  - strong [ref=e283]: 失去电子 → 氧化 得到电子 → 还原
+              - generic [ref=e285]:
+                - math [ref=e287]:
+                  - generic [ref=e289]:
+                    - generic [ref=e291]: \ce
+                    - generic [ref=e292]:
+                      - generic [ref=e293]: "2"
+                      - generic [ref=e294]: "N"
+                      - generic [ref=e295]: a
+                      - generic [ref=e296]: +
+                      - generic [ref=e297]: C
+                      - generic [ref=e298]: l
+                      - generic [ref=e299]: "2"
+                      - generic [ref=e300]: −
+                      - generic [ref=e301]: ">"
+                      - generic [ref=e302]: "2"
+                      - generic [ref=e303]: "N"
+                      - generic [ref=e304]: a
+                      - generic [ref=e305]: C
+                      - generic [ref=e306]: l
+                - generic [ref=e308]:
+                  - generic [ref=e309]: \ce
+                  - generic [ref=e310]: 2Na + Cl2− > 2NaCl
+              - list [ref=e311]:
+                - listitem [ref=e312]:
+                  - text: Na 失去 1 个电子变成 Na⁺ →
+                  - strong [ref=e313]: 被氧化
+                - listitem [ref=e314]:
+                  - text: Cl 得到 1 个电子变成 Cl⁻ →
+                  - strong [ref=e315]: 被还原
+              - paragraph [ref=e316]: 这个定义把氧化还原从"必须有氧"的束缚中解放出来，适用范围大大扩展。
+              - separator [ref=e317]
+              - heading "第三层：氧化数 / 化合价变化（最通用）" [level=3] [ref=e318]
+              - paragraph [ref=e319]:
+                - text: 但电子转移定义也有个软肋——
+                - strong [ref=e320]: 共价化合物
+                - text: （如 HCl）在形成时并没有真正的电子"给出去"，只是电子对发生了偏移。于是化学家引入**氧化数（化合价）**的概念：
+              - blockquote [ref=e321]:
+                - paragraph [ref=e322]:
+                  - strong [ref=e323]: 化合价升高 → 氧化 化合价降低 → 还原
+              - generic [ref=e325]:
+                - math [ref=e327]:
+                  - generic [ref=e329]:
+                    - generic [ref=e331]: \ce
+                    - generic [ref=e332]:
+                      - generic [ref=e333]: H
+                      - generic [ref=e334]: "2"
+                      - generic [ref=e335]: +
+                      - generic [ref=e336]: C
+                      - generic [ref=e337]: l
+                      - generic [ref=e338]: "2"
+                      - generic [ref=e339]: −
+                      - generic [ref=e340]: ">"
+                      - generic [ref=e341]: "2"
+                      - generic [ref=e342]: H
+                      - generic [ref=e343]: C
+                      - generic [ref=e344]: l
+                - generic [ref=e346]:
+                  - generic [ref=e347]: \ce
+                  - generic [ref=e348]: H2 + Cl2− > 2HCl
+              - list [ref=e349]:
+                - listitem [ref=e350]:
+                  - text: H 化合价从 0 → +1，
+                  - strong [ref=e351]: 升高
+                  - text: → 被
+                  - strong [ref=e352]: 氧化
+                - listitem [ref=e353]:
+                  - text: Cl 化合价从 0 → -1，
+                  - strong [ref=e354]: 降低
+                  - text: → 被
+                  - strong [ref=e355]: 还原
+              - paragraph [ref=e356]: 化合价的变化成了判断氧化还原的"通用语言"。
+              - separator [ref=e357]
+              - heading "🔗 核心逻辑链：一图串起来" [level=3] [ref=e358]
+              - paragraph [ref=e359]: 把你学生的痛点（氧化剂/还原剂搞反）一次性解决，关键就在下面这条链：
+              - document [ref=e771]:
+                - generic [ref=e774]:
+                  - generic [ref=e775]:
+                    - generic [ref=e782]: 还原反应一侧
+                    - generic [ref=e783]:
+                      - paragraph [ref=e790]: 化合价降低
+                      - paragraph [ref=e797]: 得到电子
+                      - paragraph [ref=e804]: 被还原
+                      - paragraph [ref=e811]:
+                        - text: 该物质是氧化剂
+                        - text: （具有氧化性）
+                  - generic [ref=e812]:
+                    - generic [ref=e819]: 氧化反应一侧
+                    - generic [ref=e820]:
+                      - paragraph [ref=e827]: 化合价升高
+                      - paragraph [ref=e834]: 失去电子
+                      - paragraph [ref=e841]: 被氧化
+                      - paragraph [ref=e848]:
+                        - text: 该物质是还原剂
+                        - text: （具有还原性）
+          - generic [ref=e597]: 非常清晰，继续讲化合价规则
+          - generic [ref=e685]:
+            - group [ref=e686]:
+              - generic "Thinking (3 steps)" [ref=e687] [cursor=pointer]
+            - generic [ref=e689]:
+              - paragraph [ref=e690]: 这张图是整章的核心骨架，记熟了，方向就永远不会乱。
+              - paragraph [ref=e691]:
+                - text: 好，那接下来进入
+                - strong [ref=e692]: 化合价（氧化数）的判断规则
+                - text: ，这是你学生最容易踩坑的地方。准备好了吗？
+          - generic [ref=e850]: 好的，请讲
+          - generic [ref=e851]:
+            - img [ref=e852]
+            - generic [ref=e854]: Thinking...
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e78]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

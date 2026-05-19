@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Show me a graph of y = 2x + 3
+          - generic [ref=e71]: Graph y = x^3 - 2x on [-3, 3]
+          - img [ref=e78]:
+            - generic [ref=e79]: Graph of y = x³ - 2x
+            - generic [ref=e80]:
+              - generic [ref=e81]:
+                - generic [ref=e84]: −3
+                - generic [ref=e86]: "-2.5"
+                - generic [ref=e88]: −2
+                - generic [ref=e90]: "-1.5"
+                - generic [ref=e92]: −1
+                - generic [ref=e94]: "-0.5"
+                - generic [ref=e96]: "0"
+                - generic [ref=e98]: "0.5"
+                - generic [ref=e100]: "1"
+                - generic [ref=e102]: "1.5"
+                - generic [ref=e104]: "2"
+                - generic [ref=e106]: "2.5"
+                - generic [ref=e108]: "3"
+              - generic [ref=e109]:
+                - generic [ref=e112]: "-1.2"
+                - generic [ref=e114]: −1
+                - generic [ref=e116]: "-0.8"
+                - generic [ref=e118]: "-0.6"
+                - generic [ref=e120]: "-0.4"
+                - generic [ref=e122]: "-0.2"
+                - generic [ref=e124]: "0"
+                - generic [ref=e126]: "0.2"
+                - generic [ref=e128]: "0.4"
+                - generic [ref=e130]: "0.6"
+                - generic [ref=e132]: "0.8"
+                - generic [ref=e134]: "1"
+                - generic [ref=e136]: "1.2"
+              - generic [ref=e137]: x
+              - generic [ref=e138]: "y"
+        - generic [ref=e43]:
+          - textbox "Type a message..." [ref=e143]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e144]

@@ -1,0 +1,372 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e55] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e56] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e57] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e59] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e60]
+          - generic [ref=e63]: 配置文件
+        - button "退出登录" [ref=e64] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e68]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: physics-bot
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "摩擦力的定义和计算公式 2/5" [ref=e187] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 摩擦力的定义和计算公式
+              - generic [ref=e93]: 2/5
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "done" [ref=e155]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Assess
+                    - generic [ref=e100]: 了解学生对摩擦力已有的认知基础，判断讲解起点
+                  - generic [ref=e156]: ↳ 学生基础扎实：能正确判断静摩擦力大小与方向（二力平衡），能区分静/动摩擦的本质差异。主要盲区：将 f=μN 泛化为所有摩擦力的公式，不清楚静摩擦力只有取值范围而无乘积公式。后续重点应放在区分两类摩擦力的不同计算方式。
+              - listitem [ref=e101]:
+                - generic "done" [ref=e188]: ✓
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - generic [ref=e105]: Define
+                    - generic [ref=e106]: 给出摩擦力的精确定义，区分静摩擦力与滑动摩擦力
+                  - generic [ref=e189]: ↳ 给出了摩擦力的精确定义、四个产生条件、方向判断原则（注意与"相对运动方向"相反而非"运动方向"），并用对比表格清晰区分了静摩擦力和滑动摩擦力在产生条件、大小特点、计算方式上的本质差异，特别强调了 f=μN 只适用于滑动摩擦力，静摩擦力通过二力平衡确定。
+              - listitem [ref=e107]:
+                - generic "in progress" [ref=e190]: ▶
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Explain
+                  - generic [ref=e112]: 讲解滑动摩擦力公式 f=μN 及静摩擦力的取值范围，借助可视化辅助理解
+              - listitem [ref=e113]:
+                - generic "pending" [ref=e114]: ·
+                - generic [ref=e116]:
+                  - generic [ref=e117]: Check
+                  - generic [ref=e118]: 用一道典型例题检验学生对摩擦力计算的掌握情况
+              - listitem [ref=e119]:
+                - generic "pending" [ref=e120]: ·
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Wrap-up
+                  - generic [ref=e124]: 总结摩擦力定义与公式的核心要点，梳理易错点
+          - generic [ref=e80]: 请讲解摩擦力的定义和计算公式
+          - generic [ref=e126]:
+            - group [ref=e127]:
+              - generic "Thinking (3 steps)" [ref=e128] [cursor=pointer]
+            - generic [ref=e134]:
+              - paragraph [ref=e135]: 好的！在正式讲解之前，我想先了解一下你目前对摩擦力的掌握情况，这样可以更有针对性地展开。请简单回答下面几个问题：
+              - separator [ref=e136]
+              - paragraph [ref=e137]:
+                - strong [ref=e138]: 摸底小测 🧐
+              - list [ref=e139]:
+                - listitem [ref=e140]:
+                  - paragraph [ref=e141]: 一个木块放在水平桌面上，你用 2 N 的力拉它但没拉动，此时摩擦力多大？方向如何？
+                - listitem [ref=e142]:
+                  - paragraph [ref=e143]: 同一个木块，桌面给它施加的摩擦力大小和哪些因素有关？试写出你印象中的计算公式。
+                - listitem [ref=e144]:
+                  - paragraph [ref=e145]: 「静摩擦力」和「滑动摩擦力」最本质的区别是什么？
+              - separator [ref=e146]
+              - paragraph [ref=e147]: 不用追求完美，按你现有的理解回答就好。这能帮我判断从哪个深度开始讲起 😊
+          - generic [ref=e149]: 1. 静摩擦力 2N，方向与拉力相反。2. 跟正压力和接触面有关，公式 f=μN。3. 静摩擦还没动，滑动摩擦是物体已经在动。
+          - generic [ref=e159]:
+            - group [ref=e160]:
+              - generic "Thinking (3 steps)" [ref=e161] [cursor=pointer]
+            - generic [ref=e163]:
+              - paragraph [ref=e164]: 你的回答非常好！来快速对照一下：
+              - paragraph [ref=e165]:
+                - strong [ref=e166]: 第 1 题
+                - text: ✅ 完全正确。摩擦力 2 N，方向与拉力相反——你抓住了静摩擦力的核心：它是个
+                - strong [ref=e167]: 被动力
+                - text: ，物体静止时，摩擦力自动「匹配」外力的大小，通过二力平衡来确定。
+              - paragraph [ref=e168]:
+                - strong [ref=e169]: 第 2 题
+                - text: ⚠️ 方向对了，但有一个关键细节需要纠正。你写的公式
+                - strong [ref=e170]: f = μN
+                - text: 实际上是
+                - strong [ref=e171]: 滑动摩擦力
+                - text: 的计算公式，而不是静摩擦力的。静摩擦力没有一个简单的「乘积公式」，它只有一个
+                - strong [ref=e172]: 取值范围
+                - text: ，这点我们后面会重点展开。
+              - paragraph [ref=e173]:
+                - strong [ref=e174]: 第 3 题
+                - text: ✅ 抓住了本质区别——一个是「还没动」，一个是「已经在动」。这恰好对应两种摩擦力的不同计算方式。
+              - separator [ref=e175]
+              - paragraph [ref=e176]:
+                - strong [ref=e177]: 小结一下你的起点
+                - text: ：你对摩擦力的直觉很好，核心漏洞在于——把
+                - code [ref=e178]: f = μN
+                - text: 当成了所有摩擦力的通用公式。接下来我会从精确的定义出发，帮你把静摩擦力和滑动摩擦力的计算方式彻底分开，并用图像直观展示它们的区别。
+              - paragraph [ref=e179]:
+                - text: 总结得很准！接下来我们进入精确定义——
+                - strong [ref=e180]: 准备好了吗？
+          - generic [ref=e182]: 准备好了，请讲
+          - generic [ref=e192]:
+            - group [ref=e193]:
+              - generic "Thinking (3 steps)" [ref=e194] [cursor=pointer]
+            - generic [ref=e200]:
+              - paragraph [ref=e201]: 好的，我们进入精确定义阶段。
+              - separator [ref=e202]
+              - heading "一、什么是摩擦力？" [level=2] [ref=e203]
+              - blockquote [ref=e204]:
+                - paragraph [ref=e205]:
+                  - strong [ref=e206]: 摩擦力
+                  - text: ：两个相互接触的物体，当它们发生
+                  - strong [ref=e207]: 相对运动
+                  - text: 或具有
+                  - strong [ref=e208]: 相对运动趋势
+                  - text: 时，在接触面上产生的阻碍相对运动（或相对运动趋势）的力。
+              - paragraph [ref=e209]: 这里有三个关键词值得展开：
+              - table [ref=e211]:
+                - rowgroup [ref=e212]:
+                  - row "关键词 含义" [ref=e213]:
+                    - columnheader "关键词" [ref=e214]
+                    - columnheader "含义" [ref=e215]
+                - rowgroup [ref=e216]:
+                  - row "相互接触 不接触就没有摩擦力（与重力、电场力等「场力」不同）" [ref=e217]:
+                    - cell "相互接触" [ref=e218]:
+                      - strong [ref=e219]: 相互接触
+                    - cell "不接触就没有摩擦力（与重力、电场力等「场力」不同）" [ref=e220]
+                  - row "相对运动 彼此之间发生了滑动 → 引发滑动摩擦力" [ref=e221]:
+                    - cell "相对运动" [ref=e222]:
+                      - strong [ref=e223]: 相对运动
+                    - cell "彼此之间发生了滑动 → 引发滑动摩擦力" [ref=e224]:
+                      - text: 彼此之间发生了滑动 → 引发
+                      - strong [ref=e225]: 滑动摩擦力
+                  - row "相对运动趋势 有想滑但还没滑的倾向 → 引发静摩擦力" [ref=e226]:
+                    - cell "相对运动趋势" [ref=e227]:
+                      - strong [ref=e228]: 相对运动趋势
+                    - cell "有想滑但还没滑的倾向 → 引发静摩擦力" [ref=e229]:
+                      - text: 有想滑但还没滑的倾向 → 引发
+                      - strong [ref=e230]: 静摩擦力
+              - separator [ref=e231]
+              - heading "二、产生摩擦力的四个条件（缺一不可）" [level=2] [ref=e232]
+              - list [ref=e233]:
+                - listitem [ref=e234]:
+                  - strong [ref=e235]: 接触
+                  - text: ：两物体表面直接接触
+                - listitem [ref=e236]:
+                  - strong [ref=e237]: 挤压
+                  - text: ：接触面间有正压力（弹力）存在
+                - listitem [ref=e238]:
+                  - strong [ref=e239]: 粗糙
+                  - text: ：接触面不光滑
+                - listitem [ref=e240]:
+                  - strong [ref=e241]: 有相对运动或相对运动趋势
+              - separator [ref=e242]
+              - heading "三、方向的判断——\"跟相对运动（趋势）方向相反\"" [level=2] [ref=e243]
+              - paragraph [ref=e244]: 这是学生最容易出错的地方。记住一句话：
+              - blockquote [ref=e245]:
+                - paragraph [ref=e246]:
+                  - strong [ref=e247]: 摩擦力方向与「相对」接触面的运动方向（或趋势方向）相反，不一定与物体的运动方向相反。
+              - paragraph [ref=e248]: 举个例子：
+              - list [ref=e249]:
+                - listitem [ref=e250]:
+                  - text: 人走路时，脚向后蹬地——脚相对地面有
+                  - strong [ref=e251]: 向后
+                  - text: 运动的趋势 → 地面给脚的静摩擦力
+                  - strong [ref=e252]: 向前
+                  - text: → 人向前走。
+                - listitem [ref=e253]:
+                  - text: 这时摩擦力反而是
+                  - strong [ref=e254]: 动力
+                  - text: ，不是阻力。所以不要把摩擦力简单理解成「阻碍运动的力」——它阻碍的是
+                  - strong [ref=e255]: 相对运动
+                  - text: ，不是物体的运动本身。
+              - separator [ref=e256]
+              - heading "四、静摩擦力 vs 滑动摩擦力——核心对比" [level=2] [ref=e257]
+              - table [ref=e259]:
+                - rowgroup [ref=e260]:
+                  - row "静摩擦力 滑动摩擦力" [ref=e261]:
+                    - columnheader [ref=e262]
+                    - columnheader "静摩擦力" [ref=e263]:
+                      - strong [ref=e264]: 静摩擦力
+                    - columnheader "滑动摩擦力" [ref=e265]:
+                      - strong [ref=e266]: 滑动摩擦力
+                - rowgroup [ref=e267]:
+                  - row "发生的条件 有相对运动趋势，但未滑动 已经在相对滑动" [ref=e268]:
+                    - cell "发生的条件" [ref=e269]:
+                      - strong [ref=e270]: 发生的条件
+                    - cell "有相对运动趋势，但未滑动" [ref=e271]
+                    - cell "已经在相对滑动" [ref=e272]
+                  - row "大小特点 随外力变化，是个被动力 相对稳定，与速度几乎无关" [ref=e273]:
+                    - cell "大小特点" [ref=e274]:
+                      - strong [ref=e275]: 大小特点
+                    - cell "随外力变化，是个被动力" [ref=e276]:
+                      - strong [ref=e277]: 随外力变化
+                      - text: ，是个被动力
+                    - cell "相对稳定，与速度几乎无关" [ref=e278]:
+                      - strong [ref=e279]: 相对稳定
+                      - text: ，与速度几乎无关
+                  - row "计算方式 ❌ 没有单一公式！只有范围： ✅ 有确定公式：" [ref=e280]:
+                    - cell "计算方式" [ref=e281]:
+                      - strong [ref=e282]: 计算方式
+                    - cell "❌ 没有单一公式！只有范围：" [ref=e283]:
+                      - text: ❌ 没有单一公式！只有范围：
+                      - generic [ref=e284]:
+                        - math [ref=e286]:
+                          - generic [ref=e288]:
+                            - generic [ref=e289]: "0"
+                            - generic [ref=e290]: ≤
+                            - generic [ref=e291]:
+                              - generic [ref=e292]: f
+                              - generic [ref=e293]: 静
+                            - generic [ref=e294]: ≤
+                            - generic [ref=e295]:
+                              - generic [ref=e296]: f
+                              - generic [ref=e297]: max
+                            - generic [ref=e298]: =
+                            - generic [ref=e299]:
+                              - generic [ref=e300]: μ
+                              - generic [ref=e301]: s
+                            - generic [ref=e302]: "N"
+                        - generic [ref=e303]:
+                          - generic [ref=e304]: 0 ≤
+                          - generic [ref=e305]:
+                            - generic [ref=e306]:
+                              - text: f
+                              - generic [ref=e313]: 静
+                            - text: ≤
+                          - generic [ref=e317]:
+                            - generic [ref=e318]:
+                              - text: f
+                              - generic [ref=e325]: max
+                            - text: =
+                          - generic [ref=e329]:
+                            - generic [ref=e330]:
+                              - text: μ
+                              - generic [ref=e335]: s
+                            - text: "N"
+                    - cell "✅ 有确定公式：" [ref=e339]:
+                      - text: ✅ 有确定公式：
+                      - generic [ref=e340]:
+                        - math [ref=e342]:
+                          - generic [ref=e344]:
+                            - generic [ref=e345]:
+                              - generic [ref=e346]: f
+                              - generic [ref=e347]: 滑
+                            - generic [ref=e348]: =
+                            - generic [ref=e349]: μ
+                            - generic [ref=e350]: "N"
+                        - generic [ref=e351]:
+                          - generic [ref=e352]:
+                            - generic [ref=e353]:
+                              - text: f
+                              - generic [ref=e360]: 滑
+                            - text: =
+                          - generic [ref=e364]: μN
+                  - row "典型判断法 二力平衡（静止 → 合力为零） 直接代入公式计算" [ref=e365]:
+                    - cell "典型判断法" [ref=e366]:
+                      - strong [ref=e367]: 典型判断法
+                    - cell "二力平衡（静止 → 合力为零）" [ref=e368]
+                    - cell "直接代入公式计算" [ref=e369]
+              - paragraph [ref=e370]: 补充说明：
+              - list [ref=e371]:
+                - listitem [ref=e372]:
+                  - generic [ref=e373]:
+                    - math [ref=e375]:
+                      - generic [ref=e378]:
+                        - generic [ref=e379]: μ
+                        - generic [ref=e380]: s
+                    - generic [ref=e383]:
+                      - text: μ
+                      - generic [ref=e388]: s
+                  - text: 叫
+                  - strong [ref=e392]: 最大静摩擦因数
+                  - text: ，
+                  - generic [ref=e393]:
+                    - math [ref=e395]:
+                      - generic [ref=e398]: μ
+                    - generic [ref=e400]: μ
+                  - text: 叫
+                  - strong [ref=e401]: 动摩擦因数
+                  - text: 。对同一对接触面，一般
+                  - generic [ref=e402]:
+                    - math [ref=e404]:
+                      - generic [ref=e406]:
+                        - generic [ref=e407]:
+                          - generic [ref=e408]: μ
+                          - generic [ref=e409]: s
+                        - generic [ref=e410]: ">"
+                        - generic [ref=e411]: μ
+                    - generic [ref=e412]:
+                      - generic [ref=e413]:
+                        - generic [ref=e414]:
+                          - text: μ
+                          - generic [ref=e419]: s
+                        - text: ">"
+                      - generic [ref=e423]: μ
+                  - text: （使物体启动比维持滑动更难）。
+                - listitem [ref=e424]:
+                  - text: 前面摸底中你写的
+                  - generic [ref=e425]:
+                    - math [ref=e427]:
+                      - generic [ref=e429]:
+                        - generic [ref=e430]: f
+                        - generic [ref=e431]: =
+                        - generic [ref=e432]: μ
+                        - generic [ref=e433]: "N"
+                    - generic [ref=e434]:
+                      - generic [ref=e435]: f =
+                      - generic [ref=e436]: μN
+                  - strong [ref=e437]: 只能
+                  - text: 用于滑动摩擦力，这是今天要纠正的核心点。
+              - separator [ref=e438]
+              - paragraph [ref=e439]:
+                - strong [ref=e440]: 小结这一步
+                - text: ：摩擦力分两类，一类「还没动」（静摩擦，被动力，靠平衡求），一类「已经在动」（滑动摩擦，用
+                - generic [ref=e441]:
+                  - math [ref=e443]:
+                    - generic [ref=e445]:
+                      - generic [ref=e446]: f
+                      - generic [ref=e447]: =
+                      - generic [ref=e448]: μ
+                      - generic [ref=e449]: "N"
+                  - generic [ref=e450]:
+                    - generic [ref=e451]: f =
+                    - generic [ref=e452]: μN
+                - text: ）。千万不要用同一个公式套所有情况。
+              - separator [ref=e453]
+              - paragraph [ref=e454]: 这部分定义和区分清楚吗？有任何疑问尽管提，没问题的话我们下一步用图像来直观理解这两个公式 😊
+          - generic [ref=e456]: 很清楚，请展示图像和公式
+          - group [ref=e463]:
+            - generic "Thinking (11 steps)" [ref=e471] [cursor=pointer]
+            - generic [ref=e465]:
+              - paragraph [ref=e466]: 学生准备好了，现在进入s3步骤。我需要讲解滑动摩擦力公式 f=μN 以及静摩擦力的取值范围，并借助可视化辅助理解。 让我设计一个图像，展示摩擦力 f 随外力 F 变化的曲线图。这是一个非常经典的图：横轴是外力 F，纵轴是摩擦力 f。在物体静止阶段，静摩擦力随外力线性增加（f = F），直到达到最大静摩擦力 f_max = μ_s N，然后物体开始滑动，摩擦力降为滑动摩擦力 f_k = μ N（通常 μ < μ_s），之后基本保持恒定。 这个图可以非常直观地帮助学生理解两类摩擦力的区别。 让我用 visualize 工具来绘制这个图，然后用中文详细讲解。
+              - paragraph [ref=e467]: visualize("plot")
+              - paragraph [ref=e468]: Working on visualize…
+              - paragraph [ref=e470]: Working on visualize…
+              - paragraph [ref=e472]: Working on visualize…
+              - paragraph [ref=e473]: Working on visualize…
+              - paragraph [ref=e474]: Working on visualize…
+              - paragraph [ref=e475]: Working on visualize…
+              - paragraph [ref=e476]: Working on visualize…
+              - paragraph [ref=e477]: Working on visualize…
+              - paragraph [ref=e478]: Working on visualize…
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e77]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e78]

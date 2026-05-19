@@ -1,0 +1,348 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Show me a graph of y = 2x + 3
+          - generic [ref=e71]: Graph y = x^3 - 2x on [-3, 3]
+          - img [ref=e78]:
+            - generic [ref=e79]: Graph of y = x³ - 2x
+            - generic [ref=e80]:
+              - generic [ref=e81]:
+                - generic [ref=e84]: −3
+                - generic [ref=e86]: "-2.5"
+                - generic [ref=e88]: −2
+                - generic [ref=e90]: "-1.5"
+                - generic [ref=e92]: −1
+                - generic [ref=e94]: "-0.5"
+                - generic [ref=e96]: "0"
+                - generic [ref=e98]: "0.5"
+                - generic [ref=e100]: "1"
+                - generic [ref=e102]: "1.5"
+                - generic [ref=e104]: "2"
+                - generic [ref=e106]: "2.5"
+                - generic [ref=e108]: "3"
+              - generic [ref=e109]:
+                - generic [ref=e112]: "-1.2"
+                - generic [ref=e114]: −1
+                - generic [ref=e116]: "-0.8"
+                - generic [ref=e118]: "-0.6"
+                - generic [ref=e120]: "-0.4"
+                - generic [ref=e122]: "-0.2"
+                - generic [ref=e124]: "0"
+                - generic [ref=e126]: "0.2"
+                - generic [ref=e128]: "0.4"
+                - generic [ref=e130]: "0.6"
+                - generic [ref=e132]: "0.8"
+                - generic [ref=e134]: "1"
+                - generic [ref=e136]: "1.2"
+              - generic [ref=e137]: x
+              - generic [ref=e138]: "y"
+          - generic [ref=e144]: Explain the trigonometric functions (sine, cosine, tangent) in text and plotting.
+          - generic [ref=e148]:
+            - heading "三角函数（sin、cos、tan）讲解 📐" [level=2] [ref=e149]
+            - heading "🛝 滑梯比喻复习" [level=3] [ref=e150]
+            - paragraph [ref=e151]: 想象一个直角三角形放在滑梯上：
+            - list [ref=e152]:
+              - listitem [ref=e153]:
+                - strong [ref=e154]: 斜边
+                - text: ：滑梯本身，最长那条
+              - listitem [ref=e155]:
+                - strong [ref=e156]: 对边
+                - text: ：正对着你研究的角的边（竖直高度）
+              - listitem [ref=e157]:
+                - strong [ref=e158]: 邻边
+                - text: ：挨着你研究的角的边（水平距离，不是斜边）
+            - paragraph [ref=e159]:
+              - text: 三个函数其实就是
+              - strong [ref=e160]: 两条边的比值
+              - text: ：
+            - table [ref=e162]:
+              - rowgroup [ref=e163]:
+                - row "函数 公式 滑梯说法" [ref=e164]:
+                  - columnheader "函数" [ref=e165]
+                  - columnheader "公式" [ref=e166]
+                  - columnheader "滑梯说法" [ref=e167]
+              - rowgroup [ref=e168]:
+                - row "sin（正弦） 对边 ÷ 斜边 滑梯有多\"陡\"（高度占滑梯长度的比例）" [ref=e169]:
+                  - cell "sin（正弦）" [ref=e170]:
+                    - strong [ref=e171]: sin（正弦）
+                  - cell "对边 ÷ 斜边" [ref=e172]
+                  - cell "滑梯有多\"陡\"（高度占滑梯长度的比例）" [ref=e173]
+                - row "cos（余弦） 邻边 ÷ 斜边 滑梯有多\"平\"（水平距离占滑梯长度的比例）" [ref=e174]:
+                  - cell "cos（余弦）" [ref=e175]:
+                    - strong [ref=e176]: cos（余弦）
+                  - cell "邻边 ÷ 斜边" [ref=e177]
+                  - cell "滑梯有多\"平\"（水平距离占滑梯长度的比例）" [ref=e178]
+                - row "tan（正切） 对边 ÷ 邻边 纯粹的坡度（高度 ÷ 水平距离）" [ref=e179]:
+                  - cell "tan（正切）" [ref=e180]:
+                    - strong [ref=e181]: tan（正切）
+                  - cell "对边 ÷ 邻边" [ref=e182]
+                  - cell "纯粹的坡度（高度 ÷ 水平距离）" [ref=e183]
+            - separator [ref=e184]
+            - heading "📈 让我们看看它们的图像！" [level=3] [ref=e185]
+            - paragraph [ref=e186]:
+              - text: 首先是
+              - strong [ref=e187]: sin 和 cos
+              - text: ，我再单独画
+              - strong [ref=e188]: tan
+              - text: （因为它很特别）：
+          - img [ref=e195]:
+            - generic [ref=e196]: Sine and Cosine (0° to 360°)
+            - generic [ref=e197]:
+              - generic [ref=e198]:
+                - generic [ref=e201]: "0"
+                - generic [ref=e203]: "50"
+                - generic [ref=e205]: "100"
+                - generic [ref=e207]: "150"
+                - generic [ref=e209]: "200"
+                - generic [ref=e211]: "250"
+                - generic [ref=e213]: "300"
+                - generic [ref=e215]: "350"
+              - generic [ref=e216]:
+                - generic [ref=e219]: "-1.4"
+                - generic [ref=e221]: "-1.2"
+                - generic [ref=e223]: −1
+                - generic [ref=e225]: "-0.8"
+                - generic [ref=e227]: "-0.6"
+                - generic [ref=e229]: "-0.4"
+                - generic [ref=e231]: "-0.2"
+                - generic [ref=e233]: "0"
+                - generic [ref=e235]: "0.2"
+                - generic [ref=e237]: "0.4"
+                - generic [ref=e239]: "0.6"
+                - generic [ref=e241]: "0.8"
+                - generic [ref=e243]: "1"
+                - generic [ref=e245]: "1.2"
+                - generic [ref=e247]: "1.4"
+              - generic [ref=e248]: x (degrees)
+              - generic [ref=e249]: "y"
+          - generic [ref=e257]: tan的图像还没画
+          - paragraph [ref=e262]: 你说得对！tan的图像忘记画了，现在补上：
+          - img [ref=e269]:
+            - generic [ref=e270]: "Tangent Function (0° to 360°) — note: tan(x) → ±∞ at x = 90° and 270°"
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - generic [ref=e275]: "0"
+                - generic [ref=e277]: "50"
+                - generic [ref=e279]: "100"
+                - generic [ref=e281]: "150"
+                - generic [ref=e283]: "200"
+                - generic [ref=e285]: "250"
+                - generic [ref=e287]: "300"
+                - generic [ref=e289]: "350"
+              - generic [ref=e290]:
+                - generic [ref=e293]: −5
+                - generic [ref=e295]: −4
+                - generic [ref=e297]: −3
+                - generic [ref=e299]: −2
+                - generic [ref=e301]: −1
+                - generic [ref=e303]: "0"
+                - generic [ref=e305]: "1"
+                - generic [ref=e307]: "2"
+                - generic [ref=e309]: "3"
+                - generic [ref=e311]: "4"
+                - generic [ref=e313]: "5"
+              - generic [ref=e314]: x (degrees)
+              - generic [ref=e315]: "y"
+          - generic [ref=e325]: OK，帮我画个三角形来讲解三角函数的基本知识吧
+          - paragraph [ref=e330]:
+            - text: Let me draw a right triangle to explain sin, cos, tan clearly. I'll use the
+            - strong [ref=e331]: geometry
+            - text: "mode for a nice labeled diagram:"
+          - paragraph [ref=e336]:
+            - text: Geometry 模式超时了，换
+            - strong [ref=e337]: SVG
+            - text: 模式来画，这个更可靠：
+          - paragraph [ref=e342]:
+            - text: 两次超时了，换个方案 — 用
+            - strong [ref=e343]: HTML 模式
+            - text: 画一个清晰的三角形：
+          - iframe [ref=e349]:
+            - generic [ref=f2e2]:
+              - heading "..." [level=1] [ref=f2e3]
+              - img [ref=f2e5]: ...
+              - paragraph [ref=f2e7]: ...
+          - generic [ref=e351]: 再试试吧
+          - paragraph [ref=e356]: 好的，我再试一次，用最简洁的方式：
+          - paragraph [ref=e361]: 可视化工具一直超时。让我换个方法——直接写好文件然后通过消息发给你：
+          - paragraph [ref=e366]: 文件写好了，现在通过消息发送给你：
+          - generic [ref=e370]:
+            - paragraph [ref=e371]: 给你画好了！📐 上面是直角三角形图示，下面是核心知识总结：
+            - separator [ref=e372]
+            - heading "🛝 滑梯比喻 — 三边三角" [level=2] [ref=e373]
+            - code [ref=e376]: B /| / | 斜边 / | 对边 (高) = 5 / | = 3 / | /_____| A 邻=4 C θ
+            - table [ref=e378]:
+              - rowgroup [ref=e379]:
+                - row "边 身份 数值 解释" [ref=e380]:
+                  - columnheader "边" [ref=e381]
+                  - columnheader "身份" [ref=e382]
+                  - columnheader "数值" [ref=e383]
+                  - columnheader "解释" [ref=e384]
+              - rowgroup [ref=e385]:
+                - row "BC 对边 3 正对着角θ的那条边" [ref=e386]:
+                  - cell "BC" [ref=e387]:
+                    - strong [ref=e388]: BC
+                  - cell "对边" [ref=e389]
+                  - cell "3" [ref=e390]
+                  - cell "正对着角θ的那条边" [ref=e391]
+                - row "AC 邻边 4 挨着角θ、不是斜边的那条" [ref=e392]:
+                  - cell "AC" [ref=e393]:
+                    - strong [ref=e394]: AC
+                  - cell "邻边" [ref=e395]
+                  - cell "4" [ref=e396]
+                  - cell "挨着角θ、不是斜边的那条" [ref=e397]
+                - row "AB 斜边 5 最长的那条，滑梯本身" [ref=e398]:
+                  - cell "AB" [ref=e399]:
+                    - strong [ref=e400]: AB
+                  - cell "斜边" [ref=e401]
+                  - cell "5" [ref=e402]
+                  - cell "最长的那条，滑梯本身" [ref=e403]
+            - separator [ref=e404]
+            - heading "📐 三个函数 = 两条边的比值" [level=2] [ref=e405]
+            - table [ref=e407]:
+              - rowgroup [ref=e408]:
+                - row "函数 公式 3-4-5 计算 结果" [ref=e409]:
+                  - columnheader "函数" [ref=e410]
+                  - columnheader "公式" [ref=e411]
+                  - columnheader "3-4-5 计算" [ref=e412]
+                  - columnheader "结果" [ref=e413]
+              - rowgroup [ref=e414]:
+                - row "sin θ 对 ÷ 斜 3 ÷ 5 0.6" [ref=e415]:
+                  - cell "sin θ" [ref=e416]:
+                    - strong [ref=e417]: sin θ
+                  - cell "对 ÷ 斜" [ref=e418]
+                  - cell "3 ÷ 5" [ref=e419]
+                  - cell "0.6" [ref=e420]:
+                    - strong [ref=e421]: "0.6"
+                - row "cos θ 邻 ÷ 斜 4 ÷ 5 0.8" [ref=e422]:
+                  - cell "cos θ" [ref=e423]:
+                    - strong [ref=e424]: cos θ
+                  - cell "邻 ÷ 斜" [ref=e425]
+                  - cell "4 ÷ 5" [ref=e426]
+                  - cell "0.8" [ref=e427]:
+                    - strong [ref=e428]: "0.8"
+                - row "tan θ 对 ÷ 邻 3 ÷ 4 0.75" [ref=e429]:
+                  - cell "tan θ" [ref=e430]:
+                    - strong [ref=e431]: tan θ
+                  - cell "对 ÷ 邻" [ref=e432]
+                  - cell "3 ÷ 4" [ref=e433]
+                  - cell "0.75" [ref=e434]:
+                    - strong [ref=e435]: "0.75"
+            - blockquote [ref=e436]:
+              - paragraph [ref=e437]:
+                - text: 🔑
+                - strong [ref=e438]: 记忆口诀
+                - text: ：
+                - strong [ref=e439]: SOH·CAH·TOA
+              - list [ref=e440]:
+                - listitem [ref=e441]:
+                  - strong [ref=e442]: S
+                  - text: in =
+                  - strong [ref=e443]: O
+                  - text: pposite /
+                  - strong [ref=e444]: H
+                  - text: ypotenuse（对/斜）
+                - listitem [ref=e445]:
+                  - strong [ref=e446]: C
+                  - text: os =
+                  - strong [ref=e447]: A
+                  - text: djacent /
+                  - strong [ref=e448]: H
+                  - text: ypotenuse（邻/斜）
+                - listitem [ref=e449]:
+                  - strong [ref=e450]: T
+                  - text: an =
+                  - strong [ref=e451]: O
+                  - text: pposite /
+                  - strong [ref=e452]: A
+                  - text: djacent（对/邻）
+            - separator [ref=e453]
+            - paragraph [ref=e454]:
+              - text: 打开附件里的
+              - code [ref=e455]: right_triangle.html
+              - text: （用浏览器），可以看到带颜色标注的完整图示！有什么问题随时问～
+          - generic [ref=e457]: /new
+          - paragraph [ref=e468]: New session started.
+          - generic [ref=e470]: Show me a graph of y = sin(x) over one full period
+          - generic [ref=e476]:
+            - group [ref=e477]:
+              - generic "Thinking (12 steps)" [ref=e490] [cursor=pointer]
+            - img [ref=e495]:
+              - generic [ref=e496]: Graph of sin(x) and cos(x)
+              - generic [ref=e497]:
+                - generic [ref=e498]:
+                  - generic [ref=e501]: −6
+                  - generic [ref=e503]: −5
+                  - generic [ref=e505]: −4
+                  - generic [ref=e507]: −3
+                  - generic [ref=e509]: −2
+                  - generic [ref=e511]: −1
+                  - generic [ref=e513]: "0"
+                  - generic [ref=e515]: "1"
+                  - generic [ref=e517]: "2"
+                  - generic [ref=e519]: "3"
+                  - generic [ref=e521]: "4"
+                  - generic [ref=e523]: "5"
+                  - generic [ref=e525]: "6"
+                - generic [ref=e526]:
+                  - generic [ref=e529]: "-1.4"
+                  - generic [ref=e531]: "-1.2"
+                  - generic [ref=e533]: −1
+                  - generic [ref=e535]: "-0.8"
+                  - generic [ref=e537]: "-0.6"
+                  - generic [ref=e539]: "-0.4"
+                  - generic [ref=e541]: "-0.2"
+                  - generic [ref=e543]: "0"
+                  - generic [ref=e545]: "0.2"
+                  - generic [ref=e547]: "0.4"
+                  - generic [ref=e549]: "0.6"
+                  - generic [ref=e551]: "0.8"
+                  - generic [ref=e553]: "1"
+                  - generic [ref=e555]: "1.2"
+                  - generic [ref=e557]: "1.4"
+                - generic [ref=e558]: x
+                - generic [ref=e559]: "y"
+          - generic [ref=e567]: Draw a 3-4-5 right triangle with vertices A, B, C. Mark the right angle at C and label the sides.
+          - group [ref=e574]:
+            - generic "Thinking (7 steps)" [ref=e575] [cursor=pointer]
+            - generic [ref=e576]:
+              - paragraph [ref=e577]: visualize("geometry")
+              - paragraph [ref=e578]: Working on visualize…
+              - paragraph [ref=e579]: Working on visualize…
+              - paragraph [ref=e580]: Working on visualize…
+              - paragraph [ref=e581]: Working on visualize…
+              - paragraph [ref=e582]: Working on visualize…
+              - paragraph [ref=e583]: Working on visualize…
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e462]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e463]

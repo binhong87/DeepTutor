@@ -1,0 +1,79 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e110] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e111] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e112] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e113] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "设置" [ref=e114] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e49]
+          - generic [ref=e52]: 设置
+        - button "退出登录" [ref=e115] [cursor=pointer]:
+          - img [ref=e54]
+          - generic [ref=e57]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [active] [ref=e116] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e35]:
+        - link "仪表盘" [ref=e117] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e60]
+          - text: 仪表盘
+        - heading "Soul 模板" [level=1] [ref=e118]
+        - paragraph [ref=e63]: 可复用的教学人格模板。共 5 个。
+        - generic [ref=e64]:
+          - generic [ref=e119] [cursor=pointer]:
+            - generic [ref=e120]:
+              - img [ref=e122]
+              - generic [ref=e124]:
+                - heading "默认导师" [level=3] [ref=e125]
+                - paragraph [ref=e126]: default-tutorbot-zh
+            - paragraph [ref=e127]: "# 灵魂 我是 TutorBot，你的个人学习伙伴。 ## 性格特征 - 热情友好，乐于助人 - 表达清晰，鼓励耐心 - 根据用户水平调整讲解方式 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 操作透明，有据可查"
+          - generic [ref=e128] [cursor=pointer]:
+            - generic [ref=e129]:
+              - img [ref=e131]
+              - generic [ref=e133]:
+                - heading "数学导师" [level=3] [ref=e134]
+                - paragraph [ref=e135]: math-tutor-zh
+            - paragraph [ref=e136]: "# 灵魂 我是一位专注于清晰逐步解题的数学导师。 ## 性格特征 - 耐心细致，方法系统 - 鼓励学生展示解题过程 - 对难题取得进展时给予积极反馈 ## 教学风格 - 将复杂问题拆解为小步骤 - 凡是学生需要\"看见\"的图表、函数图像、几何图形等可视化内容， 必须调用 `visualize"
+          - generic [ref=e137] [cursor=pointer]:
+            - generic [ref=e138]:
+              - img [ref=e140]
+              - generic [ref=e142]:
+                - heading "编程助手" [level=3] [ref=e143]
+                - paragraph [ref=e144]: coding-assistant-zh
+            - paragraph [ref=e145]: "# 灵魂 我是一位帮助开发者写出更好代码的编程助手。 ## 性格特征 - 严谨细致，注重细节 - 务实为先——可运行的代码优于完美的代码 - 清晰阐明各方案的权衡取舍 ## 工作方式 - 先读懂上下文，再动手编写 - 建议实现的同时附上测试 - 优先使用标准模式，而非炫技"
+          - generic [ref=e146] [cursor=pointer]:
+            - generic [ref=e147]:
+              - img [ref=e149]
+              - generic [ref=e151]:
+                - heading "研究助手" [level=3] [ref=e152]
+                - paragraph [ref=e153]: research-helper-zh
+            - paragraph [ref=e154]: "# 灵魂 我是一位帮助用户深入探索学术课题的研究助手。 ## 性格特征 - 好奇心旺盛，研究深入 - 客观平衡，呈现多元视角 - 尽可能注明来源出处 ## 工作方式 - 将宏观问题拆解为聚焦的子问题 - 区分已有定论与尚待探索的问题 - 提供延伸阅读建议"
+          - generic [ref=e155] [cursor=pointer]:
+            - generic [ref=e156]:
+              - img [ref=e158]
+              - generic [ref=e160]:
+                - heading "语言导师" [level=3] [ref=e161]
+                - paragraph [ref=e162]: language-tutor-zh
+            - paragraph [ref=e163]: "# 灵魂 我是一位帮助用户练习并提升语言能力的语言学习伙伴。 ## 性格特征 - 鼓励有加，耐心十足 - 根据学习者水平调整难度 - 善用生动示例让学习更有趣 ## 教学风格 - 温和纠错并附解释 - 使用情境示例，而非抽象语法规则 - 鼓励口语和写作练习"
+  - button "Open Next.js Dev Tools" [ref=e43] [cursor=pointer]:
+    - img [ref=e44]
+  - alert [ref=e47]

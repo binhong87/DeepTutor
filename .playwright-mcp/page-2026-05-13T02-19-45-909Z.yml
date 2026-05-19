@@ -1,0 +1,65 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]
+  - alert [ref=e33]
+  - generic [ref=e40]:
+    - complementary [ref=e41]:
+      - generic [ref=e42]:
+        - link "DeepTutor" [ref=e43] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - navigation [ref=e48]:
+        - link "辅导机器人" [ref=e49] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e50]
+          - generic [ref=e53]: 辅导机器人
+        - link "知识库" [ref=e54] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e55]
+          - generic [ref=e57]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e59]
+          - generic [ref=e64]: 灵魂
+      - button "退出登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - generic [ref=e70]: 退出登录
+    - main [ref=e71]:
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e75]:
+            - img [ref=e76]
+            - generic [ref=e79]: 欢迎
+          - generic [ref=e82]:
+            - img [ref=e83]
+            - generic [ref=e85]: 选择灵魂
+          - generic [ref=e88]:
+            - img [ref=e89]
+            - generic [ref=e92]: 命名与描述
+          - generic [ref=e95]:
+            - img [ref=e96]
+            - generic [ref=e99]: 模型
+          - generic [ref=e102]:
+            - img [ref=e103]
+            - generic [ref=e105]: 完成
+        - generic [ref=e167]:
+          - heading "为机器人命名" [level=2] [ref=e168]
+          - paragraph [ref=e169]: 选择唯一 ID 和显示名称，ID 将成为机器人 URL 的一部分。
+          - generic [ref=e170]:
+            - generic [ref=e171]: 机器人 ID
+            - textbox "my-math-tutor" [ref=e172]
+            - paragraph [ref=e173]: 只允许小写字母、数字、连字符和下划线。
+          - generic [ref=e174]:
+            - generic [ref=e175]: 显示名称
+            - textbox "My Math Tutor" [ref=e176]
+          - generic [ref=e177]:
+            - generic [ref=e178]: 描述（可选）
+            - textbox "A helpful math tutor that explains concepts step by step..." [ref=e179]
+        - generic [ref=e123]:
+          - button "返回" [ref=e124] [cursor=pointer]:
+            - img [ref=e125]
+            - text: 返回
+          - button "下一个" [disabled] [ref=e127]:
+            - text: 下一个
+            - img [ref=e128]

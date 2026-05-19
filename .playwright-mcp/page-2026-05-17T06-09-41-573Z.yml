@@ -1,0 +1,60 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "辅导机器人" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: 辅导机器人
+        - generic [ref=e250]:
+          - generic [ref=e251] [cursor=pointer]:
+            - img [ref=e253]
+            - img [ref=e255]
+            - generic [ref=e258]: Math Smoke
+            - button "新对话" [disabled] [ref=e260]:
+              - img [ref=e261]
+          - button "新对话" [ref=e263] [cursor=pointer]:
+            - img [ref=e264]
+            - generic [ref=e265]: 新对话
+        - generic [ref=e89]:
+          - link "知识库" [ref=e90] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e91]
+            - generic [ref=e93]: 知识库
+          - link "灵魂" [ref=e94] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e95]
+            - generic [ref=e100]: 灵魂
+      - generic [ref=e101]:
+        - link "配置文件" [ref=e102] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e103]
+          - generic [ref=e106]: 配置文件
+        - button "退出登录" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e111]: 退出登录
+    - main [ref=e112]:
+      - button "Switch to English" [ref=e113] [cursor=pointer]:
+        - img [ref=e114]
+        - generic [ref=e118]: EN
+      - generic [ref=e267]:
+        - generic [ref=e268]:
+          - img [ref=e269]
+          - generic [ref=e272]: math-smoke
+        - generic [ref=e275]:
+          - generic [ref=e291]: 教我二元一次方程的解法
+          - group [ref=e298]:
+            - generic "Thinking (1 step)" [ref=e299] [cursor=pointer]
+            - paragraph [ref=e301]: "学生想让我教他二元一次方程的解法。这是一个非平凡的教学请求，需要我用 `plan_lesson` 来规划课程步骤。 让我设计一个关于\"二元一次方程解法\"的课程计划。二元一次方程（即两个未知数的一次方程组）的解法主要包括： 1. 代入消元法 2. 加减消元法 我会设计一个循序渐进的课程。让我先评估一下学生的水平，然后逐步讲解。 计划步骤： s1 (assess): 了解学生对一元一次方程和基本代数概念的掌握程度 s2 (define): 给出二元一次方程（组）的定义 s3 (explain): 讲解代入消元法，配合可视化 s4 (check): 检查学生对代入消元法的理解 s5 (explain): 讲解加减消元法，配合可视化 s6 (check): 检查学生对加减消元法的理解 s7 (wrap_up): 总结两种方法及使用场景 这样总共7步，在3-8步范围内。让我开始。 等等，我觉得可以精简一点。让我想想： - s1 (assess): 评估基础 - s2 (define): 定义 - s3 (explain): 代入消元法 - s4 (check): 检查代入法 - s5 (explain): 加减消元法 - s6 (check): 检查加减法 - s7 (wrap_up): 总结 这很好。让我调用 plan_lesson。"
+        - generic [ref=e284]:
+          - textbox "Type a message..." [disabled] [ref=e285]
+          - button [disabled] [ref=e286]:
+            - img [ref=e287]

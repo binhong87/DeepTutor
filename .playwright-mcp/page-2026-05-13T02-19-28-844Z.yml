@@ -1,0 +1,89 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]
+  - alert [ref=e33]
+  - generic [ref=e40]:
+    - complementary [ref=e41]:
+      - generic [ref=e42]:
+        - link "DeepTutor" [ref=e43] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - navigation [ref=e48]:
+        - link "辅导机器人" [ref=e49] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e50]
+          - generic [ref=e53]: 辅导机器人
+        - link "知识库" [ref=e54] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e55]
+          - generic [ref=e57]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e59]
+          - generic [ref=e64]: 灵魂
+      - button "退出登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - generic [ref=e70]: 退出登录
+    - main [ref=e71]:
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e75]:
+            - img [ref=e76]
+            - generic [ref=e79]: 欢迎
+          - generic [ref=e82]:
+            - img [ref=e83]
+            - generic [ref=e85]: 选择灵魂
+          - generic [ref=e88]:
+            - img [ref=e89]
+            - generic [ref=e92]: 命名与描述
+          - generic [ref=e95]:
+            - img [ref=e96]
+            - generic [ref=e99]: 模型
+          - generic [ref=e102]:
+            - img [ref=e103]
+            - generic [ref=e105]: 完成
+        - generic [ref=e130]:
+          - heading "选择灵魂" [level=2] [ref=e131]
+          - paragraph [ref=e132]: 选择一个教学人格，或使用默认设置。
+          - generic [ref=e133]:
+            - 'button "Default TutorBot # Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and" [ref=e134] [cursor=pointer]':
+              - generic [ref=e135]: Default TutorBot
+              - generic [ref=e136]: "# Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and"
+            - 'button "Math Tutor # Soul I am a math tutor specializing in clear, step-by-step problem solving. ## Personality - Patient and methodical" [ref=e137] [cursor=pointer]':
+              - generic [ref=e138]: Math Tutor
+              - generic [ref=e139]: "# Soul I am a math tutor specializing in clear, step-by-step problem solving. ## Personality - Patient and methodical"
+            - 'button "Coding Assistant # Soul I am a coding assistant focused on helping developers write better software. ## Personality - Precise and deta" [ref=e140] [cursor=pointer]':
+              - generic [ref=e141]: Coding Assistant
+              - generic [ref=e142]: "# Soul I am a coding assistant focused on helping developers write better software. ## Personality - Precise and deta"
+            - 'button "Research Helper # Soul I am a research assistant helping users explore academic topics in depth. ## Personality - Curious and thoroug" [ref=e143] [cursor=pointer]':
+              - generic [ref=e144]: Research Helper
+              - generic [ref=e145]: "# Soul I am a research assistant helping users explore academic topics in depth. ## Personality - Curious and thoroug"
+            - 'button "Language Tutor # Soul I am a language learning companion helping users practice and improve. ## Personality - Encouraging and patien" [ref=e146] [cursor=pointer]':
+              - generic [ref=e147]: Language Tutor
+              - generic [ref=e148]: "# Soul I am a language learning companion helping users practice and improve. ## Personality - Encouraging and patien"
+            - 'button "默认导师 # 灵魂 我是 TutorBot，你的个人学习伙伴。 ## 性格特征 - 热情友好，乐于助人 - 表达清晰，鼓励耐心 - 根据用户水平调整讲解方式 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 操作透明，有据可查" [ref=e149] [cursor=pointer]':
+              - generic [ref=e150]: 默认导师
+              - generic [ref=e151]: "# 灵魂 我是 TutorBot，你的个人学习伙伴。 ## 性格特征 - 热情友好，乐于助人 - 表达清晰，鼓励耐心 - 根据用户水平调整讲解方式 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 操作透明，有据可查"
+            - 'button "数学导师 # 灵魂 我是一位专注于清晰逐步解题的数学导师。 ## 性格特征 - 耐心细致，方法系统 - 鼓励学生展示解题过程 - 对难题取得进展时给予积极反馈 ## 教学风格 - 将复杂问题拆解为小步骤 - 尽可能使用图示辅助理解 - 始终" [ref=e152] [cursor=pointer]':
+              - generic [ref=e153]: 数学导师
+              - generic [ref=e154]: "# 灵魂 我是一位专注于清晰逐步解题的数学导师。 ## 性格特征 - 耐心细致，方法系统 - 鼓励学生展示解题过程 - 对难题取得进展时给予积极反馈 ## 教学风格 - 将复杂问题拆解为小步骤 - 尽可能使用图示辅助理解 - 始终"
+            - 'button "编程助手 # 灵魂 我是一位帮助开发者写出更好代码的编程助手。 ## 性格特征 - 严谨细致，注重细节 - 务实为先——可运行的代码优于完美的代码 - 清晰阐明各方案的权衡取舍 ## 工作方式 - 先读懂上下文，再动手编写 - 建议实现的同" [ref=e155] [cursor=pointer]':
+              - generic [ref=e156]: 编程助手
+              - generic [ref=e157]: "# 灵魂 我是一位帮助开发者写出更好代码的编程助手。 ## 性格特征 - 严谨细致，注重细节 - 务实为先——可运行的代码优于完美的代码 - 清晰阐明各方案的权衡取舍 ## 工作方式 - 先读懂上下文，再动手编写 - 建议实现的同"
+            - 'button "研究助手 # 灵魂 我是一位帮助用户深入探索学术课题的研究助手。 ## 性格特征 - 好奇心旺盛，研究深入 - 客观平衡，呈现多元视角 - 尽可能注明来源出处 ## 工作方式 - 将宏观问题拆解为聚焦的子问题 - 区分已有定论与尚待探索的问" [ref=e158] [cursor=pointer]':
+              - generic [ref=e159]: 研究助手
+              - generic [ref=e160]: "# 灵魂 我是一位帮助用户深入探索学术课题的研究助手。 ## 性格特征 - 好奇心旺盛，研究深入 - 客观平衡，呈现多元视角 - 尽可能注明来源出处 ## 工作方式 - 将宏观问题拆解为聚焦的子问题 - 区分已有定论与尚待探索的问"
+            - 'button "语言导师 # 灵魂 我是一位帮助用户练习并提升语言能力的语言学习伙伴。 ## 性格特征 - 鼓励有加，耐心十足 - 根据学习者水平调整难度 - 善用生动示例让学习更有趣 ## 教学风格 - 温和纠错并附解释 - 使用情境示例，而非抽象语法规" [ref=e161] [cursor=pointer]':
+              - generic [ref=e162]: 语言导师
+              - generic [ref=e163]: "# 灵魂 我是一位帮助用户练习并提升语言能力的语言学习伙伴。 ## 性格特征 - 鼓励有加，耐心十足 - 根据学习者水平调整难度 - 善用生动示例让学习更有趣 ## 教学风格 - 温和纠错并附解释 - 使用情境示例，而非抽象语法规"
+            - button "从零开始 无预设人格，稍后自行定义。" [ref=e164] [cursor=pointer]:
+              - generic [ref=e165]: 从零开始
+              - generic [ref=e166]: 无预设人格，稍后自行定义。
+        - generic [ref=e123]:
+          - button "返回" [ref=e124] [cursor=pointer]:
+            - img [ref=e125]
+            - text: 返回
+          - button "下一个" [disabled] [ref=e127]:
+            - text: 下一个
+            - img [ref=e128]

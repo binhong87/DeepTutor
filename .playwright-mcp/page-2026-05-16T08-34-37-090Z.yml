@@ -1,0 +1,62 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e21]
+  - generic [ref=e27]:
+    - complementary [ref=e28]:
+      - generic [ref=e29]:
+        - link "DeepTutor" [ref=e30] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e31] [cursor=pointer]:
+          - img [ref=e32]
+      - navigation [ref=e35]:
+        - link "辅导机器人" [ref=e36] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e37]
+          - generic [ref=e40]: 辅导机器人
+        - link "知识库" [ref=e41] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e42]
+          - generic [ref=e44]: 知识库
+        - link "灵魂" [ref=e45] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e46]
+          - generic [ref=e51]: 灵魂
+      - generic [ref=e52]:
+        - link "配置文件" [ref=e53] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e54]
+          - generic [ref=e57]: 配置文件
+        - button "退出登录" [ref=e58] [cursor=pointer]:
+          - img [ref=e59]
+          - generic [ref=e62]: 退出登录
+    - main [ref=e63]:
+      - button "Switch to English" [ref=e64] [cursor=pointer]:
+        - img [ref=e65]
+        - generic [ref=e69]: EN
+      - generic [ref=e70]:
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - heading "我的导师机器人" [level=1] [ref=e73]
+            - paragraph [ref=e74]: 已登录为 e2e_admin
+          - link "创建新机器人" [ref=e75] [cursor=pointer]:
+            - /url: /tutorbot/boarding
+            - img [ref=e76]
+            - text: 创建新机器人
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - generic [ref=e80]:
+              - img [ref=e82]
+              - heading "数学老师" [level=3] [ref=e86]
+            - generic [ref=e87]: 已停止
+          - generic [ref=e89]:
+            - link "聊天" [ref=e90] [cursor=pointer]:
+              - /url: /tutorbot/aaa/chat
+              - img [ref=e91]
+              - text: 聊天
+            - link "设置" [ref=e93] [cursor=pointer]:
+              - /url: /tutorbot/aaa/settings
+              - img [ref=e94]
+              - text: 设置
+            - link "开始" [ref=e97] [cursor=pointer]:
+              - /url: /tutorbot/aaa/chat
+              - img [ref=e98]
+              - text: 开始

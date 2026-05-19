@@ -1,0 +1,45 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: TutorBot
+        - link "Knowledge" [ref=e16] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: Knowledge
+        - link "Souls" [ref=e20] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: Souls
+      - generic [ref=e27]:
+        - link "Settings" [ref=e96] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e97]
+          - generic [ref=e100]: Settings
+        - button "Sign out" [ref=e101] [cursor=pointer]:
+          - img [ref=e102]
+          - generic [ref=e105]: Sign out
+    - main [ref=e28]:
+      - generic [ref=e180]:
+        - generic [ref=e181]:
+          - img [ref=e182]
+          - generic [ref=e185]: demo-bot
+        - generic [ref=e189]:
+          - img [ref=e191]
+          - paragraph [ref=e194]: Chat with demo-bot
+          - paragraph [ref=e195]: Send a message to start the conversation.
+        - generic [ref=e197]:
+          - textbox "Type a message..." [ref=e198]
+          - button [disabled] [ref=e199]:
+            - img [ref=e200]
+  - button "Open Next.js Dev Tools" [ref=e92] [cursor=pointer]:
+    - img [ref=e93]
+  - alert [ref=e106]

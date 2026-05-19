@@ -1,0 +1,174 @@
+<h2>Section 3 — Sidebar tree layout (proposal)</h2>
+<p class="subtitle">Click an element below or just tell me in the terminal what to change. I've drawn the expanded state, the bot section detail (showing the M3 "+ New chat" rule), and the collapsed-sidebar fallback.</p>
+
+<style>
+  .sb-wrap { font: 13px/1.45 ui-monospace, "SF Mono", monospace; }
+  .sb { width: 240px; background:#0f1115; color:#d8d8e0; border-radius:10px; padding:8px 6px; border:1px solid #2a2d36; }
+  .sb .group-hdr { display:flex; align-items:center; gap:6px; padding:6px 8px; font-weight:600; color:#a8a8b3; font-size:12px; letter-spacing:0.04em; text-transform:uppercase; }
+  .sb .bot-row { display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:6px; cursor:pointer; }
+  .sb .bot-row:hover { background:#1a1d26; }
+  .sb .bot-row .name { flex:1; color:#e8e8ef; font-weight:500; }
+  .sb .bot-row .dot { width:6px; height:6px; border-radius:50%; }
+  .sb .bot-row .dot.live { background:#22c55e; }
+  .sb .bot-row .add { width:20px; height:20px; display:flex; align-items:center; justify-content:center; border-radius:4px; color:#7a7a85; opacity:0; }
+  .sb .bot-row:hover .add.enabled { opacity:1; }
+  .sb .bot-row .add.enabled:hover { background:#262a35; color:#e8e8ef; }
+  .sb .sessions { padding:2px 0 4px 22px; }
+  .sb .sess { display:flex; align-items:center; gap:6px; padding:5px 8px; border-radius:6px; color:#b8b8c4; cursor:pointer; position:relative; }
+  .sb .sess:hover { background:#1a1d26; }
+  .sb .sess.active { background:#1c3050; color:#e8e8ef; }
+  .sb .sess.active::before { content:""; position:absolute; left:-22px; top:6px; bottom:6px; width:2px; background:#3b82f6; border-radius:2px; }
+  .sb .sess .ic { color:#7a7a85; flex-shrink:0; }
+  .sb .sess.active .ic { color:#9fb9e8; }
+  .sb .sess .title { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .sb .sess .badge { font-size:10px; padding:0 6px; height:14px; line-height:14px; border-radius:7px; color:#9099aa; background:#1f2330; }
+  .sb .sess.default .title { color:#9099aa; font-style:italic; }
+  .sb .sess.completed .title { color:#888896; }
+  .sb .sess .stepbar { font-size:10px; color:#666; }
+  .caret { color:#7a7a85; width:12px; display:inline-block; }
+  .pill { display:inline-block; background:#222633; padding:2px 8px; border-radius:10px; font-size:11px; color:#9ca3b8; margin-right:6px; }
+  .caption { color:#8a8a96; font-size:11px; margin-top:4px; }
+</style>
+
+<div class="sb-wrap">
+
+  <div class="split">
+
+    <!-- ────────── A: Full expanded tree ────────── -->
+    <div class="mockup">
+      <div class="mockup-header">A. Expanded tree</div>
+      <div class="mockup-body" style="background:#16181f; padding:16px;">
+        <div class="sb">
+          <div class="group-hdr">📚 <span>辅导机器人</span></div>
+
+          <div class="bot-row">
+            <span class="caret">▾</span>🤖
+            <span class="name">数学老师</span>
+            <span class="dot live" title="running"></span>
+            <span class="add enabled" title="+ New chat (default has messages)">＋</span>
+          </div>
+          <div class="sessions">
+            <div class="sess active">
+              <span class="ic">💬</span>
+              <span class="title">二元一次方程的解法</span>
+              <span class="stepbar">3/5</span>
+            </div>
+            <div class="sess">
+              <span class="ic">💬</span>
+              <span class="title">一元二次方程的判别式</span>
+              <span class="badge">完成</span>
+            </div>
+            <div class="sess">
+              <span class="ic">💬</span>
+              <span class="title">函数图像的对称性</span>
+              <span class="badge">完成</span>
+            </div>
+            <div class="sess default">
+              <span class="ic">＋</span>
+              <span class="title">新会话</span>
+            </div>
+          </div>
+
+          <div class="bot-row">
+            <span class="caret">▾</span>🤖
+            <span class="name">化学助教</span>
+            <span class="dot live"></span>
+            <span class="add" title="default is empty — disabled">＋</span>
+          </div>
+          <div class="sessions">
+            <div class="sess">
+              <span class="ic">💬</span>
+              <span class="title">氧化还原反应的概念知识</span>
+              <span class="stepbar">2/4</span>
+            </div>
+            <div class="sess default">
+              <span class="ic">＋</span>
+              <span class="title">新会话</span>
+            </div>
+          </div>
+
+          <div class="bot-row">
+            <span class="caret">▸</span>🤖
+            <span class="name">English Tutor</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ────────── B: Bot detail showing M3 rule + states ────────── -->
+    <div class="mockup">
+      <div class="mockup-header">B. Session row anatomy</div>
+      <div class="mockup-body" style="background:#16181f; padding:16px;">
+        <div class="sb" style="width:auto">
+
+          <div class="caption">Active lesson (status=active, current session)</div>
+          <div class="sessions" style="padding-left:8px">
+            <div class="sess active">
+              <span class="ic">💬</span>
+              <span class="title">二元一次方程的解法</span>
+              <span class="stepbar">3/5</span>
+            </div>
+          </div>
+
+          <div class="caption">Completed lesson (status=completed) — clickable, R1 resumes it</div>
+          <div class="sessions" style="padding-left:8px">
+            <div class="sess">
+              <span class="ic">💬</span>
+              <span class="title">一元二次方程的判别式</span>
+              <span class="badge">完成</span>
+            </div>
+          </div>
+
+          <div class="caption">Default session, empty (status=default, no messages) — M3 button DISABLED</div>
+          <div class="sessions" style="padding-left:8px">
+            <div class="sess default">
+              <span class="ic">＋</span>
+              <span class="title">新会话</span>
+            </div>
+          </div>
+
+          <div class="caption">G1 imported legacy (status=archived) — same row, italic title fallback if empty</div>
+          <div class="sessions" style="padding-left:8px">
+            <div class="sess completed">
+              <span class="ic">📦</span>
+              <span class="title">之前的对话</span>
+              <span class="badge">归档</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mockup" style="margin-top:14px">
+    <div class="mockup-header">C. Collapsed sidebar (60px) fallback</div>
+    <div class="mockup-body" style="background:#16181f; padding:16px;">
+      <div style="display:flex; gap:16px; align-items:flex-start">
+        <div class="sb" style="width:60px; padding:6px 4px;">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:10px; padding-top:6px;">
+            <div title="DeepTutor" style="font-weight:600">DT</div>
+            <div title="辅导机器人" style="color:#a8a8b3">📚</div>
+            <div title="知识库" style="color:#a8a8b3">📖</div>
+            <div title="Souls" style="color:#a8a8b3">🎭</div>
+          </div>
+        </div>
+        <div style="color:#9099aa; font-size:12px; max-width:380px">
+          Collapsed mode keeps the existing top-level nav icons only. The session tree is not shown when collapsed — clicking 📚 expands the sidebar back to 240px (or 260px to make room for session titles). No tooltip menu of sessions in collapsed mode; that would be a separate scope.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="caption" style="margin-top:14px">
+    <strong>Behavior notes:</strong>
+    Sidebar widens from 220→260px when sessions are visible.
+    Bot row caret toggles expand/collapse; the active bot is auto-expanded on chat-page mount.
+    "+ New chat" is on the bot-row hover affordance only (no separate icon row); shown enabled only when M3 says yes.
+    Active session has a blue left rail. Completed/archived sessions are muted.
+    Step progress (<code>3/5</code>) is shown for active lessons; not for completed/archived/default.
+    Long session lists scroll inside the sessions group; bot row stays sticky at the top of its group.
+  </p>
+
+</div>

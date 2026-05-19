@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]
+  - alert [ref=e33]
+  - generic [ref=e40]:
+    - complementary [ref=e41]:
+      - generic [ref=e42]:
+        - link "DeepTutor" [ref=e43] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - navigation [ref=e48]:
+        - link "辅导机器人" [ref=e49] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e50]
+          - generic [ref=e53]: 辅导机器人
+        - link "知识库" [ref=e54] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e55]
+          - generic [ref=e57]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e59]
+          - generic [ref=e64]: 灵魂
+      - button "退出登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - generic [ref=e70]: 退出登录
+    - main [ref=e71]:
+      - generic [ref=e218]:
+        - generic [ref=e219]:
+          - img [ref=e220]
+          - generic [ref=e223]: viz-bot
+        - generic [ref=e226]:
+          - generic [ref=e242]: Draw a cosine wave from 0 to 360 degrees
+          - generic [ref=e248]:
+            - group [ref=e249]:
+              - generic "Thinking (4 steps)" [ref=e254] [cursor=pointer]
+            - generic [ref=e256]:
+              - paragraph [ref=e257]:
+                - text: 这是
+                - strong [ref=e258]: 余弦函数 y = cos(x)
+                - text: 的图像，从 0° 到 360°：
+              - paragraph [ref=e259]:
+                - text: ✨
+                - strong [ref=e260]: 五个关键点
+                - text: （红点标注）：
+              - list [ref=e261]:
+                - listitem [ref=e262]:
+                  - strong [ref=e263]: (0°, 1)
+                  - text: — 起点，cos 值最大
+                - listitem [ref=e264]:
+                  - strong [ref=e265]: (90°, 0)
+                  - text: — 下降到 0
+                - listitem [ref=e266]:
+                  - strong [ref=e267]: (180°, -1)
+                  - text: — 到达最低点
+                - listitem [ref=e268]:
+                  - strong [ref=e269]: (270°, 0)
+                  - text: — 回升到 0
+                - listitem [ref=e270]:
+                  - strong [ref=e271]: (360°, 1)
+                  - text: — 回到最高点
+              - paragraph [ref=e272]:
+                - text: 📌
+                - strong [ref=e273]: 和正弦对比
+                - text: ：余弦曲线可以看作正弦曲线向左平移了 90°。cos(x) = sin(x + 90°)，所以形状完全一样，只是"起点"不同——正弦从 0 出发，余弦从 1 出发！
+        - generic [ref=e235]:
+          - textbox "Type a message..." [ref=e236]
+          - button [disabled] [ref=e237]:
+            - img [ref=e238]

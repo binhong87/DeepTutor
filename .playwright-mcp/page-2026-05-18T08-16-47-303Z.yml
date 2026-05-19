@@ -1,0 +1,27 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - heading "创建账号" [level=1] [ref=e74]
+      - paragraph [ref=e75]: 开启你的专属导师机器人之旅
+    - generic [ref=e76]:
+      - generic [ref=e77]:
+        - generic [ref=e78]: 用户名或邮箱
+        - textbox "用户名或邮箱" [ref=e79]:
+          - /placeholder: you@example.com
+      - generic [ref=e80]:
+        - generic [ref=e81]: 密码
+        - textbox "密码" [ref=e82]:
+          - /placeholder: 至少 8 个字符
+      - generic [ref=e83]:
+        - generic [ref=e84]: 确认密码
+        - textbox "确认密码" [ref=e85]
+      - button "创建账号" [ref=e86] [cursor=pointer]:
+        - img [ref=e87]
+        - text: 创建账号
+    - paragraph [ref=e90]:
+      - text: 已有账号？
+      - link "登录" [ref=e91] [cursor=pointer]:
+        - /url: /login

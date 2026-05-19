@@ -1,0 +1,46 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e50] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e51] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e52] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e53] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e54] [cursor=pointer]:
+        - img [ref=e55]
+        - generic [ref=e58]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e61]: Show me a graph of y = 2x + 3
+          - generic [ref=e73]: Graph y = x^3 - 2x on [-3, 3]
+          - group [ref=e80]:
+            - generic "Thinking (4 steps)" [ref=e81] [cursor=pointer]
+            - generic [ref=e82]:
+              - paragraph [ref=e83]: visualize("function_graph")
+              - paragraph [ref=e84]: Working on visualize…
+              - paragraph [ref=e85]: Working on visualize…
+              - paragraph [ref=e86]: Working on visualize…
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e62]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e68] [cursor=pointer]:
+    - img [ref=e69]
+  - alert [ref=e49]

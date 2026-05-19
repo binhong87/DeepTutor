@@ -1,0 +1,154 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: e2e-bot
+        - generic [ref=e44]:
+          - generic [ref=e72]: Visualize y = x^2 from -3 to 3 using the visualize tool.
+          - generic [ref=e76]:
+            - paragraph [ref=e77]: 以下是函数的关键特征：
+            - table [ref=e79]:
+              - rowgroup [ref=e80]:
+                - row "性质 值" [ref=e81]:
+                  - columnheader "性质" [ref=e82]
+                  - columnheader "值" [ref=e83]
+              - rowgroup [ref=e84]:
+                - row "定义域" [ref=e85]:
+                  - cell "定义域" [ref=e86]:
+                    - strong [ref=e87]: 定义域
+                  - cell [ref=e88]:
+                    - generic [ref=e89]:
+                      - math [ref=e91]:
+                        - generic [ref=e93]:
+                          - generic [ref=e94]: "["
+                          - generic [ref=e95]: −
+                          - generic [ref=e96]: "3"
+                          - generic [ref=e97]: ","
+                          - generic [ref=e98]: "3"
+                          - generic [ref=e99]: "]"
+                      - generic [ref=e101]: "[−3, 3]"
+                - row "值域 [0, 9](#references \"citation\")" [ref=e102]:
+                  - cell "值域" [ref=e103]:
+                    - strong [ref=e104]: 值域
+                  - cell "[0, 9](#references \"citation\")" [ref=e105]
+                - row "顶点" [ref=e106]:
+                  - cell "顶点" [ref=e107]:
+                    - strong [ref=e108]: 顶点
+                  - cell [ref=e109]:
+                    - generic [ref=e110]:
+                      - math [ref=e112]:
+                        - generic [ref=e114]:
+                          - generic [ref=e115]: (
+                          - generic [ref=e116]: "0"
+                          - generic [ref=e117]: ","
+                          - generic [ref=e118]: "0"
+                          - generic [ref=e119]: )
+                      - generic [ref=e121]: (0, 0)
+                - row "对称轴 （y 轴）" [ref=e122]:
+                  - cell "对称轴" [ref=e123]:
+                    - strong [ref=e124]: 对称轴
+                  - cell "（y 轴）" [ref=e125]:
+                    - generic [ref=e126]:
+                      - math [ref=e128]:
+                        - generic [ref=e130]:
+                          - generic [ref=e131]: x
+                          - generic [ref=e132]: =
+                          - generic [ref=e133]: "0"
+                      - generic [ref=e134]:
+                        - generic [ref=e135]: x =
+                        - generic [ref=e136]: "0"
+                    - text: （y 轴）
+                - row "单调性 递减， 递增" [ref=e137]:
+                  - cell "单调性" [ref=e138]:
+                    - strong [ref=e139]: 单调性
+                  - cell "递减， 递增" [ref=e140]:
+                    - generic [ref=e141]:
+                      - math [ref=e143]:
+                        - generic [ref=e145]:
+                          - generic [ref=e146]: (
+                          - generic [ref=e147]: −
+                          - generic [ref=e148]: "3"
+                          - generic [ref=e149]: ","
+                          - generic [ref=e150]: "0"
+                          - generic [ref=e151]: )
+                      - generic [ref=e153]: (−3, 0)
+                    - text: 递减，
+                    - generic [ref=e154]:
+                      - math [ref=e156]:
+                        - generic [ref=e158]:
+                          - generic [ref=e159]: (
+                          - generic [ref=e160]: "0"
+                          - generic [ref=e161]: ","
+                          - generic [ref=e162]: "3"
+                          - generic [ref=e163]: )
+                      - generic [ref=e165]: (0, 3)
+                    - text: 递增
+                - row "零点" [ref=e166]:
+                  - cell "零点" [ref=e167]:
+                    - strong [ref=e168]: 零点
+                  - cell [ref=e169]:
+                    - generic [ref=e170]:
+                      - math [ref=e172]:
+                        - generic [ref=e174]:
+                          - generic [ref=e175]: x
+                          - generic [ref=e176]: =
+                          - generic [ref=e177]: "0"
+                      - generic [ref=e178]:
+                        - generic [ref=e179]: x =
+                        - generic [ref=e180]: "0"
+            - paragraph [ref=e181]:
+              - text: 抛物线开口向上，两端对称，最低点在原点。图上还加了阴影区域帮助直观感受曲线下方的面积。有什么想进一步探讨的吗？比如求切线、面积，或者对比
+              - generic [ref=e182]:
+                - math [ref=e184]:
+                  - generic [ref=e186]:
+                    - generic [ref=e187]: "y"
+                    - generic [ref=e188]: =
+                    - generic [ref=e189]:
+                      - generic [ref=e190]: x
+                      - generic [ref=e191]: "3"
+                - generic [ref=e192]:
+                  - generic [ref=e193]: y =
+                  - generic [ref=e195]:
+                    - text: x
+                    - generic [ref=e200]: "3"
+              - text: ？
+          - generic [ref=e203]: 请画一下 y = x^2 在 -3 到 3 的图像
+          - group [ref=e210]:
+            - generic "Thinking (1 step)" [ref=e211] [cursor=pointer]
+        - generic [ref=e49]:
+          - textbox "Type a message..." [ref=e201]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

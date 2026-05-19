@@ -1,0 +1,68 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - generic [ref=e17]:
+          - generic [ref=e18] [cursor=pointer]:
+            - img [ref=e20]
+            - img [ref=e22]
+            - generic [ref=e25]: Smoke Bot
+            - button "新会话" [disabled] [ref=e27]:
+              - img [ref=e28]
+          - button "新会话" [ref=e30] [cursor=pointer]:
+            - img [ref=e31]
+            - generic [ref=e32]: 新会话
+        - generic [ref=e33]:
+          - link "知识库" [ref=e34] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e35]
+            - generic [ref=e37]: 知识库
+          - link "灵魂" [ref=e38] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e39]
+            - generic [ref=e44]: 灵魂
+      - generic [ref=e45]:
+        - link "配置文件" [ref=e46] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e47]
+          - generic [ref=e50]: 配置文件
+        - button "退出登录" [ref=e51] [cursor=pointer]:
+          - img [ref=e52]
+          - generic [ref=e55]: 退出登录
+    - main [ref=e56]:
+      - button "Switch to English" [ref=e57] [cursor=pointer]:
+        - img [ref=e58]
+        - generic [ref=e62]: EN
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - img [ref=e66]
+          - generic [ref=e69]: smoke-bot
+        - generic [ref=e73]:
+          - img [ref=e75]
+          - paragraph [ref=e78]: Chat with smoke-bot
+          - paragraph [ref=e79]: Send a message to start the conversation.
+        - generic [ref=e80]:
+          - generic [ref=e105]:
+            - img "01-home.png" [ref=e106]
+            - generic [ref=e107]: 01-home.png
+            - button "Remove 01-home.png" [ref=e108] [cursor=pointer]: ×
+          - generic [ref=e81]:
+            - button "上传图片" [ref=e82] [cursor=pointer]:
+              - img [ref=e83]
+            - button "录音" [ref=e85] [cursor=pointer]:
+              - img [ref=e86]
+            - textbox "Type a message..." [ref=e89]
+            - button [ref=e90] [cursor=pointer]:
+              - img [ref=e91]
+  - button "Open Next.js Dev Tools" [ref=e99] [cursor=pointer]:
+    - img [ref=e100]
+  - alert [ref=e103]

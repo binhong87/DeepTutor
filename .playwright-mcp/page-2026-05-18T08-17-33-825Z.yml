@@ -1,0 +1,79 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e92]:
+    - complementary [ref=e93]:
+      - generic [ref=e94]:
+        - link "DeepTutor" [ref=e95] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e96] [cursor=pointer]:
+          - img [ref=e97]
+      - navigation [ref=e100]:
+        - link "辅导机器人" [ref=e101] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e102]
+          - generic [ref=e105]: 辅导机器人
+        - generic [ref=e106]:
+          - link "知识库" [ref=e107] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e108]
+            - generic [ref=e110]: 知识库
+          - link "灵魂" [ref=e111] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e112]
+            - generic [ref=e117]: 灵魂
+      - generic [ref=e118]:
+        - link "配置文件" [ref=e119] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e120]
+          - generic [ref=e123]: 配置文件
+        - button "退出登录" [ref=e124] [cursor=pointer]:
+          - img [ref=e125]
+          - generic [ref=e128]: 退出登录
+    - main [ref=e129]:
+      - button "Switch to English" [ref=e130] [cursor=pointer]:
+        - img [ref=e131]
+        - generic [ref=e135]: EN
+      - generic [ref=e136]:
+        - generic [ref=e137]:
+          - generic [ref=e139]:
+            - img [ref=e140]
+            - generic [ref=e143]: 欢迎
+          - generic [ref=e146]:
+            - img [ref=e147]
+            - generic [ref=e149]: 选择灵魂
+          - generic [ref=e152]:
+            - img [ref=e153]
+            - generic [ref=e156]: 命名与描述
+          - generic [ref=e159]:
+            - img [ref=e160]
+            - generic [ref=e163]: 模型
+          - generic [ref=e166]:
+            - img [ref=e167]
+            - generic [ref=e169]: 完成
+        - generic [ref=e170]:
+          - img [ref=e172]
+          - generic [ref=e175]:
+            - heading "创建首个导师机器人" [level=1] [ref=e176]
+            - paragraph [ref=e177]: TutorBot 是由可定制人格、渠道集成和 RAG 知识库驱动的 AI 教学智能体。
+          - generic [ref=e178]:
+            - generic [ref=e179]:
+              - generic [ref=e180]: "1"
+              - text: 从灵魂库中选择教学人格
+            - generic [ref=e181]:
+              - generic [ref=e182]: "2"
+              - text: 为你的机器人设置唯一 ID 和描述
+            - generic [ref=e183]:
+              - generic [ref=e184]: "3"
+              - text: 可选择 LLM 模型，或使用默认模型
+            - generic [ref=e185]:
+              - generic [ref=e186]: "4"
+              - text: 开始聊天、管理渠道并上传知识
+        - generic [ref=e187]:
+          - button "返回" [disabled] [ref=e188]:
+            - img [ref=e189]
+            - text: 返回
+          - button "下一个" [ref=e191] [cursor=pointer]:
+            - text: 下一个
+            - img [ref=e192]

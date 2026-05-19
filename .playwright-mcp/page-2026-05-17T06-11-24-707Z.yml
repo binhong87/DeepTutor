@@ -1,0 +1,64 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "辅导机器人" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: 辅导机器人
+        - generic [ref=e250]:
+          - generic [ref=e251] [cursor=pointer]:
+            - img [ref=e253]
+            - img [ref=e255]
+            - generic [ref=e258]: Math Smoke
+            - button "新对话" [disabled] [ref=e260]:
+              - img [ref=e261]
+          - generic [ref=e262]:
+            - button "新对话" [active] [ref=e302] [cursor=pointer]:
+              - img [ref=e303]
+              - generic [ref=e304]: 新对话
+            - button "二元一次方程的解法 0/7" [ref=e305] [cursor=pointer]:
+              - img [ref=e306]
+              - generic [ref=e265]: 二元一次方程的解法
+              - generic [ref=e308]: 0/7
+        - generic [ref=e89]:
+          - link "知识库" [ref=e90] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e91]
+            - generic [ref=e93]: 知识库
+          - link "灵魂" [ref=e94] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e95]
+            - generic [ref=e100]: 灵魂
+      - generic [ref=e101]:
+        - link "配置文件" [ref=e102] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e103]
+          - generic [ref=e106]: 配置文件
+        - button "退出登录" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e111]: 退出登录
+    - main [ref=e112]:
+      - button "Switch to English" [ref=e113] [cursor=pointer]:
+        - img [ref=e114]
+        - generic [ref=e118]: EN
+      - generic [ref=e379]:
+        - generic [ref=e380]:
+          - img [ref=e381]
+          - generic [ref=e384]: math-smoke
+        - generic [ref=e388]:
+          - img [ref=e390]
+          - paragraph [ref=e393]: Chat with math-smoke
+          - paragraph [ref=e394]: Send a message to start the conversation.
+        - generic [ref=e396]:
+          - textbox "Type a message..." [ref=e397]
+          - button [disabled] [ref=e398]:
+            - img [ref=e399]

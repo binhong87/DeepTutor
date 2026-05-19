@@ -1,0 +1,77 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e79]:
+        - link "Settings" [ref=e80] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e81]
+          - text: Settings
+        - button "Sign out" [ref=e84] [cursor=pointer]:
+          - img [ref=e85]
+          - text: Sign out
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e28]:
+            - img [ref=e29]
+            - text: Welcome
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - text: Choose Soul
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: Name & Describe
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - text: Model
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - text: Done
+        - generic [ref=e89]:
+          - heading "Choose a Soul" [level=2] [ref=e90]
+          - paragraph [ref=e91]: Pick a teaching persona or use the default.
+          - generic [ref=e92]:
+            - 'button "Default TutorBot # Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and" [ref=e93] [cursor=pointer]':
+              - generic [ref=e94]: Default TutorBot
+              - generic [ref=e95]: "# Soul I am TutorBot, a personal learning companion. ## Personality - Helpful and friendly - Clear, encouraging, and"
+            - 'button "Math Tutor # Soul I am a math tutor specializing in clear, step-by-step problem solving. ## Personality - Patient and methodical" [ref=e96] [cursor=pointer]':
+              - generic [ref=e97]: Math Tutor
+              - generic [ref=e98]: "# Soul I am a math tutor specializing in clear, step-by-step problem solving. ## Personality - Patient and methodical"
+            - 'button "Coding Assistant # Soul I am a coding assistant focused on helping developers write better software. ## Personality - Precise and deta" [ref=e99] [cursor=pointer]':
+              - generic [ref=e100]: Coding Assistant
+              - generic [ref=e101]: "# Soul I am a coding assistant focused on helping developers write better software. ## Personality - Precise and deta"
+            - 'button "Research Helper # Soul I am a research assistant helping users explore academic topics in depth. ## Personality - Curious and thoroug" [ref=e102] [cursor=pointer]':
+              - generic [ref=e103]: Research Helper
+              - generic [ref=e104]: "# Soul I am a research assistant helping users explore academic topics in depth. ## Personality - Curious and thoroug"
+            - 'button "Language Tutor # Soul I am a language learning companion helping users practice and improve. ## Personality - Encouraging and patien" [ref=e105] [cursor=pointer]':
+              - generic [ref=e106]: Language Tutor
+              - generic [ref=e107]: "# Soul I am a language learning companion helping users practice and improve. ## Personality - Encouraging and patien"
+            - button "Start Fresh No preset persona — define everything later." [ref=e108] [cursor=pointer]:
+              - generic [ref=e109]: Start Fresh
+              - generic [ref=e110]: No preset persona — define everything later.
+        - generic [ref=e63]:
+          - button "Back" [ref=e64] [cursor=pointer]:
+            - img [ref=e65]
+            - text: Back
+          - button "Next" [disabled] [ref=e67]:
+            - text: Next
+            - img [ref=e68]
+  - alert [ref=e88]

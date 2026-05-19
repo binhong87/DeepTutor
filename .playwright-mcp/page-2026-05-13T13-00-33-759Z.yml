@@ -1,0 +1,89 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e68]:
+            - button "系统讲解三角函数 1/5" [ref=e69] [cursor=pointer]:
+              - img [ref=e70]
+              - img [ref=e72]
+              - generic [ref=e75]: 系统讲解三角函数
+              - generic [ref=e76]: 1/5
+            - list [ref=e77]:
+              - listitem [ref=e78]:
+                - generic "done" [ref=e79]: ✓
+                - generic [ref=e80]:
+                  - generic [ref=e81]:
+                    - generic [ref=e82]: Assess
+                    - generic [ref=e83]: 快速摸底：让学生用自己的话说出 sin/cos/tan 分别表示什么，确认薄弱环节
+                  - generic [ref=e84]: ↳ 摸底环节：让学生用自己的话解释 sin/cos/tan 分别表示什么。引用了学生已掌握的 3-4-5 三角形、波浪线图像和 SOH·CAH·TOA 口诀作为提示。等待学生回复，以便判断薄弱环节后调整后续讲解重点。
+              - listitem [ref=e85]:
+                - generic "in progress" [ref=e86]: ▶
+                - generic [ref=e88]:
+                  - generic [ref=e89]: Explain
+                  - generic [ref=e90]: 用单位圆解释三角函数为什么是波浪线——从直角三角形到圆的跨越
+              - listitem [ref=e91]:
+                - generic "pending" [ref=e92]: ·
+                - generic [ref=e94]:
+                  - generic [ref=e95]: Explain
+                  - generic [ref=e96]: 讲解三个特殊角（30°/45°/60°）的精确值，用两个特殊三角形帮助记忆
+              - listitem [ref=e97]:
+                - generic "pending" [ref=e98]: ·
+                - generic [ref=e100]:
+                  - generic [ref=e101]: Check
+                  - generic [ref=e102]: 小测验：考三个特殊角的 sin/cos/tan 值，检验掌握程度
+              - listitem [ref=e103]:
+                - generic "pending" [ref=e104]: ·
+                - generic [ref=e106]:
+                  - generic [ref=e107]: Wrap-up
+                  - generic [ref=e108]: 总结三角函数的完整图景，指出下一步学习方向
+          - generic [ref=e110]: "[Runtime guidance — not student input] This looks like a teaching / explanation request. Your FIRST tool call this turn MUST be `plan_lesson` with 3–6 ordered steps. Do NOT answer free-form. Do NOT call `visualize` before `plan_lesson`. After planning, execute exactly ONE step this turn, then call `complete_step` and stop. --- Student message: 请帮我系统地讲解一下三角函数"
+          - generic [ref=e114]:
+            - paragraph [ref=e115]: 好！咱们开始系统梳理三角函数。第一步——先摸个底，看看你脑子里已经有了哪些画面。
+            - paragraph [ref=e116]:
+              - text: 你已经见过 3-4-5 直角三角形，也看过 sin/cos/tan 的波浪线图像，还背过
+              - strong [ref=e117]: SOH·CAH·TOA
+              - text: 的口诀。那现在用你自己的大白话说说：
+            - blockquote [ref=e118]:
+              - paragraph [ref=e119]:
+                - strong [ref=e120]: sin、cos、tan 分别表示什么？
+            - paragraph [ref=e121]: 不用怕说错，想到什么说什么就行——比如对边比斜边、邻边比斜边之类的。这样我就能知道从哪儿接着帮你往下搭梯子 😊
+            - separator [ref=e122]
+            - paragraph [ref=e123]: （等你回答后，我会根据你的理解情况进入第二步——用单位圆把"三角形"和"波浪线"串起来。）
+          - paragraph [ref=e128]: 放轻松，怎么想的就怎么说～
+          - generic [ref=e132]: sin是对边比斜边，cos是邻边比斜边，tan是对边比邻边
+          - generic [ref=e133]:
+            - img [ref=e134]
+            - generic [ref=e136]: Thinking...
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e129]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e130]

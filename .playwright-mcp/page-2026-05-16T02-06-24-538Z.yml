@@ -1,0 +1,68 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: TutorBot
+        - link "Knowledge" [ref=e16] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: Knowledge
+        - link "Souls" [ref=e20] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: Souls
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e38]:
+            - img [ref=e39]
+            - generic [ref=e42]: 欢迎
+          - generic [ref=e45]:
+            - img [ref=e46]
+            - generic [ref=e48]: 选择灵魂
+          - generic [ref=e51]:
+            - img [ref=e52]
+            - generic [ref=e55]: 命名与描述
+          - generic [ref=e58]:
+            - img [ref=e59]
+            - generic [ref=e62]: 模型
+          - generic [ref=e65]:
+            - img [ref=e66]
+            - generic [ref=e68]: 完成
+        - generic [ref=e69]:
+          - img [ref=e71]
+          - generic [ref=e74]:
+            - heading "创建首个导师机器人" [level=1] [ref=e75]
+            - paragraph [ref=e76]: TutorBot 是由可定制人格、渠道集成和 RAG 知识库驱动的 AI 教学智能体。
+          - generic [ref=e77]:
+            - generic [ref=e78]:
+              - generic [ref=e79]: "1"
+              - text: 从灵魂库中选择教学人格
+            - generic [ref=e80]:
+              - generic [ref=e81]: "2"
+              - text: 为你的机器人设置唯一 ID 和描述
+            - generic [ref=e82]:
+              - generic [ref=e83]: "3"
+              - text: 可选择 LLM 模型，或使用默认模型
+            - generic [ref=e84]:
+              - generic [ref=e85]: "4"
+              - text: 开始聊天、管理渠道并上传知识
+        - generic [ref=e86]:
+          - button "返回" [disabled] [ref=e87]:
+            - img [ref=e88]
+            - text: 返回
+          - button "下一个" [ref=e90] [cursor=pointer]:
+            - text: 下一个
+            - img [ref=e91]
+  - alert [ref=e93]

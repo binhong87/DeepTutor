@@ -1,0 +1,75 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e9] [cursor=pointer]:
+    - img [ref=e10]
+  - alert [ref=e13]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "TutorBot" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: TutorBot
+        - link "Knowledge" [ref=e89] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e90]
+          - generic [ref=e92]: Knowledge
+        - link "Souls" [ref=e93] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e94]
+          - generic [ref=e99]: Souls
+      - generic [ref=e100]:
+        - link "Settings" [ref=e101] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e102]
+          - generic [ref=e105]: Settings
+        - button "Sign out" [ref=e106] [cursor=pointer]:
+          - img [ref=e107]
+          - generic [ref=e110]: Sign out
+    - main [ref=e111]:
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - generic [ref=e115]:
+            - img [ref=e116]
+            - generic [ref=e119]: Welcome
+          - generic [ref=e122]:
+            - img [ref=e123]
+            - generic [ref=e125]: Choose Soul
+          - generic [ref=e128]:
+            - img [ref=e129]
+            - generic [ref=e132]: Name & Describe
+          - generic [ref=e135]:
+            - img [ref=e136]
+            - generic [ref=e139]: Model
+          - generic [ref=e142]:
+            - img [ref=e143]
+            - generic [ref=e145]: Done
+        - generic [ref=e146]:
+          - img [ref=e148]
+          - generic [ref=e151]:
+            - heading "Create Your First TutorBot" [level=1] [ref=e152]
+            - paragraph [ref=e153]: TutorBots are AI teaching agents powered by customizable personas, channel integrations, and RAG-powered knowledge bases.
+          - generic [ref=e154]:
+            - generic [ref=e155]:
+              - generic [ref=e156]: "1"
+              - text: Choose a teaching persona from our soul library
+            - generic [ref=e157]:
+              - generic [ref=e158]: "2"
+              - text: Give your bot a unique ID and description
+            - generic [ref=e159]:
+              - generic [ref=e160]: "3"
+              - text: Optionally select an LLM model or use the default
+            - generic [ref=e161]:
+              - generic [ref=e162]: "4"
+              - text: Chat, manage channels, and upload knowledge
+        - generic [ref=e163]:
+          - button "Back" [disabled] [ref=e164]:
+            - img [ref=e165]
+            - text: Back
+          - button "Next" [ref=e167] [cursor=pointer]:
+            - text: Next
+            - img [ref=e168]

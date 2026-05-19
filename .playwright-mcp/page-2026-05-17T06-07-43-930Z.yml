@@ -1,0 +1,83 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "辅导机器人" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: 辅导机器人
+        - generic [ref=e89]:
+          - link "知识库" [ref=e90] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e91]
+            - generic [ref=e93]: 知识库
+          - link "灵魂" [ref=e94] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e95]
+            - generic [ref=e100]: 灵魂
+      - generic [ref=e101]:
+        - link "配置文件" [ref=e102] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e103]
+          - generic [ref=e106]: 配置文件
+        - button "退出登录" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e111]: 退出登录
+    - main [ref=e112]:
+      - button "Switch to English" [ref=e113] [cursor=pointer]:
+        - img [ref=e114]
+        - generic [ref=e118]: EN
+      - generic [ref=e119]:
+        - generic [ref=e120]:
+          - generic [ref=e122]:
+            - img [ref=e123]
+            - generic [ref=e126]: 欢迎
+          - generic [ref=e129]:
+            - img [ref=e130]
+            - generic [ref=e132]: 选择灵魂
+          - generic [ref=e135]:
+            - img [ref=e136]
+            - generic [ref=e139]: 命名与描述
+          - generic [ref=e142]:
+            - img [ref=e143]
+            - generic [ref=e146]: 模型
+          - generic [ref=e149]:
+            - img [ref=e150]
+            - generic [ref=e152]: 完成
+        - generic [ref=e177]:
+          - heading "选择灵魂" [level=2] [ref=e178]
+          - paragraph [ref=e179]: 选择一个教学人格，或使用默认设置。
+          - generic [ref=e180]:
+            - 'button "默认导师 # 灵魂 我是 TutorBot，一位个性化的学习伙伴。 ## 人格 - 友善且乐于助人 - 表达清晰、富有耐心、给予鼓励 - 根据用户的水平调整讲解 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 在每一步行动中" [ref=e181] [cursor=pointer]':
+              - generic [ref=e182]: 默认导师
+              - generic [ref=e183]: "# 灵魂 我是 TutorBot，一位个性化的学习伙伴。 ## 人格 - 友善且乐于助人 - 表达清晰、富有耐心、给予鼓励 - 根据用户的水平调整讲解 ## 价值观 - 准确性优先于速度 - 尊重用户隐私与安全 - 在每一步行动中"
+            - 'button "数学导师 # 灵魂 我是一位专注于清晰、循序渐进解题的数学导师。 ## 人格 - 有耐心、有条理 - 鼓励学生展示解题过程 - 在难题取得进展时给予肯定 ## 教学风格 - 将复杂问题拆分为小步骤 - 当学生需要*看见*图像时，调用 `vi" [ref=e184] [cursor=pointer]':
+              - generic [ref=e185]: 数学导师
+              - generic [ref=e186]: "# 灵魂 我是一位专注于清晰、循序渐进解题的数学导师。 ## 人格 - 有耐心、有条理 - 鼓励学生展示解题过程 - 在难题取得进展时给予肯定 ## 教学风格 - 将复杂问题拆分为小步骤 - 当学生需要*看见*图像时，调用 `vi"
+            - 'button "编程助手 # 灵魂 我是一位编程助手，专注于帮助开发者写出更好的代码。 ## 人格 - 严谨、注重细节 - 务实——能跑起来的代码胜过完美的代码 - 清楚地解释取舍 ## 工作方式 - 先读后写，先理解上下文 - 在实现的同时建议合适的测试" [ref=e187] [cursor=pointer]':
+              - generic [ref=e188]: 编程助手
+              - generic [ref=e189]: "# 灵魂 我是一位编程助手，专注于帮助开发者写出更好的代码。 ## 人格 - 严谨、注重细节 - 务实——能跑起来的代码胜过完美的代码 - 清楚地解释取舍 ## 工作方式 - 先读后写，先理解上下文 - 在实现的同时建议合适的测试"
+            - 'button "研究助手 # 灵魂 我是一位研究助手，帮助用户深入探索学术主题。 ## 人格 - 好奇且周全 - 平衡——呈现多元视角 - 在可能时给出来源 ## 工作方式 - 将宽泛的问题拆解为聚焦的子问题 - 区分已确立的事实与仍有争议的问题 - 推荐" [ref=e190] [cursor=pointer]':
+              - generic [ref=e191]: 研究助手
+              - generic [ref=e192]: "# 灵魂 我是一位研究助手，帮助用户深入探索学术主题。 ## 人格 - 好奇且周全 - 平衡——呈现多元视角 - 在可能时给出来源 ## 工作方式 - 将宽泛的问题拆解为聚焦的子问题 - 区分已确立的事实与仍有争议的问题 - 推荐"
+            - 'button "语言导师 # 灵魂 我是一位语言学习伙伴，帮助用户练习与进步。 ## 人格 - 鼓励、耐心 - 难度随学习者水平调整 - 通过实例让学习更有趣 ## 教学风格 - 温和地纠正错误，并解释原因 - 使用具体语境中的例子，胜过抽象规则 - 鼓励" [ref=e193] [cursor=pointer]':
+              - generic [ref=e194]: 语言导师
+              - generic [ref=e195]: "# 灵魂 我是一位语言学习伙伴，帮助用户练习与进步。 ## 人格 - 鼓励、耐心 - 难度随学习者水平调整 - 通过实例让学习更有趣 ## 教学风格 - 温和地纠正错误，并解释原因 - 使用具体语境中的例子，胜过抽象规则 - 鼓励"
+            - button "从零开始 无预设人格，稍后自行定义。" [ref=e196] [cursor=pointer]:
+              - generic [ref=e197]: 从零开始
+              - generic [ref=e198]: 无预设人格，稍后自行定义。
+        - generic [ref=e170]:
+          - button "返回" [ref=e171] [cursor=pointer]:
+            - img [ref=e172]
+            - text: 返回
+          - button "下一个" [disabled] [ref=e174]:
+            - text: 下一个
+            - img [ref=e175]

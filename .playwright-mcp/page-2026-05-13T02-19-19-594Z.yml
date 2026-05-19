@@ -1,0 +1,70 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e29] [cursor=pointer]:
+    - img [ref=e30]
+  - alert [ref=e33]
+  - generic [ref=e40]:
+    - complementary [ref=e41]:
+      - generic [ref=e42]:
+        - link "DeepTutor" [ref=e43] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+      - navigation [ref=e48]:
+        - link "辅导机器人" [ref=e49] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e50]
+          - generic [ref=e53]: 辅导机器人
+        - link "知识库" [ref=e54] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e55]
+          - generic [ref=e57]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e59]
+          - generic [ref=e64]: 灵魂
+      - button "退出登录" [ref=e66] [cursor=pointer]:
+        - img [ref=e67]
+        - generic [ref=e70]: 退出登录
+    - main [ref=e71]:
+      - generic [ref=e72]:
+        - generic [ref=e73]:
+          - generic [ref=e75]:
+            - img [ref=e76]
+            - generic [ref=e79]: 欢迎
+          - generic [ref=e82]:
+            - img [ref=e83]
+            - generic [ref=e85]: 选择灵魂
+          - generic [ref=e88]:
+            - img [ref=e89]
+            - generic [ref=e92]: 命名与描述
+          - generic [ref=e95]:
+            - img [ref=e96]
+            - generic [ref=e99]: 模型
+          - generic [ref=e102]:
+            - img [ref=e103]
+            - generic [ref=e105]: 完成
+        - generic [ref=e106]:
+          - img [ref=e108]
+          - generic [ref=e111]:
+            - heading "创建首个导师机器人" [level=1] [ref=e112]
+            - paragraph [ref=e113]: TutorBot 是由可定制人格、渠道集成和 RAG 知识库驱动的 AI 教学智能体。
+          - generic [ref=e114]:
+            - generic [ref=e115]:
+              - generic [ref=e116]: "1"
+              - text: 从灵魂库中选择教学人格
+            - generic [ref=e117]:
+              - generic [ref=e118]: "2"
+              - text: 为你的机器人设置唯一 ID 和描述
+            - generic [ref=e119]:
+              - generic [ref=e120]: "3"
+              - text: 可选择 LLM 模型，或使用默认模型
+            - generic [ref=e121]:
+              - generic [ref=e122]: "4"
+              - text: 开始聊天、管理渠道并上传知识
+        - generic [ref=e123]:
+          - button "返回" [disabled] [ref=e124]:
+            - img [ref=e125]
+            - text: 返回
+          - button "下一个" [ref=e127] [cursor=pointer]:
+            - text: 下一个
+            - img [ref=e128]

@@ -1,0 +1,79 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e49] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e50] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e51] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e52] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+        - generic [ref=e57]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e60]: Show me a graph of y = sin(x) over one full period
+          - img [ref=e67]:
+            - generic [ref=e68]: Graph of sin(x) and cos(x)
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - generic [ref=e73]: −6
+                - generic [ref=e75]: −5
+                - generic [ref=e77]: −4
+                - generic [ref=e79]: −3
+                - generic [ref=e81]: −2
+                - generic [ref=e83]: −1
+                - generic [ref=e85]: "0"
+                - generic [ref=e87]: "1"
+                - generic [ref=e89]: "2"
+                - generic [ref=e91]: "3"
+                - generic [ref=e93]: "4"
+                - generic [ref=e95]: "5"
+                - generic [ref=e97]: "6"
+              - generic [ref=e98]:
+                - generic [ref=e101]: "-1.4"
+                - generic [ref=e103]: "-1.2"
+                - generic [ref=e105]: −1
+                - generic [ref=e107]: "-0.8"
+                - generic [ref=e109]: "-0.6"
+                - generic [ref=e111]: "-0.4"
+                - generic [ref=e113]: "-0.2"
+                - generic [ref=e115]: "0"
+                - generic [ref=e117]: "0.2"
+                - generic [ref=e119]: "0.4"
+                - generic [ref=e121]: "0.6"
+                - generic [ref=e123]: "0.8"
+                - generic [ref=e125]: "1"
+                - generic [ref=e127]: "1.2"
+                - generic [ref=e129]: "1.4"
+              - generic [ref=e130]: x
+              - generic [ref=e131]: "y"
+          - generic [ref=e150]: /new
+          - paragraph [ref=e159]: New session started.
+          - generic [ref=e161]: Draw a 3-4-5 right triangle with vertices A, B, C. Right angle at C. Label the sides.
+          - generic [ref=e162]:
+            - img [ref=e163]
+            - generic [ref=e165]: Thinking...
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e138]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e144] [cursor=pointer]:
+    - img [ref=e145]
+  - alert [ref=e148]

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Start-Sleep -Seconds 10)",
+      "Bash(Get-Content \"C:\\\\Users\\\\binho\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--opensource-DeepTutor\\\\25e87dec-bcfc-413a-a2f8-ad85fc0cfefe\\\\tasks\\\\bqyj4qyyu.output\" -Tail 30)",
+      "PowerShell(Start-Process python -ArgumentList \"-m\", \"deeptutor.api.run_server\" -WorkingDirectory \"D:\\\\opensource\\\\DeepTutor\" -RedirectStandardOutput \"C:\\\\Users\\\\binho\\\\AppData\\\\Local\\\\Temp\\\\backend_out.txt\" -RedirectStandardError \"C:\\\\Users\\\\binho\\\\AppData\\\\Local\\\\Temp\\\\backend_err.txt\" -PassThru)",
+      "PowerShell(Test-NetConnection *)",
+      "PowerShell($env:NODE_OPTIONS = \"--max-old-space-size=4096\"; Start-Process npm -ArgumentList \"run\", \"dev\", \"--\", \"--port\", \"3000\" -WorkingDirectory \"D:\\\\opensource\\\\DeepTutor\\\\tutorbot-web\" -RedirectStandardOutput \"C:\\\\Users\\\\binho\\\\AppData\\\\Local\\\\Temp\\\\frontend_out.txt\" -RedirectStandardError \"C:\\\\Users\\\\binho\\\\AppData\\\\Local\\\\Temp\\\\frontend_err.txt\" -PassThru)",
+      "PowerShell(Get-Command *)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(python scripts/trace_ws.py abc \"What is the Pythagorean theorem?\" 8001)",
+      "Bash(curl -s -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0MUBkZW1vLmNvbSIsInJvbGUiOiJhZG1pbiIsInVpZCI6InVfNzNmMGM2NzQ1Njc0NGJjNWFmM2QxMmNkODdlMTQyNjYiLCJleHAiOjE3Nzg4NDMyNTAsImlhdCI6MTc3ODc1Njg1MH0.4XhlSh4SlSNgIhVKtkLvRGrGZZSOUhYdoo8_opHG_4g' http://localhost:8001/api/v1/tutorbot/)",
+      "Bash(python -m json.tool)"
+    ]
+  }
+}

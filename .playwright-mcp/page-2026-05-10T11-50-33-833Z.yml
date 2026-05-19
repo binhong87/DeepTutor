@@ -1,0 +1,35 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e14]:
+      - img [ref=e16]
+      - generic [ref=e19]:
+        - heading "DeepTutor" [level=1] [ref=e20]
+        - paragraph [ref=e21]: Your personal AI tutoring platform. Create intelligent teaching agents, upload knowledge bases, and get personalized learning support.
+    - generic [ref=e22]:
+      - link "Get Started" [ref=e23] [cursor=pointer]:
+        - /url: /register
+        - img [ref=e24]
+        - text: Get Started
+      - link "Sign In" [ref=e27] [cursor=pointer]:
+        - /url: /login
+        - img [ref=e28]
+        - text: Sign In
+    - generic [ref=e31]:
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - img [ref=e34]
+          - generic [ref=e37]: AI Tutors
+        - paragraph [ref=e38]: Customizable teaching personas powered by LLMs
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - img [ref=e41]
+          - generic [ref=e44]: Knowledge Bases
+        - paragraph [ref=e45]: Upload documents for RAG-powered answers
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - img [ref=e48]
+          - generic [ref=e51]: Multi-User
+        - paragraph [ref=e52]: Isolated workspaces with role-based access
+  - button "Open Next.js Dev Tools" [ref=e9] [cursor=pointer]:
+    - img [ref=e10]
+  - alert [ref=e13]

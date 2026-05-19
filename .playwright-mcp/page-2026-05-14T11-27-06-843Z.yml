@@ -1,0 +1,97 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e26] [cursor=pointer]:
+    - img [ref=e27]
+  - alert [ref=e30]
+  - generic [ref=e36]:
+    - complementary [ref=e37]:
+      - generic [ref=e38]:
+        - link "DeepTutor" [ref=e39] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e40] [cursor=pointer]:
+          - img [ref=e41]
+      - navigation [ref=e44]:
+        - link "辅导机器人" [ref=e45] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e46]
+          - generic [ref=e49]: 辅导机器人
+        - link "知识库" [ref=e50] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e51]
+          - generic [ref=e53]: 知识库
+        - link "灵魂" [ref=e54] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e55]
+          - generic [ref=e60]: 灵魂
+      - generic [ref=e61]:
+        - link "设置" [ref=e62] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e63]
+          - generic [ref=e66]: 设置
+        - button "退出登录" [ref=e67] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e71]: 退出登录
+    - main [ref=e72]:
+      - generic [ref=e593]:
+        - generic [ref=e594]:
+          - img [ref=e595]
+          - generic [ref=e598]: demo-bot
+        - generic [ref=e601]:
+          - generic [ref=e602]:
+            - button "勾股定理（Pythagorean Theorem） 0/5" [ref=e603] [cursor=pointer]:
+              - img [ref=e604]
+              - img [ref=e606]
+              - generic [ref=e609]: 勾股定理（Pythagorean Theorem）
+              - generic [ref=e610]: 0/5
+            - list [ref=e611]:
+              - listitem [ref=e612]:
+                - generic "in progress" [ref=e613]: ▶
+                - generic [ref=e615]:
+                  - generic [ref=e616]: Assess
+                  - generic [ref=e617]: 快速了解学生对勾股定理的已有印象，建立与之前三角函数的联系
+              - listitem [ref=e618]:
+                - generic "pending" [ref=e619]: ·
+                - generic [ref=e621]:
+                  - generic [ref=e622]: Define
+                  - generic [ref=e623]: 用大白话定义勾股定理：直角三角形的两条直角边的平方和等于斜边的平方
+              - listitem [ref=e624]:
+                - generic "pending" [ref=e625]: ·
+                - generic [ref=e627]:
+                  - generic [ref=e628]: Explain
+                  - generic [ref=e629]: 用 3-4-5 三角形配图直观验证勾股定理（a²+b²=c² → 9+16=25）
+              - listitem [ref=e630]:
+                - generic "pending" [ref=e631]: ·
+                - generic [ref=e633]:
+                  - generic [ref=e634]: Check
+                  - generic [ref=e635]: 出一道小计算题检验理解
+              - listitem [ref=e636]:
+                - generic "pending" [ref=e637]: ·
+                - generic [ref=e639]:
+                  - generic [ref=e640]: Wrap-up
+                  - generic [ref=e641]: 总结勾股定理的公式、与三角函数的关系、以及它的实际用途
+          - generic [ref=e643]: 帮我画一张余弦函数 y=cos(x) 在0到360度的图像，需要在聊天窗口中直接显示
+          - paragraph [ref=e648]: 我来帮你画 y=cos(x) 从 0° 到 360° 的图像。
+          - paragraph [ref=e653]: 函数图模式遇到了小问题，让我换一种方式来生成。
+          - generic [ref=e655]: 帮我画一张余弦函数 y=cos(x) 在0到360度的图像，需要在聊天窗口中直接显示
+          - paragraph [ref=e660]: function_graph 模式遇到了后端问题，我换用 HTML 渲染，然后把图像文件发给你。
+          - generic [ref=e662]: Say hi in one short sentence.
+          - paragraph [ref=e667]: 晚上好！有什么想学的或者想聊的，我随时在这儿 😊
+          - generic [ref=e669]: "[Runtime guidance — not student input] This looks like a teaching / explanation request. Your FIRST tool call this turn MUST be `plan_lesson` with 3–6 ordered steps. Do NOT answer free-form. Do NOT call `visualize` before `plan_lesson`. After planning, execute exactly ONE step this turn, then call `complete_step` and stop. --- Student message: 解释一下勾股定理"
+          - generic [ref=e673]:
+            - paragraph [ref=e674]: 好，我们先来摸底一下！🔍
+            - paragraph [ref=e675]:
+              - text: 你之前已经用过很多次
+              - strong [ref=e676]: 3-4-5 直角三角形
+              - text: 来学 sin/cos/tan 了——三条边分别是 3、4、5。
+            - paragraph [ref=e677]: 那我问你一个小问题：
+            - blockquote [ref=e678]:
+              - paragraph [ref=e679]: 你有没有注意到 3、4、5 这三个数之间，有什么特别的数学关系？
+            - paragraph [ref=e680]:
+              - text: 用你自己的话说就行，就算说不清楚也没关系，主要是让我知道你是
+              - strong [ref=e681]: 听过勾股定理这个名字但从没学过
+              - text: ，还是
+              - strong [ref=e682]: 已经有点印象了
+              - text: ～
+        - generic [ref=e684]:
+          - textbox "Type a message..." [ref=e685]
+          - button [disabled] [ref=e686]:
+            - img [ref=e687]

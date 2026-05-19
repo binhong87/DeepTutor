@@ -1,0 +1,172 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Draw a 3-4-5 right triangle with vertices A, B, C. Right angle at C. Label the sides.
+          - paragraph [ref=e74]: 让我画一个直角三角形，直角在 C，边长为 3-4-5，并标注各边。
+          - region [ref=e80]:
+            - img [ref=e81]:
+              - generic [ref=e87]:
+                - generic [ref=e88]: "0.5"
+                - generic [ref=e89]: "1"
+                - generic [ref=e90]: "1.5"
+                - generic [ref=e91]: "2"
+                - generic [ref=e92]: "2.5"
+                - generic [ref=e93]: "3"
+                - generic [ref=e94]: "3.5"
+                - generic [ref=e95]: "4"
+                - generic [ref=e96]: "4.5"
+                - generic [ref=e97]: −0.5
+                - generic [ref=e98]: "0.5"
+                - generic [ref=e99]: "1"
+                - generic [ref=e100]: "1.5"
+                - generic [ref=e101]: "2"
+                - generic [ref=e102]: "2.5"
+                - generic [ref=e103]: "3"
+                - generic [ref=e104]: "3.5"
+                - generic [ref=e105]: −0.5
+            - generic [ref=e110]: C
+            - generic [ref=e111]: A
+            - generic [ref=e112]: B
+            - generic [ref=e113]: "3"
+            - generic [ref=e114]: "4"
+            - generic [ref=e115]: "5"
+          - generic [ref=e117]: Show me a flowchart of the steps to solve a quadratic equation.
+          - document [ref=e1906]:
+            - generic [ref=e1908]:
+              - generic [ref=e1919]:
+                - generic [ref=e1925]: 是
+                - generic [ref=e1931]: 否
+                - generic [ref=e1937]: Δ 0
+                - generic [ref=e1943]: Δ = 0
+                - generic [ref=e1949]: Δ < 0
+              - generic [ref=e1950]:
+                - paragraph [ref=e1959]: 给定 ax² + bx + c = 0
+                - paragraph [ref=e1966]: 可因式分解？
+                - paragraph [ref=e1973]: 因式分解
+                - paragraph [ref=e1980]: 设各因子为0
+                - paragraph [ref=e1987]: 求解
+                - paragraph [ref=e1994]: 检查解
+                - paragraph [ref=e2001]: 计算判别式 Δ = b² - 4ac
+                - paragraph [ref=e2008]: Δ ?
+                - paragraph [ref=e2015]: "两个实根: x = (-b ± √Δ) / (2a)"
+                - paragraph [ref=e2022]: "一个实根（重根）: x = -b / (2a)"
+                - paragraph [ref=e2029]: 无实根（两个复数根）
+                - paragraph [ref=e2038]: 完成
+          - generic [ref=e258]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - generic [ref=e262]:
+            - paragraph [ref=e263]: 好的！让我用图文结合的方式，系统地讲解三角函数的基本概念。
+            - paragraph [ref=e264]: 先画一个标准的直角三角形，把 sin、cos、tan 的定义标清楚：
+          - paragraph [ref=e269]: I tried to use the tool but it timed out. It might be temporarily slow or stuck. Try rephrasing or ask for a simpler version.
+          - generic [ref=e271]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - generic [ref=e275]:
+            - paragraph [ref=e276]: 好的！让我为你用图文结合的方式讲解三角函数的三个核心概念。
+            - paragraph [ref=e277]: 先画一个标准直角三角形，标注清楚三边和角度：
+          - region [ref=e283]:
+            - img [ref=e284]:
+              - generic [ref=e292]:
+                - generic [ref=e293]: "1"
+                - generic [ref=e294]: "2"
+                - generic [ref=e295]: "3"
+                - generic [ref=e296]: "4"
+                - generic [ref=e297]: "5"
+                - generic [ref=e298]: "0.5"
+                - generic [ref=e299]: "1"
+                - generic [ref=e300]: "1.5"
+                - generic [ref=e301]: "2"
+                - generic [ref=e302]: "2.5"
+                - generic [ref=e303]: "3"
+            - generic [ref=e313]: A
+            - generic [ref=e314]: B
+            - generic [ref=e315]: C
+            - generic [ref=e316]: D
+            - generic [ref=e317]: E
+            - generic [ref=e318]: F
+            - generic [ref=e319]: G
+            - generic [ref=e320]: H
+            - generic [ref=e321]: AC
+            - generic [ref=e322]: BC
+            - generic [ref=e323]: AB
+          - generic [ref=e325]: /new
+          - paragraph [ref=e469]: New session started.
+          - generic [ref=e604]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - generic [ref=e743]:
+            - group [ref=e744]:
+              - generic "Thinking (29 steps)" [ref=e1442] [cursor=pointer]
+            - region [ref=e1446]:
+              - img [ref=e1447]:
+                - generic [ref=e1456]:
+                  - generic [ref=e1457]: "1"
+                  - generic [ref=e1458]: "2"
+                  - generic [ref=e1459]: "3"
+                  - generic [ref=e1460]: "4"
+                  - generic [ref=e1461]: "5"
+                  - generic [ref=e1462]: "6"
+                  - generic [ref=e1463]: "7"
+                  - generic [ref=e1464]: "0.5"
+                  - generic [ref=e1465]: "1"
+                  - generic [ref=e1466]: "1.5"
+                  - generic [ref=e1467]: "2"
+                  - generic [ref=e1468]: "2.5"
+                  - generic [ref=e1469]: "3"
+                  - generic [ref=e1470]: "3.5"
+                  - generic [ref=e1471]: "4"
+                  - generic [ref=e1472]: "4.5"
+                  - generic [ref=e1473]: −0.5
+              - generic [ref=e1478]: A
+              - generic [ref=e1479]: C
+              - generic [ref=e1480]: B
+              - generic [ref=e1481]: θ ≈ 37°
+              - generic [ref=e1482]: 90°
+              - generic [ref=e1483]: 邻边 AC = 4
+              - generic [ref=e1484]: 对边 BC = 3
+              - generic [ref=e1485]: 斜边 AB = 5
+              - generic [ref=e1486]: SOH · CAH · TOA
+              - generic [ref=e1487]: sin θ = 对边/斜边 = BC/AB = 3/5
+              - generic [ref=e1488]: cos θ = 邻边/斜边 = AC/AB = 4/5
+              - generic [ref=e1489]: tan θ = 对边/邻边 = BC/AC = 3/4
+          - generic [ref=e1624]: /new
+          - paragraph [ref=e1766]: New session started.
+          - generic [ref=e1901]: 请讲解一下三角函数的概念
+          - group [ref=e2041]:
+            - generic "Thinking (6 steps)" [ref=e2042] [cursor=pointer]
+            - generic [ref=e2043]:
+              - paragraph [ref=e2044]: 你好！三角函数是初中数学里非常有趣的一个工具，我用图文方式给你系统讲一遍。先画两个关键的图：
+              - paragraph [ref=e2045]: visualize("figure"), visualize("plot")
+              - paragraph [ref=e2046]: Working on visualize…
+              - paragraph [ref=e2047]: Working on visualize…
+              - paragraph [ref=e2048]: Working on visualize…
+              - paragraph [ref=e2049]: Working on visualize…
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e330]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e331]

@@ -1,0 +1,140 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Draw a 3-4-5 right triangle with vertices A, B, C. Right angle at C. Label the sides.
+          - paragraph [ref=e74]: 让我画一个直角三角形，直角在 C，边长为 3-4-5，并标注各边。
+          - region [ref=e80]:
+            - img [ref=e81]:
+              - generic [ref=e87]:
+                - generic [ref=e88]: "0.5"
+                - generic [ref=e89]: "1"
+                - generic [ref=e90]: "1.5"
+                - generic [ref=e91]: "2"
+                - generic [ref=e92]: "2.5"
+                - generic [ref=e93]: "3"
+                - generic [ref=e94]: "3.5"
+                - generic [ref=e95]: "4"
+                - generic [ref=e96]: "4.5"
+                - generic [ref=e97]: −0.5
+                - generic [ref=e98]: "0.5"
+                - generic [ref=e99]: "1"
+                - generic [ref=e100]: "1.5"
+                - generic [ref=e101]: "2"
+                - generic [ref=e102]: "2.5"
+                - generic [ref=e103]: "3"
+                - generic [ref=e104]: "3.5"
+                - generic [ref=e105]: −0.5
+            - generic [ref=e110]: C
+            - generic [ref=e111]: A
+            - generic [ref=e112]: B
+            - generic [ref=e113]: "3"
+            - generic [ref=e114]: "4"
+            - generic [ref=e115]: "5"
+          - generic [ref=e117]: Show me a flowchart of the steps to solve a quadratic equation.
+          - document [ref=e750]:
+            - generic [ref=e752]:
+              - generic [ref=e763]:
+                - generic [ref=e769]: 是
+                - generic [ref=e775]: 否
+                - generic [ref=e781]: Δ 0
+                - generic [ref=e787]: Δ = 0
+                - generic [ref=e793]: Δ < 0
+              - generic [ref=e794]:
+                - paragraph [ref=e803]: 给定 ax² + bx + c = 0
+                - paragraph [ref=e810]: 可因式分解？
+                - paragraph [ref=e817]: 因式分解
+                - paragraph [ref=e824]: 设各因子为0
+                - paragraph [ref=e831]: 求解
+                - paragraph [ref=e838]: 检查解
+                - paragraph [ref=e845]: 计算判别式 Δ = b² - 4ac
+                - paragraph [ref=e852]: Δ ?
+                - paragraph [ref=e859]: "两个实根: x = (-b ± √Δ) / (2a)"
+                - paragraph [ref=e866]: "一个实根（重根）: x = -b / (2a)"
+                - paragraph [ref=e873]: 无实根（两个复数根）
+                - paragraph [ref=e882]: 完成
+          - generic [ref=e258]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - generic [ref=e262]:
+            - paragraph [ref=e263]: 好的！让我用图文结合的方式，系统地讲解三角函数的基本概念。
+            - paragraph [ref=e264]: 先画一个标准的直角三角形，把 sin、cos、tan 的定义标清楚：
+          - paragraph [ref=e269]: I tried to use the tool but it timed out. It might be temporarily slow or stuck. Try rephrasing or ask for a simpler version.
+          - generic [ref=e271]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - generic [ref=e275]:
+            - paragraph [ref=e276]: 好的！让我为你用图文结合的方式讲解三角函数的三个核心概念。
+            - paragraph [ref=e277]: 先画一个标准直角三角形，标注清楚三边和角度：
+          - region [ref=e283]:
+            - img [ref=e284]:
+              - generic [ref=e292]:
+                - generic [ref=e293]: "1"
+                - generic [ref=e294]: "2"
+                - generic [ref=e295]: "3"
+                - generic [ref=e296]: "4"
+                - generic [ref=e297]: "5"
+                - generic [ref=e298]: "0.5"
+                - generic [ref=e299]: "1"
+                - generic [ref=e300]: "1.5"
+                - generic [ref=e301]: "2"
+                - generic [ref=e302]: "2.5"
+                - generic [ref=e303]: "3"
+            - generic [ref=e313]: A
+            - generic [ref=e314]: B
+            - generic [ref=e315]: C
+            - generic [ref=e316]: D
+            - generic [ref=e317]: E
+            - generic [ref=e318]: F
+            - generic [ref=e319]: G
+            - generic [ref=e320]: H
+            - generic [ref=e321]: AC
+            - generic [ref=e322]: BC
+            - generic [ref=e323]: AB
+          - generic [ref=e325]: /new
+          - paragraph [ref=e469]: New session started.
+          - generic [ref=e604]: 好的，请用图文的方式帮我讲解一下三角函数的定义和概念
+          - group [ref=e744]:
+            - generic "Thinking (12 steps)" [ref=e883] [cursor=pointer]
+            - generic [ref=e746]:
+              - paragraph [ref=e747]: 好的！三角函数你已经接触过一些了，这次我们系统地复习一遍。我会分几步来讲解，先从一个直角三角形开始。 首先，让我们重温最核心的定义——**直角三角形中的三角函数**：
+              - paragraph [ref=e748]: visualize("figure")
+              - paragraph [ref=e749]: Working on visualize…
+              - paragraph [ref=e884]: Working on visualize…
+              - paragraph [ref=e885]: Working on visualize…
+              - paragraph [ref=e886]: Working on visualize…
+              - paragraph [ref=e887]: Working on visualize…
+              - paragraph [ref=e888]: Working on visualize…
+              - paragraph [ref=e889]: Working on visualize…
+              - paragraph [ref=e890]: Working on visualize…
+              - paragraph [ref=e891]: Working on visualize…
+              - paragraph [ref=e892]: Working on visualize…
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e330]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e331]

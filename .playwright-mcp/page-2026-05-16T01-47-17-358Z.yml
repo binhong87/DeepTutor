@@ -1,0 +1,50 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e39] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e40] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e41] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e42] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "设置" [ref=e43] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e44]
+          - generic [ref=e47]: 设置
+        - button "退出登录" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+          - generic [ref=e52]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e169]:
+        - generic [ref=e170]:
+          - img [ref=e171]
+          - generic [ref=e174]: e2e-bot
+        - generic [ref=e177]:
+          - generic [ref=e193]: Visualize y = x^2 from -3 to 3 using the visualize tool.
+          - group [ref=e200]:
+            - generic "Thinking (3 steps)" [ref=e204] [cursor=pointer]
+            - generic [ref=e202]:
+              - paragraph [ref=e203]: code_execution("Plot y = x^2 from x = -3 to 3 using matp…")
+              - paragraph [ref=e205]: code_execution("Plot y = x^2 from x = -3 to 3 using matp…")
+              - paragraph [ref=e206]: exec("pip install matplotlib numpy 2>&1 | tail…")
+        - generic [ref=e186]:
+          - textbox "Type a message..." [disabled] [ref=e187]
+          - button [disabled] [ref=e188]:
+            - img [ref=e189]
+  - alert [ref=e38]

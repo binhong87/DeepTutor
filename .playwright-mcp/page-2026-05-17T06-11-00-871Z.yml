@@ -1,0 +1,121 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e48] [cursor=pointer]:
+    - img [ref=e49]
+  - alert [ref=e52]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "辅导机器人" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: 辅导机器人
+        - generic [ref=e250]:
+          - generic [ref=e251] [cursor=pointer]:
+            - img [ref=e253]
+            - img [ref=e255]
+            - generic [ref=e258]: Math Smoke
+            - button "新对话" [disabled] [ref=e260]:
+              - img [ref=e261]
+          - generic [ref=e262]:
+            - button "新对话" [ref=e302] [cursor=pointer]:
+              - img [ref=e303]
+              - generic [ref=e304]: 新对话
+            - button "二元一次方程的解法 0/7" [ref=e305] [cursor=pointer]:
+              - img [ref=e306]
+              - generic [ref=e265]: 二元一次方程的解法
+              - generic [ref=e308]: 0/7
+        - generic [ref=e89]:
+          - link "知识库" [ref=e90] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e91]
+            - generic [ref=e93]: 知识库
+          - link "灵魂" [ref=e94] [cursor=pointer]:
+            - /url: /tutorbot/souls
+            - img [ref=e95]
+            - generic [ref=e100]: 灵魂
+      - generic [ref=e101]:
+        - link "配置文件" [ref=e102] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e103]
+          - generic [ref=e106]: 配置文件
+        - button "退出登录" [ref=e107] [cursor=pointer]:
+          - img [ref=e108]
+          - generic [ref=e111]: 退出登录
+    - main [ref=e112]:
+      - button "Switch to English" [ref=e113] [cursor=pointer]:
+        - img [ref=e114]
+        - generic [ref=e118]: EN
+      - generic [ref=e267]:
+        - generic [ref=e268]:
+          - img [ref=e269]
+          - generic [ref=e272]: math-smoke
+        - generic [ref=e275]:
+          - generic [ref=e309]:
+            - button "二元一次方程的解法 0/7" [ref=e310] [cursor=pointer]:
+              - img [ref=e311]
+              - img [ref=e313]
+              - generic [ref=e316]: 二元一次方程的解法
+              - generic [ref=e317]: 0/7
+            - list [ref=e318]:
+              - listitem [ref=e319]:
+                - generic "in progress" [ref=e320]: ▶
+                - generic [ref=e322]:
+                  - generic [ref=e323]: Assess
+                  - generic [ref=e324]: 了解学生对一元一次方程和基础代数的掌握情况
+              - listitem [ref=e325]:
+                - generic "pending" [ref=e326]: ·
+                - generic [ref=e328]:
+                  - generic [ref=e329]: Define
+                  - generic [ref=e330]: 给出二元一次方程（组）的准确定义
+              - listitem [ref=e331]:
+                - generic "pending" [ref=e332]: ·
+                - generic [ref=e334]:
+                  - generic [ref=e335]: Explain
+                  - generic [ref=e336]: 讲解代入消元法，配合作图可视化
+              - listitem [ref=e337]:
+                - generic "pending" [ref=e338]: ·
+                - generic [ref=e340]:
+                  - generic [ref=e341]: Check
+                  - generic [ref=e342]: 用一个简单题目检测代入消元法的理解
+              - listitem [ref=e343]:
+                - generic "pending" [ref=e344]: ·
+                - generic [ref=e346]:
+                  - generic [ref=e347]: Explain
+                  - generic [ref=e348]: 讲解加减消元法，配合作图可视化
+              - listitem [ref=e349]:
+                - generic "pending" [ref=e350]: ·
+                - generic [ref=e352]:
+                  - generic [ref=e353]: Check
+                  - generic [ref=e354]: 用一个简单题目检测加减消元法的理解
+              - listitem [ref=e355]:
+                - generic "pending" [ref=e356]: ·
+                - generic [ref=e358]:
+                  - generic [ref=e359]: Wrap-up
+                  - generic [ref=e360]: 总结代入法和加减法的适用场景，给出练习建议
+          - generic [ref=e291]: 教我二元一次方程的解法
+          - generic [ref=e297]:
+            - group [ref=e298]:
+              - generic "Thinking (3 steps)" [ref=e361] [cursor=pointer]
+            - generic [ref=e365]:
+              - paragraph [ref=e366]: 好的！二元一次方程组是代数的核心内容，我来为你设计一个循序渐进的课程。
+              - paragraph [ref=e367]: 好的，在正式进入二元一次方程组之前，我先简单了解一下你的基础，这样后面的讲解可以更贴合你的情况 😊
+              - paragraph [ref=e368]: 请你试着回答下面几个小问题（不用紧张，会多少说多少就行）：
+              - separator [ref=e369]
+              - paragraph [ref=e370]:
+                - strong [ref=e371]: ① 解这个方程：
+                - text: 3x + 5 = 14 x = ？
+              - paragraph [ref=e372]:
+                - strong [ref=e373]: ② 如果 2y − 3 = 7，那么 y = ？
+              - paragraph [ref=e374]:
+                - strong [ref=e375]: ③ 点 (2, 4) 是否在直线 y = 2x 上？为什么？
+              - separator [ref=e376]
+              - paragraph [ref=e377]: 这几个问题分别涉及：解一元一次方程、简单的代数变形、以及坐标系中"点满足方程"的概念——这些都是学二元一次方程组的前置知识。试试看？
+        - generic [ref=e284]:
+          - textbox "Type a message..." [ref=e285]
+          - button [disabled] [ref=e286]:
+            - img [ref=e287]

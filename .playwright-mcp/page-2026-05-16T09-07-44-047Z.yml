@@ -1,0 +1,106 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot-2
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "一元二次方程的定义和解法 1/6" [ref=e86] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 一元二次方程的定义和解法
+              - generic [ref=e93]: 1/6
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "done" [ref=e96]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Assess
+                    - generic [ref=e100]: 了解学生当前对一元二次方程的已有认知程度
+                  - generic [ref=e101]: ↳ 通过三个开放式问题了解学生对一元二次方程的已有认知，包括是否见过标准形式、对"一元""二次"含义的理解、以及是否尝试过任何解法。等待学生回答。
+              - listitem [ref=e102]:
+                - generic "in progress" [ref=e103]: ▶
+                - generic [ref=e105]:
+                  - generic [ref=e106]: Define
+                  - generic [ref=e107]: 给出一元二次方程的严格定义和标准形式
+              - listitem [ref=e108]:
+                - generic "pending" [ref=e109]: ·
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Explain
+                  - generic [ref=e113]: 讲解三种基本解法：因式分解法、配方法、公式法
+              - listitem [ref=e114]:
+                - generic "pending" [ref=e115]: ·
+                - generic [ref=e117]:
+                  - generic [ref=e118]: Explain
+                  - generic [ref=e119]: 深入讲解求根公式与判别式 Δ 的含义
+              - listitem [ref=e120]:
+                - generic "pending" [ref=e121]: ·
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Check
+                  - generic [ref=e125]: 用一道典型题目检验学生的理解程度
+              - listitem [ref=e126]:
+                - generic "pending" [ref=e127]: ·
+                - generic [ref=e129]:
+                  - generic [ref=e130]: Wrap-up
+                  - generic [ref=e131]: 总结一元二次方程的核心要点及三种解法的适用场景
+          - generic [ref=e80]: 一元二次方程的定义和解法
+          - generic [ref=e133]:
+            - group [ref=e134]:
+              - generic "Thinking (5 steps)" [ref=e135] [cursor=pointer]
+            - generic [ref=e143]:
+              - paragraph [ref=e144]: 好的！一元二次方程是初中代数的重要基础，让我来系统地为你讲解。先来规划一下课程结构。
+              - paragraph [ref=e145]: 好的，在正式讲解之前，我想先了解一下你目前的程度，这样我能更有针对性地讲解。我问几个简单的问题：
+              - list [ref=e146]:
+                - listitem [ref=e147]:
+                  - strong [ref=e148]:
+                    - text: 你以前见过类似
+                    - code [ref=e149]: x² + 3x + 2 = 0
+                    - text: 这样的方程吗？
+                - listitem [ref=e150]:
+                  - strong [ref=e151]: 你知道"一元"和"二次"分别指的是什么吗？
+                - listitem [ref=e152]:
+                  - strong [ref=e153]: 如果见过的话，你尝试过用什么方法来解它？
+              - paragraph [ref=e154]: 不用有压力，知道多少说多少就好，这样我后续可以调整讲解的深度和节奏 😊
+              - separator [ref=e155]
+              - paragraph [ref=e156]: 说说你的想法吧，知道多少都没关系～
+          - generic [ref=e158]: 见过，初中学过。一元就是一个未知数，二次就是最高次是 2。我会用因式分解法解过简单的。
+          - group [ref=e161]:
+            - generic "Thinking (1 step)" [ref=e162] [cursor=pointer]
+            - paragraph [ref=e164]: 学生
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e78]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

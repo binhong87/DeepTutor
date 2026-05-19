@@ -1,0 +1,42 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - link [ref=e27] [cursor=pointer]:
+            - /url: /tutorbot/dashboard
+            - img [ref=e28]
+          - text: Dashboard
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - img [ref=e33]
+            - generic [ref=e36]:
+              - heading "test-bot-02" [level=1] [ref=e37]
+              - paragraph [ref=e38]: Connecting...
+          - paragraph [ref=e41]: Send a message to start the conversation.
+          - generic [ref=e43]:
+            - textbox "Connecting..." [disabled] [ref=e44]
+            - button "Send" [disabled] [ref=e45]:
+              - img [ref=e46]
+              - text: Send
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]

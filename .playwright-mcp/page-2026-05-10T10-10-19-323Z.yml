@@ -1,0 +1,61 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e79]:
+        - link "Settings" [ref=e80] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e81]
+          - text: Settings
+        - button "Sign out" [ref=e84] [cursor=pointer]:
+          - img [ref=e85]
+          - text: Sign out
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e28]:
+            - img [ref=e29]
+            - text: Welcome
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - text: Choose Soul
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: Name & Describe
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - text: Model
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - text: Done
+        - generic [ref=e121]:
+          - img [ref=e123]
+          - generic [ref=e126]:
+            - heading "Ready to Create" [level=2] [ref=e127]
+            - paragraph [ref=e128]: Your bot will use the default LLM model. You can change this later in settings.
+          - generic [ref=e129]: Soul:Default TutorBot|ID:test-bot-01|Name:Test Bot 01
+        - generic [ref=e130]:
+          - button "Back" [ref=e131] [cursor=pointer]:
+            - img [ref=e132]
+            - text: Back
+          - button "Create Bot" [ref=e134] [cursor=pointer]:
+            - img [ref=e135]
+            - text: Create Bot
+  - alert [ref=e88]

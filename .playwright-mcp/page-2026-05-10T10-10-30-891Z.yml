@@ -1,0 +1,60 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+      - generic [ref=e79]:
+        - link "Settings" [ref=e80] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e81]
+          - text: Settings
+        - button "Sign out" [ref=e84] [cursor=pointer]:
+          - img [ref=e85]
+          - text: Sign out
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e28]:
+            - img [ref=e29]
+            - text: Welcome
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - text: Choose Soul
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: Name & Describe
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - text: Model
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - text: Done
+        - generic [ref=e138]:
+          - img [ref=e140]
+          - generic [ref=e142]:
+            - heading "Bot Created!" [level=1] [ref=e143]
+            - paragraph [ref=e144]: is now running and ready to chat.
+          - generic [ref=e145]:
+            - link "Start Chatting" [ref=e146] [cursor=pointer]:
+              - /url: /tutorbot/undefined/chat
+              - img [ref=e147]
+              - text: Start Chatting
+            - link "Back to Dashboard" [ref=e149] [cursor=pointer]:
+              - /url: /tutorbot/dashboard
+  - alert [ref=e88]

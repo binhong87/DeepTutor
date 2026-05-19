@@ -1,0 +1,489 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e31] [cursor=pointer]:
+    - img [ref=e32]
+  - alert [ref=e35]
+  - generic [ref=e36]:
+    - complementary [ref=e37]:
+      - generic [ref=e38]:
+        - link "DeepTutor" [ref=e39] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e40] [cursor=pointer]:
+          - img [ref=e41]
+      - navigation [ref=e44]:
+        - link "辅导机器人" [ref=e45] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e46]
+          - generic [ref=e49]: 辅导机器人
+        - link "知识库" [ref=e50] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e51]
+          - generic [ref=e53]: 知识库
+        - link "灵魂" [ref=e54] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e55]
+          - generic [ref=e60]: 灵魂
+      - generic [ref=e61]:
+        - link "设置" [ref=e62] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e63]
+          - generic [ref=e66]: 设置
+        - button "退出登录" [ref=e67] [cursor=pointer]:
+          - img [ref=e68]
+          - generic [ref=e71]: 退出登录
+    - main [ref=e72]:
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - heading "我的导师机器人" [level=1] [ref=e76]
+            - paragraph [ref=e77]: 已登录为 test1@demo.com
+          - link "创建新机器人" [ref=e78] [cursor=pointer]:
+            - /url: /tutorbot/boarding
+            - img [ref=e79]
+            - text: 创建新机器人
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - generic [ref=e82]:
+              - generic [ref=e83]:
+                - img [ref=e85]
+                - generic [ref=e88]:
+                  - heading "Demo Bot" [level=3] [ref=e89]
+                  - paragraph [ref=e90]: A demo bot for testing the onboarding flow
+              - generic [ref=e91]: 运行中
+            - generic [ref=e93]:
+              - link "聊天" [ref=e94] [cursor=pointer]:
+                - /url: /tutorbot/demo-bot/chat
+                - img [ref=e95]
+                - text: 聊天
+              - link "设置" [ref=e97] [cursor=pointer]:
+                - /url: /tutorbot/demo-bot/settings
+                - img [ref=e98]
+                - text: 设置
+              - button "停止" [ref=e101] [cursor=pointer]:
+                - img [ref=e102]
+                - text: 停止
+          - generic [ref=e104]:
+            - generic [ref=e105]:
+              - generic [ref=e106]:
+                - img [ref=e108]
+                - heading "live-bot-700" [level=3] [ref=e112]
+              - generic [ref=e113]: 已停止
+            - generic [ref=e115]:
+              - link "聊天" [ref=e116] [cursor=pointer]:
+                - /url: /tutorbot/live-bot-700/chat
+                - img [ref=e117]
+                - text: 聊天
+              - link "设置" [ref=e119] [cursor=pointer]:
+                - /url: /tutorbot/live-bot-700/settings
+                - img [ref=e120]
+                - text: 设置
+              - link "开始" [ref=e123] [cursor=pointer]:
+                - /url: /tutorbot/live-bot-700/chat
+                - img [ref=e124]
+                - text: 开始
+          - generic [ref=e126]:
+            - generic [ref=e127]:
+              - generic [ref=e128]:
+                - img [ref=e130]
+                - heading "test" [level=3] [ref=e134]
+              - generic [ref=e135]: 已停止
+            - generic [ref=e137]:
+              - link "聊天" [ref=e138] [cursor=pointer]:
+                - /url: /tutorbot/unique-test-1778425028/chat
+                - img [ref=e139]
+                - text: 聊天
+              - link "设置" [ref=e141] [cursor=pointer]:
+                - /url: /tutorbot/unique-test-1778425028/settings
+                - img [ref=e142]
+                - text: 设置
+              - link "开始" [ref=e145] [cursor=pointer]:
+                - /url: /tutorbot/unique-test-1778425028/chat
+                - img [ref=e146]
+                - text: 开始
+          - generic [ref=e148]:
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - img [ref=e152]
+                - heading "check-ctx-bot" [level=3] [ref=e156]
+              - generic [ref=e157]: 已停止
+            - generic [ref=e159]:
+              - link "聊天" [ref=e160] [cursor=pointer]:
+                - /url: /tutorbot/check-ctx-bot/chat
+                - img [ref=e161]
+                - text: 聊天
+              - link "设置" [ref=e163] [cursor=pointer]:
+                - /url: /tutorbot/check-ctx-bot/settings
+                - img [ref=e164]
+                - text: 设置
+              - link "开始" [ref=e167] [cursor=pointer]:
+                - /url: /tutorbot/check-ctx-bot/chat
+                - img [ref=e168]
+                - text: 开始
+          - generic [ref=e170]:
+            - generic [ref=e171]:
+              - generic [ref=e172]:
+                - img [ref=e174]
+                - heading "ctx-bot-2125" [level=3] [ref=e178]
+              - generic [ref=e179]: 已停止
+            - generic [ref=e181]:
+              - link "聊天" [ref=e182] [cursor=pointer]:
+                - /url: /tutorbot/ctx-bot-2125/chat
+                - img [ref=e183]
+                - text: 聊天
+              - link "设置" [ref=e185] [cursor=pointer]:
+                - /url: /tutorbot/ctx-bot-2125/settings
+                - img [ref=e186]
+                - text: 设置
+              - link "开始" [ref=e189] [cursor=pointer]:
+                - /url: /tutorbot/ctx-bot-2125/chat
+                - img [ref=e190]
+                - text: 开始
+          - generic [ref=e192]:
+            - generic [ref=e193]:
+              - generic [ref=e194]:
+                - img [ref=e196]
+                - heading "Curl Bot" [level=3] [ref=e200]
+              - generic [ref=e201]: 已停止
+            - generic [ref=e203]:
+              - link "聊天" [ref=e204] [cursor=pointer]:
+                - /url: /tutorbot/curl-bot/chat
+                - img [ref=e205]
+                - text: 聊天
+              - link "设置" [ref=e207] [cursor=pointer]:
+                - /url: /tutorbot/curl-bot/settings
+                - img [ref=e208]
+                - text: 设置
+              - link "开始" [ref=e211] [cursor=pointer]:
+                - /url: /tutorbot/curl-bot/chat
+                - img [ref=e212]
+                - text: 开始
+          - generic [ref=e214]:
+            - generic [ref=e215]:
+              - generic [ref=e216]:
+                - img [ref=e218]
+                - heading "My Test Bot" [level=3] [ref=e222]
+              - generic [ref=e223]: 已停止
+            - generic [ref=e225]:
+              - link "聊天" [ref=e226] [cursor=pointer]:
+                - /url: /tutorbot/my-test-bot/chat
+                - img [ref=e227]
+                - text: 聊天
+              - link "设置" [ref=e229] [cursor=pointer]:
+                - /url: /tutorbot/my-test-bot/settings
+                - img [ref=e230]
+                - text: 设置
+              - link "开始" [ref=e233] [cursor=pointer]:
+                - /url: /tutorbot/my-test-bot/chat
+                - img [ref=e234]
+                - text: 开始
+          - generic [ref=e236]:
+            - generic [ref=e237]:
+              - generic [ref=e238]:
+                - img [ref=e240]
+                - heading "counttest" [level=3] [ref=e244]
+              - generic [ref=e245]: 已停止
+            - generic [ref=e247]:
+              - link "聊天" [ref=e248] [cursor=pointer]:
+                - /url: /tutorbot/counttest/chat
+                - img [ref=e249]
+                - text: 聊天
+              - link "设置" [ref=e251] [cursor=pointer]:
+                - /url: /tutorbot/counttest/settings
+                - img [ref=e252]
+                - text: 设置
+              - link "开始" [ref=e255] [cursor=pointer]:
+                - /url: /tutorbot/counttest/chat
+                - img [ref=e256]
+                - text: 开始
+          - generic [ref=e258]:
+            - generic [ref=e259]:
+              - generic [ref=e260]:
+                - img [ref=e262]
+                - generic [ref=e265]:
+                  - heading "User A Bot" [level=3] [ref=e266]
+                  - paragraph [ref=e267]: only user A should see this
+              - generic [ref=e268]: 已停止
+            - generic [ref=e270]:
+              - link "聊天" [ref=e271] [cursor=pointer]:
+                - /url: /tutorbot/user-a-private-bot/chat
+                - img [ref=e272]
+                - text: 聊天
+              - link "设置" [ref=e274] [cursor=pointer]:
+                - /url: /tutorbot/user-a-private-bot/settings
+                - img [ref=e275]
+                - text: 设置
+              - link "开始" [ref=e278] [cursor=pointer]:
+                - /url: /tutorbot/user-a-private-bot/chat
+                - img [ref=e279]
+                - text: 开始
+          - generic [ref=e281]:
+            - generic [ref=e282]:
+              - generic [ref=e283]:
+                - img [ref=e285]
+                - generic [ref=e288]:
+                  - heading "aaa" [level=3] [ref=e289]
+                  - paragraph [ref=e290]: aa
+              - generic [ref=e291]: 已停止
+            - generic [ref=e293]:
+              - link "聊天" [ref=e294] [cursor=pointer]:
+                - /url: /tutorbot/aaa/chat
+                - img [ref=e295]
+                - text: 聊天
+              - link "设置" [ref=e297] [cursor=pointer]:
+                - /url: /tutorbot/aaa/settings
+                - img [ref=e298]
+                - text: 设置
+              - link "开始" [ref=e301] [cursor=pointer]:
+                - /url: /tutorbot/aaa/chat
+                - img [ref=e302]
+                - text: 开始
+          - generic [ref=e304]:
+            - generic [ref=e305]:
+              - generic [ref=e306]:
+                - img [ref=e308]
+                - generic [ref=e311]:
+                  - heading "Test Bot 02" [level=3] [ref=e312]
+                  - paragraph [ref=e313]: Integration test bot
+              - generic [ref=e314]: 已停止
+            - generic [ref=e316]:
+              - link "聊天" [ref=e317] [cursor=pointer]:
+                - /url: /tutorbot/test-bot-02/chat
+                - img [ref=e318]
+                - text: 聊天
+              - link "设置" [ref=e320] [cursor=pointer]:
+                - /url: /tutorbot/test-bot-02/settings
+                - img [ref=e321]
+                - text: 设置
+              - link "开始" [ref=e324] [cursor=pointer]:
+                - /url: /tutorbot/test-bot-02/chat
+                - img [ref=e325]
+                - text: 开始
+          - generic [ref=e327]:
+            - generic [ref=e328]:
+              - generic [ref=e329]:
+                - img [ref=e331]
+                - heading "probe-bot-428" [level=3] [ref=e335]
+              - generic [ref=e336]: 已停止
+            - generic [ref=e338]:
+              - link "聊天" [ref=e339] [cursor=pointer]:
+                - /url: /tutorbot/probe-bot-428/chat
+                - img [ref=e340]
+                - text: 聊天
+              - link "设置" [ref=e342] [cursor=pointer]:
+                - /url: /tutorbot/probe-bot-428/settings
+                - img [ref=e343]
+                - text: 设置
+              - link "开始" [ref=e346] [cursor=pointer]:
+                - /url: /tutorbot/probe-bot-428/chat
+                - img [ref=e347]
+                - text: 开始
+          - generic [ref=e349]:
+            - generic [ref=e350]:
+              - generic [ref=e351]:
+                - img [ref=e353]
+                - heading "viz-bot" [level=3] [ref=e357]
+              - generic [ref=e358]: 已停止
+            - generic [ref=e360]:
+              - link "聊天" [ref=e361] [cursor=pointer]:
+                - /url: /tutorbot/viz-bot/chat
+                - img [ref=e362]
+                - text: 聊天
+              - link "设置" [ref=e364] [cursor=pointer]:
+                - /url: /tutorbot/viz-bot/settings
+                - img [ref=e365]
+                - text: 设置
+              - link "开始" [ref=e368] [cursor=pointer]:
+                - /url: /tutorbot/viz-bot/chat
+                - img [ref=e369]
+                - text: 开始
+          - generic [ref=e371]:
+            - generic [ref=e372]:
+              - generic [ref=e373]:
+                - img [ref=e375]
+                - heading "handlertest" [level=3] [ref=e379]
+              - generic [ref=e380]: 已停止
+            - generic [ref=e382]:
+              - link "聊天" [ref=e383] [cursor=pointer]:
+                - /url: /tutorbot/handlertest/chat
+                - img [ref=e384]
+                - text: 聊天
+              - link "设置" [ref=e386] [cursor=pointer]:
+                - /url: /tutorbot/handlertest/settings
+                - img [ref=e387]
+                - text: 设置
+              - link "开始" [ref=e390] [cursor=pointer]:
+                - /url: /tutorbot/handlertest/chat
+                - img [ref=e391]
+                - text: 开始
+          - generic [ref=e393]:
+            - generic [ref=e394]:
+              - generic [ref=e395]:
+                - img [ref=e397]
+                - heading "debug-bot-385" [level=3] [ref=e401]
+              - generic [ref=e402]: 已停止
+            - generic [ref=e404]:
+              - link "聊天" [ref=e405] [cursor=pointer]:
+                - /url: /tutorbot/debug-bot-385/chat
+                - img [ref=e406]
+                - text: 聊天
+              - link "设置" [ref=e408] [cursor=pointer]:
+                - /url: /tutorbot/debug-bot-385/settings
+                - img [ref=e409]
+                - text: 设置
+              - link "开始" [ref=e412] [cursor=pointer]:
+                - /url: /tutorbot/debug-bot-385/chat
+                - img [ref=e413]
+                - text: 开始
+          - generic [ref=e415]:
+            - generic [ref=e416]:
+              - generic [ref=e417]:
+                - img [ref=e419]
+                - heading "cad" [level=3] [ref=e423]
+              - generic [ref=e424]: 已停止
+            - generic [ref=e426]:
+              - link "聊天" [ref=e427] [cursor=pointer]:
+                - /url: /tutorbot/cac/chat
+                - img [ref=e428]
+                - text: 聊天
+              - link "设置" [ref=e430] [cursor=pointer]:
+                - /url: /tutorbot/cac/settings
+                - img [ref=e431]
+                - text: 设置
+              - link "开始" [ref=e434] [cursor=pointer]:
+                - /url: /tutorbot/cac/chat
+                - img [ref=e435]
+                - text: 开始
+          - generic [ref=e437]:
+            - generic [ref=e438]:
+              - generic [ref=e439]:
+                - img [ref=e441]
+                - heading "entrytest" [level=3] [ref=e445]
+              - generic [ref=e446]: 已停止
+            - generic [ref=e448]:
+              - link "聊天" [ref=e449] [cursor=pointer]:
+                - /url: /tutorbot/entrytest/chat
+                - img [ref=e450]
+                - text: 聊天
+              - link "设置" [ref=e452] [cursor=pointer]:
+                - /url: /tutorbot/entrytest/settings
+                - img [ref=e453]
+                - text: 设置
+              - link "开始" [ref=e456] [cursor=pointer]:
+                - /url: /tutorbot/entrytest/chat
+                - img [ref=e457]
+                - text: 开始
+          - generic [ref=e459]:
+            - generic [ref=e460]:
+              - generic [ref=e461]:
+                - img [ref=e463]
+                - generic [ref=e466]:
+                  - heading "zzz" [level=3] [ref=e467]
+                  - paragraph [ref=e468]: zzz
+              - generic [ref=e469]: 已停止
+            - generic [ref=e471]:
+              - link "聊天" [ref=e472] [cursor=pointer]:
+                - /url: /tutorbot/zzz/chat
+                - img [ref=e473]
+                - text: 聊天
+              - link "设置" [ref=e475] [cursor=pointer]:
+                - /url: /tutorbot/zzz/settings
+                - img [ref=e476]
+                - text: 设置
+              - link "开始" [ref=e479] [cursor=pointer]:
+                - /url: /tutorbot/zzz/chat
+                - img [ref=e480]
+                - text: 开始
+          - generic [ref=e482]:
+            - generic [ref=e483]:
+              - generic [ref=e484]:
+                - img [ref=e486]
+                - heading "w-1778425072" [level=3] [ref=e490]
+              - generic [ref=e491]: 已停止
+            - generic [ref=e493]:
+              - link "聊天" [ref=e494] [cursor=pointer]:
+                - /url: /tutorbot/w-1778425072/chat
+                - img [ref=e495]
+                - text: 聊天
+              - link "设置" [ref=e497] [cursor=pointer]:
+                - /url: /tutorbot/w-1778425072/settings
+                - img [ref=e498]
+                - text: 设置
+              - link "开始" [ref=e501] [cursor=pointer]:
+                - /url: /tutorbot/w-1778425072/chat
+                - img [ref=e502]
+                - text: 开始
+          - generic [ref=e504]:
+            - generic [ref=e505]:
+              - generic [ref=e506]:
+                - img [ref=e508]
+                - heading "Bot iso-bot-u1" [level=3] [ref=e512]
+              - generic [ref=e513]: 已停止
+            - generic [ref=e515]:
+              - link "聊天" [ref=e516] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u1/chat
+                - img [ref=e517]
+                - text: 聊天
+              - link "设置" [ref=e519] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u1/settings
+                - img [ref=e520]
+                - text: 设置
+              - link "开始" [ref=e523] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u1/chat
+                - img [ref=e524]
+                - text: 开始
+          - generic [ref=e526]:
+            - generic [ref=e527]:
+              - generic [ref=e528]:
+                - img [ref=e530]
+                - heading "testbot-2871" [level=3] [ref=e534]
+              - generic [ref=e535]: 已停止
+            - generic [ref=e537]:
+              - link "聊天" [ref=e538] [cursor=pointer]:
+                - /url: /tutorbot/testbot-2871/chat
+                - img [ref=e539]
+                - text: 聊天
+              - link "设置" [ref=e541] [cursor=pointer]:
+                - /url: /tutorbot/testbot-2871/settings
+                - img [ref=e542]
+                - text: 设置
+              - link "开始" [ref=e545] [cursor=pointer]:
+                - /url: /tutorbot/testbot-2871/chat
+                - img [ref=e546]
+                - text: 开始
+          - generic [ref=e548]:
+            - generic [ref=e549]:
+              - generic [ref=e550]:
+                - img [ref=e552]
+                - heading "Isolation Test Bot" [level=3] [ref=e556]
+              - generic [ref=e557]: 已停止
+            - generic [ref=e559]:
+              - link "聊天" [ref=e560] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot/chat
+                - img [ref=e561]
+                - text: 聊天
+              - link "设置" [ref=e563] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot/settings
+                - img [ref=e564]
+                - text: 设置
+              - link "开始" [ref=e567] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot/chat
+                - img [ref=e568]
+                - text: 开始
+          - generic [ref=e570]:
+            - generic [ref=e571]:
+              - generic [ref=e572]:
+                - img [ref=e574]
+                - heading "Bot iso-bot-u2" [level=3] [ref=e578]
+              - generic [ref=e579]: 已停止
+            - generic [ref=e581]:
+              - link "聊天" [ref=e582] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u2/chat
+                - img [ref=e583]
+                - text: 聊天
+              - link "设置" [ref=e585] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u2/settings
+                - img [ref=e586]
+                - text: 设置
+              - link "开始" [ref=e589] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u2/chat
+                - img [ref=e590]
+                - text: 开始

@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot-2
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "一元二次方程的定义和解法 1/6" [ref=e86] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 一元二次方程的定义和解法
+              - generic [ref=e93]: 1/6
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "done" [ref=e96]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Assess
+                    - generic [ref=e100]: 了解学生当前对一元二次方程的已有认知程度
+                  - generic [ref=e101]: ↳ 通过三个开放式问题了解学生对一元二次方程的已有认知，包括是否见过标准形式、对"一元""二次"含义的理解、以及是否尝试过任何解法。等待学生回答。
+              - listitem [ref=e102]:
+                - generic "in progress" [ref=e103]: ▶
+                - generic [ref=e105]:
+                  - generic [ref=e106]: Define
+                  - generic [ref=e107]: 给出一元二次方程的严格定义和标准形式
+              - listitem [ref=e108]:
+                - generic "pending" [ref=e109]: ·
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Explain
+                  - generic [ref=e113]: 讲解三种基本解法：因式分解法、配方法、公式法
+              - listitem [ref=e114]:
+                - generic "pending" [ref=e115]: ·
+                - generic [ref=e117]:
+                  - generic [ref=e118]: Explain
+                  - generic [ref=e119]: 深入讲解求根公式与判别式 Δ 的含义
+              - listitem [ref=e120]:
+                - generic "pending" [ref=e121]: ·
+                - generic [ref=e123]:
+                  - generic [ref=e124]: Check
+                  - generic [ref=e125]: 用一道典型题目检验学生的理解程度
+              - listitem [ref=e126]:
+                - generic "pending" [ref=e127]: ·
+                - generic [ref=e129]:
+                  - generic [ref=e130]: Wrap-up
+                  - generic [ref=e131]: 总结一元二次方程的核心要点及三种解法的适用场景
+          - generic [ref=e80]: 一元二次方程的定义和解法
+          - group [ref=e134]:
+            - generic "Thinking (5 steps)" [ref=e135] [cursor=pointer]
+            - generic [ref=e136]:
+              - paragraph [ref=e137]: "学生用中文提问，要求讲解\"一元二次方程的定义和解法\"。这是一个典型的数学教学主题，需要结构化的课程计划。让我先规划一下课程。 这是一个非平凡的主题——学生要求解释定义和解法，这显然需要多个步骤。我应该先调用 plan_lesson。 课程结构： - s1: assess — 了解学生已有的基础 - s2: define — 一元二次方程的定义（标准形式 ax²+bx+c=0, a≠0） - s3: explain — 解法概述：因式分解法、配方法、公式法 - s4: explain — 详细讲解求根公式（判别式） - s5: check — 测试理解 - s6: wrap_up — 总结 让我规划一下。"
+              - paragraph [ref=e138]: plan_lesson("一元二次方程的定义和解法")
+              - paragraph [ref=e139]: 现在执行第一步 s1（assess）：了解学生的已有认知。我需要问学生一些关于一元二次方程的基础问题。
+              - paragraph [ref=e140]: complete_step("s1")
+              - paragraph [ref=e141]: Step s1 完成了。现在需要等待学生的回答。我应该用一句话邀请学生反应
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e78]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

@@ -1,0 +1,72 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e58] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e60] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e61] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - button "退出登录" [ref=e62] [cursor=pointer]:
+        - img [ref=e63]
+        - generic [ref=e66]: 退出登录
+    - main [ref=e28]:
+      - generic [ref=e30]:
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - generic [ref=e35]: viz-bot
+        - generic [ref=e38]:
+          - generic [ref=e69]: Show me a graph of y = 2x + 3
+          - generic [ref=e71]: Graph y = x^3 - 2x on [-3, 3]
+          - img [ref=e78]:
+            - generic [ref=e79]: Graph of y = x³ - 2x
+            - generic [ref=e80]:
+              - generic [ref=e81]:
+                - generic [ref=e146]: −10
+                - generic [ref=e148]: −8
+                - generic [ref=e150]: −6
+                - generic [ref=e152]: −4
+                - generic [ref=e154]: −2
+                - generic [ref=e96]: "0"
+                - generic [ref=e156]: "2"
+                - generic [ref=e158]: "4"
+                - generic [ref=e160]: "6"
+                - generic [ref=e162]: "8"
+                - generic [ref=e164]: "10"
+                - generic [ref=e166]: "12"
+              - generic [ref=e109]:
+                - generic [ref=e168]: −5
+                - generic [ref=e170]: −4
+                - generic [ref=e172]: −3
+                - generic [ref=e174]: −2
+                - generic [ref=e176]: −1
+                - generic [ref=e124]: "0"
+                - generic [ref=e178]: "1"
+                - generic [ref=e180]: "2"
+                - generic [ref=e182]: "3"
+                - generic [ref=e184]: "4"
+              - generic [ref=e137]: x
+              - generic [ref=e138]: "y"
+          - generic [ref=e186]: Explain the trigonometric functions (sine, cosine, tangent) in text and plotting.
+          - generic [ref=e187]:
+            - img [ref=e188]
+            - generic [ref=e190]: Thinking...
+        - generic [ref=e43]:
+          - textbox "Type a message..." [disabled] [ref=e143]
+          - button [disabled] [ref=e45]:
+            - img [ref=e46]
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e144]

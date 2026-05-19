@@ -1,0 +1,58 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e11] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - text: TutorBot
+        - link "Knowledge" [ref=e15] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e16]
+          - text: Knowledge
+        - link "Souls" [ref=e18] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e19]
+          - text: Souls
+    - main [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e28]:
+            - img [ref=e29]
+            - text: Welcome
+          - generic [ref=e33]:
+            - img [ref=e34]
+            - text: Choose Soul
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: Name & Describe
+          - generic [ref=e42]:
+            - img [ref=e43]
+            - text: Model
+          - generic [ref=e47]:
+            - img [ref=e48]
+            - text: Done
+        - generic [ref=e50]:
+          - img [ref=e52]
+          - generic [ref=e55]:
+            - heading "Create Your First TutorBot" [level=1] [ref=e56]
+            - paragraph [ref=e57]: TutorBots are AI teaching agents powered by customizable personas, channel integrations, and RAG-powered knowledge bases.
+          - generic [ref=e58]:
+            - generic [ref=e59]: 1Choose a teaching persona from our soul library
+            - generic [ref=e60]: 2Give your bot a unique ID and description
+            - generic [ref=e61]: 3Optionally select an LLM model or use the default
+            - generic [ref=e62]: 4Chat, manage channels, and upload knowledge
+        - generic [ref=e63]:
+          - button "Back" [disabled] [ref=e64]:
+            - img [ref=e65]
+            - text: Back
+          - button "Next" [ref=e67] [cursor=pointer]:
+            - text: Next
+            - img [ref=e68]
+  - button "Open Next.js Dev Tools" [ref=e75] [cursor=pointer]:
+    - img [ref=e76]

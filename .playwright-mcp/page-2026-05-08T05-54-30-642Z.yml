@@ -1,0 +1,53 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "DeepTutor" [ref=e6]
+          - generic [ref=e7]: DeepTutor
+        - button "Collapse sidebar" [ref=e8] [cursor=pointer]:
+          - img [ref=e9]
+      - navigation [ref=e12]:
+        - generic [ref=e13]:
+          - button "New Chat" [ref=e14] [cursor=pointer]:
+            - img [ref=e15]
+            - generic [ref=e16]: New Chat
+          - link "Chat" [ref=e18] [cursor=pointer]:
+            - /url: /v2/chat
+            - img [ref=e19]
+            - generic [ref=e21]: Chat
+          - link "TutorBot" [ref=e28] [cursor=pointer]:
+            - /url: /agents
+            - img [ref=e29]
+            - generic [ref=e32]: TutorBot
+          - link "Co-Writer" [ref=e34] [cursor=pointer]:
+            - /url: /co-writer
+            - img [ref=e35]
+            - generic [ref=e37]: Co-Writer
+          - link "Book" [ref=e39] [cursor=pointer]:
+            - /url: /book
+            - img [ref=e40]
+            - generic [ref=e42]: Book
+          - link "Knowledge" [ref=e44] [cursor=pointer]:
+            - /url: /knowledge
+            - img [ref=e45]
+            - generic [ref=e47]: Knowledge
+          - link "Space" [ref=e49] [cursor=pointer]:
+            - /url: /space
+            - img [ref=e50]
+            - generic [ref=e55]: Space
+      - generic [ref=e57]:
+        - link "Settings" [ref=e58] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e59]
+          - generic [ref=e62]: Settings
+        - generic [ref=e63]:
+          - link "v1.3.8+21·dev" [ref=e64] [cursor=pointer]:
+            - /url: https://github.com/HKUDS/DeepTutor/releases
+            - generic [ref=e66]: v1.3.8+21·dev
+          - link "GitHub" [ref=e67] [cursor=pointer]:
+            - /url: https://github.com/HKUDS/DeepTutor
+            - img [ref=e68]
+    - main [ref=e71]
+  - alert [ref=e72]

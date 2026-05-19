@@ -1,0 +1,493 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e580] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "TutorBot" [ref=e581] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: TutorBot
+        - link "Knowledge" [ref=e582] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: Knowledge
+        - link "Souls" [ref=e583] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: Souls
+      - generic [ref=e27]:
+        - link "Settings" [ref=e584] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e52]
+          - generic [ref=e55]: Settings
+        - button "Sign out" [ref=e585] [cursor=pointer]:
+          - img [ref=e57]
+          - generic [ref=e60]: Sign out
+    - main [ref=e28]:
+      - button "切换到中文" [active] [ref=e586] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: 中
+      - generic [ref=e35]:
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - heading "Your TutorBots" [level=1] [ref=e587]
+            - paragraph [ref=e64]: Logged in as test1@demo.com
+          - link "Create New Bot" [ref=e588] [cursor=pointer]:
+            - /url: /tutorbot/boarding
+            - img [ref=e66]
+            - text: Create New Bot
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - generic [ref=e70]:
+                - img [ref=e72]
+                - heading "debug-bot-385" [level=3] [ref=e76]
+              - generic [ref=e77]: Stopped
+            - generic [ref=e79]:
+              - link "Chat" [ref=e589] [cursor=pointer]:
+                - /url: /tutorbot/debug-bot-385/chat
+                - img [ref=e81]
+                - text: Chat
+              - link "Settings" [ref=e590] [cursor=pointer]:
+                - /url: /tutorbot/debug-bot-385/settings
+                - img [ref=e84]
+                - text: Settings
+              - link "Start" [ref=e591] [cursor=pointer]:
+                - /url: /tutorbot/debug-bot-385/chat
+                - img [ref=e88]
+                - text: Start
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - generic [ref=e92]:
+                - img [ref=e94]
+                - heading "w-1778425072" [level=3] [ref=e98]
+              - generic [ref=e99]: Stopped
+            - generic [ref=e101]:
+              - link "Chat" [ref=e592] [cursor=pointer]:
+                - /url: /tutorbot/w-1778425072/chat
+                - img [ref=e103]
+                - text: Chat
+              - link "Settings" [ref=e593] [cursor=pointer]:
+                - /url: /tutorbot/w-1778425072/settings
+                - img [ref=e106]
+                - text: Settings
+              - link "Start" [ref=e594] [cursor=pointer]:
+                - /url: /tutorbot/w-1778425072/chat
+                - img [ref=e110]
+                - text: Start
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - generic [ref=e114]:
+                - img [ref=e116]
+                - heading "viz-bot" [level=3] [ref=e120]
+              - generic [ref=e121]: Stopped
+            - generic [ref=e123]:
+              - link "Chat" [ref=e595] [cursor=pointer]:
+                - /url: /tutorbot/viz-bot/chat
+                - img [ref=e125]
+                - text: Chat
+              - link "Settings" [ref=e596] [cursor=pointer]:
+                - /url: /tutorbot/viz-bot/settings
+                - img [ref=e128]
+                - text: Settings
+              - link "Start" [ref=e597] [cursor=pointer]:
+                - /url: /tutorbot/viz-bot/chat
+                - img [ref=e132]
+                - text: Start
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - generic [ref=e136]:
+                - img [ref=e138]
+                - heading "My Test Bot" [level=3] [ref=e142]
+              - generic [ref=e143]: Stopped
+            - generic [ref=e145]:
+              - link "Chat" [ref=e598] [cursor=pointer]:
+                - /url: /tutorbot/my-test-bot/chat
+                - img [ref=e147]
+                - text: Chat
+              - link "Settings" [ref=e599] [cursor=pointer]:
+                - /url: /tutorbot/my-test-bot/settings
+                - img [ref=e150]
+                - text: Settings
+              - link "Start" [ref=e600] [cursor=pointer]:
+                - /url: /tutorbot/my-test-bot/chat
+                - img [ref=e154]
+                - text: Start
+          - generic [ref=e156]:
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - img [ref=e160]
+                - heading "cad" [level=3] [ref=e164]
+              - generic [ref=e165]: Stopped
+            - generic [ref=e167]:
+              - link "Chat" [ref=e601] [cursor=pointer]:
+                - /url: /tutorbot/cac/chat
+                - img [ref=e169]
+                - text: Chat
+              - link "Settings" [ref=e602] [cursor=pointer]:
+                - /url: /tutorbot/cac/settings
+                - img [ref=e172]
+                - text: Settings
+              - link "Start" [ref=e603] [cursor=pointer]:
+                - /url: /tutorbot/cac/chat
+                - img [ref=e176]
+                - text: Start
+          - generic [ref=e178]:
+            - generic [ref=e179]:
+              - generic [ref=e180]:
+                - img [ref=e182]
+                - heading "handlertest" [level=3] [ref=e186]
+              - generic [ref=e187]: Stopped
+            - generic [ref=e189]:
+              - link "Chat" [ref=e604] [cursor=pointer]:
+                - /url: /tutorbot/handlertest/chat
+                - img [ref=e191]
+                - text: Chat
+              - link "Settings" [ref=e605] [cursor=pointer]:
+                - /url: /tutorbot/handlertest/settings
+                - img [ref=e194]
+                - text: Settings
+              - link "Start" [ref=e606] [cursor=pointer]:
+                - /url: /tutorbot/handlertest/chat
+                - img [ref=e198]
+                - text: Start
+          - generic [ref=e200]:
+            - generic [ref=e201]:
+              - generic [ref=e202]:
+                - img [ref=e204]
+                - heading "Curl Bot" [level=3] [ref=e208]
+              - generic [ref=e209]: Stopped
+            - generic [ref=e211]:
+              - link "Chat" [ref=e607] [cursor=pointer]:
+                - /url: /tutorbot/curl-bot/chat
+                - img [ref=e213]
+                - text: Chat
+              - link "Settings" [ref=e608] [cursor=pointer]:
+                - /url: /tutorbot/curl-bot/settings
+                - img [ref=e216]
+                - text: Settings
+              - link "Start" [ref=e609] [cursor=pointer]:
+                - /url: /tutorbot/curl-bot/chat
+                - img [ref=e220]
+                - text: Start
+          - generic [ref=e222]:
+            - generic [ref=e223]:
+              - generic [ref=e224]:
+                - img [ref=e226]
+                - heading "Bot iso-bot-u1" [level=3] [ref=e230]
+              - generic [ref=e231]: Stopped
+            - generic [ref=e233]:
+              - link "Chat" [ref=e610] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u1/chat
+                - img [ref=e235]
+                - text: Chat
+              - link "Settings" [ref=e611] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u1/settings
+                - img [ref=e238]
+                - text: Settings
+              - link "Start" [ref=e612] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u1/chat
+                - img [ref=e242]
+                - text: Start
+          - generic [ref=e244]:
+            - generic [ref=e245]:
+              - generic [ref=e246]:
+                - img [ref=e248]
+                - generic [ref=e251]:
+                  - heading "zzz" [level=3] [ref=e252]
+                  - paragraph [ref=e253]: zzz
+              - generic [ref=e254]: Stopped
+            - generic [ref=e256]:
+              - link "Chat" [ref=e613] [cursor=pointer]:
+                - /url: /tutorbot/zzz/chat
+                - img [ref=e258]
+                - text: Chat
+              - link "Settings" [ref=e614] [cursor=pointer]:
+                - /url: /tutorbot/zzz/settings
+                - img [ref=e261]
+                - text: Settings
+              - link "Start" [ref=e615] [cursor=pointer]:
+                - /url: /tutorbot/zzz/chat
+                - img [ref=e265]
+                - text: Start
+          - generic [ref=e267]:
+            - generic [ref=e268]:
+              - generic [ref=e269]:
+                - img [ref=e271]
+                - heading "Bot iso-bot-u2" [level=3] [ref=e275]
+              - generic [ref=e276]: Stopped
+            - generic [ref=e278]:
+              - link "Chat" [ref=e616] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u2/chat
+                - img [ref=e280]
+                - text: Chat
+              - link "Settings" [ref=e617] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u2/settings
+                - img [ref=e283]
+                - text: Settings
+              - link "Start" [ref=e618] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot-u2/chat
+                - img [ref=e287]
+                - text: Start
+          - generic [ref=e289]:
+            - generic [ref=e290]:
+              - generic [ref=e291]:
+                - img [ref=e293]
+                - heading "Isolation Test Bot" [level=3] [ref=e297]
+              - generic [ref=e298]: Stopped
+            - generic [ref=e300]:
+              - link "Chat" [ref=e619] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot/chat
+                - img [ref=e302]
+                - text: Chat
+              - link "Settings" [ref=e620] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot/settings
+                - img [ref=e305]
+                - text: Settings
+              - link "Start" [ref=e621] [cursor=pointer]:
+                - /url: /tutorbot/iso-bot/chat
+                - img [ref=e309]
+                - text: Start
+          - generic [ref=e311]:
+            - generic [ref=e312]:
+              - generic [ref=e313]:
+                - img [ref=e315]
+                - generic [ref=e318]:
+                  - heading "Demo Bot" [level=3] [ref=e319]
+                  - paragraph [ref=e320]: A demo bot for testing the onboarding flow
+              - generic [ref=e321]: Stopped
+            - generic [ref=e323]:
+              - link "Chat" [ref=e622] [cursor=pointer]:
+                - /url: /tutorbot/demo-bot/chat
+                - img [ref=e325]
+                - text: Chat
+              - link "Settings" [ref=e623] [cursor=pointer]:
+                - /url: /tutorbot/demo-bot/settings
+                - img [ref=e328]
+                - text: Settings
+              - link "Start" [ref=e624] [cursor=pointer]:
+                - /url: /tutorbot/demo-bot/chat
+                - img [ref=e332]
+                - text: Start
+          - generic [ref=e334]:
+            - generic [ref=e335]:
+              - generic [ref=e336]:
+                - img [ref=e338]
+                - heading "probe-bot-428" [level=3] [ref=e342]
+              - generic [ref=e343]: Stopped
+            - generic [ref=e345]:
+              - link "Chat" [ref=e625] [cursor=pointer]:
+                - /url: /tutorbot/probe-bot-428/chat
+                - img [ref=e347]
+                - text: Chat
+              - link "Settings" [ref=e626] [cursor=pointer]:
+                - /url: /tutorbot/probe-bot-428/settings
+                - img [ref=e350]
+                - text: Settings
+              - link "Start" [ref=e627] [cursor=pointer]:
+                - /url: /tutorbot/probe-bot-428/chat
+                - img [ref=e354]
+                - text: Start
+          - generic [ref=e356]:
+            - generic [ref=e357]:
+              - generic [ref=e358]:
+                - img [ref=e360]
+                - heading "test" [level=3] [ref=e364]
+              - generic [ref=e365]: Stopped
+            - generic [ref=e367]:
+              - link "Chat" [ref=e628] [cursor=pointer]:
+                - /url: /tutorbot/unique-test-1778425028/chat
+                - img [ref=e369]
+                - text: Chat
+              - link "Settings" [ref=e629] [cursor=pointer]:
+                - /url: /tutorbot/unique-test-1778425028/settings
+                - img [ref=e372]
+                - text: Settings
+              - link "Start" [ref=e630] [cursor=pointer]:
+                - /url: /tutorbot/unique-test-1778425028/chat
+                - img [ref=e376]
+                - text: Start
+          - generic [ref=e378]:
+            - generic [ref=e379]:
+              - generic [ref=e380]:
+                - img [ref=e382]
+                - heading "counttest" [level=3] [ref=e386]
+              - generic [ref=e387]: Stopped
+            - generic [ref=e389]:
+              - link "Chat" [ref=e631] [cursor=pointer]:
+                - /url: /tutorbot/counttest/chat
+                - img [ref=e391]
+                - text: Chat
+              - link "Settings" [ref=e632] [cursor=pointer]:
+                - /url: /tutorbot/counttest/settings
+                - img [ref=e394]
+                - text: Settings
+              - link "Start" [ref=e633] [cursor=pointer]:
+                - /url: /tutorbot/counttest/chat
+                - img [ref=e398]
+                - text: Start
+          - generic [ref=e400]:
+            - generic [ref=e401]:
+              - generic [ref=e402]:
+                - img [ref=e404]
+                - generic [ref=e407]:
+                  - heading "Test Bot 02" [level=3] [ref=e408]
+                  - paragraph [ref=e409]: Integration test bot
+              - generic [ref=e410]: Stopped
+            - generic [ref=e412]:
+              - link "Chat" [ref=e634] [cursor=pointer]:
+                - /url: /tutorbot/test-bot-02/chat
+                - img [ref=e414]
+                - text: Chat
+              - link "Settings" [ref=e635] [cursor=pointer]:
+                - /url: /tutorbot/test-bot-02/settings
+                - img [ref=e417]
+                - text: Settings
+              - link "Start" [ref=e636] [cursor=pointer]:
+                - /url: /tutorbot/test-bot-02/chat
+                - img [ref=e421]
+                - text: Start
+          - generic [ref=e423]:
+            - generic [ref=e424]:
+              - generic [ref=e425]:
+                - img [ref=e427]
+                - heading "ctx-bot-2125" [level=3] [ref=e431]
+              - generic [ref=e432]: Stopped
+            - generic [ref=e434]:
+              - link "Chat" [ref=e637] [cursor=pointer]:
+                - /url: /tutorbot/ctx-bot-2125/chat
+                - img [ref=e436]
+                - text: Chat
+              - link "Settings" [ref=e638] [cursor=pointer]:
+                - /url: /tutorbot/ctx-bot-2125/settings
+                - img [ref=e439]
+                - text: Settings
+              - link "Start" [ref=e639] [cursor=pointer]:
+                - /url: /tutorbot/ctx-bot-2125/chat
+                - img [ref=e443]
+                - text: Start
+          - generic [ref=e445]:
+            - generic [ref=e446]:
+              - generic [ref=e447]:
+                - img [ref=e449]
+                - heading "check-ctx-bot" [level=3] [ref=e453]
+              - generic [ref=e454]: Stopped
+            - generic [ref=e456]:
+              - link "Chat" [ref=e640] [cursor=pointer]:
+                - /url: /tutorbot/check-ctx-bot/chat
+                - img [ref=e458]
+                - text: Chat
+              - link "Settings" [ref=e641] [cursor=pointer]:
+                - /url: /tutorbot/check-ctx-bot/settings
+                - img [ref=e461]
+                - text: Settings
+              - link "Start" [ref=e642] [cursor=pointer]:
+                - /url: /tutorbot/check-ctx-bot/chat
+                - img [ref=e465]
+                - text: Start
+          - generic [ref=e467]:
+            - generic [ref=e468]:
+              - generic [ref=e469]:
+                - img [ref=e471]
+                - heading "testbot-2871" [level=3] [ref=e475]
+              - generic [ref=e476]: Stopped
+            - generic [ref=e478]:
+              - link "Chat" [ref=e643] [cursor=pointer]:
+                - /url: /tutorbot/testbot-2871/chat
+                - img [ref=e480]
+                - text: Chat
+              - link "Settings" [ref=e644] [cursor=pointer]:
+                - /url: /tutorbot/testbot-2871/settings
+                - img [ref=e483]
+                - text: Settings
+              - link "Start" [ref=e645] [cursor=pointer]:
+                - /url: /tutorbot/testbot-2871/chat
+                - img [ref=e487]
+                - text: Start
+          - generic [ref=e489]:
+            - generic [ref=e490]:
+              - generic [ref=e491]:
+                - img [ref=e493]
+                - heading "live-bot-700" [level=3] [ref=e497]
+              - generic [ref=e498]: Stopped
+            - generic [ref=e500]:
+              - link "Chat" [ref=e646] [cursor=pointer]:
+                - /url: /tutorbot/live-bot-700/chat
+                - img [ref=e502]
+                - text: Chat
+              - link "Settings" [ref=e647] [cursor=pointer]:
+                - /url: /tutorbot/live-bot-700/settings
+                - img [ref=e505]
+                - text: Settings
+              - link "Start" [ref=e648] [cursor=pointer]:
+                - /url: /tutorbot/live-bot-700/chat
+                - img [ref=e509]
+                - text: Start
+          - generic [ref=e511]:
+            - generic [ref=e512]:
+              - generic [ref=e513]:
+                - img [ref=e515]
+                - generic [ref=e518]:
+                  - heading "aaa" [level=3] [ref=e519]
+                  - paragraph [ref=e520]: aa
+              - generic [ref=e521]: Stopped
+            - generic [ref=e523]:
+              - link "Chat" [ref=e649] [cursor=pointer]:
+                - /url: /tutorbot/aaa/chat
+                - img [ref=e525]
+                - text: Chat
+              - link "Settings" [ref=e650] [cursor=pointer]:
+                - /url: /tutorbot/aaa/settings
+                - img [ref=e528]
+                - text: Settings
+              - link "Start" [ref=e651] [cursor=pointer]:
+                - /url: /tutorbot/aaa/chat
+                - img [ref=e532]
+                - text: Start
+          - generic [ref=e534]:
+            - generic [ref=e535]:
+              - generic [ref=e536]:
+                - img [ref=e538]
+                - heading "entrytest" [level=3] [ref=e542]
+              - generic [ref=e543]: Stopped
+            - generic [ref=e545]:
+              - link "Chat" [ref=e652] [cursor=pointer]:
+                - /url: /tutorbot/entrytest/chat
+                - img [ref=e547]
+                - text: Chat
+              - link "Settings" [ref=e653] [cursor=pointer]:
+                - /url: /tutorbot/entrytest/settings
+                - img [ref=e550]
+                - text: Settings
+              - link "Start" [ref=e654] [cursor=pointer]:
+                - /url: /tutorbot/entrytest/chat
+                - img [ref=e554]
+                - text: Start
+          - generic [ref=e556]:
+            - generic [ref=e557]:
+              - generic [ref=e558]:
+                - img [ref=e560]
+                - generic [ref=e563]:
+                  - heading "User A Bot" [level=3] [ref=e564]
+                  - paragraph [ref=e565]: only user A should see this
+              - generic [ref=e566]: Stopped
+            - generic [ref=e568]:
+              - link "Chat" [ref=e655] [cursor=pointer]:
+                - /url: /tutorbot/user-a-private-bot/chat
+                - img [ref=e570]
+                - text: Chat
+              - link "Settings" [ref=e656] [cursor=pointer]:
+                - /url: /tutorbot/user-a-private-bot/settings
+                - img [ref=e573]
+                - text: Settings
+              - link "Start" [ref=e657] [cursor=pointer]:
+                - /url: /tutorbot/user-a-private-bot/chat
+                - img [ref=e577]
+                - text: Start
+  - button "Open Next.js Dev Tools" [ref=e43] [cursor=pointer]:
+    - img [ref=e44]
+  - alert [ref=e579]

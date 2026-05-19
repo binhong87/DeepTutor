@@ -1,0 +1,694 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot
+        - generic [ref=e44]:
+          - generic [ref=e71]:
+            - button "小数和分数 5/5" [ref=e865] [cursor=pointer]:
+              - img [ref=e73]
+              - img [ref=e75]
+              - generic [ref=e78]: 小数和分数
+              - generic [ref=e79]: 5/5
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - generic "done" [ref=e82]: ✓
+                - generic [ref=e83]:
+                  - generic [ref=e84]:
+                    - generic [ref=e85]: Assess
+                    - generic [ref=e86]: 了解学生对小数和分数的已有认知，以及他们想重点学什么
+                  - generic [ref=e87]: ↳ 学生为小学水平，已有基础读写能力，本次想重点学习小数与分数的互相转换。
+              - listitem [ref=e88]:
+                - generic "done" [ref=e89]: ✓
+                - generic [ref=e90]:
+                  - generic [ref=e91]:
+                    - generic [ref=e92]: Define
+                    - generic [ref=e93]: 给出小数和分数的精确定义，建立核心概念
+                  - generic [ref=e94]: ↳ 讲解了分数的定义（分子/分母，表示整体等分后取几份），小数的定义（以10/100/1000为分母的特殊分数简写，小数点分隔整数与小数部分），以及两者之间的关系——本质相同，写法不同。用表格举例：0.5=5/10=1/2，0.25=25/100=1/4。
+              - listitem [ref=e95]:
+                - generic "done" [ref=e772]: ✓
+                - generic [ref=e97]:
+                  - generic [ref=e98]:
+                    - generic [ref=e99]: Explain
+                    - generic [ref=e100]: 讲解小数与分数之间的互相转换方法，并用可视化辅助理解
+                  - generic [ref=e773]: ↳ 讲解了小数化分数的三步法（数位数→定分母→写分子→约分）和分数化小数的两种方法（直接除法、凑分母法），辅以多条对比矩形图帮助直观理解 0.75=3/4。
+              - listitem [ref=e101]:
+                - generic "done" [ref=e796]: ✓
+                - generic [ref=e103]:
+                  - generic [ref=e104]:
+                    - generic [ref=e105]: Check
+                    - generic [ref=e106]: 通过一道转换题检验学生是否掌握
+                  - generic [ref=e797]: ↳ 学生回答正确：0.8→一位小数→分母10→分子8→8/10 约分得 4/5，步骤完整无误。
+              - listitem [ref=e107]:
+                - generic "done" [ref=e866]: ✓
+                - generic [ref=e109]:
+                  - generic [ref=e110]:
+                    - generic [ref=e111]: Wrap-up
+                    - generic [ref=e112]: 总结小数与分数的核心关系，指出常见易错点
+                  - generic [ref=e867]: ↳ 总结了小数与分数的核心关系（小数是分母为10/100/1000的分数简写），回顾了两向转换方法速查表，重点指出三个易错点：数错小数位数、忘记约分、带整数小数的处理。最后给出四道自测题供课后练习。
+          - generic [ref=e114]: "[语言提示——非学生输入] 学生使用中文。请用中文进行思考（thinking）、调用工具时传入的所有参数，以及给学生的最终回复——任何环节都不要使用英文。 --- 小数和分数"
+          - generic [ref=e118]:
+            - paragraph [ref=e119]: 好的！在开始讲解之前，我想先了解一下你的情况，这样我能讲得更有针对性 😊
+            - paragraph [ref=e120]: 请你简单回答一下：
+            - list [ref=e121]:
+              - listitem [ref=e122]:
+                - paragraph [ref=e123]:
+                  - strong [ref=e124]: 你目前对小数和分数大概掌握到什么程度？
+                  - text: 比如：能读写小数和分数吗？会做加减乘除吗？
+              - listitem [ref=e125]:
+                - paragraph [ref=e126]:
+                  - strong [ref=e127]: 你这次想重点学什么？
+                  - text: 是小数和分数的互相转换？还是比较大小？还是四则运算？或者有什么具体的题目不会做？
+            - paragraph [ref=e128]: 随便说就行，不用紧张，这不打分～
+          - generic [ref=e130]: "[语言提示——非学生输入] 学生使用中文。请用中文进行思考（thinking）、调用工具时传入的所有参数，以及给学生的最终回复——任何环节都不要使用英文。 --- # 当前课程：小数和分数 [>] s1 (assess): 了解学生对小数和分数的已有认知，以及他们想重点学什么 [ ] s2 (define): 给出小数和分数的精确定义，建立核心概念 [ ] s3 (explain): 讲解小数与分数之间的互相转换方法，并用可视化辅助理解 [ ] s4 (check): 通过一道转换题检验学生是否掌握 [ ] s5 (wrap_up): 总结小数与分数的核心关系，指出常见易错点 **你正在执行步骤 `s1`。只执行该步骤，然后调用 `complete_step`。** **协议要求：在调用 `complete_step` 之前，你必须先用普通文本把该步骤的讲解 / 提问内容完整发送出来——也就是学生本轮要在聊天框里看到的实质内容（定义、例子、推导、问题等）。** **思考（reasoning）不会被学生看到，所以不要把讲解只放在思考里。如果在 `complete_step` 之前你的可见回复是空的或只有几个字，那就是违反协议的 bug，必须先补上正文再调用工具。** --- 学生消息: 小学水平，想学小数分数互转"
+          - generic [ref=e134]:
+            - paragraph [ref=e135]:
+              - text: 好的，了解了！你是
+              - strong [ref=e136]: 小学水平
+              - text: ，想重点学
+              - strong [ref=e137]: 小数和分数之间的互相转换
+              - text: 。这个目标很明确，我来帮你一步步搞懂。
+            - paragraph [ref=e138]: 接下来我会从最基础的定义讲起，然后用简单直观的方式带你学会转换方法，再通过练习巩固。准备好了吗？
+          - generic [ref=e142]:
+            - paragraph [ref=e143]: 那我们开始吧，先从小数和分数分别是什么说起～
+            - paragraph [ref=e144]: （准备好了就回我一下 👇）
+          - generic [ref=e146]: 准备好了
+          - generic [ref=e150]:
+            - paragraph [ref=e151]:
+              - text: 好的，我们正式进入第二步——
+              - strong [ref=e152]: 先搞清楚小数和分数分别是什么
+              - text: 。
+            - separator [ref=e153]
+            - heading "🍕 分数是什么？" [level=2] [ref=e154]
+            - paragraph [ref=e155]:
+              - strong [ref=e156]: 分数
+              - text: ，就是「把一个整体平均分成几份，取出其中几份」。
+            - paragraph [ref=e157]:
+              - text: 写法是：
+              - generic [ref=e158]:
+                - math [ref=e160]:
+                  - generic [ref=e163]:
+                    - generic [ref=e164]: 分子
+                    - generic [ref=e165]: 分母
+                - generic [ref=e172]:
+                  - generic [ref=e175]: 分母
+                  - generic [ref=e179]: 分子
+            - list [ref=e183]:
+              - listitem [ref=e184]:
+                - strong [ref=e185]: 分母
+                - text: （下面的数）：表示一共分成了几份
+              - listitem [ref=e186]:
+                - strong [ref=e187]: 分子
+                - text: （上面的数）：表示拿了几份
+            - blockquote [ref=e188]:
+              - paragraph [ref=e189]:
+                - text: 比如你把一张饼平均切成
+                - strong [ref=e190]: "4"
+                - text: 块，吃了其中
+                - strong [ref=e191]: "3"
+                - text: 块，就吃了
+                - generic [ref=e192]:
+                  - math [ref=e194]:
+                    - generic [ref=e197]:
+                      - generic [ref=e198]: "3"
+                      - generic [ref=e199]: "4"
+                  - generic [ref=e206]:
+                    - generic [ref=e208]: "4"
+                    - generic [ref=e211]: "3"
+                - text: （读作「四分之三」）。
+            - separator [ref=e215]
+            - heading "🔢 小数是什么？" [level=2] [ref=e216]
+            - paragraph [ref=e217]:
+              - strong [ref=e218]: 小数
+              - text: ，本质上是一种
+              - strong [ref=e219]: 特殊分数
+              - text: 的简写形式——专门写成以 10、100、1000 等为分母的分数。
+            - paragraph [ref=e220]:
+              - text: 小数用
+              - strong [ref=e221]: 小数点
+              - text: 「.」隔开：
+            - list [ref=e222]:
+              - listitem [ref=e223]:
+                - text: 小数点
+                - strong [ref=e224]: 左边
+                - text: 是整数部分
+              - listitem [ref=e225]:
+                - text: 小数点
+                - strong [ref=e226]: 右边
+                - text: 是小数部分
+            - blockquote [ref=e227]:
+              - paragraph [ref=e228]:
+                - text: 比如 0.75，读作「零点七五」，它其实就是
+                - generic [ref=e229]:
+                  - math [ref=e231]:
+                    - generic [ref=e234]:
+                      - generic [ref=e235]: "75"
+                      - generic [ref=e236]: "100"
+                  - generic [ref=e243]:
+                    - generic [ref=e245]: "100"
+                    - generic [ref=e248]: "75"
+                - text: （百分之七十五）。
+            - separator [ref=e252]
+            - heading "🔗 它们的关系" [level=2] [ref=e253]
+            - paragraph [ref=e254]:
+              - text: 小数和分数
+              - strong [ref=e255]: 说的是同一回事
+              - text: ，只是写法不同：
+            - table [ref=e257]:
+              - rowgroup [ref=e258]:
+                - row "小数 分数（以10/100/1000为分母） 约分后" [ref=e259]:
+                  - columnheader "小数" [ref=e260]
+                  - columnheader "分数（以10/100/1000为分母）" [ref=e261]
+                  - columnheader "约分后" [ref=e262]
+              - rowgroup [ref=e263]:
+                - row "0.5" [ref=e264]:
+                  - cell "0.5" [ref=e265]
+                  - cell [ref=e266]:
+                    - generic [ref=e267]:
+                      - math [ref=e269]:
+                        - generic [ref=e272]:
+                          - generic [ref=e273]: "5"
+                          - generic [ref=e274]: "10"
+                      - generic [ref=e281]:
+                        - generic [ref=e283]: "10"
+                        - generic [ref=e286]: "5"
+                  - cell [ref=e290]:
+                    - generic [ref=e291]:
+                      - math [ref=e293]:
+                        - generic [ref=e296]:
+                          - generic [ref=e297]: "1"
+                          - generic [ref=e298]: "2"
+                      - generic [ref=e305]:
+                        - generic [ref=e307]: "2"
+                        - generic [ref=e310]: "1"
+                - row "0.25" [ref=e314]:
+                  - cell "0.25" [ref=e315]
+                  - cell [ref=e316]:
+                    - generic [ref=e317]:
+                      - math [ref=e319]:
+                        - generic [ref=e322]:
+                          - generic [ref=e323]: "25"
+                          - generic [ref=e324]: "100"
+                      - generic [ref=e331]:
+                        - generic [ref=e333]: "100"
+                        - generic [ref=e336]: "25"
+                  - cell [ref=e340]:
+                    - generic [ref=e341]:
+                      - math [ref=e343]:
+                        - generic [ref=e346]:
+                          - generic [ref=e347]: "1"
+                          - generic [ref=e348]: "4"
+                      - generic [ref=e355]:
+                        - generic [ref=e357]: "4"
+                        - generic [ref=e360]: "1"
+                - row "0.1 不用约分" [ref=e364]:
+                  - cell "0.1" [ref=e365]
+                  - cell [ref=e366]:
+                    - generic [ref=e367]:
+                      - math [ref=e369]:
+                        - generic [ref=e372]:
+                          - generic [ref=e373]: "1"
+                          - generic [ref=e374]: "10"
+                      - generic [ref=e381]:
+                        - generic [ref=e383]: "10"
+                        - generic [ref=e386]: "1"
+                  - cell "不用约分" [ref=e390]
+                - row "1.3 带分数：1" [ref=e391]:
+                  - cell "1.3" [ref=e392]
+                  - cell [ref=e393]:
+                    - generic [ref=e394]:
+                      - math [ref=e396]:
+                        - generic [ref=e399]:
+                          - generic [ref=e400]: "13"
+                          - generic [ref=e401]: "10"
+                      - generic [ref=e408]:
+                        - generic [ref=e410]: "10"
+                        - generic [ref=e413]: "13"
+                  - cell "带分数：1" [ref=e417]:
+                    - text: 带分数：1
+                    - generic [ref=e418]:
+                      - math [ref=e420]:
+                        - generic [ref=e423]:
+                          - generic [ref=e424]: "3"
+                          - generic [ref=e425]: "10"
+                      - generic [ref=e432]:
+                        - generic [ref=e434]: "10"
+                        - generic [ref=e437]: "3"
+            - separator [ref=e441]
+            - paragraph [ref=e442]:
+              - strong [ref=e443]: 核心一句话
+              - text: ：小数就是分母为 10、100、1000……的分数换了身衣服 😄
+            - paragraph [ref=e444]: 搞清楚这两个概念了吗？下一步我们就来动手练「怎么互相转换」！
+          - paragraph [ref=e449]: 已经讲完了，这一步清楚吗？我们马上进入转换方法～
+          - generic [ref=e451]: 懂了，继续
+          - generic [ref=e455]:
+            - paragraph [ref=e456]:
+              - text: 好的，现在进入核心环节——
+              - strong [ref=e457]: 怎么互相转换
+              - text: ！📐
+            - separator [ref=e458]
+            - heading "方法一：小数 ➜ 分数（三步走）" [level=2] [ref=e459]
+            - paragraph [ref=e460]:
+              - strong [ref=e461]: 口诀：数几位小数 ➔ 分母写 1 后面加几个 0 ➔ 分子写去掉小数点的数 ➔ 约分
+            - heading "例子：把 0.75 化成分数" [level=3] [ref=e462]
+            - list [ref=e463]:
+              - listitem [ref=e464]:
+                - strong [ref=e465]: 看小数位数
+                - text: ：0.75 有两位小数（7 和 5）
+              - listitem [ref=e466]:
+                - strong [ref=e467]: 定分母
+                - text: ：两位小数 ➔ 分母是
+                - strong [ref=e468]: "100"
+                - text: （1 后面加两个 0）
+              - listitem [ref=e469]:
+                - strong [ref=e470]: 写分子
+                - text: ：去掉小数点 ➔
+                - strong [ref=e471]: "75"
+              - listitem [ref=e472]:
+                - strong [ref=e473]: 约分
+                - text: ：
+                - generic [ref=e474]:
+                  - math [ref=e476]:
+                    - generic [ref=e479]:
+                      - generic [ref=e480]: "75"
+                      - generic [ref=e481]: "100"
+                  - generic [ref=e488]:
+                    - generic [ref=e490]: "100"
+                    - generic [ref=e493]: "75"
+                - text: ，分子分母同时除以 25 ➔
+                - generic [ref=e497]:
+                  - math [ref=e499]:
+                    - generic [ref=e502]:
+                      - generic [ref=e503]: "3"
+                      - generic [ref=e504]: "4"
+                  - generic [ref=e511]:
+                    - generic [ref=e513]: "4"
+                    - generic [ref=e516]: "3"
+                - text: ✅
+            - heading "再练一个：0.2" [level=3] [ref=e520]
+            - list [ref=e521]:
+              - listitem [ref=e522]:
+                - text: 一位小数 ➔ 分母是
+                - strong [ref=e523]: "10"
+              - listitem [ref=e524]:
+                - text: 分子是
+                - strong [ref=e525]: "2"
+              - listitem [ref=e526]:
+                - generic [ref=e527]:
+                  - math [ref=e529]:
+                    - generic [ref=e532]:
+                      - generic [ref=e533]: "2"
+                      - generic [ref=e534]: "10"
+                  - generic [ref=e541]:
+                    - generic [ref=e543]: "10"
+                    - generic [ref=e546]: "2"
+                - text: 约分（除以 2）➔
+                - generic [ref=e550]:
+                  - math [ref=e552]:
+                    - generic [ref=e555]:
+                      - generic [ref=e556]: "1"
+                      - generic [ref=e557]: "5"
+                  - generic [ref=e564]:
+                    - generic [ref=e566]: "5"
+                    - generic [ref=e569]: "1"
+                - text: ✅
+            - separator [ref=e573]
+            - heading "方法二：分数 ➜ 小数（两种办法）" [level=2] [ref=e574]
+            - heading "办法 A：直接做除法（万能法）" [level=3] [ref=e575]
+            - paragraph [ref=e576]:
+              - strong [ref=e577]: 分子 ÷ 分母 = 小数
+            - list [ref=e578]:
+              - listitem [ref=e579]:
+                - generic [ref=e580]:
+                  - math [ref=e582]:
+                    - generic [ref=e585]:
+                      - generic [ref=e586]: "3"
+                      - generic [ref=e587]: "4"
+                  - generic [ref=e594]:
+                    - generic [ref=e596]: "4"
+                    - generic [ref=e599]: "3"
+                - text: = 3 ÷ 4 =
+                - strong [ref=e603]: "0.75"
+              - listitem [ref=e604]:
+                - generic [ref=e605]:
+                  - math [ref=e607]:
+                    - generic [ref=e610]:
+                      - generic [ref=e611]: "1"
+                      - generic [ref=e612]: "2"
+                  - generic [ref=e619]:
+                    - generic [ref=e621]: "2"
+                    - generic [ref=e624]: "1"
+                - text: = 1 ÷ 2 =
+                - strong [ref=e628]: "0.5"
+              - listitem [ref=e629]:
+                - generic [ref=e630]:
+                  - math [ref=e632]:
+                    - generic [ref=e635]:
+                      - generic [ref=e636]: "1"
+                      - generic [ref=e637]: "3"
+                  - generic [ref=e644]:
+                    - generic [ref=e646]: "3"
+                    - generic [ref=e649]: "1"
+                - text: = 1 ÷ 3 =
+                - strong [ref=e653]: 0.333…
+                - text: （无限循环小数）
+            - heading "办法 B：把分母凑成 10/100/1000（巧算法）" [level=3] [ref=e654]
+            - paragraph [ref=e655]: 如果分母能被凑成 10、100、1000，就很方便：
+            - list [ref=e656]:
+              - listitem [ref=e657]:
+                - generic [ref=e658]:
+                  - math [ref=e660]:
+                    - generic [ref=e663]:
+                      - generic [ref=e664]: "3"
+                      - generic [ref=e665]: "4"
+                  - generic [ref=e672]:
+                    - generic [ref=e674]: "4"
+                    - generic [ref=e677]: "3"
+                - text: ：分母 4 × 25 =
+                - strong [ref=e681]: "100"
+                - text: ，分子也 × 25 = 75 ➔
+                - generic [ref=e682]:
+                  - math [ref=e684]:
+                    - generic [ref=e687]:
+                      - generic [ref=e688]: "75"
+                      - generic [ref=e689]: "100"
+                  - generic [ref=e696]:
+                    - generic [ref=e698]: "100"
+                    - generic [ref=e701]: "75"
+                - text: =
+                - strong [ref=e705]: "0.75"
+              - listitem [ref=e706]:
+                - generic [ref=e707]:
+                  - math [ref=e709]:
+                    - generic [ref=e712]:
+                      - generic [ref=e713]: "7"
+                      - generic [ref=e714]: "20"
+                  - generic [ref=e721]:
+                    - generic [ref=e723]: "20"
+                    - generic [ref=e726]: "7"
+                - text: ：分母 20 × 5 =
+                - strong [ref=e730]: "100"
+                - text: ，分子也 × 5 = 35 ➔
+                - generic [ref=e731]:
+                  - math [ref=e733]:
+                    - generic [ref=e736]:
+                      - generic [ref=e737]: "35"
+                      - generic [ref=e738]: "100"
+                  - generic [ref=e745]:
+                    - generic [ref=e747]: "100"
+                    - generic [ref=e750]: "35"
+                - text: =
+                - strong [ref=e754]: "0.35"
+            - separator [ref=e755]
+            - paragraph [ref=e756]:
+              - text: 下面我用一张图来帮你直观感受——
+              - strong [ref=e757]: 0.75 和 3/4 其实是同一个东西
+              - text: ：
+          - generic [ref=e760]: 明白了，进入下一步测验吧
+          - generic [ref=e766]:
+            - group [ref=e767]:
+              - generic "Thinking (3 steps)" [ref=e775] [cursor=pointer]
+            - generic [ref=e779]:
+              - paragraph [ref=e780]: 上一步的转换方法讲完了，我们来收尾并进入测验！
+              - separator [ref=e781]
+              - heading "🧪 小测验时间！" [level=2] [ref=e782]
+              - paragraph [ref=e783]: 请把下面的小数化成分数（要写出步骤，最后约分到最简）：
+              - blockquote [ref=e784]:
+                - paragraph [ref=e785]:
+                  - strong [ref=e786]: 0.8 = ？
+              - paragraph [ref=e787]: 提示：想清楚 0.8 有几位小数？分母应该是什么？
+              - paragraph [ref=e788]: 把你的答案和过程写出来吧 ✍️
+          - generic [ref=e790]: "0.8 是一位小数，分母是 10，分子是 8。$\\frac{8}{10}$ 约分（除以 2）= $\\frac{4}{5}$"
+          - generic [ref=e800]:
+            - group [ref=e801]:
+              - generic "Thinking (3 steps)" [ref=e802] [cursor=pointer]
+            - generic [ref=e804]:
+              - paragraph [ref=e805]: 完全正确！👏 你的步骤非常规范：
+              - blockquote [ref=e806]:
+                - paragraph [ref=e807]:
+                  - text: 0.8 =
+                  - strong [ref=e808]: 一位小数
+                  - text: ➔ 分母
+                  - strong [ref=e809]: "10"
+                  - text: ➔ 分子
+                  - strong [ref=e810]: "8"
+                  - text: ➔
+                  - generic [ref=e811]:
+                    - math [ref=e813]:
+                      - generic [ref=e816]:
+                        - generic [ref=e817]: "8"
+                        - generic [ref=e818]: "10"
+                    - generic [ref=e825]:
+                      - generic [ref=e827]: "10"
+                      - generic [ref=e830]: "8"
+                  - text: 约分（÷2）➔
+                  - generic [ref=e834]:
+                    - math [ref=e836]:
+                      - generic [ref=e839]:
+                        - generic [ref=e840]: "4"
+                        - generic [ref=e841]: "5"
+                    - generic [ref=e848]:
+                      - generic [ref=e850]: "5"
+                      - generic [ref=e853]: "4"
+                  - text: ✅
+              - paragraph [ref=e857]: 每一步都踩得很准，约分也没忘，非常棒！
+              - paragraph [ref=e858]: 答得漂亮！准备好进入最后的总结了吗？
+          - generic [ref=e860]: 好的，请总结
+          - generic [ref=e869]:
+            - group [ref=e870]:
+              - generic "Thinking (3 steps)" [ref=e871] [cursor=pointer]
+            - generic [ref=e873]:
+              - separator [ref=e874]
+              - heading "📝 总结：小数 ↔ 分数的核心关系" [level=2] [ref=e875]
+              - separator [ref=e876]
+              - heading "一句话记住" [level=3] [ref=e877]
+              - blockquote [ref=e878]:
+                - paragraph [ref=e879]:
+                  - strong [ref=e880]: 小数就是分母为 10、100、1000……的分数换了个写法。
+              - separator [ref=e881]
+              - heading "📊 转换方法速查表" [level=3] [ref=e882]
+              - table [ref=e884]:
+                - rowgroup [ref=e885]:
+                  - row "方向 方法 例子" [ref=e886]:
+                    - columnheader "方向" [ref=e887]
+                    - columnheader "方法" [ref=e888]
+                    - columnheader "例子" [ref=e889]
+                - rowgroup [ref=e890]:
+                  - row "小数→分数 看位数 → 写分母 → 写分子 → 约分 0.6 = =" [ref=e891]:
+                    - cell "小数→分数" [ref=e892]
+                    - cell "看位数 → 写分母 → 写分子 → 约分" [ref=e893]
+                    - cell "0.6 = =" [ref=e894]:
+                      - text: 0.6 =
+                      - generic [ref=e895]:
+                        - math [ref=e897]:
+                          - generic [ref=e900]:
+                            - generic [ref=e901]: "6"
+                            - generic [ref=e902]: "10"
+                        - generic [ref=e909]:
+                          - generic [ref=e911]: "10"
+                          - generic [ref=e914]: "6"
+                      - text: =
+                      - generic [ref=e918]:
+                        - math [ref=e920]:
+                          - generic [ref=e923]:
+                            - generic [ref=e924]: "3"
+                            - generic [ref=e925]: "5"
+                        - generic [ref=e932]:
+                          - generic [ref=e934]: "5"
+                          - generic [ref=e937]: "3"
+                  - row "分数→小数 分子 ÷ 分母 = 3÷5 = 0.6" [ref=e941]:
+                    - cell "分数→小数" [ref=e942]
+                    - cell "分子 ÷ 分母" [ref=e943]
+                    - cell "= 3÷5 = 0.6" [ref=e944]:
+                      - generic [ref=e945]:
+                        - math [ref=e947]:
+                          - generic [ref=e950]:
+                            - generic [ref=e951]: "3"
+                            - generic [ref=e952]: "5"
+                        - generic [ref=e959]:
+                          - generic [ref=e961]: "5"
+                          - generic [ref=e964]: "3"
+                      - text: = 3÷5 =
+                      - strong [ref=e968]: "0.6"
+                  - row "分数→小数（巧算） 分母凑成10/100/1000 = = 0.6" [ref=e969]:
+                    - cell "分数→小数（巧算）" [ref=e970]
+                    - cell "分母凑成10/100/1000" [ref=e971]
+                    - cell "= = 0.6" [ref=e972]:
+                      - generic [ref=e973]:
+                        - math [ref=e975]:
+                          - generic [ref=e978]:
+                            - generic [ref=e979]: "3"
+                            - generic [ref=e980]: "5"
+                        - generic [ref=e987]:
+                          - generic [ref=e989]: "5"
+                          - generic [ref=e992]: "3"
+                      - text: =
+                      - generic [ref=e996]:
+                        - math [ref=e998]:
+                          - generic [ref=e1001]:
+                            - generic [ref=e1002]: "6"
+                            - generic [ref=e1003]: "10"
+                        - generic [ref=e1010]:
+                          - generic [ref=e1012]: "10"
+                          - generic [ref=e1015]: "6"
+                      - text: =
+                      - strong [ref=e1019]: "0.6"
+              - separator [ref=e1020]
+              - heading "⚠️ 三个常见易错点" [level=3] [ref=e1021]
+              - paragraph [ref=e1022]:
+                - strong [ref=e1023]: 1. 数错小数位数
+              - table [ref=e1025]:
+                - rowgroup [ref=e1026]:
+                  - row "小数 ❌ 错 ✅ 对" [ref=e1027]:
+                    - columnheader "小数" [ref=e1028]
+                    - columnheader "❌ 错" [ref=e1029]
+                    - columnheader "✅ 对" [ref=e1030]
+                - rowgroup [ref=e1031]:
+                  - row "0.3 一位小数，分母是 10 分母 10 ✅" [ref=e1032]:
+                    - cell "0.3" [ref=e1033]
+                    - cell "一位小数，分母是 10" [ref=e1034]
+                    - cell "分母 10 ✅" [ref=e1035]
+                  - row "0.03 ❌ 还以为分母是 10 ✅ 两位小数，分母是 100！" [ref=e1036]:
+                    - cell "0.03" [ref=e1037]
+                    - cell "❌ 还以为分母是 10" [ref=e1038]
+                    - cell "✅ 两位小数，分母是 100！" [ref=e1039]:
+                      - text: ✅ 两位小数，分母是
+                      - strong [ref=e1040]: "100"
+                      - text: ！
+              - blockquote [ref=e1041]:
+                - paragraph [ref=e1042]: 👉 小数点后面有几个数字，分母 1 后面就加几个 0。
+              - paragraph [ref=e1043]:
+                - strong [ref=e1044]: 2. 忘了约分
+              - paragraph [ref=e1045]:
+                - generic [ref=e1046]:
+                  - math [ref=e1048]:
+                    - generic [ref=e1051]:
+                      - generic [ref=e1052]: "6"
+                      - generic [ref=e1053]: "10"
+                  - generic [ref=e1060]:
+                    - generic [ref=e1062]: "10"
+                    - generic [ref=e1065]: "6"
+                - text: 不是最终答案！分子分母同时除以 2 ➔
+                - generic [ref=e1069]:
+                  - math [ref=e1071]:
+                    - generic [ref=e1074]:
+                      - generic [ref=e1075]: "3"
+                      - generic [ref=e1076]: "5"
+                  - generic [ref=e1083]:
+                    - generic [ref=e1085]: "5"
+                    - generic [ref=e1088]: "3"
+                - text: 才算完。
+              - blockquote [ref=e1092]:
+                - paragraph [ref=e1093]:
+                  - text: 👉 化完分数后，
+                  - strong [ref=e1094]: 一定要看能不能约分
+                  - text: 。
+              - paragraph [ref=e1095]:
+                - strong [ref=e1096]: 3. 带整数的小数别搞混
+              - table [ref=e1098]:
+                - rowgroup [ref=e1099]:
+                  - row "小数 分数" [ref=e1100]:
+                    - columnheader "小数" [ref=e1101]
+                    - columnheader "分数" [ref=e1102]
+                - rowgroup [ref=e1103]:
+                  - row "1.4 不是 就完事，要写成 1 = 1 （带分数）或 （假分数）" [ref=e1104]:
+                    - cell "1.4" [ref=e1105]
+                    - cell "不是 就完事，要写成 1 = 1 （带分数）或 （假分数）" [ref=e1106]:
+                      - text: 不是
+                      - generic [ref=e1107]:
+                        - math [ref=e1109]:
+                          - generic [ref=e1112]:
+                            - generic [ref=e1113]: "14"
+                            - generic [ref=e1114]: "10"
+                        - generic [ref=e1121]:
+                          - generic [ref=e1123]: "10"
+                          - generic [ref=e1126]: "14"
+                      - text: 就完事，要写成
+                      - strong [ref=e1130]: "1"
+                      - generic [ref=e1131]:
+                        - math [ref=e1133]:
+                          - generic [ref=e1136]:
+                            - generic [ref=e1137]: "4"
+                            - generic [ref=e1138]: "10"
+                        - generic [ref=e1145]:
+                          - generic [ref=e1147]: "10"
+                          - generic [ref=e1150]: "4"
+                      - text: =
+                      - strong [ref=e1154]: "1"
+                      - generic [ref=e1155]:
+                        - math [ref=e1157]:
+                          - generic [ref=e1160]:
+                            - generic [ref=e1161]: "2"
+                            - generic [ref=e1162]: "5"
+                        - generic [ref=e1169]:
+                          - generic [ref=e1171]: "5"
+                          - generic [ref=e1174]: "2"
+                      - text: （带分数）或
+                      - generic [ref=e1178]:
+                        - math [ref=e1180]:
+                          - generic [ref=e1183]:
+                            - generic [ref=e1184]: "7"
+                            - generic [ref=e1185]: "5"
+                        - generic [ref=e1192]:
+                          - generic [ref=e1194]: "5"
+                          - generic [ref=e1197]: "7"
+                      - text: （假分数）
+              - blockquote [ref=e1201]:
+                - paragraph [ref=e1202]: 👉 整数部分要单独拿出来，别一股脑全塞进分子里。
+              - separator [ref=e1203]
+              - heading "🎯 达标自测（送给你课后练）" [level=3] [ref=e1204]
+              - paragraph [ref=e1205]: 把下面四个都练一遍，全做对就说明彻底掌握了：
+              - list [ref=e1206]:
+                - listitem [ref=e1207]: 0.5 = ？
+                - listitem [ref=e1208]: 0.25 = ？
+                - listitem [ref=e1209]:
+                  - generic [ref=e1210]:
+                    - math [ref=e1212]:
+                      - generic [ref=e1215]:
+                        - generic [ref=e1216]: "4"
+                        - generic [ref=e1217]: "5"
+                    - generic [ref=e1224]:
+                      - generic [ref=e1226]: "5"
+                      - generic [ref=e1229]: "4"
+                  - text: = ？（化成小数）
+                - listitem [ref=e1233]: 1.2 = ？（化成分数）
+              - separator [ref=e1234]
+              - paragraph [ref=e1235]: 小数和分数就像中文和拼音——说的是同一回事，只是写法不同。掌握了互转，以后做比较大小、加减运算都会轻松很多 👍
+              - paragraph [ref=e1236]: 🎉 这节课就上到这里！有任何不清楚的地方，或者想练更多题，随时来找我～
+        - generic [ref=e49]:
+          - textbox "Type a message..." [ref=e758]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

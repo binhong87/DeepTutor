@@ -1,0 +1,180 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e4]
+  - generic [ref=e5]:
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - link "DeepTutor" [ref=e8] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+      - navigation [ref=e13]:
+        - link "辅导机器人" [ref=e14] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e15]
+          - generic [ref=e18]: 辅导机器人
+        - link "知识库" [ref=e19] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e20]
+          - generic [ref=e22]: 知识库
+        - link "灵魂" [ref=e23] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e24]
+          - generic [ref=e29]: 灵魂
+      - generic [ref=e30]:
+        - link "配置文件" [ref=e31] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e32]
+          - generic [ref=e35]: 配置文件
+        - button "退出登录" [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e40]: 退出登录
+    - main [ref=e41]:
+      - button "Switch to English" [ref=e42] [cursor=pointer]:
+        - img [ref=e43]
+        - generic [ref=e47]: EN
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - img [ref=e196]
+          - generic [ref=e199]: chem-tutor
+        - generic [ref=e202]:
+          - generic [ref=e229]:
+            - button "Chemical bonding — ionic, covalent, and metallic bonds with examples 1/6" [ref=e230] [cursor=pointer]:
+              - img [ref=e231]
+              - img [ref=e233]
+              - generic [ref=e236]: Chemical bonding — ionic, covalent, and metallic bonds with examples
+              - generic [ref=e237]: 1/6
+            - list [ref=e238]:
+              - listitem [ref=e239]:
+                - generic "done" [ref=e240]: ✓
+                - generic [ref=e241]:
+                  - generic [ref=e242]:
+                    - generic [ref=e243]: Define
+                    - generic [ref=e244]: "Define what a chemical bond is and introduce the three main types: ionic, covalent, and metallic."
+                  - generic [ref=e245]: ↳ Defined chemical bonding as the attractive force holding atoms together to achieve stable electron configurations. Introduced the three main types — ionic (electron transfer, metal+non-metal), covalent (electron sharing, non-metal+non-metal), metallic (delocalised electron sea, metals only) — with a comparison table and memorable analogies.
+              - listitem [ref=e246]:
+                - generic "in progress" [ref=e247]: ▶
+                - generic [ref=e249]:
+                  - generic [ref=e250]: Explain
+                  - generic [ref=e251]: Explain ionic bonding — electron transfer between metals and non-metals, with NaCl as the classic example.
+              - listitem [ref=e252]:
+                - generic "pending" [ref=e253]: ·
+                - generic [ref=e255]:
+                  - generic [ref=e256]: Explain
+                  - generic [ref=e257]: Explain covalent bonding — electron sharing between non-metals, with H₂O and O₂ as examples.
+              - listitem [ref=e258]:
+                - generic "pending" [ref=e259]: ·
+                - generic [ref=e261]:
+                  - generic [ref=e262]: Explain
+                  - generic [ref=e263]: Explain metallic bonding — the 'sea of electrons' model, with copper and iron as examples.
+              - listitem [ref=e264]:
+                - generic "pending" [ref=e265]: ·
+                - generic [ref=e267]:
+                  - generic [ref=e268]: Check
+                  - generic [ref=e269]: Quiz you on identifying bond types from element pairs and properties.
+              - listitem [ref=e270]:
+                - generic "pending" [ref=e271]: ·
+                - generic [ref=e273]:
+                  - generic [ref=e274]: Wrap-up
+                  - generic [ref=e275]: Summarise with a comparison table of the three bond types and suggest next steps.
+          - generic [ref=e218]: Teach me a lesson on chemical bonding — cover ionic, covalent and metallic bonds with examples.
+          - generic [ref=e224]:
+            - group [ref=e225]:
+              - generic "Thinking (5 steps)" [ref=e276] [cursor=pointer]
+            - generic [ref=e282]:
+              - heading "Step 1 — What is a Chemical Bond?" [level=2] [ref=e283]
+              - paragraph [ref=e284]: "At its simplest:"
+              - blockquote [ref=e285]:
+                - paragraph [ref=e286]:
+                  - text: A
+                  - strong [ref=e287]: chemical bond
+                  - text: is the attractive force that holds two or more atoms together, allowing them to form molecules, crystals, or extended structures.
+              - paragraph [ref=e288]:
+                - text: Atoms bond because, by doing so, they achieve a
+                - strong [ref=e289]: more stable (lower-energy) electron configuration
+                - text: — typically a full outer shell of electrons, like the noble gases have. This is often called the
+                - strong [ref=e290]: octet rule
+                - text: (8 electrons in the valence shell), though there are exceptions.
+              - separator [ref=e291]
+              - heading "The Three Main Types of Chemical Bonds" [level=3] [ref=e292]
+              - paragraph [ref=e293]:
+                - text: Chemical bonds fall into three broad categories, defined by
+                - emphasis [ref=e294]: how
+                - text: "the electrons are rearranged:"
+              - table [ref=e296]:
+                - rowgroup [ref=e297]:
+                  - row "Bond Type What happens to electrons? Typical partners" [ref=e298]:
+                    - columnheader "Bond Type" [ref=e299]
+                    - columnheader "What happens to electrons?" [ref=e300]
+                    - columnheader "Typical partners" [ref=e301]
+                - rowgroup [ref=e302]:
+                  - row "Ionic Electrons are transferred from one atom to another. Oppositely charged ions attract. Metal + Non-metal" [ref=e303]:
+                    - cell "Ionic" [ref=e304]:
+                      - strong [ref=e305]: Ionic
+                    - cell "Electrons are transferred from one atom to another. Oppositely charged ions attract." [ref=e306]:
+                      - text: Electrons are
+                      - strong [ref=e307]: transferred
+                      - text: from one atom to another. Oppositely charged ions attract.
+                    - cell "Metal + Non-metal" [ref=e308]
+                  - row "Covalent Electrons are shared between atoms. Each atom contributes one or more electrons to a shared pair. Non-metal + Non-metal" [ref=e309]:
+                    - cell "Covalent" [ref=e310]:
+                      - strong [ref=e311]: Covalent
+                    - cell "Electrons are shared between atoms. Each atom contributes one or more electrons to a shared pair." [ref=e312]:
+                      - text: Electrons are
+                      - strong [ref=e313]: shared
+                      - text: between atoms. Each atom contributes one or more electrons to a shared pair.
+                    - cell "Non-metal + Non-metal" [ref=e314]
+                  - row "Metallic Electrons are delocalised — they form a \"sea\" that flows freely around positive metal ion cores. Metal atoms only" [ref=e315]:
+                    - cell "Metallic" [ref=e316]:
+                      - strong [ref=e317]: Metallic
+                    - cell "Electrons are delocalised — they form a \"sea\" that flows freely around positive metal ion cores." [ref=e318]:
+                      - text: Electrons are
+                      - strong [ref=e319]: delocalised
+                      - text: — they form a "sea" that flows freely around positive metal ion cores.
+                    - cell "Metal atoms only" [ref=e320]
+              - paragraph [ref=e321]: "Think of it this way:"
+              - list [ref=e322]:
+                - listitem [ref=e323]:
+                  - strong [ref=e324]: Ionic
+                  - text: = one atom
+                  - emphasis [ref=e325]: gives
+                  - text: ", the other"
+                  - emphasis [ref=e326]: takes
+                  - text: ↔️
+                - listitem [ref=e327]:
+                  - strong [ref=e328]: Covalent
+                  - text: = atoms
+                  - emphasis [ref=e329]: share
+                  - text: 🤝
+                - listitem [ref=e330]:
+                  - strong [ref=e331]: Metallic
+                  - text: = all atoms
+                  - emphasis [ref=e332]: pool
+                  - text: their electrons together 🌊
+              - paragraph [ref=e333]: These three bonding types explain nearly all the materials around us — from table salt (ionic) and water (covalent) to copper wire (metallic). We'll explore each one in detail in the coming steps.
+              - separator [ref=e334]
+              - paragraph [ref=e335]: Does that high-level picture make sense so far? Ready to dive into ionic bonding next?
+          - generic [ref=e337]: Yes, that's clear! Let's dive into ionic bonding.
+          - group [ref=e344]:
+            - generic "Thinking (17 steps)" [ref=e363] [cursor=pointer]
+            - generic [ref=e346]:
+              - paragraph [ref=e347]: "The student is ready for step 2 — explain ionic bonding with NaCl as the classic example. I should use a visualization to show the electron transfer. Let me explain ionic bonding thoroughly, then use the visualize tool to create a diagram. Let me plan the content: 1. Recap: ionic = electron transfer, metal + non-metal 2. Why it happens: metals have low ionization energy (easy to lose electrons), non-metals have high electron affinity (easy to gain electrons) 3. NaCl example in detail: - Na: [Ne] 3s¹ → loses 1 e⁻ → Na⁺ (like Ne) - Cl: [Ne] 3s² 3p⁵ → gains 1 e⁻ → Cl⁻ (like Ar) - Electrostatic attraction between Na⁺ and Cl⁻ forms the ionic bond 4. Structure: crystal lattice (not individual molecules) 5. Properties: high melting/boiling points, brittle, conduct electricity when molten/dissolved I'll use a visualize for the NaCl electron transfer diagram."
+              - paragraph [ref=e348]: visualize("diagram")
+              - paragraph [ref=e350]: Working on visualize…
+              - paragraph [ref=e352]: Working on visualize…
+              - paragraph [ref=e353]: Working on visualize…
+              - paragraph [ref=e354]: Working on visualize…
+              - paragraph [ref=e355]: Working on visualize…
+              - paragraph [ref=e357]: "The diagram failed. Let me try a different approach. Maybe I'll try `figure` mode instead, or be more specific. Let me try `figure` mode which handles free-form geometric shapes better, or try `diagram` again with a simpler request. Let me try `figure` mode since it's for shapes and annotations."
+              - paragraph [ref=e359]: visualize("figure")
+              - paragraph [ref=e360]: Working on visualize…
+              - paragraph [ref=e361]: Working on visualize…
+              - paragraph [ref=e362]: Working on visualize…
+              - paragraph [ref=e364]: Working on visualize…
+              - paragraph [ref=e365]: Working on visualize…
+              - paragraph [ref=e366]: "The visualize tool seems to be having issues. Let me try one more time with a very simple `plot` mode — maybe I can use plot mode to show something conceptual. Or maybe let me just try the diagram mode one more time with an extremely simplified request. Actually, let me try plot mode with a different approach - maybe a bar chart or something that shows energy levels? Actually, let me just try one more time with the diagram mode, using a very simple Mermaid-like description. If it fails again, I'll just explain it clearly with text and ASCII art."
+              - paragraph [ref=e367]: visualize("diagram")
+              - paragraph [ref=e368]: Working on visualize…
+        - generic [ref=e211]:
+          - textbox "Type a message..." [disabled] [ref=e212]
+          - button [disabled] [ref=e213]:
+            - img [ref=e214]

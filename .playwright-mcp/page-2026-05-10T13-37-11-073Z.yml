@@ -1,0 +1,65 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e49] [cursor=pointer]:
+    - img [ref=e50]
+  - alert [ref=e4]
+  - generic [ref=e75]:
+    - complementary [ref=e76]:
+      - generic [ref=e77]:
+        - link "DeepTutor" [ref=e78] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "Collapse sidebar" [ref=e79] [cursor=pointer]:
+          - img [ref=e80]
+      - navigation [ref=e83]:
+        - link "TutorBot" [ref=e84] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e85]
+          - generic [ref=e88]: TutorBot
+        - link "Knowledge" [ref=e89] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e90]
+          - generic [ref=e92]: Knowledge
+        - link "Souls" [ref=e93] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e94]
+          - generic [ref=e99]: Souls
+      - button "Sign out" [ref=e101] [cursor=pointer]:
+        - img [ref=e102]
+        - generic [ref=e105]: Sign out
+    - main [ref=e106]:
+      - generic [ref=e107]:
+        - generic [ref=e108]:
+          - generic [ref=e110]:
+            - img [ref=e111]
+            - generic [ref=e114]: Welcome
+          - generic [ref=e117]:
+            - img [ref=e118]
+            - generic [ref=e120]: Choose Soul
+          - generic [ref=e123]:
+            - img [ref=e124]
+            - generic [ref=e127]: Name & Describe
+          - generic [ref=e130]:
+            - img [ref=e131]
+            - generic [ref=e134]: Model
+          - generic [ref=e137]:
+            - img [ref=e138]
+            - generic [ref=e140]: Done
+        - generic [ref=e187]:
+          - heading "Name Your Bot" [level=2] [ref=e188]
+          - paragraph [ref=e189]: Choose a unique ID and a display name. The ID becomes part of your bot's URL.
+          - generic [ref=e190]:
+            - generic [ref=e191]: Bot ID
+            - textbox "my-math-tutor" [ref=e192]
+            - paragraph [ref=e193]: Only lowercase letters, numbers, hyphens, and underscores.
+          - generic [ref=e194]:
+            - generic [ref=e195]: Display Name
+            - textbox "My Math Tutor" [ref=e196]
+          - generic [ref=e197]:
+            - generic [ref=e198]: Description (optional)
+            - textbox "A helpful math tutor that explains concepts step by step..." [ref=e199]
+        - generic [ref=e158]:
+          - button "Back" [ref=e159] [cursor=pointer]:
+            - img [ref=e160]
+            - text: Back
+          - button "Next" [disabled] [ref=e162]:
+            - text: Next
+            - img [ref=e163]

@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e4]
+  - generic [ref=e5]:
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - link "DeepTutor" [ref=e8] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e9] [cursor=pointer]:
+          - img [ref=e10]
+      - navigation [ref=e13]:
+        - link "辅导机器人" [ref=e14] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e15]
+          - generic [ref=e18]: 辅导机器人
+        - link "知识库" [ref=e19] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e20]
+          - generic [ref=e22]: 知识库
+        - link "灵魂" [ref=e23] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e24]
+          - generic [ref=e29]: 灵魂
+      - generic [ref=e30]:
+        - link "配置文件" [ref=e31] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e32]
+          - generic [ref=e35]: 配置文件
+        - button "退出登录" [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+          - generic [ref=e40]: 退出登录
+    - main [ref=e41]:
+      - button "Switch to English" [ref=e42] [cursor=pointer]:
+        - img [ref=e43]
+        - generic [ref=e47]: EN
+      - generic [ref=e194]:
+        - generic [ref=e195]:
+          - img [ref=e196]
+          - generic [ref=e199]: chem-tutor
+        - generic [ref=e202]:
+          - generic [ref=e229]:
+            - button "Chemical bonding — ionic, covalent, and metallic bonds with examples 1/6" [ref=e230] [cursor=pointer]:
+              - img [ref=e231]
+              - img [ref=e233]
+              - generic [ref=e236]: Chemical bonding — ionic, covalent, and metallic bonds with examples
+              - generic [ref=e237]: 1/6
+            - list [ref=e238]:
+              - listitem [ref=e239]:
+                - generic "done" [ref=e240]: ✓
+                - generic [ref=e241]:
+                  - generic [ref=e242]:
+                    - generic [ref=e243]: Define
+                    - generic [ref=e244]: "Define what a chemical bond is and introduce the three main types: ionic, covalent, and metallic."
+                  - generic [ref=e245]: ↳ Defined chemical bonding as the attractive force holding atoms together to achieve stable electron configurations. Introduced the three main types — ionic (electron transfer, metal+non-metal), covalent (electron sharing, non-metal+non-metal), metallic (delocalised electron sea, metals only) — with a comparison table and memorable analogies.
+              - listitem [ref=e246]:
+                - generic "in progress" [ref=e247]: ▶
+                - generic [ref=e249]:
+                  - generic [ref=e250]: Explain
+                  - generic [ref=e251]: Explain ionic bonding — electron transfer between metals and non-metals, with NaCl as the classic example.
+              - listitem [ref=e252]:
+                - generic "pending" [ref=e253]: ·
+                - generic [ref=e255]:
+                  - generic [ref=e256]: Explain
+                  - generic [ref=e257]: Explain covalent bonding — electron sharing between non-metals, with H₂O and O₂ as examples.
+              - listitem [ref=e258]:
+                - generic "pending" [ref=e259]: ·
+                - generic [ref=e261]:
+                  - generic [ref=e262]: Explain
+                  - generic [ref=e263]: Explain metallic bonding — the 'sea of electrons' model, with copper and iron as examples.
+              - listitem [ref=e264]:
+                - generic "pending" [ref=e265]: ·
+                - generic [ref=e267]:
+                  - generic [ref=e268]: Check
+                  - generic [ref=e269]: Quiz you on identifying bond types from element pairs and properties.
+              - listitem [ref=e270]:
+                - generic "pending" [ref=e271]: ·
+                - generic [ref=e273]:
+                  - generic [ref=e274]: Wrap-up
+                  - generic [ref=e275]: Summarise with a comparison table of the three bond types and suggest next steps.
+          - generic [ref=e218]: Teach me a lesson on chemical bonding — cover ionic, covalent and metallic bonds with examples.
+          - group [ref=e225]:
+            - generic "Thinking (5 steps)" [ref=e276] [cursor=pointer]
+            - generic [ref=e227]:
+              - paragraph [ref=e228]: "The student wants a lesson on chemical bonding, covering ionic, covalent, and metallic bonds with examples. This is clearly a substantive teaching request, so I need to call `plan_lesson` first. Let me design a lesson plan with 3-6 steps covering these three types of bonds. I'll structure it as: 1. **assess** — Check what they already know about chemical bonding 2. **define** — Define what a chemical bond is and introduce the three types 3. **explain** — Explain ionic bonding with examples (NaCl) 4. **explain** — Explain covalent bonding with examples (H₂O, O₂) 5. **explain** — Explain metallic bonding with examples (Cu, Fe) 6. **check** — Quick quiz to test understanding 7. **wrap_up** — Summary Let me keep it to about 5-6 steps. Let me think about the language — the user's message is in English, so I'll teach in English. Actually, let me design a concise plan: - s1: assess — \"Gauge what you already know about why atoms bond\" - s2: define — \"Define chemical bonding and introduce the three main types\" - s3: explain — \"Explain ionic bonding (electron transfer, NaCl example)\" - s4: explain — \"Explain covalent bonding (electron sharing, H₂O example)\" - s5: explain — \"Explain metallic bonding (electron sea, Cu example)\" - s6: check — \"Quiz: match bond types to descriptions\" - s7: wrap_up — \"Summary and comparison\" That's 7 steps. Let me trim to 6 max. I'll combine the define and the intro: - s1: assess — quick check of prior knowledge - s2: define — what is a chemical bond, intro the three types - s3: explain — ionic bonds with NaCl - s4: explain — covalent bonds with H₂O/O₂ - s5: explain — metallic bonds with Cu - s6: check — quiz - s7: wrap_up That's 7. Let me merge s1 and s2 or drop s1. Maybe: - s1: define — \"Define chemical bonding and the three main types\" - s2: explain — \"Ionic bonding: electron transfer (NaCl)\" - s3: explain — \"Covalent bonding: electron sharing (H₂O, O₂)\" - s4: explain — \"Metallic bonding: electron sea model (Cu, Fe)\" - s5: check — \"Quiz: identify bond types from scenarios\" - s6: wrap_up — \"Summary table comparing all three\" That's 6 steps. Good. Let me go with this."
+              - paragraph [ref=e277]: plan_lesson("Chemical bonding — ionic, covalent, and …")
+              - paragraph [ref=e278]: "Now I need to execute step s1: Define what a chemical bond is and introduce the three main types. This is a `define` phase step, so I should give a clear, concise definition and introduce the three types. Let me write a clear definition and introduction."
+              - paragraph [ref=e279]: complete_step("s1")
+              - paragraph [ref=e280]: I need to stop here and invite the
+        - generic [ref=e211]:
+          - textbox "Type a message..." [disabled] [ref=e212]
+          - button [disabled] [ref=e213]:
+            - img [ref=e214]

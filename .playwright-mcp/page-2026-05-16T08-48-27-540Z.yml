@@ -1,0 +1,286 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot
+        - generic [ref=e44]:
+          - generic [ref=e71]:
+            - button "小数和分数 2/5" [ref=e157] [cursor=pointer]:
+              - img [ref=e73]
+              - img [ref=e75]
+              - generic [ref=e78]: 小数和分数
+              - generic [ref=e79]: 2/5
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - generic "done" [ref=e82]: ✓
+                - generic [ref=e83]:
+                  - generic [ref=e84]:
+                    - generic [ref=e85]: Assess
+                    - generic [ref=e86]: 了解学生对小数和分数的已有认知，以及他们想重点学什么
+                  - generic [ref=e87]: ↳ 学生为小学水平，已有基础读写能力，本次想重点学习小数与分数的互相转换。
+              - listitem [ref=e88]:
+                - generic "done" [ref=e158]: ✓
+                - generic [ref=e90]:
+                  - generic [ref=e91]:
+                    - generic [ref=e92]: Define
+                    - generic [ref=e93]: 给出小数和分数的精确定义，建立核心概念
+                  - generic [ref=e159]: ↳ 讲解了分数的定义（分子/分母，表示整体等分后取几份），小数的定义（以10/100/1000为分母的特殊分数简写，小数点分隔整数与小数部分），以及两者之间的关系——本质相同，写法不同。用表格举例：0.5=5/10=1/2，0.25=25/100=1/4。
+              - listitem [ref=e94]:
+                - generic "in progress" [ref=e160]: ▶
+                - generic [ref=e97]:
+                  - generic [ref=e98]: Explain
+                  - generic [ref=e99]: 讲解小数与分数之间的互相转换方法，并用可视化辅助理解
+              - listitem [ref=e100]:
+                - generic "pending" [ref=e101]: ·
+                - generic [ref=e103]:
+                  - generic [ref=e104]: Check
+                  - generic [ref=e105]: 通过一道转换题检验学生是否掌握
+              - listitem [ref=e106]:
+                - generic "pending" [ref=e107]: ·
+                - generic [ref=e109]:
+                  - generic [ref=e110]: Wrap-up
+                  - generic [ref=e111]: 总结小数与分数的核心关系，指出常见易错点
+          - generic [ref=e113]: "[语言提示——非学生输入] 学生使用中文。请用中文进行思考（thinking）、调用工具时传入的所有参数，以及给学生的最终回复——任何环节都不要使用英文。 --- 小数和分数"
+          - generic [ref=e117]:
+            - paragraph [ref=e118]: 好的！在开始讲解之前，我想先了解一下你的情况，这样我能讲得更有针对性 😊
+            - paragraph [ref=e119]: 请你简单回答一下：
+            - list [ref=e120]:
+              - listitem [ref=e121]:
+                - paragraph [ref=e122]:
+                  - strong [ref=e123]: 你目前对小数和分数大概掌握到什么程度？
+                  - text: 比如：能读写小数和分数吗？会做加减乘除吗？
+              - listitem [ref=e124]:
+                - paragraph [ref=e125]:
+                  - strong [ref=e126]: 你这次想重点学什么？
+                  - text: 是小数和分数的互相转换？还是比较大小？还是四则运算？或者有什么具体的题目不会做？
+            - paragraph [ref=e127]: 随便说就行，不用紧张，这不打分～
+          - generic [ref=e129]: "[语言提示——非学生输入] 学生使用中文。请用中文进行思考（thinking）、调用工具时传入的所有参数，以及给学生的最终回复——任何环节都不要使用英文。 --- # 当前课程：小数和分数 [>] s1 (assess): 了解学生对小数和分数的已有认知，以及他们想重点学什么 [ ] s2 (define): 给出小数和分数的精确定义，建立核心概念 [ ] s3 (explain): 讲解小数与分数之间的互相转换方法，并用可视化辅助理解 [ ] s4 (check): 通过一道转换题检验学生是否掌握 [ ] s5 (wrap_up): 总结小数与分数的核心关系，指出常见易错点 **你正在执行步骤 `s1`。只执行该步骤，然后调用 `complete_step`。** **协议要求：在调用 `complete_step` 之前，你必须先用普通文本把该步骤的讲解 / 提问内容完整发送出来——也就是学生本轮要在聊天框里看到的实质内容（定义、例子、推导、问题等）。** **思考（reasoning）不会被学生看到，所以不要把讲解只放在思考里。如果在 `complete_step` 之前你的可见回复是空的或只有几个字，那就是违反协议的 bug，必须先补上正文再调用工具。** --- 学生消息: 小学水平，想学小数分数互转"
+          - generic [ref=e133]:
+            - paragraph [ref=e134]:
+              - text: 好的，了解了！你是
+              - strong [ref=e135]: 小学水平
+              - text: ，想重点学
+              - strong [ref=e136]: 小数和分数之间的互相转换
+              - text: 。这个目标很明确，我来帮你一步步搞懂。
+            - paragraph [ref=e137]: 接下来我会从最基础的定义讲起，然后用简单直观的方式带你学会转换方法，再通过练习巩固。准备好了吗？
+          - generic [ref=e141]:
+            - paragraph [ref=e142]: 那我们开始吧，先从小数和分数分别是什么说起～
+            - paragraph [ref=e143]: （准备好了就回我一下 👇）
+          - generic [ref=e146]: 准备好了
+          - generic [ref=e152]:
+            - group [ref=e153]:
+              - generic "Thinking (3 steps)" [ref=e161] [cursor=pointer]
+            - generic [ref=e163]:
+              - paragraph [ref=e164]:
+                - text: 好的，我们正式进入第二步——
+                - strong [ref=e165]: 先搞清楚小数和分数分别是什么
+                - text: 。
+              - separator [ref=e166]
+              - heading "🍕 分数是什么？" [level=2] [ref=e167]
+              - paragraph [ref=e168]:
+                - strong [ref=e169]: 分数
+                - text: ，就是「把一个整体平均分成几份，取出其中几份」。
+              - paragraph [ref=e170]:
+                - text: 写法是：
+                - generic [ref=e171]:
+                  - math [ref=e173]:
+                    - generic [ref=e176]:
+                      - generic [ref=e177]: 分子
+                      - generic [ref=e178]: 分母
+                  - generic [ref=e185]:
+                    - generic [ref=e188]: 分母
+                    - generic [ref=e192]: 分子
+              - list [ref=e196]:
+                - listitem [ref=e197]:
+                  - strong [ref=e198]: 分母
+                  - text: （下面的数）：表示一共分成了几份
+                - listitem [ref=e199]:
+                  - strong [ref=e200]: 分子
+                  - text: （上面的数）：表示拿了几份
+              - blockquote [ref=e201]:
+                - paragraph [ref=e202]:
+                  - text: 比如你把一张饼平均切成
+                  - strong [ref=e203]: "4"
+                  - text: 块，吃了其中
+                  - strong [ref=e204]: "3"
+                  - text: 块，就吃了
+                  - generic [ref=e205]:
+                    - math [ref=e207]:
+                      - generic [ref=e210]:
+                        - generic [ref=e211]: "3"
+                        - generic [ref=e212]: "4"
+                    - generic [ref=e219]:
+                      - generic [ref=e221]: "4"
+                      - generic [ref=e224]: "3"
+                  - text: （读作「四分之三」）。
+              - separator [ref=e228]
+              - heading "🔢 小数是什么？" [level=2] [ref=e229]
+              - paragraph [ref=e230]:
+                - strong [ref=e231]: 小数
+                - text: ，本质上是一种
+                - strong [ref=e232]: 特殊分数
+                - text: 的简写形式——专门写成以 10、100、1000 等为分母的分数。
+              - paragraph [ref=e233]:
+                - text: 小数用
+                - strong [ref=e234]: 小数点
+                - text: 「.」隔开：
+              - list [ref=e235]:
+                - listitem [ref=e236]:
+                  - text: 小数点
+                  - strong [ref=e237]: 左边
+                  - text: 是整数部分
+                - listitem [ref=e238]:
+                  - text: 小数点
+                  - strong [ref=e239]: 右边
+                  - text: 是小数部分
+              - blockquote [ref=e240]:
+                - paragraph [ref=e241]:
+                  - text: 比如 0.75，读作「零点七五」，它其实就是
+                  - generic [ref=e242]:
+                    - math [ref=e244]:
+                      - generic [ref=e247]:
+                        - generic [ref=e248]: "75"
+                        - generic [ref=e249]: "100"
+                    - generic [ref=e256]:
+                      - generic [ref=e258]: "100"
+                      - generic [ref=e261]: "75"
+                  - text: （百分之七十五）。
+              - separator [ref=e265]
+              - heading "🔗 它们的关系" [level=2] [ref=e266]
+              - paragraph [ref=e267]:
+                - text: 小数和分数
+                - strong [ref=e268]: 说的是同一回事
+                - text: ，只是写法不同：
+              - table [ref=e270]:
+                - rowgroup [ref=e271]:
+                  - row "小数 分数（以10/100/1000为分母） 约分后" [ref=e272]:
+                    - columnheader "小数" [ref=e273]
+                    - columnheader "分数（以10/100/1000为分母）" [ref=e274]
+                    - columnheader "约分后" [ref=e275]
+                - rowgroup [ref=e276]:
+                  - row "0.5" [ref=e277]:
+                    - cell "0.5" [ref=e278]
+                    - cell [ref=e279]:
+                      - generic [ref=e280]:
+                        - math [ref=e282]:
+                          - generic [ref=e285]:
+                            - generic [ref=e286]: "5"
+                            - generic [ref=e287]: "10"
+                        - generic [ref=e294]:
+                          - generic [ref=e296]: "10"
+                          - generic [ref=e299]: "5"
+                    - cell [ref=e303]:
+                      - generic [ref=e304]:
+                        - math [ref=e306]:
+                          - generic [ref=e309]:
+                            - generic [ref=e310]: "1"
+                            - generic [ref=e311]: "2"
+                        - generic [ref=e318]:
+                          - generic [ref=e320]: "2"
+                          - generic [ref=e323]: "1"
+                  - row "0.25" [ref=e327]:
+                    - cell "0.25" [ref=e328]
+                    - cell [ref=e329]:
+                      - generic [ref=e330]:
+                        - math [ref=e332]:
+                          - generic [ref=e335]:
+                            - generic [ref=e336]: "25"
+                            - generic [ref=e337]: "100"
+                        - generic [ref=e344]:
+                          - generic [ref=e346]: "100"
+                          - generic [ref=e349]: "25"
+                    - cell [ref=e353]:
+                      - generic [ref=e354]:
+                        - math [ref=e356]:
+                          - generic [ref=e359]:
+                            - generic [ref=e360]: "1"
+                            - generic [ref=e361]: "4"
+                        - generic [ref=e368]:
+                          - generic [ref=e370]: "4"
+                          - generic [ref=e373]: "1"
+                  - row "0.1 不用约分" [ref=e377]:
+                    - cell "0.1" [ref=e378]
+                    - cell [ref=e379]:
+                      - generic [ref=e380]:
+                        - math [ref=e382]:
+                          - generic [ref=e385]:
+                            - generic [ref=e386]: "1"
+                            - generic [ref=e387]: "10"
+                        - generic [ref=e394]:
+                          - generic [ref=e396]: "10"
+                          - generic [ref=e399]: "1"
+                    - cell "不用约分" [ref=e403]
+                  - row "1.3 带分数：1" [ref=e404]:
+                    - cell "1.3" [ref=e405]
+                    - cell [ref=e406]:
+                      - generic [ref=e407]:
+                        - math [ref=e409]:
+                          - generic [ref=e412]:
+                            - generic [ref=e413]: "13"
+                            - generic [ref=e414]: "10"
+                        - generic [ref=e421]:
+                          - generic [ref=e423]: "10"
+                          - generic [ref=e426]: "13"
+                    - cell "带分数：1" [ref=e430]:
+                      - text: 带分数：1
+                      - generic [ref=e431]:
+                        - math [ref=e433]:
+                          - generic [ref=e436]:
+                            - generic [ref=e437]: "3"
+                            - generic [ref=e438]: "10"
+                        - generic [ref=e445]:
+                          - generic [ref=e447]: "10"
+                          - generic [ref=e450]: "3"
+              - separator [ref=e454]
+              - paragraph [ref=e455]:
+                - strong [ref=e456]: 核心一句话
+                - text: ：小数就是分母为 10、100、1000……的分数换了身衣服 😄
+              - paragraph [ref=e457]: 搞清楚这两个概念了吗？下一步我们就来动手练「怎么互相转换」！
+              - paragraph [ref=e458]: 已经讲完了，这一步清楚吗？我们马上进入转换方法～
+          - generic [ref=e460]: 懂了，继续
+          - group [ref=e467]:
+            - generic "Thinking (6 steps)" [ref=e473] [cursor=pointer]
+            - generic [ref=e469]:
+              - paragraph [ref=e470]: "The student is ready to move on to step s3: explaining how to convert between decimals and fractions, with visualization. Let me plan this carefully. I need to: 1. Explain how to convert decimal → fraction 2. Explain how to convert fraction → decimal 3. Use visualization to help understanding Let me think about the visualization - I should create a visual that shows both conversions. A figure or diagram would work well. Let me think about what would be most helpful. For the visualization, I could use a `figure` mode to show: - A number line or bar showing how 0.75 = 3/4 - Or a pie/circle diagram Actually, let me use a diagram to show the conversion process flow, or better yet, use a plot/figure to show the equivalence visually. Let me think... I think a good approach would be: 1. First explain both conversion methods with text 2. Then use visualize to show a visual comparison (e.g., a bar divided into parts) Let me structure the lesson: **方法一：小数 → 分数** - 看小数有几位小数 → 分母就是 10 的几次方 - 去掉小数点当分子 - 约分到最简 **方法二：分数 → 小数** - 用分子 ÷ 分母 - 或者把分母凑成 10、100、1000 Let me create a visualization that shows this with a concrete example like 0.75 ↔ 3/4. I think I should use `figure` mode to draw a bar that's divided into 4 parts, with 3 shaded, and also showing the decimal representation. Or maybe a `diagram` for the conversion process. Actually, let me use `plot` mode — I could show points on a number line, or use `figure` to draw a partitioned bar. Let me go with `figure` for geometric representation. Let me write out the explanation first, then call visualize. Wait, I should present the content first, then call visualize, then call complete_step. The protocol says I must present the content in the chat before calling complete_step. Let me organize this well."
+              - paragraph [ref=e472]: visualize("figure")
+              - paragraph [ref=e474]: Working on visualize…
+              - paragraph [ref=e475]: Working on visualize…
+              - paragraph [ref=e476]: Working on visualize…
+              - paragraph [ref=e477]: Working on visualize…
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e144]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]

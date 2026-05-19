@@ -1,0 +1,82 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e55] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e56] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e57] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e58] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e59] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e60]
+          - generic [ref=e63]: 配置文件
+        - button "退出登录" [ref=e64] [cursor=pointer]:
+          - img [ref=e65]
+          - generic [ref=e68]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: physics-bot
+        - generic [ref=e44]:
+          - generic [ref=e85]:
+            - button "摩擦力的定义和计算公式 0/5" [ref=e86] [cursor=pointer]:
+              - img [ref=e87]
+              - img [ref=e89]
+              - generic [ref=e92]: 摩擦力的定义和计算公式
+              - generic [ref=e93]: 0/5
+            - list [ref=e94]:
+              - listitem [ref=e95]:
+                - generic "in progress" [ref=e96]: ▶
+                - generic [ref=e98]:
+                  - generic [ref=e99]: Assess
+                  - generic [ref=e100]: 了解学生对摩擦力已有的认知基础，判断讲解起点
+              - listitem [ref=e101]:
+                - generic "pending" [ref=e102]: ·
+                - generic [ref=e104]:
+                  - generic [ref=e105]: Define
+                  - generic [ref=e106]: 给出摩擦力的精确定义，区分静摩擦力与滑动摩擦力
+              - listitem [ref=e107]:
+                - generic "pending" [ref=e108]: ·
+                - generic [ref=e110]:
+                  - generic [ref=e111]: Explain
+                  - generic [ref=e112]: 讲解滑动摩擦力公式 f=μN 及静摩擦力的取值范围，借助可视化辅助理解
+              - listitem [ref=e113]:
+                - generic "pending" [ref=e114]: ·
+                - generic [ref=e116]:
+                  - generic [ref=e117]: Check
+                  - generic [ref=e118]: 用一道典型例题检验学生对摩擦力计算的掌握情况
+              - listitem [ref=e119]:
+                - generic "pending" [ref=e120]: ·
+                - generic [ref=e122]:
+                  - generic [ref=e123]: Wrap-up
+                  - generic [ref=e124]: 总结摩擦力定义与公式的核心要点，梳理易错点
+          - generic [ref=e80]: 请讲解摩擦力的定义和计算公式
+          - group [ref=e127]:
+            - generic "Thinking (3 steps)" [ref=e128] [cursor=pointer]
+            - generic [ref=e129]:
+              - paragraph [ref=e130]: "The student is asking me to explain the definition and calculation formulas for friction (摩擦力). This is a substantive teaching request, so I must first call `plan_lesson` to structure the lesson, then execute exactly one step this turn. Let me plan the lesson on friction: 1. **assess** - Check what the student already knows about friction (types, direction, etc.) 2. **define** - Give the precise definition of friction and distinguish static vs kinetic friction 3. **explain** - Explain the calculation formulas: f = μN for sliding friction, and the range for static friction 4. **check** - Ask a question to test understanding 5. **wrap_up** - Summarize key points Let me construct the plan. The student is a high school physics teacher, so they have solid knowledge but may want clarity. I'll keep the steps appropriate. Actually, wait - let me reconsider. The student is a high school physics teacher preparing for exam review. But the instruction says to teach friction as a topic. The student asked \"请讲解摩擦力的定义和计算公式\". So they want me to explain it. Let me plan: - s1: assess - 了解学生对摩擦力的已有认知 - s2: define - 给出摩擦力的精确定义，区分静摩擦与滑动摩擦 - s3: explain - 讲解计算公式：滑动摩擦力 f=μN，静摩擦力范围 0≤f≤f_max - s4: check - 出一道题检验理解 - s5: wrap_up - 总结要点 That's 5 steps, within the 3-6 range. Let me go with this. Now I need to execute step 1 (assess) and then complete_step. Let me call plan_lesson first."
+              - paragraph [ref=e131]: plan_lesson("摩擦力的定义和计算公式")
+              - paragraph [ref=e132]: Now I need to execute step s1 (assess). Let me ask the student about their current understanding of friction to gauge where to start.
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e77]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e78]

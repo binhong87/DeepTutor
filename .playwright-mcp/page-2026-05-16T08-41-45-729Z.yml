@@ -1,0 +1,93 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - link "DeepTutor" [ref=e5] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+        - button "收起侧边栏" [ref=e56] [cursor=pointer]:
+          - img [ref=e7]
+      - navigation [ref=e10]:
+        - link "辅导机器人" [ref=e57] [cursor=pointer]:
+          - /url: /tutorbot/dashboard
+          - img [ref=e12]
+          - generic [ref=e15]: 辅导机器人
+        - link "知识库" [ref=e58] [cursor=pointer]:
+          - /url: /knowledge
+          - img [ref=e17]
+          - generic [ref=e19]: 知识库
+        - link "灵魂" [ref=e59] [cursor=pointer]:
+          - /url: /tutorbot/souls
+          - img [ref=e21]
+          - generic [ref=e26]: 灵魂
+      - generic [ref=e27]:
+        - link "配置文件" [ref=e60] [cursor=pointer]:
+          - /url: /profile
+          - img [ref=e61]
+          - generic [ref=e64]: 配置文件
+        - button "退出登录" [ref=e65] [cursor=pointer]:
+          - img [ref=e66]
+          - generic [ref=e69]: 退出登录
+    - main [ref=e28]:
+      - button "Switch to English" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - generic [ref=e34]: EN
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - img [ref=e38]
+          - generic [ref=e41]: math-bot
+        - generic [ref=e44]:
+          - generic [ref=e71]:
+            - button "小数和分数 0/5" [ref=e72] [cursor=pointer]:
+              - img [ref=e73]
+              - img [ref=e75]
+              - generic [ref=e78]: 小数和分数
+              - generic [ref=e79]: 0/5
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - generic "in progress" [ref=e82]: ▶
+                - generic [ref=e84]:
+                  - generic [ref=e85]: Assess
+                  - generic [ref=e86]: 了解学生对小数和分数的已有认知，以及他们想重点学什么
+              - listitem [ref=e87]:
+                - generic "pending" [ref=e88]: ·
+                - generic [ref=e90]:
+                  - generic [ref=e91]: Define
+                  - generic [ref=e92]: 给出小数和分数的精确定义，建立核心概念
+              - listitem [ref=e93]:
+                - generic "pending" [ref=e94]: ·
+                - generic [ref=e96]:
+                  - generic [ref=e97]: Explain
+                  - generic [ref=e98]: 讲解小数与分数之间的互相转换方法，并用可视化辅助理解
+              - listitem [ref=e99]:
+                - generic "pending" [ref=e100]: ·
+                - generic [ref=e102]:
+                  - generic [ref=e103]: Check
+                  - generic [ref=e104]: 通过一道转换题检验学生是否掌握
+              - listitem [ref=e105]:
+                - generic "pending" [ref=e106]: ·
+                - generic [ref=e108]:
+                  - generic [ref=e109]: Wrap-up
+                  - generic [ref=e110]: 总结小数与分数的核心关系，指出常见易错点
+          - generic [ref=e112]: "[语言提示——非学生输入] 学生使用中文。请用中文进行思考（thinking）、调用工具时传入的所有参数，以及给学生的最终回复——任何环节都不要使用英文。 --- 小数和分数"
+          - generic [ref=e116]:
+            - paragraph [ref=e117]: 好的！在开始讲解之前，我想先了解一下你的情况，这样我能讲得更有针对性 😊
+            - paragraph [ref=e118]: 请你简单回答一下：
+            - list [ref=e119]:
+              - listitem [ref=e120]:
+                - paragraph [ref=e121]:
+                  - strong [ref=e122]: 你目前对小数和分数大概掌握到什么程度？
+                  - text: 比如：能读写小数和分数吗？会做加减乘除吗？
+              - listitem [ref=e123]:
+                - paragraph [ref=e124]:
+                  - strong [ref=e125]: 你这次想重点学什么？
+                  - text: 是小数和分数的互相转换？还是比较大小？还是四则运算？或者有什么具体的题目不会做？
+            - paragraph [ref=e126]: 随便说就行，不用紧张，这不打分～
+          - generic [ref=e129]: 小学水平，想学小数分数互转
+          - group [ref=e136]:
+            - generic "Thinking (1 step)" [ref=e137] [cursor=pointer]
+            - paragraph [ref=e139]: 学生说自己是小学水平，想学小数和分数之间的互相转换。这是对s1（assess）步骤的回答。我需要： 1. 先回应学生的回答，确认了解了他的情况 2. 然后调用complete_step完成s1 3. 然后停止，让下一个步骤在下一轮执行 学生的情况：小学水平，想重点学小数和分数的互相转换。这和我计划的s3（explain）步骤内容很吻合。我可以根据"小学水平"来调整后续讲解的难度——用更简单、直观的方式来讲。 现在先完成s1的
+        - generic [ref=e49]:
+          - textbox "Type a message..." [disabled] [ref=e127]
+          - button [disabled] [ref=e51]:
+            - img [ref=e52]
+  - alert [ref=e55]
