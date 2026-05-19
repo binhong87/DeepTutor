@@ -83,3 +83,40 @@ def test_no_audio_no_change():
     result = prepare_multimodal_messages(msgs, [], binding="openai", model="gpt-4o-audio-preview")
     assert result.messages[0]["content"] == "hi"
     assert result.audio_dropped == 0
+
+
+def test_audio_url_resolved_to_base64_for_supported_model(tmp_path, monkeypatch):
+    """An audio attachment with only `url` (post-persist) should still be
+    injected for audio-capable models — _inject_audio must resolve the
+    URL → bytes the same way _inject_images does."""
+    import base64
+
+    from deeptutor.services.llm.multimodal import prepare_multimodal_messages
+
+    # Set up a fake on-disk file the store can resolve
+    sid, aid, fname = "sid_abc", "aid_xyz", "voice.webm"
+    audio_dir = tmp_path / "attachments" / sid
+    audio_dir.mkdir(parents=True)
+    audio_bytes = b"\x1aE\xdf\xa3"  # WebM/Matroska magic header (truncated)
+    (audio_dir / f"{aid}_{fname}").write_bytes(audio_bytes)
+    monkeypatch.setenv("CHAT_ATTACHMENT_DIR", str(tmp_path / "attachments"))
+
+    # Reset the AttachmentStore singleton so it picks up the new env
+    from deeptutor.services.storage.attachment_store import reset_attachment_store
+    reset_attachment_store()
+
+    att = _Attachment(type="audio", url=f"/api/attachments/{sid}/{aid}/{fname}", mime_type="audio/webm")
+    msgs = [{"role": "user", "content": "what did I say"}]
+
+    result = prepare_multimodal_messages(
+        msgs, [att], binding="openai", model="gpt-4o-audio-preview",
+    )
+    content = result.messages[0]["content"]
+    assert isinstance(content, list)
+    audio_parts = [p for p in content if p.get("type") == "input_audio"]
+    assert len(audio_parts) == 1, f"audio not injected: {content}"
+    # Round-trip: the data field should be base64 of the original bytes
+    assert audio_parts[0]["input_audio"]["data"] == base64.b64encode(audio_bytes).decode()
+    assert audio_parts[0]["input_audio"]["format"] == "webm"
+    # No drop reported — the URL resolved successfully
+    assert getattr(result, "audio_dropped", 0) == 0

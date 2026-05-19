@@ -106,11 +106,20 @@ def _inject_audio(
     messages: list[dict[str, Any]],
     user_idx: int,
     audio_attachments: list[Any],
-) -> None:
+) -> int:
     """Append audio content parts to the user message at *user_idx*.
 
     Caller must have already gated on ``supports_audio()``. Anthropic is
     intentionally unsupported (no public audio-in API today).
+
+    For each audio attachment:
+    - If ``base64`` is set, inject it directly.
+    - Otherwise, if ``url`` looks like a local AttachmentStore path,
+      resolve to bytes via ``_resolve_local_attachment_url`` (parity with
+      ``_inject_images``).
+    - Otherwise (no base64, no resolvable url), count as dropped.
+
+    Returns the number of url-only attachments that could not be resolved.
     """
     msg = messages[user_idx]
     original_content = msg.get("content", "")
@@ -122,14 +131,30 @@ def _inject_audio(
     else:
         content_parts = [{"type": "text", "text": str(original_content)}]
 
+    dropped = 0
     for att in audio_attachments:
         b64 = getattr(att, "base64", "") or ""
+        url = getattr(att, "url", "") or ""
+        mime = getattr(att, "mime_type", "") or "audio/webm"
+
+        if not b64 and url:
+            # Post-persist: bytes live on disk. Resolve via the same
+            # helper that _inject_images uses for URL-only images.
+            resolved = _resolve_local_attachment_url(url)
+            if resolved is not None:
+                b64, resolved_mime = resolved
+                mime = mime or resolved_mime
+            else:
+                dropped += 1
+                continue
+
         if not b64:
             continue
-        mime = getattr(att, "mime_type", "") or "audio/webm"
+
         content_parts.append(_build_openai_audio_part(base64_data=b64, mime_type=mime))
 
     messages[user_idx] = {**msg, "content": content_parts}
+    return dropped
 
 
 def _image_placeholder(url: str = "", filename: str = "") -> str:
@@ -215,6 +240,7 @@ def prepare_multimodal_messages(
     vision_ok = True
     images_stripped = False
     url_images_dropped = 0
+    audio_dropped_count = 0
 
     # ── Image injection ───────────────────────────────────────────────────────
     if image_attachments:
@@ -248,13 +274,14 @@ def prepare_multimodal_messages(
     if audio_attachments and supports_audio(binding, model):
         last_user_idx = _find_last_user_message(messages)
         if last_user_idx is not None:
-            _inject_audio(messages, last_user_idx, audio_attachments)
+            audio_dropped_count = _inject_audio(messages, last_user_idx, audio_attachments)
 
     return MultimodalResult(
         messages=messages,
         vision_supported=vision_ok,
         images_stripped=images_stripped,
         url_images_dropped=url_images_dropped,
+        audio_dropped=audio_dropped_count,
     )
 
 
