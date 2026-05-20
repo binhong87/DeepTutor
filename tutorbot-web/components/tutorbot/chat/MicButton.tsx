@@ -47,6 +47,15 @@ export function MicButton({ onTranscribed, onError, disabled, language }: MicBut
   const elapsedRef = useRef<number>(0)
   const [elapsed, setElapsed] = useState(0)
 
+  // navigator.mediaDevices is undefined on insecure origins (non-HTTPS, non-localhost),
+  // and on older browsers. Detect after mount to avoid SSR/hydration mismatch.
+  const [supported, setSupported] = useState(true)
+  useEffect(() => {
+    setSupported(
+      typeof navigator !== 'undefined' && !!navigator.mediaDevices?.getUserMedia,
+    )
+  }, [])
+
   // Ref-based cleanup to avoid stale closure bug (state may have changed by unmount time)
   const activeRecordingRef = useRef<{ recorder: MediaRecorder; stream: MediaStream } | null>(null)
 
@@ -85,7 +94,7 @@ export function MicButton({ onTranscribed, onError, disabled, language }: MicBut
       onTranscribed(result.transcript, blob, mimeType, durationMs)
     } catch (err) {
       if (err instanceof TranscribeError) {
-        onError(t('composer.transcribeFailed'))
+        onError(t('composer.transcribeFailedWithStatus', { status: err.status }))
       } else {
         onError(t('composer.transcribeFailed'))
       }
@@ -97,7 +106,9 @@ export function MicButton({ onTranscribed, onError, disabled, language }: MicBut
 
   async function startRecording() {
     if (typeof navigator === 'undefined' || !navigator.mediaDevices?.getUserMedia) {
-      onError(t('composer.transcribeFailed'))
+      // Button should be disabled in this case (see `supported` above), but
+      // guard at click time too in case detection raced with a click.
+      onError(t('composer.micUnavailable'))
       return
     }
     setState({ kind: 'requesting' })
@@ -154,13 +165,19 @@ export function MicButton({ onTranscribed, onError, disabled, language }: MicBut
   const isRecording = state.kind === 'recording'
   const isBusy = state.kind === 'requesting' || state.kind === 'uploading'
 
+  const label = !supported
+    ? t('composer.micUnavailable')
+    : isRecording
+      ? t('composer.stopRecording')
+      : t('composer.recordVoice')
+
   return (
     <button
       type="button"
       onClick={handleClick}
-      disabled={disabled || isBusy}
-      aria-label={isRecording ? t('composer.stopRecording') : t('composer.recordVoice')}
-      title={isRecording ? t('composer.stopRecording') : t('composer.recordVoice')}
+      disabled={disabled || isBusy || !supported}
+      aria-label={label}
+      title={label}
       className={[
         'flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-xl transition-colors',
         'disabled:opacity-30',

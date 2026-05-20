@@ -60,6 +60,20 @@ const nextConfig: NextConfig = {
       cytoscape: "cytoscape/dist/cytoscape.cjs.js",
     },
   },
+  // Dev-only HTTP proxy so the page can be HTTPS (required for mic / camera
+  // on LAN origins) while uvicorn stays plain-HTTP. lib/api.ts resolveBase()
+  // routes API requests same-origin when window.location is https:, which
+  // funnels them through this rewrite. WebSocket upgrades aren't proxied —
+  // chat-over-HTTPS still needs a real reverse proxy or HTTPS on uvicorn.
+  async rewrites() {
+    if (process.env.NODE_ENV !== "development") return [];
+    return [
+      {
+        source: "/api/:path*",
+        destination: `http://localhost:${BACKEND_PORT}/api/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

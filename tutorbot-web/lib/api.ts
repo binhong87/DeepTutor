@@ -55,6 +55,14 @@ export function resolveBase(): string {
   try {
     const url = new URL(base);
     const clientHost = window.location.hostname;
+    // Mixed-content guard: a fetch from an HTTPS page to an HTTP backend is
+    // blocked by the browser. When the page is HTTPS but the configured base
+    // is HTTP, fall through to same-origin so requests flow through the dev
+    // `/api/*` rewrite in next.config.ts. (WS is unaffected here — wsUrl
+    // handles it separately, and chat-over-HTTPS needs HTTPS on uvicorn.)
+    if (window.location.protocol === "https:" && url.protocol === "http:") {
+      return "";
+    }
     if (isLoopbackHost(url.hostname) && !isLoopbackHost(clientHost)) {
       url.hostname = clientHost;
       if (!warnedAboutHostSwap) {

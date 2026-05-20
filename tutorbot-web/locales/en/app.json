@@ -1729,6 +1729,8 @@
   "composer.recordingTooLong": "Recording too long",
   "composer.transcribing": "Transcribing...",
   "composer.transcribeFailed": "Couldn't transcribe — try again",
+  "composer.transcribeFailedWithStatus": "Couldn't transcribe (HTTP {{status}})",
   "composer.noSpeechDetected": "No speech detected",
-  "composer.micDenied": "Microphone access denied — check browser settings"
+  "composer.micDenied": "Microphone access denied — check browser settings",
+  "composer.micUnavailable": "Microphone needs HTTPS or localhost"
 }

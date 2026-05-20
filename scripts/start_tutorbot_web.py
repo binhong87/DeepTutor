@@ -120,17 +120,28 @@ def main() -> None:
         )
 
         log_info("Starting tutorbot-web ...")
+        # TUTORBOT_HTTPS=1 → use Next.js' self-signed-cert dev mode so the page
+        # is served on https://. Required for browser features that gate on a
+        # secure context (mic/camera, crypto.randomUUID) when accessed from a
+        # LAN address rather than localhost. Pairs with HTTPS on the backend
+        # — without that, requests will hit a mixed-content block.
+        https_dev = os.environ.get("TUTORBOT_HTTPS", "").strip().lower() in {"1", "true", "yes"}
+        npm_args = [npm, "run", "dev", "--", "--port", str(FRONTEND_PORT)]
+        if https_dev:
+            npm_args.append("--experimental-https")
+            log_info("HTTPS dev mode enabled (self-signed cert)")
         frontend = _spawn(
-            [npm, "run", "dev", "--", "--port", str(FRONTEND_PORT)],
+            npm_args,
             cwd=TUTORBOT_WEB,
             env=frontend_env,
             name="frontend",
         )
         processes.append(frontend)
         _write_state(processes, backend_port=BACKEND_PORT, frontend_port=FRONTEND_PORT, path=STATE_PATH)
+        scheme = "https" if https_dev else "http"
         _wait_for_http(
             name="tutorbot-web",
-            url=f"http://127.0.0.1:{FRONTEND_PORT}/",
+            url=f"{scheme}://127.0.0.1:{FRONTEND_PORT}/",
             process=frontend,
             timeout=FRONTEND_READY_TIMEOUT,
             language="en",
@@ -139,7 +150,7 @@ def main() -> None:
             should_stop=lambda: shutdown_requested,
         )
 
-        log_success(f"Open {bold(f'http://localhost:{FRONTEND_PORT}')} in your browser.")
+        log_success(f"Open {bold(f'{scheme}://localhost:{FRONTEND_PORT}')} in your browser.")
         print()
 
         while not shutdown_requested:

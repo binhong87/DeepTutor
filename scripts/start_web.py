@@ -529,6 +529,11 @@ def _wait_for_http(
     should_stop: Callable[[], bool] | None = None,
 ) -> None:
     log_info(_t(language, waiting_key, url=url))
+    # Skip cert verification for https probes — dev servers use self-signed certs.
+    ssl_ctx = None
+    if url.startswith("https://"):
+        import ssl as _ssl
+        ssl_ctx = _ssl._create_unverified_context()
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if should_stop is not None and should_stop():
@@ -537,7 +542,7 @@ def _wait_for_http(
             log_error(_t(language, "process_exited", name=name, code=process.process.returncode))
             raise SystemExit(1)
         try:
-            with urlrequest.urlopen(url, timeout=1):
+            with urlrequest.urlopen(url, timeout=1, context=ssl_ctx):
                 log_success(_t(language, ready_key))
                 return
         except urlerror.HTTPError as exc:

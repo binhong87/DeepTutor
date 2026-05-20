@@ -1729,6 +1729,8 @@
   "composer.recordingTooLong": "录音过长",
   "composer.transcribing": "识别中...",
   "composer.transcribeFailed": "语音识别失败，请重试",
+  "composer.transcribeFailedWithStatus": "语音识别失败 (HTTP {{status}})",
   "composer.noSpeechDetected": "未检测到语音",
-  "composer.micDenied": "麦克风访问被拒绝，请检查浏览器设置"
+  "composer.micDenied": "麦克风访问被拒绝，请检查浏览器设置",
+  "composer.micUnavailable": "麦克风需要 HTTPS 或 localhost"
 }
