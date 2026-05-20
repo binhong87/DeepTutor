@@ -8,6 +8,7 @@ import { AttachmentPicker, processImageFile } from './AttachmentPicker'
 import { MicButton } from './MicButton'
 import { useToast } from '../../ui/Toast'
 import type { Attachment } from '../../../lib/agent-chat-types'
+import { randomId } from '@/lib/utils'
 
 async function blobToBase64(blob: Blob): Promise<string> {
   const buffer = await blob.arrayBuffer()
@@ -65,7 +66,7 @@ export function Composer({ onSend, disabled, sending, placeholder }: ComposerPro
     setText((prev) => (prev.trim() ? `${prev} ${transcript}` : transcript))
     void blobToBase64(blob).then((base64) => {
       addAttachment({
-        id: crypto.randomUUID(),
+        id: randomId(),
         type: 'audio',
         filename: `voice.${extFromMime(mimeType)}`,
         mimeType,

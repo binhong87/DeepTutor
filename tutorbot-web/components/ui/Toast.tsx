@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react'
+import { randomId } from '@/lib/utils'
 
 type ToastKind = 'error' | 'info' | 'success'
 
@@ -44,7 +45,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const toast = useCallback<ToastApi['toast']>((message, opts) => {
-    const id = crypto.randomUUID()
+    const id = randomId()
     const kind: ToastKind = opts?.kind ?? 'info'
     const durationMs = opts?.durationMs ?? 4000
     setToasts((prev) => [...prev, { id, message, kind }])

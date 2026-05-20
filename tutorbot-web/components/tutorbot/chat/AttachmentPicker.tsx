@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Paperclip } from 'lucide-react'
 
 import type { Attachment } from '../../../lib/agent-chat-types'
+import { randomId } from '@/lib/utils'
 
 const MAX_IMAGE_MB = Number(process.env.NEXT_PUBLIC_MAX_IMAGE_MB ?? 10)
 const MAX_IMAGE_BYTES = MAX_IMAGE_MB * 1024 * 1024
@@ -45,7 +46,7 @@ export async function processImageFile(
   const previewUrl = URL.createObjectURL(file)
 
   onAdd({
-    id: crypto.randomUUID(),
+    id: randomId(),
     type: 'image',
     filename: file.name,
     mimeType: mime,
