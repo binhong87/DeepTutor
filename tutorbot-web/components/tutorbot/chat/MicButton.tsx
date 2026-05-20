@@ -13,6 +13,45 @@ const PREFERRED_MIMES = [
   'audio/mp4',
 ] as const
 
+function writeStr(view: DataView, offset: number, str: string) {
+  for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i))
+}
+
+async function convertToWav(blob: Blob): Promise<Blob> {
+  const arrayBuffer = await blob.arrayBuffer()
+  const audioCtx = new AudioContext()
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer)
+  await audioCtx.close()
+
+  const sampleRate = audioBuffer.sampleRate
+  const samples = audioBuffer.getChannelData(0) // mono
+  const wav = new ArrayBuffer(44 + samples.length * 2)
+  const v = new DataView(wav)
+
+  writeStr(v, 0, 'RIFF')
+  v.setUint32(4, 36 + samples.length * 2, true)
+  writeStr(v, 8, 'WAVE')
+  writeStr(v, 12, 'fmt ')
+  v.setUint32(16, 16, true)
+  v.setUint16(20, 1, true)           // PCM
+  v.setUint16(22, 1, true)           // mono
+  v.setUint32(24, sampleRate, true)
+  v.setUint32(28, sampleRate * 2, true)
+  v.setUint16(32, 2, true)
+  v.setUint16(34, 16, true)
+  writeStr(v, 36, 'data')
+  v.setUint32(40, samples.length * 2, true)
+
+  let off = 44
+  for (let i = 0; i < samples.length; i++) {
+    const s = Math.max(-1, Math.min(1, samples[i]))
+    v.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7fff, true)
+    off += 2
+  }
+
+  return new Blob([wav], { type: 'audio/wav' })
+}
+
 export type MicButtonProps = {
   onTranscribed: (transcript: string, blob: Blob, mimeType: string, durationMs: number) => void
   onError: (msg: string) => void
@@ -120,12 +159,19 @@ export function MicButton({ onTranscribed, onError, disabled, language }: MicBut
       recorder.ondataavailable = (e) => {
         if (e.data.size > 0) chunks.push(e.data)
       }
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' })
+      recorder.onstop = async () => {
+        const rawBlob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' })
         stream.getTracks().forEach((tr) => tr.stop())
-        // Recording ended — clear the active ref before uploading
         activeRecordingRef.current = null
-        void uploadAndHandOff(blob, recorder.mimeType || 'audio/webm', elapsedRef.current)
+        let uploadBlob: Blob = rawBlob
+        let uploadMime = recorder.mimeType || 'audio/webm'
+        try {
+          uploadBlob = await convertToWav(rawBlob)
+          uploadMime = 'audio/wav'
+        } catch {
+          // fall back to original format
+        }
+        void uploadAndHandOff(uploadBlob, uploadMime, elapsedRef.current)
       }
       stopTimerRef.current = window.setTimeout(() => {
         if (recorder.state === 'recording') {
