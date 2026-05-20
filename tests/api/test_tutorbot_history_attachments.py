@@ -69,6 +69,46 @@ def test_helper_handles_non_list_content():
     assert attachments is None
 
 
+def test_helper_rehydrates_legacy_placeholder_text_into_attachment():
+    """Legacy turns may carry a text part like
+    ``[image: /api/attachments/<sid>/<aid>/<name>]`` left behind by the
+    strip-image-retry path. The history endpoint should re-emit those as
+    attachments so the bubble still renders the image."""
+    from deeptutor.services.tutorbot.manager import _extract_attachments_and_clean_content
+
+    content = [
+        {"type": "text", "text": "Please look"},
+        {"type": "text",
+         "text": "[image: /api/attachments/sid/aid/picture.png]"},
+    ]
+    text, attachments = _extract_attachments_and_clean_content(content)
+    assert "Please look" in text
+    assert "[image:" not in text  # placeholder consumed
+    assert attachments == [
+        {
+            "type": "image",
+            "url": "/api/attachments/sid/aid/picture.png",
+            "mime_type": "image/png",
+            "filename": "picture.png",
+        }
+    ]
+
+
+def test_helper_recovers_placeholder_when_text_has_extra_content():
+    """The placeholder may share its text part with adjacent text — the
+    helper extracts the image and keeps the leftover text."""
+    from deeptutor.services.tutorbot.manager import _extract_attachments_and_clean_content
+
+    content = [
+        {"type": "text", "text": "before [image: /api/attachments/s/a/x.png] after"},
+    ]
+    text, attachments = _extract_attachments_and_clean_content(content)
+    assert attachments and attachments[0]["url"] == "/api/attachments/s/a/x.png"
+    assert "before" in text
+    assert "after" in text
+    assert "[image:" not in text
+
+
 # ── Integration test through get_bot_history ─────────────────────────────────
 
 

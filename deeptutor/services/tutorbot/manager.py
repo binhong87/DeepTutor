@@ -18,6 +18,7 @@ import json
 import logging
 import mimetypes as _mimetypes
 from pathlib import Path
+import re
 import shutil
 import sys
 from typing import Any
@@ -139,13 +140,24 @@ def normalize_message_content(content: Any) -> str:
 
 _ATTACHMENT_URL_PREFIX = "/api/attachments/"
 
+# Legacy turns may carry a text part like "[image: /api/attachments/...]"
+# instead of an image_url block — this happens when a prior LLM call hit
+# the strip-image-on-retry path and the mutated content was then persisted.
+# Recognise the placeholder so the bubble still renders the attachment.
+_PLACEHOLDER_URL_RE = re.compile(
+    r"\[image:\s*(/api/attachments/[^\]\s]+)\]", re.IGNORECASE
+)
+
 
 def _extract_attachments_and_clean_content(content: Any) -> tuple[str, list[dict] | None]:
     """Split a multimodal content list into (display_text, attachments).
 
     For each image_url part whose URL starts with /api/attachments/, emit
-    a flat attachment dict and skip it from the text rendering. All other
-    parts go through ``normalize_message_content`` as before.
+    a flat attachment dict and skip it from the text rendering. Text parts
+    that match the legacy ``[image: /api/attachments/...]`` placeholder
+    (left behind by an earlier strip-image-retry pollution) are also
+    recovered as attachments. All other parts go through
+    ``normalize_message_content`` as before.
 
     Returns ``(text, None)`` when there are no attachment parts —
     behavior is unchanged for text-only entries.
@@ -167,6 +179,23 @@ def _extract_attachments_and_clean_content(content: Any) -> tuple[str, list[dict
                     "filename": filename,
                 })
                 continue  # don't include in display text
+        if isinstance(part, dict) and part.get("type") == "text":
+            text_value = part.get("text")
+            if isinstance(text_value, str):
+                match = _PLACEHOLDER_URL_RE.search(text_value)
+                if match:
+                    url = match.group(1)
+                    filename = url.rsplit("/", 1)[-1]
+                    attachments.append({
+                        "type": "image",
+                        "url": url,
+                        "mime_type": _mimetypes.guess_type(filename)[0] or "",
+                        "filename": filename,
+                    })
+                    leftover = (text_value[: match.start()] + text_value[match.end():]).strip()
+                    if leftover:
+                        text_parts.append({"type": "text", "text": leftover})
+                    continue
         text_parts.append(part)
 
     text = normalize_message_content(text_parts) if text_parts else ""

@@ -1226,6 +1226,22 @@ class AgentLoop:
                 chat_id=msg.chat_id,
             )
 
+        # Historical image_url parts persisted as /api/attachments/<…> refs are
+        # unreachable by remote LLMs (the route sits behind auth and the
+        # provider isn't on our network). Inline them as base64 BEFORE the
+        # LLM call so we don't trip the strip-and-retry path, which would
+        # otherwise mutate the shared message dicts and poison
+        # session.messages on save. Also rehydrates the legacy text
+        # placeholder ("[image: /api/attachments/...]") that older turns may
+        # already have written to disk.
+        try:
+            from deeptutor.services.llm.multimodal import inline_local_attachment_urls
+            inlined = inline_local_attachment_urls(initial_messages)
+            if inlined:
+                logger.info("inlined %d local attachment ref(s) before LLM call", inlined)
+        except Exception as exc:
+            logger.warning("inline_local_attachment_urls failed: %s", exc)
+
         async def _bus_progress(content: str, *, tool_hint: bool = False, delta: bool = False) -> None:
             meta = dict(msg.metadata or {})
             meta["_progress"] = True

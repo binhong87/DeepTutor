@@ -71,7 +71,14 @@ class Session:
 
         out: list[dict[str, Any]] = []
         for m in sliced:
-            entry: dict[str, Any] = {"role": m["role"], "content": m.get("content", "")}
+            content = m.get("content", "")
+            # Shallow-copy the content list so downstream mutations (in
+            # particular the LLM provider's strip-image-on-retry path,
+            # which does `content[idx] = {...}`) don't bleed back into
+            # self.messages and end up persisted to disk on the next save.
+            if isinstance(content, list):
+                content = list(content)
+            entry: dict[str, Any] = {"role": m["role"], "content": content}
             for k in ("tool_calls", "tool_call_id", "name"):
                 if k in m:
                     entry[k] = m[k]

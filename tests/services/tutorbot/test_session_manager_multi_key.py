@@ -5,11 +5,36 @@ from __future__ import annotations
 import time
 
 from deeptutor.tutorbot.session.ids import DEFAULT_SID, new_session_id
-from deeptutor.tutorbot.session.manager import SessionManager
+from deeptutor.tutorbot.session.manager import Session, SessionManager
 
 
 def test_default_sid_constant():
     assert DEFAULT_SID == "s_default"
+
+
+def test_get_history_isolates_content_list_from_session_messages():
+    """Regression: ``session.get_history`` MUST shallow-copy the content
+    list so downstream mutation (e.g. the LLM provider's strip-image
+    retry path doing ``content[idx] = {...}``) cannot bleed back into
+    ``session.messages`` and end up persisted on next save.
+    """
+    s = Session(key="bot:x:s:s_xyz")
+    # Inline image_url part — the shape that strip-image-retry rewrites.
+    original_content = [
+        {"type": "text", "text": "hello"},
+        {"type": "image_url", "image_url": {"url": "data:image/png;base64,Zm9v"}},
+    ]
+    s.messages.append({"role": "user", "content": original_content})
+
+    out = s.get_history()
+    assert len(out) == 1
+    out[0]["content"][1] = {"type": "text", "text": "[image omitted]"}
+
+    # Original list in session.messages must be untouched.
+    assert s.messages[0]["content"][1] == {
+        "type": "image_url",
+        "image_url": {"url": "data:image/png;base64,Zm9v"},
+    }
 
 
 def test_new_session_id_unique_and_prefixed():

@@ -113,3 +113,115 @@ def test_text_only_moonshot_model_strips_images() -> None:
     result = prepare_multimodal_messages(_msgs(), [att], binding="moonshot", model="moonshot-v1-8k")
     assert result.images_stripped is True
     assert result.vision_supported is False
+
+
+# ── inline_local_attachment_urls ────────────────────────────────────────────
+
+
+def _write_fake_attachment(tmp_path, sid: str, aid: str, name: str, raw: bytes) -> str:
+    session_dir = tmp_path / sid
+    session_dir.mkdir(parents=True, exist_ok=True)
+    (session_dir / f"{aid}_{name}").write_bytes(raw)
+    return f"/api/attachments/{quote(sid)}/{quote(aid)}/{quote(name)}"
+
+
+def test_inline_local_attachment_urls_rewrites_image_url_block(tmp_path, monkeypatch) -> None:
+    """A historical image_url part whose URL points at /api/attachments/...
+    gets rewritten to an inline data: URL (so remote LLMs can see it)."""
+    monkeypatch.setenv("CHAT_ATTACHMENT_DIR", str(tmp_path))
+    attachment_store.reset_attachment_store()
+
+    raw = b"\x89PNG\r\n\x1a\nXYZ"
+    url = _write_fake_attachment(tmp_path, "s_xx", "att_aa", "pic.png", raw)
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "look"},
+                {"type": "image_url", "image_url": {"url": url}},
+            ],
+        },
+    ]
+    try:
+        inlined = mm.inline_local_attachment_urls(messages)
+    finally:
+        attachment_store.reset_attachment_store()
+    assert inlined == 1
+    parts = messages[0]["content"]
+    img = next(p for p in parts if p.get("type") == "image_url")
+    expected = base64.b64encode(raw).decode("ascii")
+    assert img["image_url"]["url"] == f"data:image/png;base64,{expected}"
+
+
+def test_inline_local_attachment_urls_rehydrates_legacy_text_placeholder(
+    tmp_path, monkeypatch,
+) -> None:
+    """Older sessions may have ``[image: /api/attachments/...]`` text parts
+    (a strip-image-retry pollution). The helper recovers them as inline
+    image blocks so the LLM still sees the image."""
+    monkeypatch.setenv("CHAT_ATTACHMENT_DIR", str(tmp_path))
+    attachment_store.reset_attachment_store()
+
+    raw = b"FAKEBYTES"
+    url = _write_fake_attachment(tmp_path, "s_yy", "att_bb", "math.png", raw)
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text", "text": "Please look"},
+                {"type": "text", "text": f"[image: {url}]"},
+            ],
+        },
+    ]
+    try:
+        inlined = mm.inline_local_attachment_urls(messages)
+    finally:
+        attachment_store.reset_attachment_store()
+    assert inlined == 1
+    parts = messages[0]["content"]
+    types = [p.get("type") for p in parts]
+    assert "image_url" in types
+    img = next(p for p in parts if p.get("type") == "image_url")
+    expected = base64.b64encode(raw).decode("ascii")
+    assert img["image_url"]["url"] == f"data:image/png;base64,{expected}"
+
+
+def test_inline_local_attachment_urls_leaves_data_urls_alone() -> None:
+    """Existing data: URLs are not touched (already inlined)."""
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "image_url", "image_url": {"url": "data:image/png;base64,Zm9v"}},
+            ],
+        },
+    ]
+    inlined = mm.inline_local_attachment_urls(messages)
+    assert inlined == 0
+    assert messages[0]["content"][0]["image_url"]["url"] == "data:image/png;base64,Zm9v"
+
+
+def test_inline_local_attachment_urls_does_not_mutate_original_list(
+    tmp_path, monkeypatch,
+) -> None:
+    """When the helper rewrites a message's content, it must REPLACE the
+    content reference with a fresh list rather than mutating the list
+    in place — callers that share the original list (e.g. session.messages)
+    must not be polluted."""
+    monkeypatch.setenv("CHAT_ATTACHMENT_DIR", str(tmp_path))
+    attachment_store.reset_attachment_store()
+
+    url = _write_fake_attachment(tmp_path, "s_zz", "att_cc", "x.png", b"abc")
+    shared_list = [
+        {"type": "text", "text": "look"},
+        {"type": "image_url", "image_url": {"url": url}},
+    ]
+    messages = [{"role": "user", "content": shared_list}]
+    try:
+        mm.inline_local_attachment_urls(messages)
+    finally:
+        attachment_store.reset_attachment_store()
+    # The shared list reference is untouched; only the message's content
+    # attribute points at the rewritten copy.
+    assert shared_list[1]["image_url"]["url"] == url
+    assert messages[0]["content"] is not shared_list

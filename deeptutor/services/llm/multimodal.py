@@ -15,6 +15,7 @@ from __future__ import annotations
 import base64 as _b64
 from dataclasses import dataclass
 import logging
+import re
 from typing import Any
 from urllib.parse import unquote, urlparse
 
@@ -164,6 +165,13 @@ def _image_placeholder(url: str = "", filename: str = "") -> str:
     return f"[image: {label}]" if label else "[image omitted]"
 
 
+# Recognises both fresh placeholders ("[image: /api/attachments/...]") and
+# Chinese/legacy variants that may sneak in if a translator rewrites them.
+_PLACEHOLDER_URL_RE = re.compile(
+    r"\[image:\s*(/api/attachments/[^\]\s]+)\]", re.IGNORECASE
+)
+
+
 def _resolve_local_attachment_url(url: str) -> tuple[str, str] | None:
     """Resolve a ``/api/attachments/<sid>/<aid>/<name>`` URL to (base64, mime).
 
@@ -198,6 +206,89 @@ def _resolve_local_attachment_url(url: str) -> tuple[str, str] | None:
         logger.warning("failed to resolve local attachment %s: %s", url, exc)
         return None
     return _b64.b64encode(data).decode("ascii"), _guess_mime_type(name)
+
+
+def inline_local_attachment_urls(messages: list[dict[str, Any]]) -> int:
+    """Rewrite local ``/api/attachments/...`` refs into inline base64 parts.
+
+    Remote LLMs (Zhipu/GLM, Moonshot, Anthropic, …) cannot fetch our
+    internal attachment URLs — they sit behind auth and aren't routable
+    from the provider's network. If we leave them in the request the
+    provider either 401s the GET or silently treats the URL as missing,
+    which then triggers our generic strip-image retry path and pollutes
+    the in-memory message dicts (the same dicts shared with
+    ``session.messages``) with ``[image: ...]`` text placeholders.
+
+    This pass walks every message and, for each content part, rewrites:
+
+    * ``{type: image_url, image_url: {url: /api/attachments/...}}`` →
+      ``{type: image_url, image_url: {url: data:<mime>;base64,...}}``
+    * ``{type: text, text: "[image: /api/attachments/...]"}`` (legacy
+      pollution from a prior strip-retry) → image_url with inline base64.
+
+    Both rewrites happen by REPLACING the message's ``content`` reference
+    with a fresh list so callers that share the original list (e.g. the
+    persisted ``Session.messages``) are not mutated.
+
+    Returns the number of attachments successfully inlined.
+    """
+    inlined = 0
+    for msg in messages:
+        content = msg.get("content")
+        if not isinstance(content, list):
+            continue
+        new_content: list[Any] = []
+        changed = False
+        for part in content:
+            if not isinstance(part, dict):
+                new_content.append(part)
+                continue
+            ptype = part.get("type")
+            if ptype == "image_url":
+                url = ""
+                image_url = part.get("image_url")
+                if isinstance(image_url, dict):
+                    url = str(image_url.get("url") or "")
+                if url and not url.startswith("data:"):
+                    resolved = _resolve_local_attachment_url(url)
+                    if resolved is not None:
+                        b64, mime = resolved
+                        new_content.append(
+                            _build_openai_image_part(base64_data=b64, mime_type=mime)
+                        )
+                        inlined += 1
+                        changed = True
+                        continue
+            elif ptype == "text":
+                text = part.get("text")
+                if isinstance(text, str):
+                    m = _PLACEHOLDER_URL_RE.search(text)
+                    if m:
+                        resolved = _resolve_local_attachment_url(m.group(1))
+                        if resolved is not None:
+                            b64, mime = resolved
+                            # Keep any surrounding text the user actually
+                            # typed; only the bracketed placeholder is
+                            # replaced by the image part.
+                            stripped_text = (
+                                text[: m.start()] + text[m.end():]
+                            ).strip()
+                            if stripped_text:
+                                new_content.append(
+                                    {"type": "text", "text": stripped_text}
+                                )
+                            new_content.append(
+                                _build_openai_image_part(
+                                    base64_data=b64, mime_type=mime
+                                )
+                            )
+                            inlined += 1
+                            changed = True
+                            continue
+            new_content.append(part)
+        if changed:
+            msg["content"] = new_content
+    return inlined
 
 
 def prepare_multimodal_messages(
@@ -405,6 +496,7 @@ def strip_image_parts(messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
 __all__ = [
     "MultimodalResult",
     "has_image_parts",
+    "inline_local_attachment_urls",
     "prepare_multimodal_messages",
     "strip_image_parts",
 ]
