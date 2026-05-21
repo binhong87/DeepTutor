@@ -235,6 +235,7 @@ class TutorBotInstance:
     started_at: datetime = field(default_factory=datetime.now)
     tasks: list[asyncio.Task] = field(default_factory=list, repr=False)
     agent_loop: Any = None
+    bus: Any = None
     channel_manager: Any = None
     heartbeat: Any = None
     notify_queue: asyncio.Queue = field(default_factory=asyncio.Queue)
@@ -296,6 +297,8 @@ class TutorBotManager:
         self._scope = scope
         self._path_service = get_path_service_for_scope(scope)
         self._bots: dict[str, TutorBotInstance] = {}
+        from deeptutor.tutorbot.worker.manager import BotProcessManager
+        self._bot_process_manager = BotProcessManager()
 
     # ── Path helpers ──────────────────────────────────────────────
 
@@ -522,12 +525,21 @@ class TutorBotManager:
         from deeptutor.tutorbot.providers.deeptutor_adapter import create_deeptutor_provider
         from deeptutor.tutorbot.session.manager import SessionManager
 
+        import os
+
+        redis_url = os.getenv("REDIS_URL")
         llm_config = resolve_tutorbot_llm_config(config)
         provider = create_deeptutor_provider(llm_config)
-        bus = SqliteMessageBus(db_path=workspace / "queue.db")
-        await bus.replay_pending()
-
         workspace = self._bot_workspace(bot_id)
+
+        if redis_url:
+            from deeptutor.tutorbot.bus.redis_bus import RedisMessageBus
+            bus = RedisMessageBus(bot_id=bot_id, redis_url=redis_url)
+            await bus.replay_pending()
+        else:
+            bus = SqliteMessageBus(db_path=workspace / "queue.db")
+            await bus.replay_pending()
+
         session_adapter = SessionManager(workspace)
 
         if config.persona:
@@ -539,19 +551,23 @@ class TutorBotManager:
 
         canonical_key = f"bot:{bot_id}"
 
-        agent_loop = AgentLoop(
-            bus=bus,
-            provider=provider,
-            workspace=workspace,
-            model=llm_config.model,
-            context_window_tokens=llm_config.context_window or 65_536,
-            exec_config=exec_config,
-            session_manager=session_adapter,
-            user_memory_dir=self._memory_dir,
-            user_id=self._scope.user_id,
-            restrict_to_workspace=False,
-            default_session_key=canonical_key,
-        )
+        if redis_url:
+            # AgentLoop runs in a worker process — do not create it in main process
+            agent_loop = None
+        else:
+            agent_loop = AgentLoop(
+                bus=bus,
+                provider=provider,
+                workspace=workspace,
+                model=llm_config.model,
+                context_window_tokens=llm_config.context_window or 65_536,
+                exec_config=exec_config,
+                session_manager=session_adapter,
+                user_memory_dir=self._memory_dir,
+                user_id=self._scope.user_id,
+                restrict_to_workspace=False,
+                default_session_key=canonical_key,
+            )
 
         # -- Channel setup ---------------------------------------------------
         try:
@@ -566,17 +582,28 @@ class TutorBotManager:
             agent_loop=agent_loop,
             channel_manager=channel_manager,
         )
+        instance.bus = bus
 
         # -- Core tasks -------------------------------------------------------
-        loop_task = asyncio.create_task(
-            agent_loop.run(),
-            name=f"tutorbot:{bot_id}:loop",
-        )
+        if redis_url:
+            # Worker process handles AgentLoop; main process only routes outbound
+            import dataclasses as _dc
+            config_dict = _dc.asdict(config) if _dc.is_dataclass(config) else dict(vars(config))
+            await self._bot_process_manager.start(
+                bot_id, workspace, redis_url, config_dict
+            )
+        else:
+            loop_task = asyncio.create_task(
+                agent_loop.run(),
+                name=f"tutorbot:{bot_id}:loop",
+            )
+            instance.tasks.append(loop_task)
+
         router_task = asyncio.create_task(
             self._outbound_router(bot_id, bus, instance),
             name=f"tutorbot:{bot_id}:router",
         )
-        instance.tasks.extend([loop_task, router_task])
+        instance.tasks.append(router_task)
 
         # -- Start channel listeners (without ChannelManager's own dispatcher)
         if channel_manager:
@@ -588,29 +615,30 @@ class TutorBotManager:
                 instance.tasks.append(ch_task)
 
         # -- Heartbeat --------------------------------------------------------
-        from deeptutor.tutorbot.heartbeat import HeartbeatService
+        if not redis_url:
+            from deeptutor.tutorbot.heartbeat import HeartbeatService
 
-        async def _hb_execute(tasks_summary: str) -> str:
-            return await agent_loop.process_direct(
-                tasks_summary,
-                session_key=canonical_key,
-                channel="web",
-                chat_id="web",
+            async def _hb_execute(tasks_summary: str) -> str:
+                return await agent_loop.process_direct(
+                    tasks_summary,
+                    session_key=canonical_key,
+                    channel="web",
+                    chat_id="web",
+                )
+
+            async def _hb_notify(response: str) -> None:
+                await instance.notify_queue.put(response)
+
+            heartbeat = HeartbeatService(
+                workspace=workspace,
+                provider=provider,
+                model=agent_loop.model,
+                on_execute=_hb_execute,
+                on_notify=_hb_notify,
+                interval_s=30 * 60,
             )
-
-        async def _hb_notify(response: str) -> None:
-            await instance.notify_queue.put(response)
-
-        heartbeat = HeartbeatService(
-            workspace=workspace,
-            provider=provider,
-            model=agent_loop.model,
-            on_execute=_hb_execute,
-            on_notify=_hb_notify,
-            interval_s=30 * 60,
-        )
-        instance.heartbeat = heartbeat
-        await heartbeat.start()
+            instance.heartbeat = heartbeat
+            await heartbeat.start()
 
         instance.owner_id = self._scope.user_id
         self._bots[bot_id] = instance
@@ -710,6 +738,10 @@ class TutorBotManager:
             return False
         auto_start = self._load_auto_start(bot_id, default=True) if preserve_auto_start else False
 
+        import os
+        if os.getenv("REDIS_URL"):
+            await self._bot_process_manager.stop(bot_id)
+
         for task in instance.tasks:
             if not task.done():
                 task.cancel()
@@ -793,9 +825,10 @@ class TutorBotManager:
             await self._teardown_channel_listeners(instance, bot_id)
 
             try:
+                _bus = instance.bus or (instance.agent_loop.bus if instance.agent_loop else None)
                 channel_manager = self._build_channel_manager(
                     instance.config,
-                    instance.agent_loop.bus,
+                    _bus,
                     bot_id=bot_id,
                 )
             except Exception as exc:
