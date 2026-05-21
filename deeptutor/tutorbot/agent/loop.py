@@ -765,6 +765,9 @@ class AgentLoop:
                         content="Sorry, I encountered an error.",
                     )
                 )
+            finally:
+                if hasattr(self.bus, "ack_inbound"):
+                    await self.bus.ack_inbound(msg)
 
     async def close_mcp(self) -> None:
         """Close MCP connections."""
