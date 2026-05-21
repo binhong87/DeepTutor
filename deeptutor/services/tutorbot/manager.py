@@ -245,6 +245,8 @@ class TutorBotInstance:
     # Last error from reload_channels (clears on success); surfaced via API
     # so the UI can warn that on-disk config and live listeners diverged.
     last_reload_error: str | None = None
+    # True when AgentLoop runs in a separate worker process (REDIS_URL is set).
+    worker_mode: bool = False
 
     @property
     def running(self) -> bool:
@@ -285,6 +287,7 @@ class TutorBotInstance:
             "running": self.running,
             "started_at": self.started_at.isoformat(),
             "last_reload_error": self.last_reload_error,
+            "worker_mode": self.worker_mode,
         }
 
 
@@ -583,6 +586,7 @@ class TutorBotManager:
             channel_manager=channel_manager,
         )
         instance.bus = bus
+        instance.worker_mode = bool(redis_url)
 
         # -- Core tasks -------------------------------------------------------
         if redis_url:
@@ -740,6 +744,7 @@ class TutorBotManager:
 
         import os
         if os.getenv("REDIS_URL"):
+            logger.info("Stopping Redis worker process for bot '%s'", bot_id)
             await self._bot_process_manager.stop(bot_id)
 
         for task in instance.tasks:
@@ -1147,6 +1152,14 @@ class TutorBotManager:
         instance = self._bots.get(bot_id)
         if not instance or not instance.running:
             raise RuntimeError(f"Bot '{bot_id}' is not running")
+
+        if not instance.agent_loop:
+            # In Redis mode, AgentLoop runs in a worker process.
+            # Direct message sending via send_message is not supported; use channel messages.
+            raise NotImplementedError(
+                f"Bot '{bot_id}' is running in worker-process mode (REDIS_URL is set). "
+                "Use channel messages (Telegram, Discord, etc.) to communicate with this bot."
+            )
 
         if session_id is None:
             default = instance.agent_loop.sessions.ensure_default_session(bot_id)
