@@ -517,14 +517,15 @@ class TutorBotManager:
             resolve_tutorbot_llm_config,
         )
         from deeptutor.tutorbot.agent.loop import AgentLoop
-        from deeptutor.tutorbot.bus.queue import MessageBus
+        from deeptutor.tutorbot.bus.sqlite_queue import SqliteMessageBus
         from deeptutor.tutorbot.config.schema import ExecToolConfig
         from deeptutor.tutorbot.providers.deeptutor_adapter import create_deeptutor_provider
         from deeptutor.tutorbot.session.manager import SessionManager
 
         llm_config = resolve_tutorbot_llm_config(config)
         provider = create_deeptutor_provider(llm_config)
-        bus = MessageBus()
+        bus = SqliteMessageBus(db_path=workspace / "queue.db")
+        await bus.replay_pending()
 
         workspace = self._bot_workspace(bot_id)
         session_adapter = SessionManager(workspace)
