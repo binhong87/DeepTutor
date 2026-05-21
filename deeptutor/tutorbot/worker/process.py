@@ -35,6 +35,9 @@ async def _async_main(bot_id: str, workspace: Path, redis_url: str, config: dict
     bus = RedisMessageBus(bot_id=bot_id, redis_url=redis_url)
     await bus.replay_pending()
 
+    user_memory_dir_str = (config or {}).pop("_user_memory_dir", None)
+    user_id = (config or {}).pop("_user_id", None)
+    user_memory_dir = Path(user_memory_dir_str) if user_memory_dir_str else None
     bot_config = BotConfig(**config) if config else BotConfig(name=bot_id)
     llm_config = resolve_tutorbot_llm_config(bot_config)
     provider = create_deeptutor_provider(llm_config)
@@ -50,6 +53,9 @@ async def _async_main(bot_id: str, workspace: Path, redis_url: str, config: dict
         context_window_tokens=llm_config.context_window or 65_536,
         exec_config=exec_config,
         session_manager=session_adapter,
+        user_memory_dir=user_memory_dir,
+        user_id=user_id,
+        restrict_to_workspace=False,
         default_session_key=f"bot:{bot_id}",
     )
 

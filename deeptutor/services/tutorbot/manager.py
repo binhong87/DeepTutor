@@ -593,6 +593,8 @@ class TutorBotManager:
             # Worker process handles AgentLoop; main process only routes outbound
             import dataclasses as _dc
             config_dict = _dc.asdict(config) if _dc.is_dataclass(config) else dict(vars(config))
+            config_dict["_user_memory_dir"] = str(self._memory_dir)
+            config_dict["_user_id"] = self._scope.user_id
             await self._bot_process_manager.start(
                 bot_id, workspace, redis_url, config_dict
             )
