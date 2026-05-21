@@ -88,7 +88,8 @@ npm run perf:check   # route bundle budgets
 
 # tutorbot-web/ (chatV2, minimal scripts)
 cd tutorbot-web
-npm run dev          # only dev/build/start/lint exist here
+npm run dev           # only dev/build/start/lint/dev:https exist here
+npm run dev:https     # HTTPS mode — required for mic/WebRTC (secure context)
 npm run build
 npm run lint
 ```
@@ -154,7 +155,7 @@ CLI / WebSocket / Python SDK
 | `deeptutor/book/` | Book Engine — "living book" compiler with agents, block types, and prompts. |
 | `deeptutor/co_writer/` | Co-Writer — multi-document Markdown workspace with prompts. |
 | `deeptutor/knowledge/` | Knowledge base lifecycle management. |
-| `deeptutor/tutorbot/` | TutorBot engine — agent, bus, channels, heartbeat, cron, skills, session, config. **Gotcha:** TutorBot maintains its own isolated tool registry separate from the main `ToolRegistry` — exposing a capability to a bot requires writing an `AdapterTool` subclass, not just registering with the global registry. |
+| `deeptutor/tutorbot/` | TutorBot engine — agent, bus, channels, heartbeat, cron, skills, session, config. **Gotcha:** TutorBot maintains its own isolated tool registry separate from the main `ToolRegistry` — exposing a capability to a bot requires writing an `AdapterTool` subclass, not just registering with the global registry. Supported messaging channels: Telegram, Discord, Slack, WeChat (WeCom/MoChat), Feishu, DingTalk, WhatsApp, Email, QQ, Matrix. |
 | `deeptutor/multi_user/` | Multi-user isolation — auth, grants, per-user workspaces. |
 | `deeptutor/api/` | FastAPI app (`main.py`), routers (key: `routers/unified_ws.py` — WebSocket `/api/v1/ws`), utilities. |
 | `deeptutor/runtime/` | `ChatOrchestrator`, `registry/` (auto-discover on import), `bootstrap/`, `RunMode`. |
@@ -192,7 +193,27 @@ All agent prompts live as YAML files under `deeptutor/agents/<module>/prompts/{e
 
 Two Next.js App Router frontends coexist: `web/` (the original; pages under `web/app/`, components under `web/components/`, state via React Context in `web/context/`, i18n in `web/i18n/` + `web/locales/`, Playwright audit tests) and `tutorbot-web/` (the newer one used on `chatV2`). Both use Next.js 16 / React 19. **`tutorbot-web/` uses a pre-release Next.js whose APIs differ from training data — always consult `tutorbot-web/node_modules/next/dist/docs/` before writing code there.**
 
-### Multi-user layout (`multi-user/`)
+`tutorbot-web/` structure:
+
+| Path | Purpose |
+|------|---------|
+| `app/(app)/tutorbot/[botId]/chat/[sessionId]/` | Bot chat page (delegates to `BotChatView`) |
+| `app/(auth)/` | Login/register pages |
+| `components/tutorbot/` | Chat, session tree, settings, etc. |
+| `context/` | React contexts: `AuthContext`, `TutorBotContext`, `SessionTreeContext`, `AppShellContext` |
+| `lib/api.ts` | `apiFetch` helper + `NEXT_PUBLIC_API_BASE` resolution with runtime host-swap |
+| `lib/unified-ws.ts` | WS client for `/api/v1/ws` — heartbeat, reconnect, `resume_from` |
+| `lib/bot-ws.ts` | WS client for TutorBot streaming — `LessonPlan`, `LessonStep` types |
+
+### Nano Team Mode (`deeptutor/tutorbot/agent/team/`)
+
+TutorBot supports a multi-agent `/team` command: LLM plans a 2-3 member team; each member runs as an asyncio worker operating on a shared task board (`tasks.json`) and mailbox (`mailbox.jsonl`), with file-lock safety for concurrent writes. State is persisted under `workspace/teams/<session_key>/<run_id>/` and auto-resumed after process restart.
+
+Key sub-modules: `board.py` (task state machine — claim/complete/approve), `mailbox.py` (JSONL, auto-truncates to 200 messages), `tools.py` (`TeamTool` for the orchestrator agent; `TeamWorkerTool` for workers). Risk gate: instructions containing destructive keywords (`rm -rf`, `drop table`) pause for explicit user confirmation.
+
+### WebSocket Protocol (`/api/v1/ws`)
+
+The unified WS endpoint handles: `message` / `start_turn` (new turn), `subscribe_turn` (replay with `after_seq`), `subscribe_session` (active turn stream), `resume_from` (reconnect recovery), `unsubscribe`, `cancel_turn`, `regenerate` (re-run last user message). Auth via `?token=` query param (cookies are unreliable for WS cross-origin). WS-specific errors: `regenerate_busy`, `nothing_to_regenerate`.
 
 Per-user workspaces are stored under `multi-user/u_<hex>/` (knowledge bases, sessions, notebooks, etc.), with auth/grants/audit under `multi-user/_system/`. The `deeptutor/multi_user/` Python package implements the isolation; the on-disk layout is what you'll see when debugging user-specific issues.
 
@@ -222,6 +243,17 @@ Add a provider class under `deeptutor/services/llm/provider_core/` and register 
 
 ## Configuration
 
-Runtime config lives in `data/user/settings/main.yaml`. LLM/embedding/search credentials in `.env` (copy `.env.example`). Key env vars: `LLM_BINDING`, `LLM_MODEL`, `LLM_API_KEY`, `LLM_HOST`, `EMBEDDING_*`, `SEARCH_PROVIDER`, `SEARCH_API_KEY`.
+Runtime config lives in `data/user/settings/main.yaml`. LLM/embedding/search credentials in `.env` (copy `.env.example`). Key env vars:
+
+| Var | Purpose |
+|-----|---------|
+| `LLM_BINDING`, `LLM_MODEL`, `LLM_API_KEY`, `LLM_HOST` | LLM provider |
+| `EMBEDDING_*` | Embedding provider |
+| `SEARCH_PROVIDER`, `SEARCH_API_KEY` | Web search |
+| `AUTH_ENABLED`, `AUTH_SECRET`, `AUTH_TOKEN_EXPIRE_HOURS` | JWT auth (disabled by default) |
+| `AUTH_USERNAME`, `AUTH_PASSWORD_HASH` | Single-user credentials when auth enabled |
+| `FRONTEND_PORT` | CORS allowlist port (default `3782`); also set `CORS_ORIGIN` for additional origins |
+| `NEXT_PUBLIC_API_BASE` | **tutorbot-web required** — backend URL injected at Next.js build time (e.g. `http://localhost:8001`) |
+| `POCKETBASE_URL`, `POCKETBASE_ADMIN_EMAIL`, `POCKETBASE_ADMIN_PASSWORD` | Optional PocketBase integration |
 
 Agent stage token limits are configurable in `agents.yaml` (per-stage, defaults to 8000 tokens).
