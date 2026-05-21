@@ -1438,12 +1438,13 @@ class AgentLoop:
             content=content,
             attachments=attachments or None,
         )
-        response = await self._process_message(
-            msg,
-            session_key=session_key,
-            on_progress=on_progress,
-            on_lesson_update=on_lesson_update,
-        )
+        async with self._processing_lock:
+            response = await self._process_message(
+                msg,
+                session_key=session_key,
+                on_progress=on_progress,
+                on_lesson_update=on_lesson_update,
+            )
         mt = self.tools.get("message")
         _mt_sent = isinstance(mt, MessageTool) and mt._sent_in_turn
         _mt_content = (mt._last_content if isinstance(mt, MessageTool) else None)
