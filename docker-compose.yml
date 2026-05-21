@@ -41,6 +41,23 @@ services:
       start_period: 10s
 
   # ============================================
+  # Redis — message bus for worker isolation
+  # ============================================
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - deeptutor-network
+
+  # ============================================
   # All-in-One DeepTutor Service
   # ============================================
   deeptutor:
@@ -104,6 +121,7 @@ services:
       - NEXT_PUBLIC_API_BASE_EXTERNAL=${NEXT_PUBLIC_API_BASE_EXTERNAL:-}
       # Alternative: Direct API base URL (same priority as NEXT_PUBLIC_API_BASE_EXTERNAL)
       - NEXT_PUBLIC_API_BASE=${NEXT_PUBLIC_API_BASE:-}
+      - REDIS_URL=redis://redis:6379
 
     volumes:
       # Mount local data directory for persistence (read-write)
@@ -122,6 +140,8 @@ services:
     depends_on:
       pocketbase:
         condition: service_healthy
+      redis:
+        condition: service_healthy
 
     networks:
       - deeptutor-network
@@ -132,3 +152,9 @@ services:
 networks:
   deeptutor-network:
     driver: bridge
+
+# ============================================
+# Volumes
+# ============================================
+volumes:
+  redis_data:

@@ -92,6 +92,7 @@ tutorbot = [
     "python-socks[asyncio]>=2.8.0,<3.0.0",
     "socksio>=1.0.0,<2.0.0",
     "websocket-client>=1.9.0,<2.0.0",
+    "redis[asyncio]>=5.0,<6.0",
 ]
 
 # Matrix (Element) channel for TutorBot. Mirrors requirements/matrix.txt.
@@ -114,6 +115,7 @@ dev = [
     "pre-commit>=3.0.0",
     "safety<3.0.0",
     "bandit>=1.8.0",
+    "fakeredis[aioredis]>=2.0,<3.0",
 ]
 
 # Everything: server + tutorbot + matrix + math-animator + dev tools.
