@@ -1,23 +1,13 @@
-# Thin update image: uses the published base, replaces only source + rebuilds frontend.
+# Thin update image: uses the published base, replaces only source.
+# chatV2 branch: tutorbot-web/ runs as a separate container on port 3000;
+# the legacy web/ frontend is not needed here, so we skip that build step.
 # Avoids the full Rust/Python dependency build that is too heavy for a 2 GB server.
 FROM ghcr.nju.edu.cn/hkuds/deeptutor:latest
 
 ARG BACKEND_PORT=8001
 
+# ── Install extra Python dependencies added on chatV2 ───────────────────────
+RUN pip install --no-cache-dir redis --root-user-action=ignore
+
 # ── Replace backend source ───────────────────────────────────────────────────
 COPY deeptutor/ /app/deeptutor/
-
-# ── Rebuild frontend from updated source ─────────────────────────────────────
-COPY web/package.json web/package-lock.json* /tmp/web_build/
-COPY web/ /tmp/web_build/
-
-RUN cd /tmp/web_build \
-    && echo "NEXT_PUBLIC_API_BASE=__NEXT_PUBLIC_API_BASE_PLACEHOLDER__" > .env.local \
-    && npm config set fetch-timeout 600000 \
-    && npm ci --legacy-peer-deps \
-    && npm run build \
-    # Overwrite standalone server + static assets in the production image
-    && cp -a .next/standalone/. /app/web/ \
-    && rm -rf /app/web/.next/static && cp -a .next/static /app/web/.next/static \
-    && rm -rf /app/web/public && cp -a public /app/web/public \
-    && rm -rf /tmp/web_build
