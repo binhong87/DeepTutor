@@ -276,6 +276,48 @@ class SessionManager:
         self.save(session)
         return session
 
+    def fork_to_new_lesson(
+        self,
+        session: Session,
+        *,
+        title: str,
+        title_source: str,
+    ) -> tuple[Session, Session, Session]:
+        """Complete the current session and branch to a fresh lesson session + new default.
+
+        Used by plan_lesson when called with a different topic on an already-named
+        session. Marks the current session completed (title preserved), creates a new
+        active session for the new lesson topic, and allocates a fresh default.
+
+        Returns (completed_old, new_lesson, new_default).
+        """
+        from deeptutor.tutorbot.session.ids import new_session_id
+
+        bot_id = _parse_bot_id_from_key(session.key)
+        if bot_id is None:
+            raise ValueError(
+                f"Cannot fork — session key lacks bot prefix: {session.key!r}"
+            )
+
+        session.metadata["status"] = "completed"
+        self.save(session)
+
+        lesson_key = f"bot:{bot_id}:s:{new_session_id()}"
+        lesson_session = self.get_or_create(lesson_key)
+        lesson_session.metadata.update(
+            {"status": "active", "title": title, "title_source": title_source}
+        )
+        self.save(lesson_session)
+
+        default_key = f"bot:{bot_id}:s:{new_session_id()}"
+        new_default = self.get_or_create(default_key)
+        new_default.metadata.update(
+            {"status": "default", "title": "", "title_source": None}
+        )
+        self.save(new_default)
+
+        return session, lesson_session, new_default
+
     def promote_default(
         self,
         session: Session,

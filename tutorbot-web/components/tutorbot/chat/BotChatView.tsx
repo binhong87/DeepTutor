@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Bot, Loader2 } from "lucide-react";
 import { Composer } from "./Composer";
 import {
@@ -23,6 +24,7 @@ interface BotInfo {
 }
 
 export default function BotChatView({ botId, sessionId }: { botId: string; sessionId: string }) {
+  const router = useRouter();
   const [bot, setBot] = useState<BotInfo | null>(null);
   const [turns, setTurns] = useState<BotChatTurn[]>([]);
   const [lessonPlan, setLessonPlan] = useState<LessonPlan | null>(null);
@@ -31,6 +33,9 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
   const [loadingHistory, setLoadingHistory] = useState(true);
   const wsRef = useRef<WebSocket | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Holds a pending navigation path set when plan_lesson forks to a new session.
+  // Navigation fires after the current bot turn completes so streaming isn't cut off.
+  const pendingNavigationRef = useRef<string | null>(null);
   const { patchPromotion, setActive, refresh: refreshTree } = useSessionTree();
 
   useEffect(() => {
@@ -127,7 +132,13 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
     const ac = new AbortController();
     const ws = connectBotWS(botId, sessionId, updateTurn, ac.signal, {
       onLessonPlan: (plan) => setLessonPlan(plan),
-      onSessionPromoted: (ev) => patchPromotion(botId, ev),
+      onSessionPromoted: (ev) => {
+        patchPromotion(botId, ev);
+        // Fork case: promoted session is new → navigate there once this turn finishes.
+        if (ev.promoted.id !== sessionId) {
+          pendingNavigationRef.current = `/tutorbot/${botId}/chat/${ev.promoted.id}`;
+        }
+      },
     });
     wsRef.current = ws;
 
@@ -187,8 +198,14 @@ export default function BotChatView({ botId, sessionId }: { botId: string; sessi
       // server-side mutations the bot made) catch up — e.g. M3 "+ New chat"
       // becomes enabled after the first user message lands.
       void refreshTree();
+      // If plan_lesson forked to a new session, navigate there now that streaming is done.
+      if (pendingNavigationRef.current) {
+        const path = pendingNavigationRef.current;
+        pendingNavigationRef.current = null;
+        router.push(path);
+      }
     }
-  }, [turns, sending, refreshTree]);
+  }, [turns, sending, refreshTree, router]);
 
   const showEmpty = turns.length === 0 && !sending && !loadingHistory;
 

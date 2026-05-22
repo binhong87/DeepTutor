@@ -194,12 +194,47 @@ class PlanLessonTool(_SessionAwareTool):
             return "Error: plan_lesson needs at least one pending step."
         first.status = "in_progress"
         plan.current_step_id = first.id
-        save(session, plan)
+
+        session_status = session.metadata.get("status")
+        current_title = session.metadata.get("title") or ""
+
+        # Fork condition: already-named session + genuinely new topic.
+        # Same-topic re-call is treated as a replan-in-place (rule 4).
+        needs_fork = (
+            session_status not in (None, "default")
+            and plan.topic != current_title
+            and self._session_manager is not None
+        )
+
+        if needs_fork:
+            # New lesson on an already-named session → fork.
+            # Old session keeps its original title and is marked completed.
+            # The new plan is stored on a fresh active session.
+            _, new_lesson, new_default = self._session_manager.fork_to_new_lesson(
+                session, title=plan.topic, title_source="lesson_plan",
+            )
+            save(new_lesson, plan)
+            if self._on_session_promoted is not None:
+                try:
+                    self._on_session_promoted(new_lesson.key, new_default.key)
+                except Exception:
+                    _log.exception("on_session_promoted callback raised")
+            await self._notify(plan)
+            _log.info(
+                "plan_lesson: forked to new session %s for topic %r",
+                new_lesson.key, plan.topic,
+            )
+            return (
+                f"New lesson session created for topic: {plan.topic!r}. "
+                "Briefly tell the student the new session is ready in the sidebar "
+                "and they can navigate there to begin. Do NOT execute any steps now."
+            )
 
         # B1: promote the default session into a named session (rule 3) or
         # update title in place when replanning inside an already-named
         # session (rule 4).
-        if session.metadata.get("status") == "default" and self._session_manager is not None:
+        save(session, plan)
+        if session_status == "default" and self._session_manager is not None:
             promoted, new_default = self._session_manager.promote_default(
                 session, title=plan.topic, title_source="lesson_plan", completed=False,
             )

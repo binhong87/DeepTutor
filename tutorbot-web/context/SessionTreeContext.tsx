@@ -81,18 +81,40 @@ export function SessionTreeProvider({ children }: { children: React.ReactNode })
     setTree((prev) =>
       prev.map((b) => {
         if (b.bot_id !== botId) return b;
-        const sessions: SessionRow[] = b.sessions.map((s) =>
-          s.id === ev.promoted.id
-            ? {
-                ...s,
-                title: ev.promoted.title,
-                title_source: ev.promoted.title_source,
-                status: "active",
-                lesson_plan_brief: ev.promoted.lesson_plan_brief,
-              }
-            : s,
-        );
-        if (!sessions.some((s) => s.id === ev.new_default.id)) {
+
+        const alreadyExists = b.sessions.some((s) => s.id === ev.promoted.id);
+        let sessions: SessionRow[];
+
+        if (alreadyExists) {
+          // Default → active promotion: update the existing session in place.
+          sessions = b.sessions.map((s) =>
+            s.id === ev.promoted.id
+              ? {
+                  ...s,
+                  title: ev.promoted.title,
+                  title_source: ev.promoted.title_source,
+                  status: "active",
+                  lesson_plan_brief: ev.promoted.lesson_plan_brief,
+                }
+              : s,
+          );
+        } else {
+          // Fork: brand-new session → insert it at the top of the list.
+          sessions = [
+            {
+              id: ev.promoted.id,
+              title: ev.promoted.title,
+              title_source: ev.promoted.title_source,
+              status: "active",
+              updated_at: new Date().toISOString(),
+              has_user_messages: false,
+              lesson_plan_brief: ev.promoted.lesson_plan_brief,
+            },
+            ...b.sessions,
+          ];
+        }
+
+        if (ev.new_default.id && !sessions.some((s) => s.id === ev.new_default.id)) {
           sessions.unshift({
             id: ev.new_default.id,
             title: "",
