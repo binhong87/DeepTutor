@@ -235,8 +235,9 @@ MODEL_OVERRIDES: dict[str, dict[str, object]] = {
     "kimi-k2.5": {"supports_vision": True},
     "kimi-k2.6": {"supports_vision": True},
     # Zhipu GLM vision family — any model whose name starts with "glm-" and
-    # carries the "v" qualifier (e.g. glm-4v, glm-5v-turbo) accepts images.
+    # carries the "v" qualifier (e.g. glm-4v, glm-4.6v, glm-5v-turbo) accepts images.
     "glm-4v": {"supports_vision": True},
+    "glm-4.6v": {"supports_vision": True},
     "glm-5v": {"supports_vision": True},
 }
 
