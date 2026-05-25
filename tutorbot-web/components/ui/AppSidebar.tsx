@@ -80,173 +80,191 @@ export default function AppSidebar() {
   }
 
   return (
-    <aside
-      className={cn(
-        "flex flex-col border-r border-[var(--border)] bg-[var(--card)] h-screen sticky top-0 transition-all duration-200",
-        sidebarCollapsed ? "w-[60px]" : "w-[260px]",
-      )}
-    >
-      <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)]">
-        {!sidebarCollapsed && (
-          <Link
-            href="/tutorbot/dashboard"
-            className="text-sm font-semibold text-[var(--foreground)] truncate"
-          >
-            DeepTutor
-          </Link>
-        )}
+    <>
+      {isMobile && !drawerOpen && (
         <button
-          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-          className={cn(
-            "p-1 rounded-md hover:bg-[var(--muted)] text-[var(--muted-foreground)]",
-            sidebarCollapsed && "mx-auto",
-          )}
-          aria-label={sidebarCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+          onClick={() => setDrawerOpen(true)}
+          className="fixed top-3 left-3 z-50 p-1.5 rounded-md bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)] shadow-sm"
+          aria-label={t("Open menu")}
         >
-          {sidebarCollapsed ? (
-            <PanelLeftOpen className="h-4 w-4" />
-          ) : (
-            <PanelLeftClose className="h-4 w-4" />
-          )}
+          <Menu className="h-5 w-5" />
         </button>
-      </div>
-
-      <nav className="flex-1 py-3 px-2 space-y-1 overflow-y-auto">
-        {sidebarCollapsed ? (
-          <CollapsedNav pathname={pathname} t={t} />
-        ) : (
-          <>
+      )}
+      {isMobile && drawerOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-30"
+          onClick={() => setDrawerOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+      <aside
+        className={cn(
+          "flex flex-col border-r border-[var(--border)] bg-[var(--card)] h-screen sticky top-0 transition-all duration-200",
+          sidebarCollapsed ? "w-[60px]" : "w-[260px]",
+        )}
+      >
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)]">
+          {!sidebarCollapsed && (
             <Link
               href="/tutorbot/dashboard"
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                pathname.startsWith("/tutorbot/dashboard")
-                  ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
-                  : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
-              )}
+              className="text-sm font-semibold text-[var(--foreground)] truncate"
             >
-              <Bot className="h-4 w-4 shrink-0" />
-              <span className="truncate">{t("TutorBot")}</span>
+              DeepTutor
             </Link>
+          )}
+          <button
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            className={cn(
+              "p-1 rounded-md hover:bg-[var(--muted)] text-[var(--muted-foreground)]",
+              sidebarCollapsed && "mx-auto",
+            )}
+            aria-label={sidebarCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+          >
+            {sidebarCollapsed ? (
+              <PanelLeftOpen className="h-4 w-4" />
+            ) : (
+              <PanelLeftClose className="h-4 w-4" />
+            )}
+          </button>
+        </div>
 
-            {tree.length > 0 && (
-              <div className="pt-1">
-                {tree.map((bot) => {
-                  const isExpanded = expanded[bot.bot_id] ?? bot.bot_id === routeBotId;
-                  const defaultRow = bot.sessions.find((s) => s.status === "default");
-                  const defaultIsEmpty = !!defaultRow && !defaultRow.has_user_messages;
-                  return (
-                    <div key={bot.bot_id} className="ml-2">
-                      <div
-                        className="group flex items-center gap-1 px-2 py-1.5 text-[13px] rounded-md hover:bg-[var(--muted)] cursor-pointer"
-                        onClick={() => toggleBot(bot.bot_id)}
-                      >
-                        <span className="text-[var(--muted-foreground)]">
-                          {isExpanded ? (
-                            <ChevronDown className="h-3 w-3" />
-                          ) : (
-                            <ChevronRight className="h-3 w-3" />
+        <nav className="flex-1 py-3 px-2 space-y-1 overflow-y-auto">
+          {sidebarCollapsed ? (
+            <CollapsedNav pathname={pathname} t={t} />
+          ) : (
+            <>
+              <Link
+                href="/tutorbot/dashboard"
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                  pathname.startsWith("/tutorbot/dashboard")
+                    ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
+                    : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
+                )}
+              >
+                <Bot className="h-4 w-4 shrink-0" />
+                <span className="truncate">{t("TutorBot")}</span>
+              </Link>
+
+              {tree.length > 0 && (
+                <div className="pt-1">
+                  {tree.map((bot) => {
+                    const isExpanded = expanded[bot.bot_id] ?? bot.bot_id === routeBotId;
+                    const defaultRow = bot.sessions.find((s) => s.status === "default");
+                    const defaultIsEmpty = !!defaultRow && !defaultRow.has_user_messages;
+                    return (
+                      <div key={bot.bot_id} className="ml-2">
+                        <div
+                          className="group flex items-center gap-1 px-2 py-1.5 text-[13px] rounded-md hover:bg-[var(--muted)] cursor-pointer"
+                          onClick={() => toggleBot(bot.bot_id)}
+                        >
+                          <span className="text-[var(--muted-foreground)]">
+                            {isExpanded ? (
+                              <ChevronDown className="h-3 w-3" />
+                            ) : (
+                              <ChevronRight className="h-3 w-3" />
+                            )}
+                          </span>
+                          <Bot className="h-3.5 w-3.5 shrink-0 text-[var(--muted-foreground)]" />
+                          <span className="flex-1 truncate text-[var(--foreground)]">
+                            {bot.name}
+                          </span>
+                          {bot.running && (
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
                           )}
-                        </span>
-                        <Bot className="h-3.5 w-3.5 shrink-0 text-[var(--muted-foreground)]" />
-                        <span className="flex-1 truncate text-[var(--foreground)]">
-                          {bot.name}
-                        </span>
-                        {bot.running && (
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                        )}
-                        {defaultRow && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              void onNewChatClick(bot.bot_id, defaultRow.id, defaultIsEmpty);
-                            }}
-                            disabled={defaultIsEmpty}
-                            className="opacity-0 group-hover:opacity-100 disabled:opacity-20 disabled:cursor-not-allowed text-[var(--muted-foreground)] hover:text-[var(--foreground)] rounded p-0.5"
-                            title={t("New chat")}
-                            aria-label={t("New chat")}
-                          >
-                            <Plus className="h-3 w-3" />
-                          </button>
+                          {defaultRow && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                void onNewChatClick(bot.bot_id, defaultRow.id, defaultIsEmpty);
+                              }}
+                              disabled={defaultIsEmpty}
+                              className="opacity-0 group-hover:opacity-100 disabled:opacity-20 disabled:cursor-not-allowed text-[var(--muted-foreground)] hover:text-[var(--foreground)] rounded p-0.5"
+                              title={t("New chat")}
+                              aria-label={t("New chat")}
+                            >
+                              <Plus className="h-3 w-3" />
+                            </button>
+                          )}
+                        </div>
+                        {isExpanded && bot.sessions.length > 0 && (
+                          <div className="ml-4 border-l border-[var(--border)] pl-2 space-y-0.5 py-0.5">
+                            {bot.sessions.map((s) => (
+                              <SessionRowView
+                                key={s.id}
+                                bot={bot}
+                                session={s}
+                                active={s.id === routeSessionId}
+                              />
+                            ))}
+                          </div>
                         )}
                       </div>
-                      {isExpanded && bot.sessions.length > 0 && (
-                        <div className="ml-4 border-l border-[var(--border)] pl-2 space-y-0.5 py-0.5">
-                          {bot.sessions.map((s) => (
-                            <SessionRowView
-                              key={s.id}
-                              bot={bot}
-                              session={s}
-                              active={s.id === routeSessionId}
-                            />
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              )}
+
+              <div className="pt-2">
+                <Link
+                  href="/knowledge"
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                    pathname.startsWith("/knowledge")
+                      ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
+                      : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
+                  )}
+                >
+                  <BookOpen className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{t("Knowledge")}</span>
+                </Link>
+                <Link
+                  href="/tutorbot/souls"
+                  className={cn(
+                    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
+                    pathname.startsWith("/tutorbot/souls")
+                      ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
+                      : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
+                  )}
+                >
+                  <LayoutGrid className="h-4 w-4 shrink-0" />
+                  <span className="truncate">{t("Souls")}</span>
+                </Link>
               </div>
-            )}
+            </>
+          )}
+        </nav>
 
-            <div className="pt-2">
-              <Link
-                href="/knowledge"
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                  pathname.startsWith("/knowledge")
-                    ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
-                    : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
-                )}
-              >
-                <BookOpen className="h-4 w-4 shrink-0" />
-                <span className="truncate">{t("Knowledge")}</span>
-              </Link>
-              <Link
-                href="/tutorbot/souls"
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                  pathname.startsWith("/tutorbot/souls")
-                    ? "bg-[var(--primary)]/10 text-[var(--primary)] font-medium"
-                    : "text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)]",
-                )}
-              >
-                <LayoutGrid className="h-4 w-4 shrink-0" />
-                <span className="truncate">{t("Souls")}</span>
-              </Link>
-            </div>
-          </>
-        )}
-      </nav>
-
-      <div className="border-t border-[var(--border)] px-2 py-3 space-y-1">
-        {isAuthenticated && (
-          <Link
-            href="/profile"
-            className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
-              sidebarCollapsed && "justify-center px-2",
-            )}
-            title={sidebarCollapsed ? t("Profile") : undefined}
-          >
-            <User className="h-4 w-4 shrink-0" />
-            {!sidebarCollapsed && <span>{t("Profile")}</span>}
-          </Link>
-        )}
-        {isAuthenticated && (
-          <button
-            onClick={logout}
-            className={cn(
-              "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
-              sidebarCollapsed && "justify-center px-2",
-            )}
-            title={sidebarCollapsed ? t("Sign out") : undefined}
-          >
-            <LogOut className="h-4 w-4 shrink-0" />
-            {!sidebarCollapsed && <span>{t("Sign out")}</span>}
-          </button>
-        )}
-      </div>
-    </aside>
+        <div className="border-t border-[var(--border)] px-2 py-3 space-y-1">
+          {isAuthenticated && (
+            <Link
+              href="/profile"
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
+                sidebarCollapsed && "justify-center px-2",
+              )}
+              title={sidebarCollapsed ? t("Profile") : undefined}
+            >
+              <User className="h-4 w-4 shrink-0" />
+              {!sidebarCollapsed && <span>{t("Profile")}</span>}
+            </Link>
+          )}
+          {isAuthenticated && (
+            <button
+              onClick={logout}
+              className={cn(
+                "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
+                sidebarCollapsed && "justify-center px-2",
+              )}
+              title={sidebarCollapsed ? t("Sign out") : undefined}
+            >
+              <LogOut className="h-4 w-4 shrink-0" />
+              {!sidebarCollapsed && <span>{t("Sign out")}</span>}
+            </button>
+          )}
+        </div>
+      </aside>
+    </>
   );
 }
 
