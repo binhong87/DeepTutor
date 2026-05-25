@@ -52,6 +52,17 @@ export default function AppSidebar() {
     if (!isMobile) setDrawerOpen(false);
   }, [isMobile]);
 
+  useEffect(() => {
+    if (isMobile && drawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobile, drawerOpen]);
+
   const { tree, expanded, toggleBot, refresh } = useSessionTree();
   const router = useRouter();
   const { sessionId: routeSessionId, botId: routeBotId } = useParams<{
