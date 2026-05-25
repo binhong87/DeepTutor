@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import {
@@ -10,6 +11,7 @@ import {
   ChevronRight,
   LayoutGrid,
   LogOut,
+  Menu,
   MessageSquare,
   PanelLeftClose,
   PanelLeftOpen,
@@ -27,8 +29,17 @@ import { cn } from "@/lib/utils";
 export default function AppSidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed, setSidebarCollapsed } = useAppShell();
+  const [isMobile, setIsMobile] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
   const { tree, expanded, toggleBot, refresh } = useSessionTree();
   const router = useRouter();
   const { sessionId: routeSessionId, botId: routeBotId } = useParams<{
