@@ -101,8 +101,16 @@ export default function AppSidebar() {
       )}
       <aside
         className={cn(
-          "flex flex-col border-r border-[var(--border)] bg-[var(--card)] h-screen sticky top-0 transition-all duration-200",
-          sidebarCollapsed ? "w-[60px]" : "w-[260px]",
+          "flex flex-col border-r border-[var(--border)] bg-[var(--card)] h-screen",
+          isMobile
+            ? cn(
+                "fixed top-0 left-0 z-40 w-[260px] transition-transform duration-200 ease-in-out",
+                drawerOpen ? "translate-x-0" : "-translate-x-full",
+              )
+            : cn(
+                "sticky top-0 transition-all duration-200",
+                sidebarCollapsed ? "w-[60px]" : "w-[260px]",
+              ),
         )}
       >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)]">
@@ -114,20 +122,22 @@ export default function AppSidebar() {
               DeepTutor
             </Link>
           )}
-          <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className={cn(
-              "p-1 rounded-md hover:bg-[var(--muted)] text-[var(--muted-foreground)]",
-              sidebarCollapsed && "mx-auto",
-            )}
-            aria-label={sidebarCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
-          >
-            {sidebarCollapsed ? (
-              <PanelLeftOpen className="h-4 w-4" />
-            ) : (
-              <PanelLeftClose className="h-4 w-4" />
-            )}
-          </button>
+          {!isMobile && (
+            <button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className={cn(
+                "p-1 rounded-md hover:bg-[var(--muted)] text-[var(--muted-foreground)]",
+                sidebarCollapsed && "mx-auto",
+              )}
+              aria-label={sidebarCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+            >
+              {sidebarCollapsed ? (
+                <PanelLeftOpen className="h-4 w-4" />
+              ) : (
+                <PanelLeftClose className="h-4 w-4" />
+              )}
+            </button>
+          )}
         </div>
 
         <nav className="flex-1 py-3 px-2 space-y-1 overflow-y-auto">
