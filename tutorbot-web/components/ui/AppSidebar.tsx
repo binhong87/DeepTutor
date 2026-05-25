@@ -30,6 +30,7 @@ export default function AppSidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed, setSidebarCollapsed } = useAppShell();
   const [isMobile, setIsMobile] = useState(false);
+  const effectiveCollapsed = !isMobile && sidebarCollapsed;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { isAuthenticated, logout } = useAuth();
   const { t } = useTranslation();
@@ -100,6 +101,8 @@ export default function AppSidebar() {
         />
       )}
       <aside
+        aria-hidden={isMobile && !drawerOpen ? true : undefined}
+        {...(isMobile && !drawerOpen ? { inert: true } : {})}
         className={cn(
           "flex flex-col border-r border-[var(--border)] bg-[var(--card)] h-screen",
           isMobile
@@ -114,7 +117,7 @@ export default function AppSidebar() {
         )}
       >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--border)]">
-          {!sidebarCollapsed && (
+          {!effectiveCollapsed && (
             <Link
               href="/tutorbot/dashboard"
               className="text-sm font-semibold text-[var(--foreground)] truncate"
@@ -141,7 +144,7 @@ export default function AppSidebar() {
         </div>
 
         <nav className="flex-1 py-3 px-2 space-y-1 overflow-y-auto">
-          {sidebarCollapsed ? (
+          {effectiveCollapsed ? (
             <CollapsedNav pathname={pathname} t={t} />
           ) : (
             <>
@@ -253,12 +256,12 @@ export default function AppSidebar() {
               href="/profile"
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
-                sidebarCollapsed && "justify-center px-2",
+                effectiveCollapsed && "justify-center px-2",
               )}
-              title={sidebarCollapsed ? t("Profile") : undefined}
+              title={effectiveCollapsed ? t("Profile") : undefined}
             >
               <User className="h-4 w-4 shrink-0" />
-              {!sidebarCollapsed && <span>{t("Profile")}</span>}
+              {!effectiveCollapsed && <span>{t("Profile")}</span>}
             </Link>
           )}
           {isAuthenticated && (
@@ -266,12 +269,12 @@ export default function AppSidebar() {
               onClick={logout}
               className={cn(
                 "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted-foreground)] hover:bg-[var(--muted)] hover:text-[var(--foreground)] transition-colors",
-                sidebarCollapsed && "justify-center px-2",
+                effectiveCollapsed && "justify-center px-2",
               )}
-              title={sidebarCollapsed ? t("Sign out") : undefined}
+              title={effectiveCollapsed ? t("Sign out") : undefined}
             >
               <LogOut className="h-4 w-4 shrink-0" />
-              {!sidebarCollapsed && <span>{t("Sign out")}</span>}
+              {!effectiveCollapsed && <span>{t("Sign out")}</span>}
             </button>
           )}
         </div>
