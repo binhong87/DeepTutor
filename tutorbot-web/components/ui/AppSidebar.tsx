@@ -112,7 +112,7 @@ export default function AppSidebar() {
               )
             : cn(
                 "sticky top-0 transition-all duration-200",
-                sidebarCollapsed ? "w-[60px]" : "w-[260px]",
+                effectiveCollapsed ? "w-[60px]" : "w-[260px]",
               ),
         )}
       >
@@ -130,11 +130,11 @@ export default function AppSidebar() {
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
               className={cn(
                 "p-1 rounded-md hover:bg-[var(--muted)] text-[var(--muted-foreground)]",
-                sidebarCollapsed && "mx-auto",
+                effectiveCollapsed && "mx-auto",
               )}
-              aria-label={sidebarCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+              aria-label={effectiveCollapsed ? t("Expand sidebar") : t("Collapse sidebar")}
             >
-              {sidebarCollapsed ? (
+              {effectiveCollapsed ? (
                 <PanelLeftOpen className="h-4 w-4" />
               ) : (
                 <PanelLeftClose className="h-4 w-4" />
