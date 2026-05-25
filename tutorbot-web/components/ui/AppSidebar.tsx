@@ -40,6 +40,15 @@ export default function AppSidebar() {
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
+
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!isMobile) setDrawerOpen(false);
+  }, [isMobile]);
+
   const { tree, expanded, toggleBot, refresh } = useSessionTree();
   const router = useRouter();
   const { sessionId: routeSessionId, botId: routeBotId } = useParams<{
